@@ -1,0 +1,19 @@
+/mid360_lidar_accumulator_node:
+  ros__parameters:
+    accumulation_frames: 2
+    input_cloud_topic: /livox/lidar_local
+    input_queue_depth: 10
+    max_range_m: 25.0
+    min_range_m: 0.5
+    output_cloud_topic: /lidar/accumulated
+    output_queue_depth: 10
+    qos_overrides:
+      /parameter_events:
+        publisher:
+          depth: 1000
+          durability: volatile
+          history: keep_last
+          reliability: reliable
+    use_sim_time: false
+    voxel_leaf_size_m: 0.08
+

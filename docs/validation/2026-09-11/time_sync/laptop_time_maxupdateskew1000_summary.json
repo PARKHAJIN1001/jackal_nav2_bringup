@@ -1,0 +1,29 @@
+{
+  "source": "docs/validation/2026-09-11/time_sync/laptop_time_maxupdateskew1000.json",
+  "samples": 13,
+  "start_utc": "2026-09-11T07:56:48.317719+00:00",
+  "duration_sec": 196.27050786098698,
+  "nuc_system_minus_served_ntp_sec_range": [
+    -0.01631641387939453,
+    0.021358013153076172
+  ],
+  "max_abs_served_ntp_offset_sec": 0.021358013153076172,
+  "direct_host_samples": 0,
+  "nuc_minus_laptop_system_sec_range": null,
+  "max_abs_host_offset_sec": null,
+  "max_host_roundtrip_sec": null,
+  "max_adjtime_pending_sec": null,
+  "max_chrony_remaining_correction_sec": 0.02285742,
+  "max_lan_response_root_distance_sec": 253.17225646972656,
+  "tracking_skew_ppm_range": [
+    110.811,
+    1000000.0
+  ],
+  "packet_counts": [],
+  "ignored_packet_counts_observed": [],
+  "host_offset_over_20ms_samples": null,
+  "remaining_over_5ms_samples": 8,
+  "root_distance_over_5s_samples": 5,
+  "errors": [],
+  "meaning": "Served NTP estimate is NOT laptop OS time. Only host_clock measures OS-to-OS offset. Sampled pre-ROS window, not continuous/reboot/ROS validation."
+}

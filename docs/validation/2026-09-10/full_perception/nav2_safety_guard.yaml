@@ -1,0 +1,30 @@
+/nav2_safety_guard:
+  ros__parameters:
+    base_frame: base_link
+    command_timeout: 0.25
+    command_topic: /nav2/collision_checked_cmd_vel
+    enable_motion: false
+    footprint_half_x: 0.254
+    footprint_half_y: 0.215
+    future_tolerance: 0.05
+    input_topic: /livox/lidar_local
+    map_frame: map
+    map_tf_timeout: 0.5
+    map_transform_tolerance: 1.0
+    max_angular_z: 0.35
+    max_height: 1.8
+    max_linear_x: 0.2
+    min_height: 0.1
+    min_points: 3
+    odom_frame: odom
+    output_topic: /j100_0519/nav2_cmd_vel
+    safety_points_topic: /nav2/safety_points
+    sensor_timeout: 0.3
+    slow_half_x: 1.0
+    slow_half_y: 0.8
+    slowdown_ratio: 0.3
+    stop_half_x: 0.6
+    stop_half_y: 0.5
+    tf_timeout: 0.3
+    use_sim_time: false
+

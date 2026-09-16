@@ -1,0 +1,163 @@
+/laserMapping:
+  ros__parameters:
+    common/img_en: 0
+    common/img_topic: /camera/camera/color/image_raw
+    common/imu_topic: /livox/imu
+    common/lid_msg_type: pointcloud2
+    common/lid_topic: /livox/lidar_local
+    common/lidar_en: 1
+    common/ros_driver_bug_fix: false
+    debug/frame_cnt: 6
+    debug/plot_time: -10.0
+    evo/pose_output_en: false
+    evo/seq_name: '01'
+    extrin_calib/Pcl:
+    - -0.0198
+    - -0.0744
+    - -0.00023434
+    extrin_calib/Rcl:
+    - -0.0117
+    - -0.9999
+    - 0.0115
+    - 0.508
+    - -0.0158
+    - -0.8612
+    - 0.8613
+    - -0.0042
+    - 0.5081
+    extrin_calib/extrinsic_R:
+    - 1.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    extrin_calib/extrinsic_T:
+    - 0.04165
+    - 0.02326
+    - -0.0284
+    frames/base: base_link
+    frames/base_pitch_correction_deg: -30.0
+    frames/base_roll_correction_deg: 0.0
+    frames/base_to_lidar_quaternion:
+    - 0.0
+    - 0.25881904510252074
+    - 0.0
+    - 0.9659258262890683
+    frames/base_to_lidar_translation:
+    - 0.0
+    - 0.0
+    - 0.9
+    frames/base_yaw_correction_deg: 0.0
+    frames/odom: odom
+    imu/acc_cov: 0.5
+    imu/ba_bg_est_en: true
+    imu/gravity_est_en: true
+    imu/gyr_cov: 0.3
+    imu/imu_en: true
+    imu/imu_int_frame: 30
+    imu/init_pitch_deg: 30.0
+    imu/init_roll_deg: 0.0
+    imu/init_yaw_deg: 0.0
+    laserMapping/cam_cx: 651.6027
+    laserMapping/cam_cy: 371.2037
+    laserMapping/cam_d0: -0.0549
+    laserMapping/cam_d1: 0.0746
+    laserMapping/cam_d2: 0.0
+    laserMapping/cam_d3: 0.0
+    laserMapping/cam_fx: 655.8494
+    laserMapping/cam_fy: 656.0487
+    laserMapping/cam_height: 720
+    laserMapping/cam_model: Pinhole
+    laserMapping/cam_width: 1280
+    laserMapping/scale: 1.0
+    lio:
+      beam_err: 0.02
+      dept_err: 0.05
+      max_iterations: 5
+      max_layer: 1
+      max_points_num: 50
+      min_eigen_value: 0.01
+      sigma_num: 3.0
+      voxel_size: 0.5
+    local_map:
+      half_map_size: 100
+      map_sliding_en: false
+      sliding_thresh: 8.0
+    pcd_save/colmap_output_en: false
+    pcd_save/filter_size_pcd: 0.5
+    pcd_save/interval: -1
+    pcd_save/pcd_save_en: false
+    preprocess/blind: 0.8
+    preprocess/feature_extract_enabled: false
+    preprocess/filter_size_surf: 0.1
+    preprocess/lidar_type: 1
+    preprocess/point_filter_num: 1
+    preprocess/scan_line: 6
+    publish:
+      pub_plane_en: false
+    publish/blind_rgb_points: 0.01
+    publish/dense_map_en: false
+    publish/pub_effect_point_en: false
+    publish/pub_scan_num: 1
+    qos_overrides:
+      /parameter_events:
+        publisher:
+          depth: 1000
+          durability: volatile
+          history: keep_last
+          reliability: reliable
+      /tf:
+        publisher:
+          depth: 100
+          durability: volatile
+          history: keep_last
+          reliability: reliable
+    rgb_img:
+      enable_pub_plugins:
+      - image_transport/compressedDepth
+      - image_transport/compressed
+      - image_transport/ffmpeg
+      - image_transport/raw
+      - image_transport/theora
+      ffmpeg:
+        bit_rate: 8242880
+        crf: ''
+        delay: ''
+        encoding: libx264
+        gop_size: 10
+        measure_performance: false
+        performance_interval: 175
+        pixel_format: ''
+        preset: ''
+        qmax: 10
+        tune: ''
+      format: jpeg
+      jpeg_quality: 95
+      png_level: 3
+      tiff:
+        res_unit: inch
+        xdpi: -1
+        ydpi: -1
+    time_offset/exposure_time_init: 0.0
+    time_offset/img_time_offset: 0.0
+    time_offset/imu_time_offset: 0.0
+    uav/gravity_align_en: false
+    uav/imu_rate_odom: false
+    use_sim_time: false
+    vio/exposure_estimate_en: true
+    vio/grid_n_height: 17
+    vio/grid_size: 5
+    vio/img_point_cov: 100.0
+    vio/inv_expo_cov: 0.2
+    vio/inverse_composition_en: false
+    vio/max_iterations: 5
+    vio/normal_en: true
+    vio/outlier_threshold: 1000.0
+    vio/patch_pyrimid_level: 3
+    vio/patch_size: 8
+    vio/raycast_en: false
+

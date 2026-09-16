@@ -1,0 +1,42 @@
+{
+  "counts": {
+    "output": 1145,
+    "tracks": 86,
+    "diagnostics": 56
+  },
+  "track_frames": {
+    "odom": 86
+  },
+  "marker_frames": {},
+  "marker_types": {},
+  "diagnostic_reasons": {
+    "tf_stale:odom->base_link": 49,
+    "independent_stop": 6,
+    "sensor_timestamp": 1
+  },
+  "max_input_tracks": 0,
+  "max_output_abs_velocity": 0.0,
+  "invalid_output_commands": 0,
+  "marker_lifetimes_sec": [],
+  "figure_namespaces": [],
+  "input_age_max_sec": {
+    "tracks": 0.16109418869018555
+  },
+  "interarrival_max_sec": {
+    "output": 0.08872062999944319,
+    "tracks": 9.596038538998982,
+    "diagnostics": 1.0566394750021573
+  },
+  "last_diagnostic": {
+    "enable_motion": "False",
+    "sensor_error": "",
+    "raw_sensor_stamp_age": "3.5395004749298096",
+    "raw_sensor_receipt_age": "3.4553390109977045",
+    "sensor_stamp_age": "3.5395004749298096",
+    "sensor_receipt_age": "3.4553390109977045",
+    "command_receipt_age": "missing",
+    "filtered_points": "6138",
+    "stop_points": "75"
+  },
+  "duration_sec": 60.02546023499963
+}

@@ -1,0 +1,157 @@
+# =========================
+# FAST-LIVO baseline config
+# =========================
+# This file is a reference parameter set.
+# The active runtime values can also be overridden from launch arguments.
+
+common:
+  # ROS topics
+  img_topic: "/left_camera/image"
+  lid_topic: "/livox/lidar"
+  imu_topic: "/livox/imu"
+
+  # Module enable flags (1: enable, 0: disable)
+  img_en: 1
+  lidar_en: 1
+
+  # Set true only if your LiDAR driver has known timestamp ordering issues.
+  ros_driver_bug_fix: false
+
+extrin_calib:
+  # LiDAR <- IMU extrinsic translation [m]
+  extrinsic_T: [0.04165, 0.02326, -0.0284]
+
+  # LiDAR <- IMU extrinsic rotation (row-major 3x3)
+  extrinsic_R: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+
+  # Camera <- LiDAR extrinsic rotation (row-major 3x3)
+  Rcl: [0.00610193, -0.999863, -0.0154172,
+        -0.00615449, 0.0153796, -0.999863,
+        0.999962, 0.00619598, -0.0060598]
+
+  # Camera <- LiDAR extrinsic translation [m]
+  Pcl: [0.0194384, 0.104689, -0.0251952]
+
+time_offset:
+  # IMU timestamp offset [s], positive means IMU is later than LiDAR.
+  imu_time_offset: 0.0
+
+  # Image timestamp offset [s], positive means image is later than LiDAR.
+  img_time_offset: 0.1
+
+  # Initial exposure time parameter for VIO photometric model.
+  exposure_time_init: 0.0
+
+preprocess:
+  # Keep every N-th point (1 means keep all valid points).
+  point_filter_num: 1
+
+  # Downsample leaf size [m] before LIO state update.
+  filter_size_surf: 0.1
+
+  # LiDAR type enum. 1 corresponds to Livox Avia/MID360 style processing.
+  lidar_type: 1
+
+  # Number of scan lines/rings.
+  scan_line: 6
+
+  # Minimum valid range [m].
+  blind: 0.8
+
+vio:
+  # Iteration count for visual update.
+  max_iterations: 5
+
+  # Patch photometric outlier threshold.
+  outlier_threshold: 1000
+
+  # Image point covariance (higher -> lower image trust).
+  img_point_cov: 100
+
+  # Patch extraction parameters.
+  patch_size: 8
+  patch_pyrimid_level: 4
+
+  # Visual update mode flags.
+  normal_en: true
+  raycast_en: false
+  inverse_composition_en: false
+
+  # Online exposure estimation.
+  exposure_estimate_en: true
+  inv_expo_cov: 0.1
+
+imu:
+  # Enable IMU in estimator.
+  imu_en: true
+
+  # Number of frames used for initial IMU statistics.
+  imu_int_frame: 30
+
+  # Continuous-time noise scales.
+  acc_cov: 0.5
+  gyr_cov: 0.3
+  b_acc_cov: 0.0001
+  b_gyr_cov: 0.0001
+
+lio:
+  # LIO iteration count.
+  max_iterations: 5
+
+  # LiDAR measurement uncertainty model.
+  dept_err: 0.02
+  beam_err: 0.05
+
+  # Plane extraction threshold in voxel map.
+  min_eigen_value: 0.0025
+
+  # Voxel-map structure settings.
+  voxel_size: 0.5
+  max_layer: 2
+  max_points_num: 50
+  layer_init_num: [5, 5, 5, 5, 5]
+
+local_map:
+  # Enable map sliding for bounded memory.
+  map_sliding_en: false
+  half_map_size: 100
+  sliding_thresh: 8
+
+uav:
+  # Publish high-rate IMU propagated odometry.
+  imu_rate_odom: false
+
+  # Align gravity to world -Z after IMU initialization.
+  gravity_align_en: false
+
+publish:
+  # Publish dense map using full cloud (true) or downsampled cloud (false).
+  dense_map_en: true
+
+  # Optional debug publishers.
+  pub_effect_point_en: false
+  pub_plane_en: false
+
+  # Publish every N-th scan.
+  pub_scan_num: 1
+
+  # Ignore very near points when painting RGB.
+  blind_rgb_points: 0.0
+
+evo:
+  # Output sequence name for offline trajectory logging.
+  seq_name: "CBD_Building_01"
+  pose_output_en: false
+
+pcd_save:
+  # Enable periodic point cloud save.
+  pcd_save_en: false
+
+  # Enable COLMAP-style export.
+  colmap_output_en: false  # Set interval to -1 when this is true.
+
+  # Leaf size [m] for saved PCD downsampling.
+  filter_size_pcd: 0.15
+
+  # Save every N scans, or -1 to save all in one file.
+  interval: -1

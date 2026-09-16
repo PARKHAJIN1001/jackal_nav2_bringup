@@ -1,0 +1,209 @@
+Arguments (pass arguments as '<name>:=<value>'):
+
+    'lidar_topic':
+        no description given
+        (default: '/livox/lidar')
+
+    'lidar_msg_type':
+        no description given
+        (default: 'pointcloud2')
+
+    'imu_topic':
+        no description given
+        (default: '/livox/imu')
+
+    'image_topic':
+        no description given
+        (default: '/camera/camera/color/image_raw')
+
+    'odom_frame':
+        no description given
+        (default: 'odom')
+
+    'base_frame':
+        no description given
+        (default: 'base_link')
+
+    'lidar_frame':
+        no description given
+        (default: 'livox_frame')
+
+    'camera_frame':
+        no description given
+        (default: 'camera_color_optical_frame')
+
+    'imu_frame':
+        no description given
+        (default: 'livox_imu_frame')
+
+    'imu_enable':
+        no description given
+        (default: 'true')
+
+    'imu_init_roll_deg':
+        no description given
+        (default: '0.0')
+
+    'imu_init_pitch_deg':
+        no description given
+        (default: '30.0')
+
+    'imu_init_yaw_deg':
+        no description given
+        (default: '0.0')
+
+    'base_roll_correction_deg':
+        no description given
+        (default: '0.0')
+
+    'base_pitch_correction_deg':
+        no description given
+        (default: '-30.0')
+
+    'base_yaw_correction_deg':
+        no description given
+        (default: '0.0')
+
+    'image_enable':
+        no description given
+        (default: 'true')
+
+    'lidar_enable':
+        no description given
+        (default: 'true')
+
+    'lidar_type':
+        no description given
+        (default: '1')
+
+    'scan_line':
+        no description given
+        (default: '6')
+
+    'point_filter_num':
+        no description given
+        (default: '1')
+
+    'blind':
+        no description given
+        (default: '0.8')
+
+    'filter_size_surf':
+        no description given
+        (default: '0.1')
+
+    'lio_min_eigen_value':
+        no description given
+        (default: '0.0025')
+
+    'lio_voxel_size':
+        no description given
+        (default: '0.5')
+
+    'lio_max_layer':
+        no description given
+        (default: '2')
+
+    'lio_dept_err':
+        no description given
+        (default: '0.02')
+
+    'lio_beam_err':
+        no description given
+        (default: '0.05')
+
+    'imu_int_frame':
+        no description given
+        (default: '30')
+
+    'imu_acc_cov':
+        no description given
+        (default: '0.5')
+
+    'imu_gyr_cov':
+        no description given
+        (default: '0.3')
+
+    'publish_sensor_static_tf':
+        no description given
+        (default: 'false')
+
+    'publish_lidar_to_imu_tf':
+        no description given
+        (default: 'true')
+
+    'use_sim_time':
+        no description given
+        (default: 'false')
+
+    'base_to_lidar_x':
+        no description given
+        (default: '0.0')
+
+    'base_to_lidar_y':
+        no description given
+        (default: '0.0')
+
+    'base_to_lidar_z':
+        no description given
+        (default: '0.9')
+
+    'base_to_lidar_roll_deg':
+        no description given
+        (default: '0.0')
+
+    'base_to_lidar_pitch_deg':
+        no description given
+        (default: '30.0')
+
+    'base_to_lidar_yaw_deg':
+        no description given
+        (default: '0.0')
+
+    'lidar_to_imu_x':
+        no description given
+        (default: '-0.04165')
+
+    'lidar_to_imu_y':
+        no description given
+        (default: '-0.02326')
+
+    'lidar_to_imu_z':
+        no description given
+        (default: '0.0284')
+
+    'lidar_to_imu_roll_deg':
+        no description given
+        (default: '0.0')
+
+    'lidar_to_imu_pitch_deg':
+        no description given
+        (default: '0.0')
+
+    'lidar_to_imu_yaw_deg':
+        no description given
+        (default: '0.0')
+
+    'extrinsic_path':
+        no description given
+        (default: '~/data/calib/extrinsic.txt')
+
+    'intrinsic_path':
+        no description given
+        (default: '~/data/calib/intrinsic.txt')
+
+    'camera_width':
+        no description given
+        (default: '1280')
+
+    'camera_height':
+        no description given
+        (default: '720')
+
+    'rviz':
+        no description given
+        (default: 'true')
+
+    'rviz_config':
+        no description given
+        (default: '/tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/rviz_cfg/mapping_mid360.rviz')

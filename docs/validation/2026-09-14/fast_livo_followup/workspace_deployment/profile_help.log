@@ -1,0 +1,13 @@
+usage: prepare_perception_config.py [-h] [--share SHARE]
+                                    [--output-dir OUTPUT_DIR]
+                                    [--lidar-topic LIDAR_TOPIC]
+
+Generate Nav2 input profiles for separately launched perception; never launch
+it.
+
+options:
+  -h, --help            show this help message and exit
+  --share SHARE         mid360_bringup share directory
+  --output-dir OUTPUT_DIR
+                        must not already exist
+  --lidar-topic LIDAR_TOPIC

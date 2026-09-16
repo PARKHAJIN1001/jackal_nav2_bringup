@@ -1,0 +1,33 @@
+{
+  "duration_sec": 12.311822937997931,
+  "delta": {
+    "laptop": {
+      "Udp": {
+        "InDatagrams": 1507489,
+        "InErrors": 45995,
+        "RcvbufErrors": 45995,
+        "SndbufErrors": 0
+      },
+      "Ip": {
+        "ReasmTimeout": 29,
+        "ReasmReqds": 402384,
+        "ReasmOKs": 4371,
+        "ReasmFails": 217596
+      }
+    },
+    "nuc": {
+      "Udp": {
+        "InDatagrams": 515240,
+        "InErrors": 14500,
+        "RcvbufErrors": 14500,
+        "SndbufErrors": 0
+      },
+      "Ip": {
+        "ReasmTimeout": 0,
+        "ReasmReqds": 62,
+        "ReasmOKs": 31,
+        "ReasmFails": 0
+      }
+    }
+  }
+}

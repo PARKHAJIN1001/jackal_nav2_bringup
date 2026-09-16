@@ -1,0 +1,17 @@
+test_actual_buffer_helper_wiring (__main__.OutputContract)
+The tested retention helpers must be used by the mapper callbacks. ... ok
+test_actual_mapper_publish_wiring (__main__.OutputContract)
+Production odometry and TF must use the measured base pose. ... ok
+test_default_full_mount_and_tf_ownership (__main__.OutputContract)
+The default Nav2 setup must not duplicate base/camera TF ownership. ... ok
+test_nav2_input_and_image_disable (__main__.OutputContract)
+The local relay input and LIO-only switch reach the mapper. ... ok
+test_optional_static_publishers (__main__.OutputContract)
+Standalone static publisher switches retain their behavior. ... ok
+test_rotated_imu_transform_is_actual_inverse (__main__.OutputContract)
+Estimator and static transforms must compose to identity. ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.032s
+
+OK

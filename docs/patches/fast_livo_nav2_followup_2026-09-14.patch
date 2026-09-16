@@ -1,0 +1,1149 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2036833..79e0d82 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -83,15 +83,19 @@ include_directories(include
+   ${EIGEN3_INCLUDE_DIR}
+ )
+ 
+-ament_auto_add_library(vio SHARED
+-    src/vio.cpp 
+-    src/frame.cpp 
+-    src/visual_point.cpp
+-)
+-
++# VIO calls VoxelOctoTree methods: declare/link LIO before VIO, not the reverse.
+ ament_auto_add_library(lio SHARED
+     src/voxel_map.cpp
+ )
++if(OpenMP_CXX_FOUND)
++  target_link_libraries(lio OpenMP::OpenMP_CXX)
++endif()
++
++ament_auto_add_library(vio SHARED
++    src/vio.cpp
++    src/frame.cpp
++    src/visual_point.cpp
++)
+ 
+ ament_auto_add_library(pre SHARED
+     src/preprocess.cpp 
+@@ -119,6 +123,25 @@ install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
+ install(DIRECTORY rviz_cfg DESTINATION share/${PROJECT_NAME})
+ 
+ if(BUILD_TESTING)
++  enable_testing()
++  add_executable(test_base_pose test/test_base_pose.cpp)
++  add_test(NAME test_base_pose COMMAND test_base_pose)
++  add_executable(test_buffer_contract test/test_buffer_contract.cpp)
++  add_test(NAME test_buffer_contract COMMAND test_buffer_contract)
++  add_executable(test_measurement_stamp test/test_measurement_stamp.cpp)
++  add_test(NAME test_measurement_stamp COMMAND test_measurement_stamp)
++  add_executable(test_vio_patch_lifetime test/test_vio_patch_lifetime.cpp)
++  target_link_libraries(test_vio_patch_lifetime vio lio)
++  if(OpenMP_CXX_FOUND)
++    target_link_libraries(test_vio_patch_lifetime OpenMP::OpenMP_CXX)
++  endif()
++  add_test(NAME test_vio_patch_lifetime COMMAND test_vio_patch_lifetime)
++  # A sourced overlay may contain older libvio.so; test the just-built library.
++  set_tests_properties(test_vio_patch_lifetime PROPERTIES
++    ENVIRONMENT "LD_LIBRARY_PATH=$<TARGET_FILE_DIR:vio>:$ENV{LD_LIBRARY_PATH}")
++  find_package(Python3 REQUIRED COMPONENTS Interpreter)
++  add_test(NAME test_nav2_output_contract
++    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_nav2_output_contract.py)
+   find_package(ament_lint_auto REQUIRED)
+   ament_lint_auto_find_test_dependencies()
+ endif()
+diff --git a/README.md b/README.md
+index 5fe7544..3cf6266 100644
+--- a/README.md
++++ b/README.md
+@@ -69,10 +69,45 @@ ros2 launch fast_livo mapping_mid360.launch.py \
+ - Odometry frame: `odom`
+ - Body frame (odometry child frame): `base_link`
+ - TF published by FAST-LIVO: `odom -> base_link`
+-- Base orientation correction: `frames/base_pitch_correction_deg` (default `-30.0`)
++- MID360 launch supplies the complete base-to-LiDAR mount. The mapper computes
++  `T_odom_base = T_odom_imu * T_imu_lidar * inverse(T_base_lidar)` including translation.
++  Legacy `frames/base_*_correction_deg` is used only without the full mount.
++- Odometry and its TF share the measurement stamp (`last_lio_update_time`), not publication time.
++- `lidar_to_imu_*` arguments describe static `T_lidar_imu`; the estimator uses its inverse.
++  Default static translation is `(-0.04165, -0.02326, +0.0284)` m.
+ - Optional static TF from launch: `base_link -> livox_frame -> camera_color_optical_frame`
+ - Default IMU static TF from launch: `livox_frame -> livox_imu_frame`
+-- In this workspace, the preferred ownership is now `mid360_bringup` for `base_link -> livox_frame` and optional camera static TF, and `FAST-LIVO` for `odom -> base_link` plus `livox_frame -> livox_imu_frame`
++- With Jackal/Nav2, the NUC owns `base_link -> livox_frame`, FAST-LIVO owns
++  `odom -> base_link` and `livox_frame -> livox_imu_frame`, and separate perception
++  owns only the calibrated camera bridge. Do not enable duplicate static publishers.
++
++## Buffering and fault policy
++
++- Default DDS depths: LiDAR 4, IMU 512, image 2. No image subscription when disabled.
++- Application limits: 30 LiDAR frames, 2000 IMU samples, 8 images; latest path 2000 poses.
++  These are trial bounds, not proof of end-to-end latency or a total RSS ceiling.
++- Application overflow or sensor rollback greater than 0.5 s terminates the estimator
++  with an error; it does not discard integration history and invent continuing odometry.
++  Smaller out-of-order/duplicate input is rejected without clearing paired queues.
++  Nonfinite/nonpositive input stamps are rejected. Output odometry stamps must increase.
++- `common/ros_driver_bug_fix=true` is rejected because it rounds/rewrites IMU time.
++  Explicit calibrated IMU/image offsets are still supported. Synchronize host clocks first.
++- Completed RGB publication windows are released even if no colored points result;
++  measurement groups retain only the current interval. The visual no-add path allocates
++  no unowned patches. Buffer sizes are logged every 2 s.
++- Visual map growth and other retained map/image data still need LIO/LIVO RSS profiling.
++  `/cloud_registered` and debug image stamps, and the separate raw-IMU propagation
++  odometry topic, are not covered by the Nav2 base-pose timestamp contract above.
++- After a failure or restart: keep motion disabled, diagnose the input, restart
++  FAST-LIVO/perception and visualization histories, then manually set AMCL initial pose.
++  Do not reuse pose/tracks from the previous odom origin or use identity TF fallback.
++
++## Offline regression tests
++
++Build with `BUILD_TESTING=ON`, then run CTest names `test_base_pose`,
++`test_buffer_contract`, `test_measurement_stamp`, `test_vio_patch_lifetime`, and
++`test_nav2_output_contract`. Tests do not start ROS nodes or issue robot commands.
++The launch/source contract check is not a substitute for live exact-time TF auditing.
+ 
+ ## Notes on Parameters
+ - Runtime launch arguments are defined in `launch/mapping_mid360.launch.py`.
+diff --git a/config/avia.yaml b/config/avia.yaml
+index acf31c6..806f213 100644
+--- a/config/avia.yaml
++++ b/config/avia.yaml
+@@ -18,10 +18,10 @@ common:
+   ros_driver_bug_fix: false
+ 
+ extrin_calib:
+-  # LiDAR <- IMU extrinsic translation [m]
++  # IMU <- LiDAR point-transform translation [m]; TF lidar->imu uses its inverse.
+   extrinsic_T: [0.04165, 0.02326, -0.0284]
+ 
+-  # LiDAR <- IMU extrinsic rotation (row-major 3x3)
++  # IMU <- LiDAR point-transform rotation (row-major 3x3)
+   extrinsic_R: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+ 
+   # Camera <- LiDAR extrinsic rotation (row-major 3x3)
+diff --git a/include/LIVMapper.h b/include/LIVMapper.h
+index eda6615..b8349bd 100644
+--- a/include/LIVMapper.h
++++ b/include/LIVMapper.h
+@@ -17,6 +17,9 @@ which is included as part of this source code package.
+ #include <memory>
+ 
+ #include "IMU_Processing.h"
++#include "base_pose.h"
++#include "buffer_contract.h"
++#include "measurement_stamp.h"
+ #include "vio.h"
+ #include "preprocess.h"
+ #include <cv_bridge/cv_bridge.h>
+@@ -86,6 +89,15 @@ public:
+   double base_pitch_correction_deg = 0.0;
+   double base_yaw_correction_deg = 0.0;
+   Eigen::Quaterniond base_orientation_correction_ = Eigen::Quaterniond::Identity();
++  Eigen::Isometry3d imu_base_ = Eigen::Isometry3d::Identity();
++  std::vector<double> base_mount_translation_, base_mount_quaternion_;
++  bool full_base_mount_ = false, base_origin_initialized_ = false;
++  int lidar_queue_depth_ = 4, imu_queue_depth_ = 512, image_queue_depth_ = 2;
++  int max_lidar_buffer_ = 30, max_imu_buffer_ = 2000, max_image_buffer_ = 8;
++  int max_path_poses_ = 2000;
++  std::size_t publication_window_count_ = 0;
++  double last_published_odom_stamp_ = -1.0;
++  rclcpp::TimerBase::SharedPtr buffer_status_timer_;
+   V3D extT;
+   M3D extR;
+ 
+diff --git a/include/buffer_contract.h b/include/buffer_contract.h
+new file mode 100644
+index 0000000..b384a81
+--- /dev/null
++++ b/include/buffer_contract.h
+@@ -0,0 +1,40 @@
++#pragma once
++
++#include <cstddef>
++#include <stdexcept>
++#include <string>
++
++namespace fast_livo
++{
++// Never silently discard IMU integration history on application-buffer overflow.
++// Terminating this estimator lets the independent Nav2 TF/command watchdog stop.
++inline void require_buffer_space(std::size_t size, std::size_t limit, const char * name)
++{
++  if (limit == 0 || size >= limit) {
++    throw std::runtime_error(std::string(name) +
++      " application buffer limit reached; stop and restart localization/perception after diagnosis");
++  }
++}
++
++template<typename Measurements, typename Measurement>
++void replace_measurement(Measurements & pending, const Measurement & current)
++{
++  pending.clear();
++  pending.push_back(current);
++}
++
++// The input window has been consumed even when projection produces ZERO RGB points.
++template<typename Cloud, typename Consumer>
++bool consume_publication_window(
++  Cloud & pending, const Cloud & batch, std::size_t & count,
++  std::size_t window, Consumer consume)
++{
++  if (window == 0) {throw std::invalid_argument("publish window must be positive");}
++  pending += batch;
++  if (++count < window) {return false;}
++  consume(pending);
++  Cloud().swap(pending);
++  count = 0;
++  return true;
++}
++}  // namespace fast_livo
+diff --git a/include/measurement_stamp.h b/include/measurement_stamp.h
+new file mode 100644
+index 0000000..7b9ef80
+--- /dev/null
++++ b/include/measurement_stamp.h
+@@ -0,0 +1,26 @@
++#pragma once
++
++#include <cmath>
++#include <stdexcept>
++
++namespace fast_livo
++{
++enum class StampStatus {accepted, invalid, out_of_order, clock_reset};
++
++// Small disorder is rejected without clearing paired data/time queues. A large
++// rollback cannot safely reuse the current estimator state and requires restart.
++inline StampStatus inspect_measurement_stamp(double stamp, double previous)
++{
++  if (!std::isfinite(stamp) || stamp <= 0) {return StampStatus::invalid;}
++  if (previous > 0 && stamp < previous - 0.5) {return StampStatus::clock_reset;}
++  if (stamp <= previous) {return StampStatus::out_of_order;}
++  return StampStatus::accepted;
++}
++
++inline void require_new_odometry_stamp(double stamp, double previous)
++{
++  if (!std::isfinite(stamp) || stamp <= 0 || stamp <= previous) {
++    throw std::runtime_error("odometry measurement stamp invalid/non-increasing; restart required");
++  }
++}
++}  // namespace fast_livo
+diff --git a/include/vio.h b/include/vio.h
+index d5600b1..282fa89 100755
+--- a/include/vio.h
++++ b/include/vio.h
+@@ -108,7 +108,7 @@ public:
+ 
+   double img_point_cov, outlier_threshold, ncc_thre;
+   
+-  SubSparseMap *visual_submap;
++  SubSparseMap *visual_submap = nullptr;
+   std::vector<std::vector<V3D>> rays_with_sample_points;
+ 
+   double compute_jacobian_time, update_ekf_time;
+@@ -184,4 +184,4 @@ public:
+ };
+ typedef std::shared_ptr<VIOManager> VIOManagerPtr;
+ 
+-#endif // VIO_H_
+\ No newline at end of file
++#endif // VIO_H_
+diff --git a/include/visual_point.h b/include/visual_point.h
+index 494cc72..e28cb7e 100644
+--- a/include/visual_point.h
++++ b/include/visual_point.h
+@@ -34,7 +34,7 @@ public:
+   bool is_converged_;           //!< True if the point is converged.
+   bool is_normal_initialized_;  //!< True if the normal is initialized.
+   bool has_ref_patch_;          //!< True if the point has a reference patch.
+-  Feature *ref_patch;           //!< Reference patch of the point.
++  Feature *ref_patch = nullptr; //!< Reference patch of the point.
+ 
+   VisualPoint(const Vector3d &pos);
+   ~VisualPoint();
+diff --git a/launch/mapping_mid360.launch.py b/launch/mapping_mid360.launch.py
+index 654c3d4..ecc9339 100644
+--- a/launch/mapping_mid360.launch.py
++++ b/launch/mapping_mid360.launch.py
+@@ -265,6 +265,15 @@ def _create_fastlivo_node(context):
+     q_lidar_to_imu = _quat_from_rpy_deg(
+         lidar_to_imu_roll_deg, lidar_to_imu_pitch_deg, lidar_to_imu_yaw_deg
+     )
++    # Arguments describe TF T_lidar_imu. Estimator requires its inverse T_imu_lidar.
++    x, y, z, w = q_lidar_to_imu
++    rotation_lidar_imu = [
++        1 - 2 * (y*y + z*z), 2 * (x*y - z*w), 2 * (x*z + y*w),
++        2 * (x*y + z*w), 1 - 2 * (x*x + z*z), 2 * (y*z - x*w),
++        2 * (x*z - y*w), 2 * (y*z + x*w), 1 - 2 * (x*x + y*y),
++    ]
++    rotation_imu_lidar, translation_imu_lidar = _invert_rigid_transform(
++        rotation_lidar_imu, [lidar_to_imu_x, lidar_to_imu_y, lidar_to_imu_z])
+ 
+     params = {
+         # Topics and module switches.
+@@ -274,6 +283,8 @@ def _create_fastlivo_node(context):
+         "common/img_topic": image_topic,
+         "frames/odom": odom_frame,
+         "frames/base": base_frame,
++        "frames/base_to_lidar_translation": [base_to_lidar_x, base_to_lidar_y, base_to_lidar_z],
++        "frames/base_to_lidar_quaternion": q_base_to_lidar,
+         "frames/base_roll_correction_deg": base_roll_correction_deg,
+         "frames/base_pitch_correction_deg": base_pitch_correction_deg,
+         "frames/base_yaw_correction_deg": base_yaw_correction_deg,
+@@ -296,9 +307,15 @@ def _create_fastlivo_node(context):
+         "lio/max_layer": lio_max_layer,
+         "lio/dept_err": lio_dept_err,
+         "lio/beam_err": lio_beam_err,
+-        # LiDAR <- IMU extrinsic (kept as launch default baseline).
+-        "extrin_calib/extrinsic_T": [0.04165, 0.02326, -0.0284],
+-        "extrin_calib/extrinsic_R": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
++        # IMU <- LiDAR, consistent with the separately published inverse TF.
++        "extrin_calib/extrinsic_T": translation_imu_lidar,
++        "extrin_calib/extrinsic_R": rotation_imu_lidar,
++        "buffers/lidar_qos_depth": 4,
++        "buffers/imu_qos_depth": 512,
++        "buffers/image_qos_depth": 2,
++        "buffers/max_lidar_frames": 30,
++        "buffers/max_imu_samples": 2000,
++        "buffers/max_image_frames": 8,
+ 
+         # Camera <- LiDAR extrinsic loaded from text file.
+         "extrin_calib/Rcl": rcl,
+@@ -475,9 +492,9 @@ def generate_launch_description():
+             DeclareLaunchArgument("base_to_lidar_roll_deg", default_value="0.0"),
+             DeclareLaunchArgument("base_to_lidar_pitch_deg", default_value="30.0"),
+             DeclareLaunchArgument("base_to_lidar_yaw_deg", default_value="0.0"),
+-            DeclareLaunchArgument("lidar_to_imu_x", default_value="0.04165"),
+-            DeclareLaunchArgument("lidar_to_imu_y", default_value="0.02326"),
+-            DeclareLaunchArgument("lidar_to_imu_z", default_value="-0.0284"),
++            DeclareLaunchArgument("lidar_to_imu_x", default_value="-0.04165"),
++            DeclareLaunchArgument("lidar_to_imu_y", default_value="-0.02326"),
++            DeclareLaunchArgument("lidar_to_imu_z", default_value="0.0284"),
+             DeclareLaunchArgument("lidar_to_imu_roll_deg", default_value="0.0"),
+             DeclareLaunchArgument("lidar_to_imu_pitch_deg", default_value="0.0"),
+             DeclareLaunchArgument("lidar_to_imu_yaw_deg", default_value="0.0"),
+diff --git a/src/LIVMapper.cpp b/src/LIVMapper.cpp
+index 76f4614..6800451 100755
+--- a/src/LIVMapper.cpp
++++ b/src/LIVMapper.cpp
+@@ -16,6 +16,28 @@ which is included as part of this source code package.
+ #include <cctype>
+ #include <cmath>
+ 
++namespace
++{
++bool accept_stamp(double stamp, double previous, const char * sensor)
++{
++  const auto status = fast_livo::inspect_measurement_stamp(stamp, previous);
++  if (status == fast_livo::StampStatus::invalid) {
++    ROS_ERROR("%s invalid measurement stamp; message rejected", sensor);
++    return false;
++  }
++  if (status == fast_livo::StampStatus::clock_reset) {
++    throw std::runtime_error(std::string(sensor) +
++      " time regressed by more than 0.5s; restart estimator and perception");
++  }
++  if (status == fast_livo::StampStatus::out_of_order) {
++    ROS_WARN("%s out-of-order/duplicate stamp %.9f <= %.9f; message rejected",
++      sensor, stamp, previous);
++    return false;
++  }
++  return true;
++}
++}
++
+ LIVMapper::LIVMapper(const rclcpp::Node::SharedPtr &node)
+     : node_(node),
+       extT(0, 0, 0),
+@@ -67,7 +89,29 @@ void LIVMapper::readParameters()
+   base_roll_correction_deg = node_->declare_parameter<double>("frames/base_roll_correction_deg", 0.0);
+   base_pitch_correction_deg = node_->declare_parameter<double>("frames/base_pitch_correction_deg", 0.0);
+   base_yaw_correction_deg = node_->declare_parameter<double>("frames/base_yaw_correction_deg", 0.0);
++  base_mount_translation_ = node_->declare_parameter<vector<double>>(
++    "frames/base_to_lidar_translation", vector<double>());
++  base_mount_quaternion_ = node_->declare_parameter<vector<double>>(
++    "frames/base_to_lidar_quaternion", vector<double>());
++  full_base_mount_ = !base_mount_translation_.empty() || !base_mount_quaternion_.empty();
++  const auto bounded_positive = [this](const char * name, int value, int maximum) {
++    const int result = node_->declare_parameter<int>(name, value);
++    if (result <= 0 || result > maximum) {
++      throw std::invalid_argument(std::string(name) + " must be positive and bounded");
++    }
++    return result;
++  };
++  lidar_queue_depth_ = bounded_positive("buffers/lidar_qos_depth", 4, 128);
++  imu_queue_depth_ = bounded_positive("buffers/imu_qos_depth", 512, 10000);
++  image_queue_depth_ = bounded_positive("buffers/image_qos_depth", 2, 16);
++  max_lidar_buffer_ = bounded_positive("buffers/max_lidar_frames", 30, 256);
++  max_imu_buffer_ = bounded_positive("buffers/max_imu_samples", 2000, 20000);
++  max_image_buffer_ = bounded_positive("buffers/max_image_frames", 8, 64);
++  max_path_poses_ = bounded_positive("publish/max_path_poses", 2000, 100000);
+   ros_driver_fix_en = node_->declare_parameter<bool>("common/ros_driver_bug_fix", false);
++  if (ros_driver_fix_en) {
++    throw std::invalid_argument("ros_driver_bug_fix rewrites IMU time; synchronize clocks instead");
++  }
+   img_en = node_->declare_parameter<int>("common/img_en", 1);
+   lidar_en = node_->declare_parameter<int>("common/lidar_en", 1);
+   img_topic = node_->declare_parameter<string>("common/img_topic", "/left_camera/image");
+@@ -125,6 +169,9 @@ void LIVMapper::readParameters()
+   pub_scan_num = node_->declare_parameter<int>("publish/pub_scan_num", 1);
+   pub_effect_point_en = node_->declare_parameter<bool>("publish/pub_effect_point_en", false);
+   dense_map_en = node_->declare_parameter<bool>("publish/dense_map_en", false);
++  if (pub_scan_num <= 0 || pub_scan_num > 100) {
++    throw std::invalid_argument("publish/pub_scan_num must be in [1, 100]");
++  }
+ 
+   // Declare camera parameters in the namespace expected by vikit camera_loader.
+   node_->declare_parameter<string>("laserMapping/cam_model", "Pinhole");
+@@ -152,9 +199,42 @@ void LIVMapper::readParameters()
+ 
+ void LIVMapper::initializeComponents() 
+ {
++  const auto finite_size = [](const std::vector<double> & values, std::size_t size) {
++    return values.size() == size && std::all_of(values.begin(), values.end(),
++      [](double v) {return std::isfinite(v);});
++  };
++  if (!finite_size(extrinT, 3) || !finite_size(extrinR, 9) ||
++    !finite_size(cameraextrinT, 3) || !finite_size(cameraextrinR, 9)) {
++    throw std::invalid_argument("calibration vectors have invalid sizes or nonfinite values");
++  }
+   downSizeFilterSurf.setLeafSize(filter_size_surf_min, filter_size_surf_min, filter_size_surf_min);
+   extT << VEC_FROM_ARRAY(extrinT);
+   extR << MAT_FROM_ARRAY(extrinR);
++  if ((extR.transpose() * extR - M3D::Identity()).norm() > 1e-5 ||
++    std::abs(extR.determinant() - 1.0) > 1e-5) {
++    throw std::invalid_argument("extrin_calib/extrinsic_R must be a rotation matrix");
++  }
++
++  if (full_base_mount_) {
++    if (base_mount_translation_.size() != 3 || base_mount_quaternion_.size() != 4 ||
++      !std::all_of(base_mount_translation_.begin(), base_mount_translation_.end(),
++        [](double v) {return std::isfinite(v);}) ||
++      !std::all_of(base_mount_quaternion_.begin(), base_mount_quaternion_.end(),
++        [](double v) {return std::isfinite(v);})) {
++      throw std::invalid_argument("invalid frames/base_to_lidar mount vectors");
++    }
++    const Eigen::Quaterniond q(base_mount_quaternion_[3], base_mount_quaternion_[0],
++      base_mount_quaternion_[1], base_mount_quaternion_[2]);
++    if (!std::isfinite(q.norm()) || q.norm() < 1e-9) {
++      throw std::invalid_argument("invalid base mount quaternion norm");
++    }
++    imu_base_ = fast_livo::imu_to_base_from_mount(extR, extT, q,
++      V3D(base_mount_translation_[0], base_mount_translation_[1], base_mount_translation_[2]));
++    ROS_INFO("Full IMU-to-base mount enabled; legacy base_*_correction_deg is superseded");
++  } else {
++    imu_base_.linear() = base_orientation_correction_.toRotationMatrix();
++    ROS_WARN("No full base mount supplied: legacy orientation-only output; NOT a Nav2 base pose");
++  }
+ 
+   voxelmap_manager->extT_ << VEC_FROM_ARRAY(extrinT);
+   voxelmap_manager->extR_ << MAT_FROM_ARRAY(extrinR);
+@@ -295,13 +375,13 @@ void LIVMapper::initializeSubscribersAndPublishers()
+     ROS_INFO("Using LiDAR subscriber type: livox_ros_driver2/CustomMsg");
+     sub_pcl_livox = node_->create_subscription<LivoxCustomMsg>(
+       lid_topic,
+-      rclcpp::SensorDataQoS().keep_last(200000),
++      rclcpp::SensorDataQoS().keep_last(lidar_queue_depth_),
+       std::bind(&LIVMapper::livox_pcl_cbk, this, std::placeholders::_1));
+ #else
+     ROS_WARN("Livox CustomMsg support is unavailable. Using sensor_msgs/PointCloud2 instead.");
+     sub_pcl_standard = node_->create_subscription<sensor_msgs::msg::PointCloud2>(
+       lid_topic,
+-      rclcpp::SensorDataQoS().keep_last(200000),
++      rclcpp::SensorDataQoS().keep_last(lidar_queue_depth_),
+       std::bind(&LIVMapper::standard_pcl_cbk, this, std::placeholders::_1));
+ #endif
+   }
+@@ -310,19 +390,28 @@ void LIVMapper::initializeSubscribersAndPublishers()
+     ROS_INFO("Using LiDAR subscriber type: sensor_msgs/PointCloud2");
+     sub_pcl_standard = node_->create_subscription<sensor_msgs::msg::PointCloud2>(
+       lid_topic,
+-      rclcpp::SensorDataQoS().keep_last(200000),
++      rclcpp::SensorDataQoS().keep_last(lidar_queue_depth_),
+       std::bind(&LIVMapper::standard_pcl_cbk, this, std::placeholders::_1));
+   }
+ 
+   sub_imu = node_->create_subscription<sensor_msgs::msg::Imu>(
+     imu_topic,
+-    rclcpp::SensorDataQoS().keep_last(200000),
++    rclcpp::SensorDataQoS().keep_last(imu_queue_depth_),
+     std::bind(&LIVMapper::imu_cbk, this, std::placeholders::_1));
+ 
+-  sub_img = node_->create_subscription<sensor_msgs::msg::Image>(
+-    img_topic,
+-    rclcpp::SensorDataQoS().keep_last(200000),
+-    std::bind(&LIVMapper::img_cbk, this, std::placeholders::_1));
++  if (img_en) {
++    sub_img = node_->create_subscription<sensor_msgs::msg::Image>(
++      img_topic,
++      rclcpp::SensorDataQoS().keep_last(image_queue_depth_),
++      std::bind(&LIVMapper::img_cbk, this, std::placeholders::_1));
++  }
++  buffer_status_timer_ = node_->create_wall_timer(std::chrono::seconds(2), [this]() {
++    RCLCPP_INFO(node_->get_logger(),
++      "buffers lidar=%zu imu=%zu image=%zu prop_imu=%zu pending_color=%zu "
++      "measurement_groups=%zu path=%zu visual_voxels=%zu",
++      lid_raw_data_buffer.size(), imu_buffer.size(), img_buffer.size(), prop_imu_buffer.size(),
++      pcl_wait_pub->size(), LidarMeasures.measures.size(), path.poses.size(), vio_manager->feat_map.size());
++  });
+ 
+   pubLaserCloudFullRes = node_->create_publisher<sensor_msgs::msg::PointCloud2>("/cloud_registered", 100);
+   pubNormal = node_->create_publisher<visualization_msgs::msg::MarkerArray>("visualization_marker", 100);
+@@ -380,6 +469,13 @@ void LIVMapper::processImu()
+ 
+   if (gravity_align_en) gravityAlignment();
+ 
++  // Set the shared world origin once, BEFORE any world map/visual point exists.
++  if (full_base_mount_ && !base_origin_initialized_ && !p_imu->imu_need_init) {
++    if (lidar_map_inited) {throw std::logic_error("cannot shift an initialized map origin");}
++    _state.pos_end = -_state.rot_end * imu_base_.translation();
++    base_origin_initialized_ = true;
++  }
++
+   state_propagat = _state;
+   voxelmap_manager->state_ = _state;
+   voxelmap_manager->feats_undistort_ = feats_undistort;
+@@ -814,21 +910,19 @@ void LIVMapper::RGBpointBodyToWorld(PointType const *const pi, PointType *const
+ void LIVMapper::standard_pcl_cbk(const sensor_msgs::PointCloud2::ConstSharedPtr &msg)
+ {
+   if (!lidar_en) return;
+-  mtx_buffer.lock();
+-  // cout<<"got feature"<<endl;
+-  if (stamp_to_sec(msg->header.stamp) < last_timestamp_lidar)
+-  {
+-    ROS_ERROR("lidar loop back, clear buffer");
+-    lid_raw_data_buffer.clear();
+-  }
+-  // ROS_INFO("get point cloud at time: %.6f", msg->header.stamp.toSec());
++  const double stamp = stamp_to_sec(msg->header.stamp);
++  if (!accept_stamp(stamp, last_timestamp_lidar, "LiDAR")) return;
++  std::lock_guard<std::mutex> lock(mtx_buffer);
++  fast_livo::require_buffer_space(lid_raw_data_buffer.size(), max_lidar_buffer_, "LiDAR");
+   PointCloudXYZI::Ptr ptr(new PointCloudXYZI());
+   p_pre->process(msg, ptr);
++  if (ptr->size() <= 1) {
++    ROS_WARN("LiDAR cloud has insufficient processed points; rejected");
++    return;
++  }
+   lid_raw_data_buffer.push_back(ptr);
+-  lid_header_time_buffer.push_back(stamp_to_sec(msg->header.stamp));
+-  last_timestamp_lidar = stamp_to_sec(msg->header.stamp);
+-
+-  mtx_buffer.unlock();
++  lid_header_time_buffer.push_back(stamp);
++  last_timestamp_lidar = stamp;
+   sig_buffer.notify_all();
+ }
+ 
+@@ -836,7 +930,7 @@ void LIVMapper::standard_pcl_cbk(const sensor_msgs::PointCloud2::ConstSharedPtr
+ void LIVMapper::livox_pcl_cbk(const LivoxCustomMsgConstPtr &msg_in)
+ {
+   if (!lidar_en) return;
+-  mtx_buffer.lock();
++  std::lock_guard<std::mutex> lock(mtx_buffer);
+   LivoxCustomMsgPtr msg(new LivoxCustomMsg(*msg_in));
+   // if ((abs(msg->header.stamp.toSec() - last_timestamp_lidar) > 0.2 && last_timestamp_lidar > 0) || sync_jump_flag)
+   // {
+@@ -853,19 +947,16 @@ void LIVMapper::livox_pcl_cbk(const LivoxCustomMsgConstPtr &msg_in)
+ 
+   double cur_head_time = stamp_to_sec(msg->header.stamp);
+   ROS_INFO("Get LiDAR, its header time: %.6f", cur_head_time);
+-  if (cur_head_time < last_timestamp_lidar)
+-  {
+-    ROS_ERROR("lidar loop back, clear buffer");
+-    lid_raw_data_buffer.clear();
+-  }
++  if (!accept_stamp(cur_head_time, last_timestamp_lidar, "LiDAR")) return;
++  fast_livo::require_buffer_space(lid_raw_data_buffer.size(), max_lidar_buffer_, "LiDAR");
+   // ROS_INFO("get point cloud at time: %.6f", msg->header.stamp.toSec());
+   PointCloudXYZI::Ptr ptr(new PointCloudXYZI());
+   p_pre->process(msg, ptr);
++  if (ptr->size() <= 1) return;
+   lid_raw_data_buffer.push_back(ptr);
+   lid_header_time_buffer.push_back(cur_head_time);
+   last_timestamp_lidar = cur_head_time;
+ 
+-  mtx_buffer.unlock();
+   sig_buffer.notify_all();
+ }
+ #endif
+@@ -885,18 +976,14 @@ void LIVMapper::imu_cbk(const sensor_msgs::Imu::ConstSharedPtr &msg_in)
+     ROS_WARN("IMU and LiDAR not synced! delta time: %lf .\n", last_timestamp_lidar - timestamp);
+   }
+ 
+-  if (ros_driver_fix_en) timestamp += std::round(last_timestamp_lidar - timestamp);
+-  msg->header.stamp = sec_to_stamp(timestamp);
++  if (!accept_stamp(timestamp, last_timestamp_imu, "IMU")) return;
++  fast_livo::require_buffer_space(imu_buffer.size(), max_imu_buffer_, "IMU");
++  if (imu_prop_enable && !p_imu->imu_need_init) {
++    fast_livo::require_buffer_space(prop_imu_buffer.size(), max_imu_buffer_, "propagated IMU");
++  }
+ 
+   mtx_buffer.lock();
+ 
+-  if (last_timestamp_imu > 0.0 && timestamp < last_timestamp_imu)
+-  {
+-    mtx_buffer.unlock();
+-    sig_buffer.notify_all();
+-    ROS_ERROR("imu loop back, offset: %lf \n", last_timestamp_imu - timestamp);
+-    return;
+-  }
+ 
+   // if (last_timestamp_imu > 0.0 && timestamp > last_timestamp_imu + 0.2)
+   // {
+@@ -934,7 +1021,7 @@ cv::Mat LIVMapper::getImageFromMsg(const sensor_msgs::ImageConstPtr &img_msg)
+ void LIVMapper::img_cbk(const sensor_msgs::ImageConstPtr &msg_in)
+ {
+   if (!img_en) return;
+-  sensor_msgs::Image::SharedPtr msg(new sensor_msgs::Image(*msg_in));
++  const auto & msg = msg_in;  // cv_bridge makes the sole owned pixel copy below.
+   // if ((abs(msg->header.stamp.toSec() - last_timestamp_img) > 0.2 && last_timestamp_img > 0) || sync_jump_flag)
+   // {
+   //   ROS_WARN("img jumps %.3f\n", msg->header.stamp.toSec() - last_timestamp_img);
+@@ -954,20 +1041,15 @@ void LIVMapper::img_cbk(const sensor_msgs::ImageConstPtr &msg_in)
+   ROS_INFO("Get image, its header time: %.6f", msg_header_time);
+   if (last_timestamp_lidar < 0) return;
+ 
+-  if (msg_header_time < last_timestamp_img)
+-  {
+-    ROS_ERROR("image loop back. \n");
+-    return;
+-  }
+-
+-  mtx_buffer.lock();
++  if (!accept_stamp(msg_header_time, last_timestamp_img, "image")) return;
++  std::lock_guard<std::mutex> lock(mtx_buffer);
++  fast_livo::require_buffer_space(img_buffer.size(), max_image_buffer_, "image");
+ 
+   double img_time_correct = msg_header_time; // last_timestamp_lidar + 0.105;
+ 
+   if (img_time_correct - last_timestamp_img < 0.02)
+   {
+     ROS_WARN("Image need Jumps: %.6f", img_time_correct);
+-    mtx_buffer.unlock();
+     sig_buffer.notify_all();
+     return;
+   }
+@@ -982,7 +1064,6 @@ void LIVMapper::img_cbk(const sensor_msgs::ImageConstPtr &msg_in)
+   // cv::imshow("img", img);
+   // cv::waitKey(1);
+   // cout<<"last_timestamp_img:::"<<last_timestamp_img<<endl;
+-  mtx_buffer.unlock();
+   sig_buffer.notify_all();
+ }
+ 
+@@ -1062,7 +1143,7 @@ bool LIVMapper::sync_packages(LidarMeasureGroup &meas)
+     sig_buffer.notify_all();
+ 
+     meas.lio_vio_flg = LIO; // process lidar topic, so timestamp should be lidar scan end.
+-    meas.measures.push_back(m);
++    fast_livo::replace_measurement(meas.measures, m);
+     // ROS_INFO("ONlY HAS LiDAR and IMU, NO IMAGE!");
+     lidar_pushed = false; // sync one whole lidar scan.
+     return true;
+@@ -1169,7 +1250,7 @@ bool LIVMapper::sync_packages(LidarMeasureGroup &meas)
+         lid_header_time_buffer.pop_front();
+       }
+ 
+-      meas.measures.push_back(m);
++      fast_livo::replace_measurement(meas.measures, m);
+       meas.lio_vio_flg = LIO;
+       // meas.last_lio_update_time = m.lio_time;
+       // printf("!!! meas.lio_vio_flg: %d \n", meas.lio_vio_flg);
+@@ -1204,7 +1285,7 @@ bool LIVMapper::sync_packages(LidarMeasureGroup &meas)
+       img_time_buffer.pop_front();
+       mtx_buffer.unlock();
+       sig_buffer.notify_all();
+-      meas.measures.push_back(m);
++      fast_livo::replace_measurement(meas.measures, m);
+       lidar_pushed = false; // after VIO update, the _lidar_frame_end_time will be refresh.
+       // printf("[ Data Cut ] VIO process time: %lf \n", omp_get_wtime() - t0);
+       return true;
+@@ -1246,11 +1327,8 @@ void LIVMapper::publish_frame_world(VIOManagerPtr vio_manager)
+   PointCloudXYZRGB::Ptr laserCloudWorldRGB(new PointCloudXYZRGB());
+   if (img_en)
+   {
+-    static int pub_num = 1;
+-    *pcl_wait_pub += *pcl_w_wait_pub;
+-    if(pub_num == pub_scan_num)
+-    {
+-      pub_num = 1;
++    fast_livo::consume_publication_window(*pcl_wait_pub, *pcl_w_wait_pub,
++      publication_window_count_, pub_scan_num, [&](const PointCloudXYZI &) {
+       size_t size = pcl_wait_pub->points.size();
+       laserCloudWorldRGB->reserve(size);
+       // double inv_expo = _state.inv_expo_time;
+@@ -1282,11 +1360,7 @@ void LIVMapper::publish_frame_world(VIOManagerPtr vio_manager)
+           if (pf.norm() > blind_rgb_points) laserCloudWorldRGB->push_back(pointRGB);
+         }
+       }
+-    }
+-    else
+-    {
+-      pub_num++;
+-    }
++      });
+   }
+ 
+   /*** Publish Frame ***/
+@@ -1334,11 +1408,6 @@ void LIVMapper::publish_frame_world(VIOManagerPtr vio_manager)
+       }
+     }
+   }
+-  if(laserCloudWorldRGB->size() > 0) 
+-  {
+-    PointCloudXYZI().swap(*pcl_wait_pub); 
+-    PointCloudXYZRGB().swap(*laserCloudWorldRGB);
+-  }
+   PointCloudXYZI().swap(*pcl_w_wait_pub);
+ }
+ 
+@@ -1377,11 +1446,11 @@ void LIVMapper::publish_effect_world(const std::vector<PointToPlane> &ptpl_list)
+ 
+ template <typename T> void LIVMapper::set_posestamp(T &out)
+ {
+-  out.position.x = _state.pos_end(0);
+-  out.position.y = _state.pos_end(1);
+-  out.position.z = _state.pos_end(2);
+-  const Eigen::Quaterniond body_q(geoQuat.w, geoQuat.x, geoQuat.y, geoQuat.z);
+-  Eigen::Quaterniond corrected_q = body_q * base_orientation_correction_;
++  const auto base_pose = fast_livo::base_pose_from_imu(_state.rot_end, _state.pos_end, imu_base_);
++  out.position.x = base_pose.translation().x();
++  out.position.y = base_pose.translation().y();
++  out.position.z = base_pose.translation().z();
++  Eigen::Quaterniond corrected_q(base_pose.linear());
+   corrected_q.normalize();
+   out.orientation.x = corrected_q.x();
+   out.orientation.y = corrected_q.y();
+@@ -1391,25 +1460,22 @@ template <typename T> void LIVMapper::set_posestamp(T &out)
+ 
+ void LIVMapper::publish_odometry()
+ {
++  const double measured = LidarMeasures.last_lio_update_time;
++  fast_livo::require_new_odometry_stamp(measured, last_published_odom_stamp_);
++  last_published_odom_stamp_ = measured;
+   odomAftMapped.header.frame_id = odom_frame_id;
+   odomAftMapped.child_frame_id = base_frame_id;
+-  odomAftMapped.header.stamp = now_stamp(); //.ros::Time()fromSec(last_timestamp_lidar);
++  odomAftMapped.header.stamp = sec_to_stamp(measured);
+   set_posestamp(odomAftMapped.pose.pose);
+ 
+   geometry_msgs::msg::TransformStamped tf_msg;
+   tf_msg.header.stamp = odomAftMapped.header.stamp;
+   tf_msg.header.frame_id = odom_frame_id;
+   tf_msg.child_frame_id = base_frame_id;
+-  tf_msg.transform.translation.x = _state.pos_end(0);
+-  tf_msg.transform.translation.y = _state.pos_end(1);
+-  tf_msg.transform.translation.z = _state.pos_end(2);
+-  const Eigen::Quaterniond body_q(geoQuat.w, geoQuat.x, geoQuat.y, geoQuat.z);
+-  Eigen::Quaterniond corrected_q = body_q * base_orientation_correction_;
+-  corrected_q.normalize();
+-  tf_msg.transform.rotation.x = corrected_q.x();
+-  tf_msg.transform.rotation.y = corrected_q.y();
+-  tf_msg.transform.rotation.z = corrected_q.z();
+-  tf_msg.transform.rotation.w = corrected_q.w();
++  tf_msg.transform.translation.x = odomAftMapped.pose.pose.position.x;
++  tf_msg.transform.translation.y = odomAftMapped.pose.pose.position.y;
++  tf_msg.transform.translation.z = odomAftMapped.pose.pose.position.z;
++  tf_msg.transform.rotation = odomAftMapped.pose.pose.orientation;
+   tf_broadcaster_->sendTransform(tf_msg);
+ 
+   pubOdomAftMapped->publish(odomAftMapped);
+@@ -1417,7 +1483,7 @@ void LIVMapper::publish_odometry()
+ 
+ void LIVMapper::publish_mavros()
+ {
+-  msg_body_pose.header.stamp = now_stamp();
++  msg_body_pose.header.stamp = sec_to_stamp(LidarMeasures.last_lio_update_time);
+   msg_body_pose.header.frame_id = odom_frame_id;
+   set_posestamp(msg_body_pose.pose);
+   mavros_pose_publisher->publish(msg_body_pose);
+@@ -1426,8 +1492,12 @@ void LIVMapper::publish_mavros()
+ void LIVMapper::publish_path()
+ {
+   set_posestamp(msg_body_pose.pose);
+-  msg_body_pose.header.stamp = now_stamp();
++  msg_body_pose.header.stamp = sec_to_stamp(LidarMeasures.last_lio_update_time);
+   msg_body_pose.header.frame_id = odom_frame_id;
+   path.poses.push_back(msg_body_pose);
++  if (path.poses.size() > static_cast<std::size_t>(max_path_poses_)) {
++    path.poses.erase(path.poses.begin());
++  }
++  path.header = msg_body_pose.header;
+   pubPath->publish(path);
+ }
+diff --git a/src/main.cpp b/src/main.cpp
+index 9793fbf..e1faefb 100755
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -3,10 +3,16 @@
+ int main(int argc, char **argv)
+ {
+   rclcpp::init(argc, argv);
+-  auto node = rclcpp::Node::make_shared("laserMapping");
+-  LIVMapper mapper(node); 
+-  mapper.initializeSubscribersAndPublishers();
+-  mapper.run();
++  try {
++    auto node = rclcpp::Node::make_shared("laserMapping");
++    LIVMapper mapper(node);
++    mapper.initializeSubscribersAndPublishers();
++    mapper.run();
++  } catch (const std::exception & error) {
++    RCLCPP_FATAL(rclcpp::get_logger("laserMapping"), "%s", error.what());
++    rclcpp::shutdown();
++    return 1;
++  }
+   rclcpp::shutdown();
+   return 0;
+ }
+diff --git a/src/vio.cpp b/src/vio.cpp
+index a533791..a735160 100755
+--- a/src/vio.cpp
++++ b/src/vio.cpp
+@@ -924,8 +924,6 @@ void VIOManager::updateVisualMapPoints(cv::Mat img)
+     V2D pc(new_frame_->w2c(pt->pos_));
+     bool add_flag = false;
+     
+-    float *patch_temp = new float[patch_size_total];
+-    getImagePatch(img, pc, patch_temp, 0);
+     // TODO: condition: distance and view_angle
+     // Step 1: time
+     Feature *last_feature = pt->obs_.back();
+@@ -953,10 +951,14 @@ void VIOManager::updateVisualMapPoints(cv::Mat img)
+     }
+     if (add_flag)
+     {
++      // Feature owns and deletes the patch. Do not allocate on the no-add path.
++      auto patch_temp = std::make_unique<float[]>(patch_size_total);
++      getImagePatch(img, pc, patch_temp.get(), 0);
+       update_num += 1;
+       update_flag[i] = 1;
+       Vector3d f = cam->cam2world(pc);
+-      Feature *ftr_new = new Feature(pt, patch_temp, pc, f, new_frame_->T_f_w_, visual_submap->search_levels[i]);
++      Feature *ftr_new = new Feature(pt, patch_temp.get(), pc, f, new_frame_->T_f_w_, visual_submap->search_levels[i]);
++      patch_temp.release();  // Ownership transfers only after Feature construction succeeds.
+       ftr_new->img_ = img;
+       ftr_new->id_ = new_frame_->id_;
+       ftr_new->inv_expo_time_ = state->inv_expo_time;
+diff --git a/test/data/extrinsic.txt b/test/data/extrinsic.txt
+new file mode 100644
+index 0000000..a25671e
+--- /dev/null
++++ b/test/data/extrinsic.txt
+@@ -0,0 +1,4 @@
++1 0 0 0
++0 1 0 0
++0 0 1 0
++0 0 0 1
+diff --git a/test/data/intrinsic.txt b/test/data/intrinsic.txt
+new file mode 100644
+index 0000000..b9fae2c
+--- /dev/null
++++ b/test/data/intrinsic.txt
+@@ -0,0 +1,4 @@
++50 0 50
++0 50 50
++0 0 1
++0 0 0 0
+diff --git a/test/test_buffer_contract.cpp b/test/test_buffer_contract.cpp
+new file mode 100644
+index 0000000..968a56c
+--- /dev/null
++++ b/test/test_buffer_contract.cpp
+@@ -0,0 +1,50 @@
++#undef NDEBUG  // Assertions remain active in Release builds of this regression test.
++#include <cassert>
++#include <deque>
++#include <memory>
++#include <vector>
++#include "buffer_contract.h"
++
++struct Cloud
++{
++  std::vector<int> points;
++  Cloud & operator+=(const Cloud & other)
++  {
++    points.insert(points.end(), other.points.begin(), other.points.end());
++    return *this;
++  }
++  void swap(Cloud & other) {points.swap(other.points);}
++};
++
++int main()
++{
++  // Simulate an out-of-view camera producing no RGB points for 100000 windows.
++  Cloud pending, batch;
++  batch.points.resize(100);
++  std::size_t count = 0, projected = 0;
++  for (int i = 0; i < 100000; ++i) {
++    fast_livo::consume_publication_window(pending, batch, count, 2,
++      [&projected](const Cloud & cloud) {
++        assert(cloud.points.size() == 200);
++        ++projected;
++        // Intentionally no RGB output.
++      });
++    assert(pending.points.size() <= 100);
++  }
++  assert(projected == 50000 && count == 0 && pending.points.empty());
++  std::deque<std::shared_ptr<int>> measurements;
++  std::weak_ptr<int> old;
++  for (int i = 0; i < 100000; ++i) {
++    auto current = std::make_shared<int>(i);
++    fast_livo::replace_measurement(measurements, current);
++    assert(old.expired());
++    assert(measurements.size() == 1);
++    old = current;
++  }
++  fast_livo::require_buffer_space(7, 8, "image");
++  bool rejected = false;
++  try {fast_livo::require_buffer_space(8, 8, "image");}
++  catch (const std::runtime_error &) {rejected = true;}
++  assert(rejected);
++  return 0;
++}
+diff --git a/test/test_measurement_stamp.cpp b/test/test_measurement_stamp.cpp
+new file mode 100644
+index 0000000..40ec2ac
+--- /dev/null
++++ b/test/test_measurement_stamp.cpp
+@@ -0,0 +1,30 @@
++#undef NDEBUG
++#include <cassert>
++#include <limits>
++#include "measurement_stamp.h"
++
++int main()
++{
++  using fast_livo::inspect_measurement_stamp;
++  using fast_livo::StampStatus;
++  assert(inspect_measurement_stamp(100.0, -1.0) == StampStatus::accepted);
++  assert(inspect_measurement_stamp(100.01, 100.0) == StampStatus::accepted);
++  assert(inspect_measurement_stamp(100.0, 100.0) == StampStatus::out_of_order);
++  assert(inspect_measurement_stamp(99.9, 100.0) == StampStatus::out_of_order);
++  assert(inspect_measurement_stamp(99.5, 100.0) == StampStatus::out_of_order);
++  assert(inspect_measurement_stamp(99.49, 100.0) == StampStatus::clock_reset);
++  for (double value : {0.0, -1.0, std::numeric_limits<double>::infinity(),
++      std::numeric_limits<double>::quiet_NaN()}) {
++    assert(inspect_measurement_stamp(value, 100.0) == StampStatus::invalid);
++  }
++  fast_livo::require_new_odometry_stamp(100.0, -1.0);
++  fast_livo::require_new_odometry_stamp(100.01, 100.0);
++  for (double value : {0.0, -1.0, 99.0, 100.0,
++      std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN()}) {
++    bool rejected = false;
++    try {fast_livo::require_new_odometry_stamp(value, 100.0);}
++    catch (const std::runtime_error &) {rejected = true;}
++    assert(rejected);
++  }
++  return 0;
++}
+diff --git a/test/test_nav2_output_contract.py b/test/test_nav2_output_contract.py
+new file mode 100644
+index 0000000..cbc7a14
+--- /dev/null
++++ b/test/test_nav2_output_contract.py
+@@ -0,0 +1,138 @@
++"""Headless launch evaluation and source wiring checks, not a live ROS/TF test."""
++
++import ast
++import importlib.util
++import math
++import unittest
++from pathlib import Path
++from unittest.mock import patch
++
++
++ROOT = Path(__file__).resolve().parents[1]
++LAUNCH = ROOT / 'launch/mapping_mid360.launch.py'
++spec = importlib.util.spec_from_file_location('mid360_mapping_contract', LAUNCH)
++module = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(module)
++
++
++def rotation(q):
++    """Convert an xyzw quaternion to a rotation matrix for independent checks."""
++    x, y, z, w = q
++    return [
++        [1 - 2*(y*y + z*z), 2*(x*y - z*w), 2*(x*z + y*w)],
++        [2*(x*y + z*w), 1 - 2*(x*x + z*z), 2*(y*z - x*w)],
++        [2*(x*z - y*w), 2*(y*z + x*w), 1 - 2*(x*x + y*y)],
++    ]
++
++
++class OutputContract(unittest.TestCase):
++    """Check launch values and connection to the actual publish implementation."""
++
++    def setUp(self):
++        """Collect literal launch defaults without starting a LaunchService."""
++        self.args = {}
++        for node in ast.walk(ast.parse(LAUNCH.read_text())):
++            if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Name):
++                continue
++            if node.func.id == 'DeclareLaunchArgument':
++                key = ast.literal_eval(node.args[0])
++                self.assertNotIn(key, self.args)
++                for kw in node.keywords:
++                    if kw.arg == 'default_value' and isinstance(kw.value, ast.Constant):
++                        self.args[key] = ast.literal_eval(kw.value)
++        self.args.update({
++            'extrinsic_path': str(ROOT / 'test/data/extrinsic.txt'),
++            'intrinsic_path': str(ROOT / 'test/data/intrinsic.txt'),
++        })
++
++    def nodes(self, **overrides):
++        """Evaluate node descriptions using captured parameters only."""
++        args = {**self.args, **overrides}
++
++        class Configuration:
++
++            def __init__(self, name):
++                self.name = name
++
++            def perform(self, _context):
++                return args[self.name]
++
++        # Evaluate the real launch callback, but NEVER execute a Node/LaunchService.
++        with patch.object(module, 'LaunchConfiguration', Configuration), \
++                patch.object(module, 'Node', lambda **kwargs: kwargs):
++            return module._create_fastlivo_node(None)
++
++    def test_default_full_mount_and_tf_ownership(self):
++        """The default Nav2 setup must not duplicate base/camera TF ownership."""
++        nodes = self.nodes()
++        self.assertEqual([n['name'] for n in nodes], ['laserMapping', 'lidar_to_imu_tf'])
++        params = nodes[0]['parameters'][0]
++        self.assertEqual(params['frames/base_to_lidar_translation'], [0, 0, 0.9])
++        self.assertAlmostEqual(params['frames/base_to_lidar_quaternion'][1], math.sin(math.pi/12))
++        self.assertEqual(params['extrin_calib/extrinsic_T'], [0.04165, 0.02326, -0.0284])
++        self.assertEqual(params['frames/base'], 'base_link')
++        self.assertEqual(params['frames/odom'], 'odom')
++
++    def test_rotated_imu_transform_is_actual_inverse(self):
++        """Estimator and static transforms must compose to identity."""
++        for angle in [-150, -30, 0, 20, 110]:
++            nodes = self.nodes(lidar_to_imu_x='0.2', lidar_to_imu_y='-0.1',
++                               lidar_to_imu_z='0.4', lidar_to_imu_roll_deg=str(angle),
++                               lidar_to_imu_pitch_deg='17', lidar_to_imu_yaw_deg='40')
++            params = nodes[0]['parameters'][0]
++            values = dict(zip(nodes[1]['arguments'][::2], nodes[1]['arguments'][1::2]))
++            r = rotation([float(values[k]) for k in ['--qx', '--qy', '--qz', '--qw']])
++            t = [float(values[k]) for k in ['--x', '--y', '--z']]
++            inv = params['extrin_calib/extrinsic_R']
++            inv_t = params['extrin_calib/extrinsic_T']
++            for row in range(3):
++                for col in range(3):
++                    self.assertAlmostEqual(sum(r[row][k]*inv[3*k+col] for k in range(3)),
++                                           1 if row == col else 0)
++                self.assertAlmostEqual(t[row] + sum(r[row][k]*inv_t[k] for k in range(3)), 0)
++
++    def test_nav2_input_and_image_disable(self):
++        """The local relay input and LIO-only switch reach the mapper."""
++        p = self.nodes(lidar_topic='/livox/lidar_local', image_enable='false')[0]['parameters'][0]
++        self.assertEqual(p['common/lid_topic'], '/livox/lidar_local')
++        self.assertEqual(p['common/img_en'], 0)
++        self.assertEqual(p['buffers/lidar_qos_depth'], 4)
++        self.assertEqual(p['buffers/image_qos_depth'], 2)
++
++    def test_optional_static_publishers(self):
++        """Standalone static publisher switches retain their behavior."""
++        self.assertEqual(len(self.nodes(publish_lidar_to_imu_tf='false')), 1)
++        self.assertEqual(len(self.nodes(publish_sensor_static_tf='true')), 4)
++
++    def test_actual_mapper_publish_wiring(self):
++        """Production odometry and TF must use the measured base pose."""
++        source = (ROOT / 'src/LIVMapper.cpp').read_text()
++        publish = source.split('void LIVMapper::publish_odometry()', 1)[1].split(
++            'void LIVMapper::publish_mavros()', 1)[0]
++        self.assertIn('const double measured = LidarMeasures.last_lio_update_time;', publish)
++        self.assertIn('require_new_odometry_stamp(measured, last_published_odom_stamp_)', publish)
++        self.assertIn('odomAftMapped.header.stamp = sec_to_stamp(measured)', publish)
++        self.assertIn('tf_msg.header.stamp = odomAftMapped.header.stamp', publish)
++        self.assertNotIn('now_stamp()', publish)
++        self.assertNotIn('_state.pos_end', publish)
++        for axis in 'xyz':
++            self.assertIn(f'tf_msg.transform.translation.{axis} = '
++                          f'odomAftMapped.pose.pose.position.{axis};', publish)
++        self.assertIn('tf_msg.transform.rotation = odomAftMapped.pose.pose.orientation;', publish)
++        pose = source.split('void LIVMapper::set_posestamp', 1)[1].split(
++            'void LIVMapper::publish_odometry()', 1)[0]
++        self.assertIn(
++            'fast_livo::base_pose_from_imu(_state.rot_end, _state.pos_end, imu_base_)', pose)
++
++    def test_actual_buffer_helper_wiring(self):
++        """The tested retention helpers must be used by the mapper callbacks."""
++        source = (ROOT / 'src/LIVMapper.cpp').read_text()
++        self.assertNotIn('keep_last(200000)', source)
++        self.assertNotIn('meas.measures.push_back', source)
++        self.assertEqual(source.count('fast_livo::replace_measurement(meas.measures, m)'), 3)
++        self.assertIn('fast_livo::consume_publication_window(*pcl_wait_pub', source)
++        self.assertIn('if (img_en) {\n    sub_img =', source)
++
++
++if __name__ == '__main__':
++    unittest.main(verbosity=2)
+diff --git a/test/test_vio_patch_lifetime.cpp b/test/test_vio_patch_lifetime.cpp
+new file mode 100644
+index 0000000..ac36ffe
+--- /dev/null
++++ b/test/test_vio_patch_lifetime.cpp
+@@ -0,0 +1,56 @@
++#include <atomic>
++#include <cstdlib>
++#include <new>
++#include <cstdio>
++#include "vio.h"
++
++// Interpose patch-sized array allocation in libvio. Ignore unrelated lazy or
++// background allocations from the linked camera/PCL/ROS libraries.
++static std::atomic<std::size_t> arrays{0};
++void * operator new[](std::size_t size)
++{
++  if (size == 64 * sizeof(float)) {++arrays;}
++  if (void * result = std::malloc(size ? size : 1)) {return result;}
++  throw std::bad_alloc();
++}
++void operator delete[](void * pointer) noexcept {std::free(pointer);}
++void operator delete[](void * pointer, std::size_t) noexcept {std::free(pointer);}
++
++int main()
++{
++  vk::PinholeCamera camera(100, 100, 1.0, 50, 50, 50, 50);
++  cv::Mat image(100, 100, CV_8UC1, cv::Scalar(128));
++  StatesGroup state;
++  VIOManager vio;
++  vio.visual_submap = new SubSparseMap;
++  vio.cam = &camera;
++  vio.new_frame_.reset(new Frame(&camera, image));
++  vio.new_frame_->T_f_w_ = SE3();
++  vio.state = &state;
++  vio.width = vio.height = 100;
++  vio.patch_size = 8;
++  vio.patch_size_half = 4;
++  vio.patch_size_total = 64;
++  vio.total_points = 1;
++  vio.update_flag.resize(1, 0);
++  vio.visual_submap->search_levels.push_back(0);
++  auto point = std::make_unique<VisualPoint>(V3D(0, 0, 2));
++  auto feature = new Feature(point.get(), new float[64], V2D(50, 50), V3D(0, 0, 1), SE3(), 0);
++  point->addFrameRef(feature);
++  vio.visual_submap->voxel_points.push_back(point.get());
++  // Allow one-time camera/math/runtime lazy initialization before counting.
++  // A per-call patch leak still produces 1000 new arrays after this warmup.
++  for (int i = 0; i < 10; ++i) {vio.updateVisualMapPoints(image);}
++  const auto before = arrays.load();
++  for (int i = 0; i < 1000; ++i) {vio.updateVisualMapPoints(image);}
++  std::fprintf(stderr, "no-add: array allocations=%zu, observations=%zu\n",
++    arrays.load() - before, point->obs_.size());
++  if (arrays.load() != before || point->obs_.size() != 1) {return 1;}
++  // The add path must still allocate one patch and attach one owned Feature.
++  feature->px_ = V2D(0, 0);
++  vio.updateVisualMapPoints(image);
++  std::fprintf(stderr, "add: array allocations=%zu, observations=%zu\n",
++    arrays.load() - before, point->obs_.size());
++  if (point->obs_.size() != 2 || arrays.load() != before + 1) {return 2;}
++  return 0;
++}

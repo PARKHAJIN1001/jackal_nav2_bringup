@@ -1,0 +1,901 @@
+[INFO] [1789037281.983925426] [mid360_mask_3d_extractor_node]: Loaded extrinsic fallback from '/home/parkhajin/data/calib/extrinsic.txt' (livox_frame -> camera_color_optical_frame)
+[INFO] [1789037282.010237405] [mid360_mask_3d_extractor_node]: input_cloud='/lidar/accumulated', detections2d='/ped_yolo/detections2d', instance_mask='/ped_yolo/instance_mask', camera_info='/camera/camera/color/camera_info', odom='/aft_mapped_to_init', detections_out='/ped_detection', markers_out='/pedestrian_3d_bbox_markers', tracking_frame='odom', fixed_box=true(0.50, 0.50, 1.80)
+[WARN] [1789037285.048634834] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=0
+[WARN] [1789037296.726735118] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=0
+[WARN] [1789037299.803061310] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=0
+[INFO] [1789037304.926029376] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037296.710 mask=1789037296.710 ref=1789037296.710 delta=0.000 paired_queue=1
+[INFO] [1789037309.528567487] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037309.459 mask=1789037309.459 ref=1789037309.459 delta=0.000 paired_queue=7
+[INFO] [1789037309.531037194] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037309.459 mask_stamp=1789037309.459
+[WARN] [1789037312.128539146] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=10
+[INFO] [1789037312.137324383] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037312.061 mask=1789037312.061 ref=1789037312.061 delta=0.000 paired_queue=11
+[INFO] [1789037312.599609965] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037312.061 mask_stamp=1789037312.061
+[INFO] [1789037314.076522770] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6111 in_range=6111 projected=2580 mask_hits=50 detection_id_hits=50 bbox_hits=49 buckets=1
+[INFO] [1789037314.076881335] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.136193932] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6105 in_range=6105 projected=2703 mask_hits=57 detection_id_hits=57 bbox_hits=57 buckets=1
+[INFO] [1789037314.136807804] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.165015341] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037313.795 mask=1789037313.795 ref=1789037313.795 delta=0.000 paired_queue=14
+[INFO] [1789037314.208700646] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5792 in_range=5792 projected=2239 mask_hits=34 detection_id_hits=34 bbox_hits=34 buckets=1
+[INFO] [1789037314.208932968] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.265055391] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6098 in_range=6098 projected=2569 mask_hits=47 detection_id_hits=47 bbox_hits=47 buckets=1
+[INFO] [1789037314.265496946] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.335132107] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6111 in_range=6111 projected=2717 mask_hits=58 detection_id_hits=58 bbox_hits=56 buckets=1
+[INFO] [1789037314.336055854] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.405539312] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5897 in_range=5897 projected=2276 mask_hits=42 detection_id_hits=42 bbox_hits=39 buckets=1
+[INFO] [1789037314.405926582] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.467953549] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6226 in_range=6226 projected=2657 mask_hits=55 detection_id_hits=55 bbox_hits=51 buckets=1
+[INFO] [1789037314.469581063] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.531021292] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6162 in_range=6162 projected=2684 mask_hits=53 detection_id_hits=53 bbox_hits=47 buckets=1
+[INFO] [1789037314.531425812] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.622091268] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5801 in_range=5801 projected=2224 mask_hits=32 detection_id_hits=32 bbox_hits=30 buckets=1
+[INFO] [1789037314.622412532] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.688135750] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6107 in_range=6107 projected=2619 mask_hits=56 detection_id_hits=56 bbox_hits=52 buckets=1
+[INFO] [1789037314.688386491] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.746797416] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6212 in_range=6212 projected=2691 mask_hits=51 detection_id_hits=51 bbox_hits=48 buckets=1
+[INFO] [1789037314.747159547] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.817265042] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5788 in_range=5788 projected=2248 mask_hits=36 detection_id_hits=36 bbox_hits=33 buckets=1
+[INFO] [1789037314.817571356] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.889859070] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6062 in_range=6062 projected=2644 mask_hits=56 detection_id_hits=56 bbox_hits=48 buckets=1
+[INFO] [1789037314.890139718] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037314.934270355] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6141 in_range=6140 projected=2636 mask_hits=49 detection_id_hits=49 bbox_hits=48 buckets=1
+[INFO] [1789037314.935546640] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.018136327] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5869 in_range=5868 projected=2347 mask_hits=30 detection_id_hits=30 bbox_hits=26 buckets=1
+[INFO] [1789037315.019577716] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.082641479] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5957 in_range=5955 projected=2590 mask_hits=50 detection_id_hits=50 bbox_hits=41 buckets=1
+[INFO] [1789037315.082932244] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.140912884] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6119 in_range=6117 projected=2587 mask_hits=52 detection_id_hits=52 bbox_hits=48 buckets=1
+[INFO] [1789037315.141191422] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.222885722] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6022 in_range=6022 projected=2416 mask_hits=37 detection_id_hits=37 bbox_hits=34 buckets=1
+[INFO] [1789037315.223157556] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.271378833] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6028 in_range=6027 projected=2604 mask_hits=51 detection_id_hits=51 bbox_hits=38 buckets=1
+[INFO] [1789037315.271760727] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.408541981] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6004 in_range=6003 projected=2687 mask_hits=50 detection_id_hits=50 bbox_hits=39 buckets=1
+[INFO] [1789037315.408868644] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.477849133] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6000 in_range=5999 projected=2666 mask_hits=39 detection_id_hits=39 bbox_hits=30 buckets=1
+[INFO] [1789037315.478054102] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.537533547] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6155 in_range=6153 projected=2516 mask_hits=48 detection_id_hits=48 bbox_hits=38 buckets=1
+[INFO] [1789037315.538087242] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.609000574] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6166 in_range=6164 projected=2541 mask_hits=48 detection_id_hits=48 bbox_hits=37 buckets=1
+[INFO] [1789037315.609323059] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.678015136] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5922 in_range=5920 projected=2580 mask_hits=31 detection_id_hits=31 bbox_hits=24 buckets=1
+[INFO] [1789037315.678489460] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.738912169] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5953 in_range=5952 projected=2402 mask_hits=31 detection_id_hits=31 bbox_hits=26 buckets=1
+[INFO] [1789037315.739179465] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.812511852] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6078 in_range=6077 projected=2561 mask_hits=37 detection_id_hits=37 bbox_hits=33 buckets=1
+[INFO] [1789037315.813020448] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.880593611] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6058 in_range=6057 projected=2677 mask_hits=48 detection_id_hits=48 bbox_hits=43 buckets=1
+[INFO] [1789037315.880908049] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037315.939448434] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5833 in_range=5833 projected=2283 mask_hits=34 detection_id_hits=34 bbox_hits=32 buckets=1
+[INFO] [1789037315.939677134] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.024632582] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6059 in_range=6059 projected=2566 mask_hits=49 detection_id_hits=49 bbox_hits=41 buckets=1
+[INFO] [1789037316.024937030] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.077482464] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6179 in_range=6177 projected=2709 mask_hits=45 detection_id_hits=45 bbox_hits=39 buckets=1
+[INFO] [1789037316.077846221] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.145140191] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5860 in_range=5857 projected=2214 mask_hits=30 detection_id_hits=30 bbox_hits=24 buckets=1
+[INFO] [1789037316.145306313] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.198307541] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037316.064 mask=1789037316.064 ref=1789037316.064 delta=0.000 paired_queue=25
+[INFO] [1789037316.202208721] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6172 in_range=6171 projected=2648 mask_hits=34 detection_id_hits=34 bbox_hits=31 buckets=1
+[INFO] [1789037316.202589011] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.261185486] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6174 in_range=6174 projected=2715 mask_hits=34 detection_id_hits=34 bbox_hits=33 buckets=1
+[INFO] [1789037316.261395028] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.340005507] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5768 in_range=5768 projected=2166 mask_hits=25 detection_id_hits=25 bbox_hits=22 buckets=1
+[INFO] [1789037316.340296832] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.411976442] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6085 in_range=6085 projected=2605 mask_hits=38 detection_id_hits=38 bbox_hits=32 buckets=1
+[INFO] [1789037316.412260182] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.475217012] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6155 in_range=6154 projected=2628 mask_hits=35 detection_id_hits=35 bbox_hits=31 buckets=1
+[INFO] [1789037316.475548198] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.541475933] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5792 in_range=5791 projected=2258 mask_hits=26 detection_id_hits=26 bbox_hits=22 buckets=1
+[INFO] [1789037316.541631389] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.612716985] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6012 in_range=6010 projected=2621 mask_hits=42 detection_id_hits=42 bbox_hits=36 buckets=1
+[INFO] [1789037316.612979502] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.684924869] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6110 in_range=6107 projected=2638 mask_hits=43 detection_id_hits=43 bbox_hits=33 buckets=1
+[INFO] [1789037316.685194699] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.739947898] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5857 in_range=5855 projected=2385 mask_hits=21 detection_id_hits=21 bbox_hits=20 buckets=1
+[INFO] [1789037316.740171523] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.865228024] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5807 in_range=5805 projected=2280 mask_hits=17 detection_id_hits=17 bbox_hits=17 buckets=1
+[INFO] [1789037316.865373718] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037316.932748766] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5994 in_range=5993 projected=2419 mask_hits=26 detection_id_hits=26 bbox_hits=19 buckets=1
+[INFO] [1789037316.933074811] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.017672623] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5943 in_range=5942 projected=2574 mask_hits=32 detection_id_hits=32 bbox_hits=21 buckets=1
+[INFO] [1789037317.017858501] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.148349858] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6046 in_range=6045 projected=2674 mask_hits=32 detection_id_hits=32 bbox_hits=28 buckets=1
+[INFO] [1789037317.148683734] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.220209732] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5993 in_range=5993 projected=2623 mask_hits=27 detection_id_hits=27 bbox_hits=25 buckets=1
+[INFO] [1789037317.220451133] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.274437148] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5983 in_range=5983 projected=2386 mask_hits=22 detection_id_hits=22 bbox_hits=19 buckets=1
+[INFO] [1789037317.274572635] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.348257767] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6175 in_range=6173 projected=2552 mask_hits=36 detection_id_hits=36 bbox_hits=30 buckets=1
+[INFO] [1789037317.348460285] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.409033826] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6045 in_range=6042 projected=2675 mask_hits=35 detection_id_hits=35 bbox_hits=27 buckets=1
+[INFO] [1789037317.409260737] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.482383953] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5900 in_range=5898 projected=2372 mask_hits=24 detection_id_hits=24 bbox_hits=16 buckets=1
+[INFO] [1789037317.482526172] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.548046429] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6088 in_range=6086 projected=2566 mask_hits=34 detection_id_hits=34 bbox_hits=26 buckets=1
+[INFO] [1789037317.548252679] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037317.595291857] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5992 in_range=5990 projected=2624 mask_hits=22 detection_id_hits=22 bbox_hits=18 buckets=1
+[INFO] [1789037317.595569430] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037328.029800034] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037327.938 mask=1789037327.938 ref=1789037327.938 delta=0.000 paired_queue=25
+[INFO] [1789037328.064518192] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037327.938 mask_stamp=1789037327.938
+[INFO] [1789037330.042974587] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037329.940 mask=1789037329.940 ref=1789037329.940 delta=0.000 paired_queue=25
+[INFO] [1789037330.065614311] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037329.940 mask_stamp=1789037329.940
+[WARN] [1789037340.263744514] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037340.342091769] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037340.217 mask=1789037340.217 ref=1789037340.217 delta=0.000 paired_queue=25
+[INFO] [1789037342.384941714] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037342.284 mask=1789037342.284 ref=1789037342.284 delta=0.000 paired_queue=25
+[INFO] [1789037342.395065319] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037342.284 mask_stamp=1789037342.284
+[WARN] [1789037344.873133568] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037344.925903092] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037344.821 mask=1789037344.821 ref=1789037344.821 delta=0.000 paired_queue=25
+[INFO] [1789037344.939842763] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037344.821 mask_stamp=1789037344.821
+[INFO] [1789037347.460847062] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037347.357 mask=1789037347.357 ref=1789037347.357 delta=0.000 paired_queue=25
+[INFO] [1789037347.473069641] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037347.357 mask_stamp=1789037347.357
+[INFO] [1789037349.497706930] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037349.424 mask=1789037349.424 ref=1789037349.424 delta=0.000 paired_queue=25
+[INFO] [1789037349.661719971] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037349.557 mask_stamp=1789037349.557
+[INFO] [1789037358.699615948] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037358.633 mask=1789037358.633 ref=1789037358.633 delta=0.000 paired_queue=25
+[INFO] [1789037358.722517505] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037358.633 mask_stamp=1789037358.633
+[WARN] [1789037360.731607348] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037360.796102172] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037360.701 mask=1789037360.701 ref=1789037360.701 delta=0.000 paired_queue=25
+[INFO] [1789037360.879832479] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037360.768 mask_stamp=1789037360.768
+[WARN] [1789037366.870121454] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037366.950792971] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037366.843 mask=1789037366.843 ref=1789037366.843 delta=0.000 paired_queue=25
+[INFO] [1789037367.007128411] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037366.909 mask_stamp=1789037366.909
+[WARN] [1789037370.463564268] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037372.538145525] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037372.446 mask=1789037372.446 ref=1789037372.446 delta=0.000 paired_queue=25
+[INFO] [1789037372.603866574] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037372.446 mask_stamp=1789037372.446
+[WARN] [1789037375.059468123] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037375.113636138] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037375.049 mask=1789037375.049 ref=1789037375.049 delta=0.000 paired_queue=25
+[INFO] [1789037375.128424830] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037375.049 mask_stamp=1789037375.049
+[INFO] [1789037377.118130258] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037377.049 mask=1789037377.049 ref=1789037377.049 delta=0.000 paired_queue=25
+[INFO] [1789037377.197817906] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037377.049 mask_stamp=1789037377.049
+[WARN] [1789037388.931585535] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037388.932190581] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037388.860 mask=1789037388.860 ref=1789037388.860 delta=0.000 paired_queue=25
+[INFO] [1789037389.002630763] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037388.860 mask_stamp=1789037388.860
+[WARN] [1789037398.660529088] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037398.713697529] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037398.599 mask=1789037398.599 ref=1789037398.599 delta=0.000 paired_queue=25
+[INFO] [1789037398.743266876] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037398.599 mask_stamp=1789037398.599
+[INFO] [1789037400.719216711] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037400.600 mask=1789037400.600 ref=1789037400.600 delta=0.000 paired_queue=25
+[INFO] [1789037400.746996176] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037400.600 mask_stamp=1789037400.600
+[WARN] [1789037403.272824742] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037403.315333778] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037403.201 mask=1789037403.201 ref=1789037403.201 delta=0.000 paired_queue=25
+[INFO] [1789037403.334017525] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037403.201 mask_stamp=1789037403.201
+[INFO] [1789037405.351469652] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037405.270 mask=1789037405.270 ref=1789037405.270 delta=0.000 paired_queue=25
+[INFO] [1789037405.351655965] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037405.203 mask_stamp=1789037405.203
+[WARN] [1789037407.324255038] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037407.387042009] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037407.272 mask=1789037407.272 ref=1789037407.272 delta=0.000 paired_queue=25
+[INFO] [1789037408.603670902] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037408.474 mask_stamp=1789037408.474
+[INFO] [1789037409.889005810] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037409.810 mask=1789037409.810 ref=1789037409.810 delta=0.000 paired_queue=25
+[WARN] [1789037418.596760398] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037418.626633393] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037418.547 mask=1789037418.547 ref=1789037418.547 delta=0.000 paired_queue=25
+[INFO] [1789037418.667865468] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037418.547 mask_stamp=1789037418.547
+[WARN] [1789037421.678299744] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037428.836216904] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037428.761 mask=1789037428.761 ref=1789037428.761 delta=0.000 paired_queue=25
+[INFO] [1789037428.867855850] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037428.761 mask_stamp=1789037428.761
+[INFO] [1789037430.908556258] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037430.828 mask=1789037430.828 ref=1789037430.828 delta=0.000 paired_queue=25
+[INFO] [1789037433.977576254] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037433.895 mask=1789037433.895 ref=1789037433.895 delta=0.000 paired_queue=25
+[INFO] [1789037434.134117662] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037433.962 mask_stamp=1789037433.962
+[INFO] [1789037437.041157211] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037436.966 mask=1789037436.966 ref=1789037436.966 delta=0.000 paired_queue=25
+[INFO] [1789037437.528208398] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037436.966 mask_stamp=1789037436.966
+[INFO] [1789037438.819556082] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=4870 in_range=4870 projected=1812 mask_hits=21 detection_id_hits=21 bbox_hits=19 buckets=1
+[INFO] [1789037438.819741927] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037438.864035110] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6155 in_range=6155 projected=2569 mask_hits=25 detection_id_hits=25 bbox_hits=23 buckets=1
+[INFO] [1789037438.864239699] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037438.935229159] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6054 in_range=6054 projected=2632 mask_hits=27 detection_id_hits=27 bbox_hits=25 buckets=1
+[INFO] [1789037438.935561621] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037439.060338865] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037438.970 mask=1789037438.970 ref=1789037438.970 delta=0.000 paired_queue=25
+[INFO] [1789037439.528951524] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037439.369 mask_stamp=1789037439.369
+[INFO] [1789037440.083522785] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5807 in_range=5806 projected=2565 mask_hits=22 detection_id_hits=22 bbox_hits=22 buckets=1
+[INFO] [1789037440.083848371] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037440.132121576] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6042 in_range=6041 projected=2516 mask_hits=31 detection_id_hits=31 bbox_hits=31 buckets=1
+[INFO] [1789037440.132334463] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037440.471993383] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6051 in_range=6049 projected=2630 mask_hits=28 detection_id_hits=28 bbox_hits=28 buckets=1
+[INFO] [1789037440.472200400] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037440.565477257] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5987 in_range=5986 projected=2348 mask_hits=26 detection_id_hits=26 bbox_hits=23 buckets=1
+[INFO] [1789037440.565636916] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037440.636849953] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6140 in_range=6138 projected=2614 mask_hits=42 detection_id_hits=42 bbox_hits=36 buckets=1
+[INFO] [1789037440.637389021] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037440.806198484] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5260 in_range=5258 projected=2826 mask_hits=55 detection_id_hits=55 bbox_hits=51 buckets=1
+[INFO] [1789037440.807763501] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037440.881011074] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6053 in_range=6052 projected=2655 mask_hits=42 detection_id_hits=42 bbox_hits=42 buckets=1
+[INFO] [1789037440.881233623] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.003732671] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6039 in_range=6038 projected=2664 mask_hits=48 detection_id_hits=48 bbox_hits=43 buckets=1
+[INFO] [1789037441.003901207] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.064446776] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6127 in_range=6126 projected=2688 mask_hits=43 detection_id_hits=43 bbox_hits=43 buckets=1
+[INFO] [1789037441.064696544] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.105936687] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037440.970 mask=1789037440.970 ref=1789037440.970 delta=0.000 paired_queue=25
+[INFO] [1789037441.154743101] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5747 in_range=5747 projected=2256 mask_hits=27 detection_id_hits=27 bbox_hits=27 buckets=1
+[INFO] [1789037441.154974961] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.355271085] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5379 in_range=5379 projected=2285 mask_hits=28 detection_id_hits=28 bbox_hits=28 buckets=1
+[INFO] [1789037441.358174273] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.410243490] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6112 in_range=6112 projected=2675 mask_hits=41 detection_id_hits=41 bbox_hits=41 buckets=1
+[INFO] [1789037441.411341946] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.464300761] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6180 in_range=6179 projected=2620 mask_hits=40 detection_id_hits=40 bbox_hits=39 buckets=1
+[INFO] [1789037441.464462034] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.674930905] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=4892 in_range=4891 projected=1808 mask_hits=37 detection_id_hits=37 bbox_hits=32 buckets=1
+[INFO] [1789037441.678833046] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.814047965] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5943 in_range=5943 projected=2411 mask_hits=40 detection_id_hits=40 bbox_hits=38 buckets=1
+[INFO] [1789037441.814318970] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.877801114] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5985 in_range=5985 projected=2435 mask_hits=44 detection_id_hits=44 bbox_hits=42 buckets=1
+[INFO] [1789037441.878072061] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037441.943772156] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6087 in_range=6087 projected=2479 mask_hits=59 detection_id_hits=59 bbox_hits=53 buckets=1
+[INFO] [1789037441.944237330] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037442.000888955] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5952 in_range=5952 projected=2649 mask_hits=54 detection_id_hits=54 bbox_hits=50 buckets=1
+[INFO] [1789037442.001193795] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037442.083538929] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5967 in_range=5967 projected=2347 mask_hits=38 detection_id_hits=38 bbox_hits=36 buckets=1
+[INFO] [1789037442.083814087] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037442.208246703] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5956 in_range=5956 projected=2289 mask_hits=39 detection_id_hits=39 bbox_hits=39 buckets=1
+[INFO] [1789037442.208489686] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037442.279584220] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5995 in_range=5995 projected=2380 mask_hits=44 detection_id_hits=44 bbox_hits=39 buckets=1
+[INFO] [1789037442.279864178] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037442.341669645] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6156 in_range=6155 projected=2617 mask_hits=65 detection_id_hits=65 bbox_hits=60 buckets=1
+[INFO] [1789037442.342130069] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037442.407809979] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6123 in_range=6122 projected=2672 mask_hits=70 detection_id_hits=70 bbox_hits=63 buckets=1
+[INFO] [1789037442.409031703] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037442.482452173] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5820 in_range=5820 projected=2297 mask_hits=41 detection_id_hits=41 bbox_hits=36 buckets=1
+[INFO] [1789037442.482677711] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037442.551077910] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6178 in_range=6176 projected=2671 mask_hits=61 detection_id_hits=61 bbox_hits=55 buckets=1
+[INFO] [1789037442.551303726] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[WARN] [1789037448.792549548] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037449.872214878] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037449.772 mask=1789037449.772 ref=1789037449.772 delta=0.000 paired_queue=25
+[INFO] [1789037449.931994177] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037449.772 mask_stamp=1789037449.772
+[INFO] [1789037459.599907769] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037459.521 mask=1789037459.521 ref=1789037459.521 delta=0.000 paired_queue=25
+[INFO] [1789037459.602288711] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037459.521 mask_stamp=1789037459.521
+[WARN] [1789037464.206910289] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037464.208829587] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037464.122 mask=1789037464.122 ref=1789037464.122 delta=0.000 paired_queue=25
+[INFO] [1789037464.277836610] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6229 in_range=6229 projected=2718 mask_hits=61 detection_id_hits=61 bbox_hits=61 buckets=1
+[INFO] [1789037464.278169632] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037464.675156149] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5415 in_range=5415 projected=2839 mask_hits=78 detection_id_hits=78 bbox_hits=78 buckets=1
+[INFO] [1789037464.675673024] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037464.739613704] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6141 in_range=6141 projected=2633 mask_hits=57 detection_id_hits=57 bbox_hits=57 buckets=1
+[INFO] [1789037464.739935549] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037464.800724703] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5949 in_range=5949 projected=2322 mask_hits=44 detection_id_hits=44 bbox_hits=37 buckets=1
+[INFO] [1789037464.800897159] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037464.868561045] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6063 in_range=6063 projected=2673 mask_hits=59 detection_id_hits=59 bbox_hits=54 buckets=1
+[INFO] [1789037464.868836769] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037464.951350685] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6141 in_range=6139 projected=2577 mask_hits=62 detection_id_hits=62 bbox_hits=57 buckets=1
+[INFO] [1789037464.951679126] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037465.013654393] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6092 in_range=6090 projected=2397 mask_hits=42 detection_id_hits=42 bbox_hits=35 buckets=1
+[INFO] [1789037465.013893273] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037465.080130684] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5924 in_range=5924 projected=2639 mask_hits=42 detection_id_hits=42 bbox_hits=36 buckets=1
+[INFO] [1789037465.080400927] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037465.136377786] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6118 in_range=6118 projected=2522 mask_hits=43 detection_id_hits=43 bbox_hits=40 buckets=1
+[INFO] [1789037465.136618816] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037466.324704060] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037466.189 mask=1789037466.189 ref=1789037466.189 delta=0.000 paired_queue=25
+[INFO] [1789037466.341947701] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5903 in_range=5903 projected=2345 mask_hits=28 detection_id_hits=28 bbox_hits=28 buckets=1
+[INFO] [1789037466.342145913] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037466.416538915] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5972 in_range=5972 projected=2572 mask_hits=40 detection_id_hits=40 bbox_hits=40 buckets=1
+[INFO] [1789037466.416961121] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[WARN] [1789037469.339867375] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037469.342902878] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037469.258 mask=1789037469.258 ref=1789037469.258 delta=0.000 paired_queue=25
+[INFO] [1789037469.410331220] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037469.258 mask_stamp=1789037469.258
+[INFO] [1789037471.887234186] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037471.793 mask=1789037471.793 ref=1789037471.793 delta=0.000 paired_queue=25
+[INFO] [1789037471.944808880] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037471.793 mask_stamp=1789037471.793
+[WARN] [1789037479.000833057] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037479.059648616] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037478.937 mask=1789037478.937 ref=1789037478.937 delta=0.000 paired_queue=25
+[INFO] [1789037479.132775974] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037479.004 mask_stamp=1789037479.004
+[INFO] [1789037481.079203871] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037481.006 mask=1789037481.006 ref=1789037481.006 delta=0.000 paired_queue=25
+[INFO] [1789037481.138288270] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037481.006 mask_stamp=1789037481.006
+[WARN] [1789037490.792552462] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037490.830817241] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037490.748 mask=1789037490.748 ref=1789037490.748 delta=0.000 paired_queue=25
+[WARN] [1789037495.390306420] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037495.451544920] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037495.351 mask=1789037495.351 ref=1789037495.351 delta=0.000 paired_queue=25
+[INFO] [1789037497.061403868] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037496.952 mask_stamp=1789037496.952
+[INFO] [1789037499.497253337] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037499.419 mask=1789037499.419 ref=1789037499.419 delta=0.000 paired_queue=25
+[INFO] [1789037499.527777750] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037499.419 mask_stamp=1789037499.419
+[WARN] [1789037500.601237098] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037502.638031004] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037502.557 mask=1789037502.557 ref=1789037502.557 delta=0.000 paired_queue=25
+[WARN] [1789037503.607712510] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037503.668805218] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037503.558 mask_stamp=1789037503.558
+[INFO] [1789037511.797730503] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037511.694 mask=1789037511.694 ref=1789037511.694 delta=0.000 paired_queue=25
+[INFO] [1789037511.815180694] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037511.694 mask_stamp=1789037511.694
+[WARN] [1789037520.467407856] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037520.517817936] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037520.435 mask=1789037520.435 ref=1789037520.435 delta=0.000 paired_queue=25
+[INFO] [1789037521.002620230] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037520.435 mask_stamp=1789037520.435
+[INFO] [1789037525.115681029] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037525.041 mask=1789037525.041 ref=1789037525.041 delta=0.000 paired_queue=25
+[INFO] [1789037525.133228190] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037525.041 mask_stamp=1789037525.041
+[INFO] [1789037527.654057169] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037527.576 mask=1789037527.576 ref=1789037527.576 delta=0.000 paired_queue=25
+[INFO] [1789037527.669957112] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037527.576 mask_stamp=1789037527.576
+[INFO] [1789037529.744333914] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037529.376 mask_stamp=1789037529.376
+[INFO] [1789037529.763531019] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037529.643 mask=1789037529.643 ref=1789037529.643 delta=0.000 paired_queue=25
+[WARN] [1789037530.759690241] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037531.795390624] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037531.711 mask=1789037531.711 ref=1789037531.711 delta=0.000 paired_queue=25
+[INFO] [1789037531.807349697] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037531.711 mask_stamp=1789037531.711
+[WARN] [1789037534.348530286] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037534.421634183] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037534.249 mask=1789037534.249 ref=1789037534.249 delta=0.000 paired_queue=25
+[INFO] [1789037534.474444503] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037534.249 mask_stamp=1789037534.249
+[WARN] [1789037542.534030993] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037542.569535107] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037542.456 mask=1789037542.456 ref=1789037542.456 delta=0.000 paired_queue=25
+[INFO] [1789037542.602697836] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037542.456 mask_stamp=1789037542.456
+[WARN] [1789037551.727967754] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037551.760639871] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037551.666 mask=1789037551.666 ref=1789037551.666 delta=0.000 paired_queue=25
+[INFO] [1789037551.796837035] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037551.666 mask_stamp=1789037551.666
+[WARN] [1789037555.343159733] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037555.354667898] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037555.269 mask=1789037555.269 ref=1789037555.269 delta=0.000 paired_queue=25
+[INFO] [1789037555.416211716] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037555.269 mask_stamp=1789037555.269
+[WARN] [1789037558.862100258] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037558.881086520] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037558.805 mask=1789037558.805 ref=1789037558.805 delta=0.000 paired_queue=25
+[INFO] [1789037558.926700797] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037558.805 mask_stamp=1789037558.805
+[INFO] [1789037560.915798417] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037560.806 mask=1789037560.806 ref=1789037560.806 delta=0.000 paired_queue=25
+[INFO] [1789037560.992681610] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037560.873 mask_stamp=1789037560.873
+[INFO] [1789037561.531485593] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5783 in_range=5782 projected=2419 mask_hits=37 detection_id_hits=37 bbox_hits=35 buckets=1
+[INFO] [1789037561.531816167] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037562.601686980] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5799 in_range=5799 projected=2377 mask_hits=27 detection_id_hits=27 bbox_hits=27 buckets=1
+[INFO] [1789037562.603315913] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037562.669513180] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5416 in_range=5416 projected=2208 mask_hits=23 detection_id_hits=23 bbox_hits=23 buckets=1
+[INFO] [1789037562.669809370] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037562.743402732] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5794 in_range=5794 projected=2673 mask_hits=44 detection_id_hits=44 bbox_hits=43 buckets=1
+[INFO] [1789037562.743614226] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037562.794477120] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5916 in_range=5915 projected=2662 mask_hits=42 detection_id_hits=42 bbox_hits=40 buckets=1
+[INFO] [1789037562.794713816] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037562.861710239] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5640 in_range=5639 projected=2289 mask_hits=25 detection_id_hits=25 bbox_hits=23 buckets=1
+[INFO] [1789037562.861878875] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037562.944205721] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5806 in_range=5806 projected=2615 mask_hits=34 detection_id_hits=34 bbox_hits=28 buckets=1
+[INFO] [1789037562.944421053] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037562.963443220] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037562.875 mask=1789037562.875 ref=1789037562.875 delta=0.000 paired_queue=25
+[INFO] [1789037563.001370231] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037562.875 mask_stamp=1789037562.875
+[INFO] [1789037563.130755583] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5790 in_range=5790 projected=2673 mask_hits=38 detection_id_hits=38 bbox_hits=33 buckets=1
+[INFO] [1789037563.131020895] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037563.339041352] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5740 in_range=5740 projected=2629 mask_hits=31 detection_id_hits=31 bbox_hits=29 buckets=1
+[INFO] [1789037563.339218257] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037564.192142419] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=4768 in_range=4765 projected=2251 mask_hits=16 detection_id_hits=16 bbox_hits=16 buckets=1
+[INFO] [1789037564.192364216] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[WARN] [1789037565.531637326] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037565.546594007] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037565.478 mask=1789037565.478 ref=1789037565.478 delta=0.000 paired_queue=25
+[INFO] [1789037565.595711674] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: selected YOLO pair has no valid pedestrian detections. raw_count=0 det_stamp=1789037565.478 mask_stamp=1789037565.478
+[INFO] [1789037565.789483383] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5365 in_range=5363 projected=2687 mask_hits=20 detection_id_hits=20 bbox_hits=19 buckets=1
+[INFO] [1789037565.789690630] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037565.854648891] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5299 in_range=5297 projected=2614 mask_hits=17 detection_id_hits=17 bbox_hits=14 buckets=1
+[INFO] [1789037565.854823284] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037565.922579111] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=4830 in_range=4830 projected=2245 mask_hits=15 detection_id_hits=15 bbox_hits=13 buckets=1
+[INFO] [1789037565.922695812] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[WARN] [1789037573.257783500] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037573.259518445] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037573.151 mask=1789037573.151 ref=1789037573.151 delta=0.000 paired_queue=25
+[INFO] [1789037573.347798369] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5784 in_range=5784 projected=2426 mask_hits=180 detection_id_hits=180 bbox_hits=179 buckets=1
+[INFO] [1789037573.348844432] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037573.460385057] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5818 in_range=5818 projected=2504 mask_hits=187 detection_id_hits=187 bbox_hits=187 buckets=1
+[INFO] [1789037573.461382665] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037573.544415774] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5783 in_range=5783 projected=2427 mask_hits=179 detection_id_hits=179 bbox_hits=174 buckets=1
+[INFO] [1789037573.545230950] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037573.657533130] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5817 in_range=5817 projected=2453 mask_hits=184 detection_id_hits=184 bbox_hits=180 buckets=1
+[INFO] [1789037573.659518640] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037573.737255393] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5771 in_range=5771 projected=2408 mask_hits=191 detection_id_hits=191 bbox_hits=189 buckets=1
+[INFO] [1789037573.738053585] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037573.814925664] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5677 in_range=5677 projected=2155 mask_hits=192 detection_id_hits=192 bbox_hits=188 buckets=1
+[INFO] [1789037573.816411388] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037573.882061187] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5980 in_range=5980 projected=2422 mask_hits=198 detection_id_hits=198 bbox_hits=192 buckets=1
+[INFO] [1789037573.883438486] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037580.904112229] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037580.824 mask=1789037580.824 ref=1789037580.824 delta=0.000 paired_queue=25
+[WARN] [1789037580.941564228] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: tracking TF lookup failed (odom <- livox_frame).
+[INFO] [1789037582.479451368] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5159 in_range=5158 projected=2066 mask_hits=153 detection_id_hits=153 bbox_hits=148 buckets=1
+[INFO] [1789037582.480313151] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037582.544459888] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5933 in_range=5932 projected=2499 mask_hits=160 detection_id_hits=160 bbox_hits=159 buckets=1
+[INFO] [1789037582.545149698] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037582.609573107] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5980 in_range=5979 projected=2471 mask_hits=152 detection_id_hits=152 bbox_hits=152 buckets=1
+[INFO] [1789037582.610664344] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037582.675290644] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5711 in_range=5711 projected=2125 mask_hits=158 detection_id_hits=158 bbox_hits=155 buckets=1
+[INFO] [1789037582.676070980] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037582.754908265] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5944 in_range=5944 projected=2536 mask_hits=154 detection_id_hits=154 bbox_hits=151 buckets=1
+[INFO] [1789037582.755844863] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037582.810569743] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5907 in_range=5907 projected=2416 mask_hits=161 detection_id_hits=161 bbox_hits=160 buckets=1
+[INFO] [1789037582.811733766] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037582.906166177] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037582.826 mask=1789037582.826 ref=1789037582.826 delta=0.000 paired_queue=25
+[INFO] [1789037582.932825726] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5808 in_range=5806 projected=2344 mask_hits=158 detection_id_hits=158 bbox_hits=155 buckets=1
+[INFO] [1789037582.933770259] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037583.022114047] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5928 in_range=5926 projected=2395 mask_hits=165 detection_id_hits=165 bbox_hits=164 buckets=1
+[INFO] [1789037583.023526536] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037583.070350610] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5848 in_range=5848 projected=2224 mask_hits=162 detection_id_hits=162 bbox_hits=161 buckets=1
+[INFO] [1789037583.071333948] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.053904853] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037585.961 mask=1789037585.961 ref=1789037585.961 delta=0.000 paired_queue=25
+[INFO] [1789037586.077323917] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5784 in_range=5784 projected=2277 mask_hits=165 detection_id_hits=165 bbox_hits=163 buckets=1
+[INFO] [1789037586.078235912] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.134906660] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5710 in_range=5709 projected=2194 mask_hits=171 detection_id_hits=171 bbox_hits=168 buckets=1
+[INFO] [1789037586.136309866] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.204699505] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5917 in_range=5915 projected=2525 mask_hits=155 detection_id_hits=155 bbox_hits=152 buckets=1
+[INFO] [1789037586.205520446] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.278428212] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5940 in_range=5938 projected=2421 mask_hits=164 detection_id_hits=164 bbox_hits=160 buckets=1
+[INFO] [1789037586.279249597] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.335181506] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5743 in_range=5742 projected=2173 mask_hits=163 detection_id_hits=163 bbox_hits=163 buckets=1
+[INFO] [1789037586.336345661] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.416453129] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5857 in_range=5857 projected=2546 mask_hits=141 detection_id_hits=141 bbox_hits=141 buckets=1
+[INFO] [1789037586.417301764] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.472402085] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5921 in_range=5921 projected=2347 mask_hits=169 detection_id_hits=169 bbox_hits=166 buckets=1
+[INFO] [1789037586.473305033] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.533444653] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5860 in_range=5860 projected=2256 mask_hits=167 detection_id_hits=167 bbox_hits=165 buckets=1
+[INFO] [1789037586.534294418] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.598105030] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5866 in_range=5866 projected=2503 mask_hits=121 detection_id_hits=121 bbox_hits=120 buckets=1
+[INFO] [1789037586.598627670] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.666194827] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5788 in_range=5788 projected=2141 mask_hits=160 detection_id_hits=160 bbox_hits=158 buckets=1
+[INFO] [1789037586.667541140] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.736405842] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5920 in_range=5920 projected=2319 mask_hits=154 detection_id_hits=154 bbox_hits=152 buckets=1
+[INFO] [1789037586.737371760] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.793979249] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5812 in_range=5811 projected=2461 mask_hits=118 detection_id_hits=118 bbox_hits=112 buckets=1
+[INFO] [1789037586.794616322] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.865860507] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5743 in_range=5741 projected=2137 mask_hits=97 detection_id_hits=97 bbox_hits=96 buckets=1
+[INFO] [1789037586.866221272] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037586.933026730] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6001 in_range=6000 projected=2399 mask_hits=146 detection_id_hits=146 bbox_hits=145 buckets=1
+[INFO] [1789037586.933724321] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037587.069710326] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5999 in_range=5998 projected=2451 mask_hits=155 detection_id_hits=155 bbox_hits=154 buckets=1
+[INFO] [1789037587.070331309] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037587.137107828] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5931 in_range=5929 projected=2425 mask_hits=165 detection_id_hits=165 bbox_hits=162 buckets=1
+[INFO] [1789037587.138332616] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037587.210183713] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5863 in_range=5859 projected=2472 mask_hits=163 detection_id_hits=163 bbox_hits=163 buckets=1
+[INFO] [1789037587.211169139] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[WARN] [1789037589.150501254] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037589.157745320] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037589.031 mask=1789037589.031 ref=1789037589.031 delta=0.000 paired_queue=25
+[INFO] [1789037589.200005746] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5677 in_range=5676 projected=2159 mask_hits=148 detection_id_hits=148 bbox_hits=148 buckets=2
+[INFO] [1789037589.200913023] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=2 rejected_low_points=1 rejected_size=0 accepted=1
+[INFO] [1789037589.263254258] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5914 in_range=5912 projected=2490 mask_hits=160 detection_id_hits=160 bbox_hits=160 buckets=1
+[INFO] [1789037589.264210486] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.272614205] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5876 in_range=5876 projected=2475 mask_hits=160 detection_id_hits=160 bbox_hits=157 buckets=1
+[INFO] [1789037590.273520179] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.348412006] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5720 in_range=5719 projected=2167 mask_hits=190 detection_id_hits=190 bbox_hits=190 buckets=1
+[INFO] [1789037590.349692229] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.416690485] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5886 in_range=5885 projected=2412 mask_hits=147 detection_id_hits=147 bbox_hits=147 buckets=1
+[INFO] [1789037590.417492898] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.530657867] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6041 in_range=6041 projected=2495 mask_hits=125 detection_id_hits=125 bbox_hits=125 buckets=1
+[INFO] [1789037590.531610455] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.613653560] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6030 in_range=6029 projected=2524 mask_hits=133 detection_id_hits=133 bbox_hits=133 buckets=1
+[INFO] [1789037590.614598327] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.674201275] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5944 in_range=5943 projected=2558 mask_hits=132 detection_id_hits=132 bbox_hits=132 buckets=1
+[INFO] [1789037590.675412670] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.747569115] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5652 in_range=5652 projected=2143 mask_hits=131 detection_id_hits=131 bbox_hits=131 buckets=1
+[INFO] [1789037590.748198188] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.808502825] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6024 in_range=6023 projected=2559 mask_hits=136 detection_id_hits=136 bbox_hits=136 buckets=1
+[INFO] [1789037590.809232027] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037590.869670457] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6063 in_range=6061 projected=2543 mask_hits=145 detection_id_hits=145 bbox_hits=145 buckets=1
+[INFO] [1789037590.870709720] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.003340248] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6010 in_range=6008 projected=2471 mask_hits=143 detection_id_hits=143 bbox_hits=143 buckets=1
+[INFO] [1789037591.004125773] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.126950451] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5946 in_range=5945 projected=2532 mask_hits=126 detection_id_hits=126 bbox_hits=124 buckets=1
+[INFO] [1789037591.127666872] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.200892880] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5972 in_range=5972 projected=2573 mask_hits=123 detection_id_hits=123 bbox_hits=121 buckets=1
+[INFO] [1789037591.201814445] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.235190361] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037591.099 mask=1789037591.099 ref=1789037591.099 delta=0.000 paired_queue=25
+[INFO] [1789037591.279429749] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5943 in_range=5943 projected=2440 mask_hits=142 detection_id_hits=142 bbox_hits=141 buckets=1
+[INFO] [1789037591.280602084] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.335152849] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5727 in_range=5726 projected=2179 mask_hits=142 detection_id_hits=142 bbox_hits=142 buckets=1
+[INFO] [1789037591.336021641] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.407054145] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5862 in_range=5860 projected=2550 mask_hits=127 detection_id_hits=127 bbox_hits=127 buckets=1
+[INFO] [1789037591.409607646] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.538552000] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6012 in_range=6010 projected=2650 mask_hits=117 detection_id_hits=117 bbox_hits=117 buckets=1
+[INFO] [1789037591.539153387] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.684272853] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5999 in_range=5997 projected=2300 mask_hits=140 detection_id_hits=140 bbox_hits=139 buckets=1
+[INFO] [1789037591.685288077] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.737007794] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5981 in_range=5980 projected=2372 mask_hits=139 detection_id_hits=139 bbox_hits=139 buckets=1
+[INFO] [1789037591.737622308] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.800988075] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5902 in_range=5902 projected=2532 mask_hits=108 detection_id_hits=108 bbox_hits=108 buckets=1
+[INFO] [1789037591.801581340] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037591.871151641] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5755 in_range=5754 projected=2159 mask_hits=136 detection_id_hits=136 bbox_hits=136 buckets=1
+[INFO] [1789037591.871846296] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.011744749] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5734 in_range=5732 projected=2117 mask_hits=135 detection_id_hits=135 bbox_hits=135 buckets=1
+[INFO] [1789037592.014175329] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.082977099] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5734 in_range=5733 projected=2209 mask_hits=135 detection_id_hits=135 bbox_hits=135 buckets=1
+[INFO] [1789037592.083647837] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.135325678] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6035 in_range=6034 projected=2530 mask_hits=141 detection_id_hits=141 bbox_hits=141 buckets=1
+[INFO] [1789037592.136217673] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.212920272] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5984 in_range=5983 projected=2556 mask_hits=123 detection_id_hits=123 bbox_hits=123 buckets=1
+[INFO] [1789037592.213568750] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.272434945] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5654 in_range=5654 projected=2163 mask_hits=121 detection_id_hits=121 bbox_hits=121 buckets=1
+[INFO] [1789037592.273026346] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.351859353] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6044 in_range=6042 projected=2527 mask_hits=130 detection_id_hits=130 bbox_hits=129 buckets=1
+[INFO] [1789037592.352613774] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.478136261] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5946 in_range=5944 projected=2551 mask_hits=122 detection_id_hits=122 bbox_hits=122 buckets=1
+[INFO] [1789037592.483489845] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.552593932] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6000 in_range=5998 projected=2572 mask_hits=126 detection_id_hits=126 bbox_hits=126 buckets=1
+[INFO] [1789037592.553208103] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.607910484] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6072 in_range=6070 projected=2530 mask_hits=135 detection_id_hits=135 bbox_hits=134 buckets=1
+[INFO] [1789037592.608500824] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.662015423] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5781 in_range=5781 projected=2179 mask_hits=134 detection_id_hits=134 bbox_hits=134 buckets=1
+[INFO] [1789037592.662821156] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.744655912] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5979 in_range=5979 projected=2593 mask_hits=126 detection_id_hits=126 bbox_hits=126 buckets=1
+[INFO] [1789037592.745390440] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.814518120] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6015 in_range=6015 projected=2489 mask_hits=140 detection_id_hits=140 bbox_hits=140 buckets=1
+[INFO] [1789037592.815409327] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037592.877096564] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5754 in_range=5753 projected=2210 mask_hits=136 detection_id_hits=136 bbox_hits=136 buckets=1
+[INFO] [1789037592.877943965] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.017518893] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5868 in_range=5866 projected=2318 mask_hits=141 detection_id_hits=141 bbox_hits=141 buckets=1
+[INFO] [1789037593.018536749] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.064027069] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5896 in_range=5895 projected=2295 mask_hits=148 detection_id_hits=148 bbox_hits=148 buckets=1
+[INFO] [1789037593.064682781] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.135982917] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5899 in_range=5899 projected=2544 mask_hits=118 detection_id_hits=118 bbox_hits=118 buckets=1
+[INFO] [1789037593.136722802] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.200513015] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5984 in_range=5984 projected=2375 mask_hits=144 detection_id_hits=144 bbox_hits=144 buckets=1
+[INFO] [1789037593.201420270] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.242435271] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037593.101 mask=1789037593.101 ref=1789037593.101 delta=0.000 paired_queue=25
+[INFO] [1789037593.265226468] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5884 in_range=5883 projected=2335 mask_hits=150 detection_id_hits=150 bbox_hits=150 buckets=1
+[INFO] [1789037593.266578344] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.349175466] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5911 in_range=5909 projected=2556 mask_hits=111 detection_id_hits=111 bbox_hits=110 buckets=1
+[INFO] [1789037593.350055751] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.400177660] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5891 in_range=5890 projected=2238 mask_hits=141 detection_id_hits=141 bbox_hits=140 buckets=1
+[INFO] [1789037593.400871004] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.535311766] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5762 in_range=5762 projected=2138 mask_hits=146 detection_id_hits=146 bbox_hits=145 buckets=1
+[INFO] [1789037593.536229109] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.600666395] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5768 in_range=5767 projected=2156 mask_hits=131 detection_id_hits=131 bbox_hits=130 buckets=1
+[INFO] [1789037593.601264632] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037593.685228065] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5986 in_range=5985 projected=2454 mask_hits=138 detection_id_hits=138 bbox_hits=138 buckets=1
+[INFO] [1789037593.686173071] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037594.947404121] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5991 in_range=5990 projected=2500 mask_hits=150 detection_id_hits=150 bbox_hits=150 buckets=1
+[INFO] [1789037594.948479139] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.012939199] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5975 in_range=5974 projected=2377 mask_hits=146 detection_id_hits=146 bbox_hits=146 buckets=1
+[INFO] [1789037595.013804734] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.077599601] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5817 in_range=5817 projected=2443 mask_hits=110 detection_id_hits=110 bbox_hits=110 buckets=1
+[INFO] [1789037595.078447830] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.137972718] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5838 in_range=5837 projected=2195 mask_hits=135 detection_id_hits=135 bbox_hits=134 buckets=1
+[INFO] [1789037595.138934006] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.203035977] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5982 in_range=5981 projected=2421 mask_hits=137 detection_id_hits=137 bbox_hits=137 buckets=1
+[INFO] [1789037595.203862733] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.251376044] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037595.168 mask=1789037595.168 ref=1789037595.168 delta=0.000 paired_queue=25
+[INFO] [1789037595.336576740] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5918 in_range=5917 projected=2386 mask_hits=128 detection_id_hits=128 bbox_hits=128 buckets=1
+[INFO] [1789037595.337432471] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.413773093] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5912 in_range=5909 projected=2438 mask_hits=132 detection_id_hits=132 bbox_hits=132 buckets=1
+[INFO] [1789037595.414550326] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.527810499] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5982 in_range=5979 projected=2495 mask_hits=125 detection_id_hits=125 bbox_hits=124 buckets=1
+[INFO] [1789037595.532788428] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.607243687] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5979 in_range=5977 projected=2517 mask_hits=130 detection_id_hits=130 bbox_hits=129 buckets=1
+[INFO] [1789037595.608449882] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.673392350] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5951 in_range=5950 projected=2567 mask_hits=130 detection_id_hits=130 bbox_hits=130 buckets=1
+[INFO] [1789037595.674452995] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.744328820] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5658 in_range=5658 projected=2149 mask_hits=120 detection_id_hits=120 bbox_hits=120 buckets=1
+[INFO] [1789037595.744969148] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.814755704] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6039 in_range=6037 projected=2568 mask_hits=130 detection_id_hits=130 bbox_hits=130 buckets=1
+[INFO] [1789037595.815270432] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037595.925574768] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6014 in_range=6012 projected=2633 mask_hits=130 detection_id_hits=130 bbox_hits=130 buckets=1
+[INFO] [1789037595.926255315] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.010759271] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5991 in_range=5988 projected=2574 mask_hits=123 detection_id_hits=123 bbox_hits=122 buckets=1
+[INFO] [1789037596.011696503] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.088104825] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6056 in_range=6052 projected=2533 mask_hits=127 detection_id_hits=127 bbox_hits=124 buckets=1
+[INFO] [1789037596.088760176] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.136729540] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5745 in_range=5743 projected=2203 mask_hits=136 detection_id_hits=136 bbox_hits=135 buckets=1
+[INFO] [1789037596.137742157] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.203728102] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5941 in_range=5939 projected=2539 mask_hits=127 detection_id_hits=127 bbox_hits=127 buckets=1
+[INFO] [1789037596.204837124] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.273899909] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5953 in_range=5951 projected=2427 mask_hits=147 detection_id_hits=147 bbox_hits=141 buckets=1
+[INFO] [1789037596.275031003] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.329243980] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5708 in_range=5707 projected=2159 mask_hits=130 detection_id_hits=130 bbox_hits=129 buckets=1
+[INFO] [1789037596.330175084] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.403481970] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5827 in_range=5826 projected=2526 mask_hits=120 detection_id_hits=120 bbox_hits=119 buckets=1
+[INFO] [1789037596.404217424] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.480593555] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5971 in_range=5970 projected=2361 mask_hits=160 detection_id_hits=160 bbox_hits=159 buckets=1
+[INFO] [1789037596.481785480] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.540914287] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5879 in_range=5879 projected=2285 mask_hits=156 detection_id_hits=156 bbox_hits=154 buckets=1
+[INFO] [1789037596.543055666] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.609303062] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5897 in_range=5896 projected=2567 mask_hits=134 detection_id_hits=134 bbox_hits=133 buckets=1
+[INFO] [1789037596.610269867] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.681969462] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5840 in_range=5839 projected=2211 mask_hits=163 detection_id_hits=163 bbox_hits=162 buckets=1
+[INFO] [1789037596.682899649] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.815297883] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5733 in_range=5732 projected=2119 mask_hits=161 detection_id_hits=161 bbox_hits=158 buckets=1
+[INFO] [1789037596.816560455] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.882311595] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5836 in_range=5834 projected=2200 mask_hits=161 detection_id_hits=161 bbox_hits=160 buckets=1
+[INFO] [1789037596.883410344] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037596.944811392] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6084 in_range=6083 projected=2472 mask_hits=148 detection_id_hits=148 bbox_hits=148 buckets=1
+[INFO] [1789037596.945779956] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.008894126] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5963 in_range=5963 projected=2548 mask_hits=123 detection_id_hits=123 bbox_hits=121 buckets=1
+[INFO] [1789037597.009706270] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.081063406] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5748 in_range=5748 projected=2209 mask_hits=153 detection_id_hits=153 bbox_hits=152 buckets=1
+[INFO] [1789037597.082133546] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.147734407] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6005 in_range=6004 projected=2526 mask_hits=154 detection_id_hits=154 bbox_hits=153 buckets=1
+[INFO] [1789037597.148573139] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.199702392] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5974 in_range=5972 projected=2559 mask_hits=129 detection_id_hits=129 bbox_hits=128 buckets=1
+[INFO] [1789037597.200457325] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.271480950] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5689 in_range=5687 projected=2213 mask_hits=133 detection_id_hits=133 bbox_hits=131 buckets=1
+[INFO] [1789037597.272468299] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.314798328] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037597.171 mask=1789037597.171 ref=1789037597.171 delta=0.000 paired_queue=25
+[INFO] [1789037597.337420206] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6074 in_range=6073 projected=2557 mask_hits=151 detection_id_hits=151 bbox_hits=149 buckets=1
+[INFO] [1789037597.338340154] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.398242629] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6081 in_range=6081 projected=2607 mask_hits=141 detection_id_hits=141 bbox_hits=139 buckets=1
+[INFO] [1789037597.398811719] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.535578276] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6135 in_range=6134 projected=2628 mask_hits=141 detection_id_hits=141 bbox_hits=140 buckets=1
+[INFO] [1789037597.536600954] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.600718431] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6079 in_range=6078 projected=2564 mask_hits=143 detection_id_hits=143 bbox_hits=141 buckets=1
+[INFO] [1789037597.601732085] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.678910548] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5793 in_range=5793 projected=2211 mask_hits=135 detection_id_hits=135 bbox_hits=133 buckets=1
+[INFO] [1789037597.679983013] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.741099747] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5954 in_range=5953 projected=2565 mask_hits=125 detection_id_hits=125 bbox_hits=124 buckets=1
+[INFO] [1789037597.741836464] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.795371265] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5971 in_range=5970 projected=2447 mask_hits=142 detection_id_hits=142 bbox_hits=141 buckets=1
+[INFO] [1789037597.795999414] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.870179988] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5731 in_range=5731 projected=2192 mask_hits=138 detection_id_hits=138 bbox_hits=138 buckets=1
+[INFO] [1789037597.872018819] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037597.936615640] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5955 in_range=5955 projected=2589 mask_hits=121 detection_id_hits=121 bbox_hits=121 buckets=1
+[INFO] [1789037597.938771928] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037598.070273160] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5796 in_range=5794 projected=2577 mask_hits=123 detection_id_hits=123 bbox_hits=121 buckets=1
+[INFO] [1789037598.071717872] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037598.134330133] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5902 in_range=5899 projected=2591 mask_hits=128 detection_id_hits=128 bbox_hits=126 buckets=1
+[INFO] [1789037598.135285560] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037598.208247906] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6008 in_range=6006 projected=2403 mask_hits=146 detection_id_hits=146 bbox_hits=144 buckets=1
+[INFO] [1789037598.209097152] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037598.335310856] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5879 in_range=5877 projected=2295 mask_hits=147 detection_id_hits=147 bbox_hits=146 buckets=1
+[INFO] [1789037598.336073477] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037598.415449910] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5923 in_range=5921 projected=2256 mask_hits=152 detection_id_hits=152 bbox_hits=151 buckets=1
+[INFO] [1789037598.416409112] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037601.920073374] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037601.841 mask=1789037601.841 ref=1789037601.841 delta=0.000 paired_queue=25
+[INFO] [1789037601.945549306] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6013 in_range=6011 projected=2440 mask_hits=154 detection_id_hits=154 bbox_hits=153 buckets=1
+[INFO] [1789037601.946241517] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[WARN] [1789037602.943074888] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037603.131807308] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5352 in_range=5350 projected=2420 mask_hits=108 detection_id_hits=108 bbox_hits=108 buckets=1
+[INFO] [1789037603.132329672] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.204689897] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5936 in_range=5936 projected=2337 mask_hits=128 detection_id_hits=128 bbox_hits=125 buckets=1
+[INFO] [1789037603.205509862] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.278342393] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5856 in_range=5855 projected=2290 mask_hits=141 detection_id_hits=141 bbox_hits=139 buckets=1
+[INFO] [1789037603.279236076] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.329056031] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5890 in_range=5888 projected=2548 mask_hits=112 detection_id_hits=112 bbox_hits=111 buckets=1
+[INFO] [1789037603.329487978] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.409731148] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5858 in_range=5857 projected=2205 mask_hits=137 detection_id_hits=137 bbox_hits=135 buckets=1
+[INFO] [1789037603.410436116] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.543429967] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5732 in_range=5731 projected=2100 mask_hits=144 detection_id_hits=144 bbox_hits=142 buckets=1
+[INFO] [1789037603.544351853] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.665271805] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5984 in_range=5983 projected=2592 mask_hits=114 detection_id_hits=114 bbox_hits=113 buckets=1
+[INFO] [1789037603.665864017] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.807991065] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5967 in_range=5967 projected=2466 mask_hits=125 detection_id_hits=125 bbox_hits=124 buckets=1
+[INFO] [1789037603.808923710] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.891450115] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5971 in_range=5969 projected=2479 mask_hits=123 detection_id_hits=123 bbox_hits=122 buckets=1
+[INFO] [1789037603.893069538] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037603.947347580] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037603.841 mask=1789037603.841 ref=1789037603.841 delta=0.000 paired_queue=25
+[INFO] [1789037603.995636517] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6047 in_range=6044 projected=2535 mask_hits=118 detection_id_hits=118 bbox_hits=116 buckets=1
+[INFO] [1789037603.996066618] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.074189101] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6059 in_range=6058 projected=2534 mask_hits=111 detection_id_hits=111 bbox_hits=110 buckets=1
+[INFO] [1789037604.075146606] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.133220833] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6035 in_range=6035 projected=2567 mask_hits=108 detection_id_hits=108 bbox_hits=107 buckets=1
+[INFO] [1789037604.134025297] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.207217900] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5634 in_range=5634 projected=2134 mask_hits=120 detection_id_hits=120 bbox_hits=118 buckets=1
+[INFO] [1789037604.207948220] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.276426811] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5966 in_range=5965 projected=2535 mask_hits=120 detection_id_hits=120 bbox_hits=120 buckets=1
+[INFO] [1789037604.277064658] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.334973006] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6082 in_range=6080 projected=2506 mask_hits=121 detection_id_hits=121 bbox_hits=117 buckets=1
+[INFO] [1789037604.335528513] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.404924823] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5768 in_range=5767 projected=2178 mask_hits=125 detection_id_hits=125 bbox_hits=122 buckets=1
+[INFO] [1789037604.406647598] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.461897994] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5943 in_range=5940 projected=2555 mask_hits=125 detection_id_hits=125 bbox_hits=122 buckets=1
+[INFO] [1789037604.464452986] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.538205344] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5972 in_range=5969 projected=2441 mask_hits=140 detection_id_hits=140 bbox_hits=138 buckets=1
+[INFO] [1789037604.538874290] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.600906273] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5756 in_range=5756 projected=2178 mask_hits=133 detection_id_hits=133 bbox_hits=132 buckets=1
+[INFO] [1789037604.601747257] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.797424665] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5382 in_range=5380 projected=2345 mask_hits=115 detection_id_hits=115 bbox_hits=113 buckets=1
+[INFO] [1789037604.798315102] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.870991707] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5855 in_range=5852 projected=2554 mask_hits=117 detection_id_hits=117 bbox_hits=113 buckets=1
+[INFO] [1789037604.871938452] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037604.930996091] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5936 in_range=5934 projected=2307 mask_hits=134 detection_id_hits=134 bbox_hits=133 buckets=1
+[INFO] [1789037604.931651970] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.000793151] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5947 in_range=5946 projected=2340 mask_hits=132 detection_id_hits=132 bbox_hits=131 buckets=1
+[INFO] [1789037605.001622547] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.143789132] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6015 in_range=6014 projected=2377 mask_hits=128 detection_id_hits=128 bbox_hits=125 buckets=1
+[INFO] [1789037605.144794659] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.235659202] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6008 in_range=6007 projected=2436 mask_hits=122 detection_id_hits=122 bbox_hits=121 buckets=1
+[INFO] [1789037605.236290091] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.264603065] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5887 in_range=5887 projected=2496 mask_hits=104 detection_id_hits=104 bbox_hits=103 buckets=1
+[INFO] [1789037605.265976241] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.331419650] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5733 in_range=5733 projected=2141 mask_hits=130 detection_id_hits=130 bbox_hits=128 buckets=1
+[INFO] [1789037605.332077784] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.416406311] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5961 in_range=5961 projected=2465 mask_hits=131 detection_id_hits=131 bbox_hits=130 buckets=1
+[INFO] [1789037605.417157472] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.524291656] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5959 in_range=5958 projected=2484 mask_hits=125 detection_id_hits=125 bbox_hits=124 buckets=1
+[INFO] [1789037605.524938279] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.610760390] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5958 in_range=5957 projected=2493 mask_hits=129 detection_id_hits=129 bbox_hits=128 buckets=1
+[INFO] [1789037605.611382043] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.739813280] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6028 in_range=6028 projected=2538 mask_hits=118 detection_id_hits=118 bbox_hits=117 buckets=1
+[INFO] [1789037605.741938161] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.809805319] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6026 in_range=6024 projected=2537 mask_hits=119 detection_id_hits=119 bbox_hits=118 buckets=1
+[INFO] [1789037605.810668008] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.871169766] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5974 in_range=5971 projected=2515 mask_hits=132 detection_id_hits=132 bbox_hits=131 buckets=1
+[INFO] [1789037605.872135440] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.938472266] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5689 in_range=5688 projected=2178 mask_hits=136 detection_id_hits=136 bbox_hits=133 buckets=1
+[INFO] [1789037605.939316915] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037605.991973335] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037605.841 mask=1789037605.841 ref=1789037605.841 delta=0.000 paired_queue=25
+[WARN] [1789037611.136298580] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037611.147737151] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037611.047 mask=1789037611.047 ref=1789037611.047 delta=0.000 paired_queue=25
+[INFO] [1789037611.220255557] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5917 in_range=5915 projected=2521 mask_hits=109 detection_id_hits=109 bbox_hits=108 buckets=1
+[INFO] [1789037611.220997021] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[WARN] [1789037615.193005583] [mid360_mask_3d_extractor_node]: Skipping mask-based extraction: waiting for a recent paired detections2d/instance_mask frame and camera_info. camera_info=yes det_queue=0 mask_queue=0 paired_queue=24
+[INFO] [1789037617.319821670] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037617.187 mask=1789037617.187 ref=1789037617.187 delta=0.000 paired_queue=25
+[INFO] [1789037617.351638268] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5961 in_range=5960 projected=2482 mask_hits=121 detection_id_hits=121 bbox_hits=120 buckets=1
+[INFO] [1789037617.352524419] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.409059903] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5990 in_range=5989 projected=2529 mask_hits=123 detection_id_hits=123 bbox_hits=121 buckets=1
+[INFO] [1789037617.409677280] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.476154344] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5623 in_range=5623 projected=2106 mask_hits=120 detection_id_hits=120 bbox_hits=116 buckets=1
+[INFO] [1789037617.476717474] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.539597422] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6000 in_range=5999 projected=2533 mask_hits=119 detection_id_hits=119 bbox_hits=115 buckets=1
+[INFO] [1789037617.540381421] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.603374680] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6069 in_range=6068 projected=2519 mask_hits=121 detection_id_hits=121 bbox_hits=115 buckets=1
+[INFO] [1789037617.604026169] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.670002872] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5721 in_range=5721 projected=2170 mask_hits=122 detection_id_hits=122 bbox_hits=118 buckets=1
+[INFO] [1789037617.670666601] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.756146601] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5944 in_range=5940 projected=2539 mask_hits=113 detection_id_hits=113 bbox_hits=112 buckets=1
+[INFO] [1789037617.757067302] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.812615388] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5979 in_range=5974 projected=2416 mask_hits=127 detection_id_hits=127 bbox_hits=126 buckets=1
+[INFO] [1789037617.813171327] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.876957804] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5799 in_range=5798 projected=2191 mask_hits=124 detection_id_hits=124 bbox_hits=122 buckets=1
+[INFO] [1789037617.877586539] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037617.949023487] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5861 in_range=5860 projected=2528 mask_hits=111 detection_id_hits=111 bbox_hits=110 buckets=1
+[INFO] [1789037617.949687501] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.140902456] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5224 in_range=5223 projected=2382 mask_hits=108 detection_id_hits=108 bbox_hits=107 buckets=1
+[INFO] [1789037618.141682523] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.207190822] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5879 in_range=5878 projected=2339 mask_hits=132 detection_id_hits=132 bbox_hits=130 buckets=1
+[INFO] [1789037618.208026153] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.281531940] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5922 in_range=5920 projected=2347 mask_hits=133 detection_id_hits=133 bbox_hits=132 buckets=1
+[INFO] [1789037618.282160801] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.344780747] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5875 in_range=5873 projected=2533 mask_hits=108 detection_id_hits=108 bbox_hits=107 buckets=1
+[INFO] [1789037618.345562684] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.402521973] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5838 in_range=5836 projected=2237 mask_hits=129 detection_id_hits=129 bbox_hits=128 buckets=1
+[INFO] [1789037618.403195805] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.467538190] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5921 in_range=5919 projected=2385 mask_hits=139 detection_id_hits=139 bbox_hits=137 buckets=1
+[INFO] [1789037618.468569240] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.535706373] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5955 in_range=5954 projected=2553 mask_hits=113 detection_id_hits=113 bbox_hits=112 buckets=1
+[INFO] [1789037618.536191597] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.611400992] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5756 in_range=5756 projected=2100 mask_hits=141 detection_id_hits=141 bbox_hits=134 buckets=1
+[INFO] [1789037618.612060029] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.668934505] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5963 in_range=5963 projected=2395 mask_hits=142 detection_id_hits=142 bbox_hits=141 buckets=1
+[INFO] [1789037618.669976720] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.735862561] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5938 in_range=5937 projected=2521 mask_hits=133 detection_id_hits=133 bbox_hits=133 buckets=1
+[INFO] [1789037618.736809167] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.809243252] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5645 in_range=5643 projected=2072 mask_hits=160 detection_id_hits=160 bbox_hits=156 buckets=1
+[INFO] [1789037618.810131805] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.884809416] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5918 in_range=5917 projected=2451 mask_hits=149 detection_id_hits=149 bbox_hits=149 buckets=1
+[INFO] [1789037618.885806483] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037618.932640344] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5844 in_range=5844 projected=2474 mask_hits=167 detection_id_hits=167 bbox_hits=162 buckets=1
+[INFO] [1789037618.935907437] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.000041628] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5645 in_range=5645 projected=2167 mask_hits=166 detection_id_hits=166 bbox_hits=166 buckets=1
+[INFO] [1789037619.002839628] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.082834857] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5934 in_range=5932 projected=2460 mask_hits=159 detection_id_hits=159 bbox_hits=159 buckets=1
+[INFO] [1789037619.083806581] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.133452913] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5955 in_range=5950 projected=2494 mask_hits=178 detection_id_hits=178 bbox_hits=176 buckets=1
+[INFO] [1789037619.135095704] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.221808324] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5664 in_range=5661 projected=2154 mask_hits=176 detection_id_hits=176 bbox_hits=173 buckets=1
+[INFO] [1789037619.223004478] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.268387712] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5854 in_range=5854 projected=2424 mask_hits=153 detection_id_hits=153 bbox_hits=149 buckets=1
+[INFO] [1789037619.269089699] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.333821927] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5989 in_range=5989 projected=2444 mask_hits=181 detection_id_hits=181 bbox_hits=172 buckets=1
+[INFO] [1789037619.334680771] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.353271538] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037619.257 mask=1789037619.257 ref=1789037619.257 delta=0.000 paired_queue=25
+[INFO] [1789037619.403041819] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5777 in_range=5777 projected=2212 mask_hits=177 detection_id_hits=177 bbox_hits=175 buckets=1
+[INFO] [1789037619.404294380] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.469263354] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5887 in_range=5886 projected=2512 mask_hits=155 detection_id_hits=155 bbox_hits=155 buckets=1
+[INFO] [1789037619.470690077] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.548710066] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5939 in_range=5937 projected=2386 mask_hits=168 detection_id_hits=168 bbox_hits=163 buckets=1
+[INFO] [1789037619.550287234] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.611012445] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5818 in_range=5816 projected=2192 mask_hits=176 detection_id_hits=176 bbox_hits=168 buckets=1
+[INFO] [1789037619.612219171] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.676643664] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5876 in_range=5873 projected=2523 mask_hits=151 detection_id_hits=151 bbox_hits=146 buckets=1
+[INFO] [1789037619.678315698] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.747639169] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5789 in_range=5787 projected=2260 mask_hits=174 detection_id_hits=174 bbox_hits=168 buckets=1
+[INFO] [1789037619.753616265] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.813155238] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5796 in_range=5795 projected=2209 mask_hits=188 detection_id_hits=188 bbox_hits=181 buckets=1
+[INFO] [1789037619.814203383] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037619.875068134] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5814 in_range=5813 projected=2526 mask_hits=149 detection_id_hits=149 bbox_hits=147 buckets=1
+[INFO] [1789037619.876110610] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.010248502] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5780 in_range=5779 projected=2525 mask_hits=148 detection_id_hits=148 bbox_hits=148 buckets=1
+[INFO] [1789037620.012304458] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.075192100] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5791 in_range=5788 projected=2437 mask_hits=143 detection_id_hits=143 bbox_hits=142 buckets=1
+[INFO] [1789037620.075817571] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.149202565] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5851 in_range=5848 projected=2186 mask_hits=165 detection_id_hits=165 bbox_hits=160 buckets=1
+[INFO] [1789037620.150152018] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.205981515] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5975 in_range=5974 projected=2389 mask_hits=183 detection_id_hits=183 bbox_hits=182 buckets=1
+[INFO] [1789037620.206787002] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.273499771] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5887 in_range=5886 projected=2488 mask_hits=166 detection_id_hits=166 bbox_hits=164 buckets=1
+[INFO] [1789037620.275830783] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.344681703] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5709 in_range=5708 projected=2106 mask_hits=164 detection_id_hits=164 bbox_hits=164 buckets=1
+[INFO] [1789037620.345786925] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.415563016] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5945 in_range=5944 projected=2410 mask_hits=181 detection_id_hits=181 bbox_hits=181 buckets=1
+[INFO] [1789037620.416405009] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.477692198] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5973 in_range=5971 projected=2522 mask_hits=166 detection_id_hits=166 bbox_hits=162 buckets=1
+[INFO] [1789037620.478850845] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.604282327] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5890 in_range=5887 projected=2540 mask_hits=174 detection_id_hits=174 bbox_hits=173 buckets=1
+[INFO] [1789037620.605141958] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.673161036] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5901 in_range=5898 projected=2493 mask_hits=171 detection_id_hits=171 bbox_hits=170 buckets=1
+[INFO] [1789037620.674141878] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.797286546] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5960 in_range=5959 projected=2501 mask_hits=170 detection_id_hits=170 bbox_hits=169 buckets=1
+[INFO] [1789037620.798063150] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.866328367] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5908 in_range=5907 projected=2455 mask_hits=170 detection_id_hits=170 bbox_hits=169 buckets=1
+[INFO] [1789037620.867231917] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037620.940436048] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5667 in_range=5666 projected=2110 mask_hits=162 detection_id_hits=162 bbox_hits=160 buckets=1
+[INFO] [1789037620.941347009] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.000196273] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5884 in_range=5882 projected=2487 mask_hits=146 detection_id_hits=146 bbox_hits=144 buckets=1
+[INFO] [1789037621.001249692] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.075502176] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5905 in_range=5902 projected=2394 mask_hits=180 detection_id_hits=180 bbox_hits=173 buckets=1
+[INFO] [1789037621.076510724] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.141972680] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5748 in_range=5747 projected=2204 mask_hits=172 detection_id_hits=172 bbox_hits=168 buckets=1
+[INFO] [1789037621.142762691] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.215594018] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5858 in_range=5857 projected=2505 mask_hits=142 detection_id_hits=142 bbox_hits=140 buckets=1
+[INFO] [1789037621.216469535] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.284189528] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5952 in_range=5951 projected=2405 mask_hits=178 detection_id_hits=178 bbox_hits=176 buckets=1
+[INFO] [1789037621.284935214] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.332687085] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5835 in_range=5835 projected=2266 mask_hits=183 detection_id_hits=183 bbox_hits=182 buckets=1
+[INFO] [1789037621.333714797] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.353303819] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037621.256 mask=1789037621.256 ref=1789037621.256 delta=0.000 paired_queue=25
+[INFO] [1789037621.407629618] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5847 in_range=5847 projected=2512 mask_hits=141 detection_id_hits=141 bbox_hits=139 buckets=1
+[INFO] [1789037621.408682942] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.478124819] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5814 in_range=5814 projected=2295 mask_hits=186 detection_id_hits=186 bbox_hits=182 buckets=1
+[INFO] [1789037621.479204502] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.544767082] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5768 in_range=5766 projected=2233 mask_hits=188 detection_id_hits=188 bbox_hits=181 buckets=1
+[INFO] [1789037621.546024534] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.620652255] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5809 in_range=5806 projected=2527 mask_hits=154 detection_id_hits=154 bbox_hits=151 buckets=1
+[INFO] [1789037621.622108965] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.686656696] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5878 in_range=5876 projected=2215 mask_hits=169 detection_id_hits=169 bbox_hits=167 buckets=1
+[INFO] [1789037621.688314856] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.745023466] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5951 in_range=5950 projected=2335 mask_hits=175 detection_id_hits=175 bbox_hits=173 buckets=1
+[INFO] [1789037621.745959728] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.813044677] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5943 in_range=5943 projected=2569 mask_hits=158 detection_id_hits=158 bbox_hits=155 buckets=1
+[INFO] [1789037621.814108688] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.878329741] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5767 in_range=5766 projected=2138 mask_hits=158 detection_id_hits=158 bbox_hits=157 buckets=1
+[INFO] [1789037621.879330578] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.948248595] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6005 in_range=6003 projected=2419 mask_hits=163 detection_id_hits=163 bbox_hits=163 buckets=1
+[INFO] [1789037621.949797433] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037621.999181732] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5950 in_range=5949 projected=2563 mask_hits=161 detection_id_hits=161 bbox_hits=161 buckets=1
+[INFO] [1789037622.000771885] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.080275125] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5692 in_range=5692 projected=2109 mask_hits=164 detection_id_hits=164 bbox_hits=164 buckets=1
+[INFO] [1789037622.080866252] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.152073682] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6003 in_range=6003 projected=2476 mask_hits=157 detection_id_hits=157 bbox_hits=157 buckets=1
+[INFO] [1789037622.152733211] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.215175877] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5955 in_range=5955 projected=2538 mask_hits=171 detection_id_hits=171 bbox_hits=171 buckets=1
+[INFO] [1789037622.215812126] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.509162041] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5586 in_range=5586 projected=2178 mask_hits=169 detection_id_hits=169 bbox_hits=168 buckets=1
+[INFO] [1789037622.510577202] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.613443765] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5600 in_range=5599 projected=2046 mask_hits=161 detection_id_hits=161 bbox_hits=160 buckets=1
+[INFO] [1789037622.614596865] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.665924658] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5682 in_range=5681 projected=2144 mask_hits=158 detection_id_hits=158 bbox_hits=152 buckets=1
+[INFO] [1789037622.666797199] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.736147937] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5907 in_range=5906 projected=2512 mask_hits=154 detection_id_hits=154 bbox_hits=147 buckets=1
+[INFO] [1789037622.736910129] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.808477954] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5988 in_range=5986 projected=2410 mask_hits=185 detection_id_hits=185 bbox_hits=180 buckets=1
+[INFO] [1789037622.811490811] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.868111717] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5848 in_range=5846 projected=2221 mask_hits=162 detection_id_hits=162 bbox_hits=161 buckets=1
+[INFO] [1789037622.872700468] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037622.950913087] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5855 in_range=5852 projected=2507 mask_hits=138 detection_id_hits=138 bbox_hits=137 buckets=1
+[INFO] [1789037622.952704385] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.017667856] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5911 in_range=5909 projected=2347 mask_hits=181 detection_id_hits=181 bbox_hits=181 buckets=1
+[INFO] [1789037623.018911241] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.080758097] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5820 in_range=5819 projected=2262 mask_hits=187 detection_id_hits=187 bbox_hits=186 buckets=1
+[INFO] [1789037623.083333018] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.132504324] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5843 in_range=5841 projected=2521 mask_hits=160 detection_id_hits=160 bbox_hits=157 buckets=1
+[INFO] [1789037623.133160023] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.201653507] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5867 in_range=5866 projected=2331 mask_hits=177 detection_id_hits=177 bbox_hits=172 buckets=1
+[INFO] [1789037623.203848153] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.338904053] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5829 in_range=5827 projected=2328 mask_hits=169 detection_id_hits=169 bbox_hits=167 buckets=1
+[INFO] [1789037623.339682117] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.378798218] [mid360_mask_3d_extractor_node]: Paired YOLO frame: det=1789037623.124 mask=1789037623.124 ref=1789037623.124 delta=0.000 paired_queue=25
+[INFO] [1789037623.407442099] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5839 in_range=5837 projected=2208 mask_hits=156 detection_id_hits=156 bbox_hits=154 buckets=1
+[INFO] [1789037623.408134018] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.478061577] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5871 in_range=5871 projected=2328 mask_hits=163 detection_id_hits=163 bbox_hits=162 buckets=1
+[INFO] [1789037623.478815107] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.530699758] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5957 in_range=5956 projected=2539 mask_hits=152 detection_id_hits=152 bbox_hits=150 buckets=1
+[INFO] [1789037623.531419854] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.612311897] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5796 in_range=5795 projected=2118 mask_hits=165 detection_id_hits=165 bbox_hits=160 buckets=1
+[INFO] [1789037623.613243477] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.670580272] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5982 in_range=5982 projected=2407 mask_hits=176 detection_id_hits=176 bbox_hits=169 buckets=1
+[INFO] [1789037623.671314923] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.733050836] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5961 in_range=5961 projected=2552 mask_hits=157 detection_id_hits=157 bbox_hits=157 buckets=1
+[INFO] [1789037623.734622078] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.808177746] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5633 in_range=5632 projected=2064 mask_hits=158 detection_id_hits=158 bbox_hits=158 buckets=1
+[INFO] [1789037623.809020775] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.883116951] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5921 in_range=5919 projected=2466 mask_hits=158 detection_id_hits=158 bbox_hits=157 buckets=1
+[INFO] [1789037623.883870586] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037623.944029348] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5860 in_range=5858 projected=2480 mask_hits=176 detection_id_hits=176 bbox_hits=175 buckets=1
+[INFO] [1789037623.945109235] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.012908942] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5648 in_range=5646 projected=2174 mask_hits=164 detection_id_hits=164 bbox_hits=164 buckets=1
+[INFO] [1789037624.015022453] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.079259143] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5963 in_range=5961 projected=2479 mask_hits=150 detection_id_hits=150 bbox_hits=149 buckets=1
+[INFO] [1789037624.080166658] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.129123092] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5961 in_range=5959 projected=2517 mask_hits=160 detection_id_hits=160 bbox_hits=160 buckets=1
+[INFO] [1789037624.130377920] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.211658433] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5665 in_range=5664 projected=2151 mask_hits=158 detection_id_hits=158 bbox_hits=157 buckets=1
+[INFO] [1789037624.212334706] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.284232593] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5855 in_range=5853 projected=2418 mask_hits=140 detection_id_hits=140 bbox_hits=137 buckets=1
+[INFO] [1789037624.285311612] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.335977488] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=6011 in_range=6008 projected=2488 mask_hits=177 detection_id_hits=177 bbox_hits=177 buckets=1
+[INFO] [1789037624.337019074] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.398472992] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5747 in_range=5746 projected=2212 mask_hits=168 detection_id_hits=168 bbox_hits=168 buckets=1
+[INFO] [1789037624.399285118] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.483229401] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5894 in_range=5892 projected=2508 mask_hits=147 detection_id_hits=147 bbox_hits=145 buckets=1
+[INFO] [1789037624.483886108] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.534175578] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5989 in_range=5986 projected=2389 mask_hits=167 detection_id_hits=167 bbox_hits=166 buckets=1
+[INFO] [1789037624.536098298] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.610817267] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5816 in_range=5815 projected=2190 mask_hits=153 detection_id_hits=153 bbox_hits=153 buckets=1
+[INFO] [1789037624.611833384] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.678367900] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5810 in_range=5810 projected=2492 mask_hits=129 detection_id_hits=129 bbox_hits=129 buckets=1
+[INFO] [1789037624.679024307] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.745950741] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5829 in_range=5829 projected=2309 mask_hits=167 detection_id_hits=167 bbox_hits=166 buckets=1
+[INFO] [1789037624.747046858] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.815029742] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5815 in_range=5814 projected=2246 mask_hits=169 detection_id_hits=169 bbox_hits=169 buckets=1
+[INFO] [1789037624.816177286] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.867891104] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5807 in_range=5805 projected=2544 mask_hits=149 detection_id_hits=149 bbox_hits=149 buckets=1
+[INFO] [1789037624.869374003] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.946857668] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5776 in_range=5775 projected=2225 mask_hits=168 detection_id_hits=168 bbox_hits=167 buckets=1
+[INFO] [1789037624.947558202] [mid360_mask_3d_extractor_node]: Finalize detections: buckets=1 rejected_low_points=0 rejected_size=0 accepted=1
+[INFO] [1789037624.997640864] [mid360_mask_3d_extractor_node]: Mask extraction stats: cloud_points=5915 in_range=5913 projected=2332 mask_hits=172 detection_id_hits=172 bbox_hits=171 buckets=1
+[INFO] [1789037624.999458929] [mid360_mask_3d_extractor_node]: Finalize detectio

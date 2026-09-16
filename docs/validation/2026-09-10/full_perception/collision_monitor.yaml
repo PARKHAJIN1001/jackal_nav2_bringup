@@ -1,0 +1,57 @@
+/collision_monitor:
+  ros__parameters:
+    /bond_disable_heartbeat_timeout: true
+    Slow:
+      action_type: slowdown
+      enabled: true
+      max_points: 2
+      points:
+      - 1.0
+      - 0.8
+      - 1.0
+      - -0.8
+      - -1.0
+      - -0.8
+      - -1.0
+      - 0.8
+      polygon_pub_topic: /nav2/safety_slow_polygon
+      slowdown_ratio: 0.3
+      type: polygon
+      visualize: true
+    Stop:
+      action_type: stop
+      enabled: true
+      max_points: 2
+      points:
+      - 0.6
+      - 0.5
+      - 0.6
+      - -0.5
+      - -0.6
+      - -0.5
+      - -0.6
+      - 0.5
+      polygon_pub_topic: /nav2/safety_stop_polygon
+      type: polygon
+      visualize: true
+    base_frame_id: base_link
+    base_shift_correction: false
+    cmd_vel_in_topic: /nav2_cmd_vel_unstamped
+    cmd_vel_out_topic: /nav2/collision_checked_cmd_vel
+    observation_sources:
+    - raw_lidar
+    odom_frame_id: odom
+    polygons:
+    - Stop
+    - Slow
+    raw_lidar:
+      enabled: true
+      max_height: 1.8
+      min_height: 0.1
+      topic: /nav2/safety_points
+      type: pointcloud
+    source_timeout: 0.3
+    stop_pub_timeout: 2.0
+    transform_tolerance: 0.05
+    use_sim_time: false
+

@@ -1,0 +1,49 @@
+static_tf:
+  publish_sensor_static_tf: true
+  publish_base_to_lidar_tf: true
+  publish_lidar_to_camera_tf: true
+  publish_lidar_to_imu_tf: false
+
+  base_frame: "base_link"
+  lidar_frame: "livox_frame"
+  imu_frame: "livox_imu_frame"
+
+  # Source-of-truth calibration in this workspace is the point-transform
+  # convention `camera_color_optical_frame <- livox_frame` from `extrinsic_path`.
+  # When publishing TF with parent `livox_frame`, the launch inverts that matrix
+  # first and then derives a bridge transform to `camera_frame` so the camera
+  # driver can keep owning the optical subtree below `camera_link`.
+  camera_frame: "camera_link"
+  camera_optical_frame: "camera_color_optical_frame"
+  extrinsic_path: "~/data/calib/extrinsic.txt"
+
+  # Default RealSense `camera_link -> camera_color_optical_frame` transform used
+  # only to derive `livox_frame -> camera_link` from the inverted TF-form
+  # optical extrinsic. If the camera driver calibration changes, update this
+  # block too.
+  camera_link_to_optical:
+    x: -0.00025368519709445536
+    y: -0.05896548181772232
+    z: 0.00007648221799172461
+    qx: 0.50010173
+    qy: -0.49984205
+    qz: 0.50031636
+    qw: -0.49973965
+
+  base_to_lidar:
+    x: 0.0
+    y: 0.0
+    z: 0.9
+    qx: 0.0
+    qy: 0.25881904510252074
+    qz: 0.0
+    qw: 0.9659258262890683
+
+  lidar_to_imu:
+    x: 0.04165
+    y: 0.02326
+    z: -0.0284
+    qx: 0.0
+    qy: 0.0
+    qz: 0.0
+    qw: 1.0

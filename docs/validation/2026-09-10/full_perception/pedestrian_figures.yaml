@@ -1,0 +1,7 @@
+/pedestrian_figures:
+  ros__parameters:
+    output_topic: /nav2/pedestrian_figures
+    target_frame: odom
+    tracks_topic: /ped_tracking
+    use_sim_time: false
+

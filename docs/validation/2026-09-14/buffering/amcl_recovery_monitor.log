@@ -1,0 +1,77 @@
+[INFO] [1789369055.926343251] [amcl_recovery_monitor]: AMCL Recovery Monitor started.
+[WARN] [1789369172.072645404] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.5276). Triggering recovery.
+[INFO] [1789369172.073547146] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369210.553495096] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.0391). Triggering recovery.
+[INFO] [1789369210.554300904] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369239.962292444] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 2.4977). Triggering recovery.
+[INFO] [1789369239.962731819] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369258.491709463] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 2.1329). Triggering recovery.
+[INFO] [1789369258.492557022] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369276.613413286] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.0781). Triggering recovery.
+[INFO] [1789369276.614297027] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369291.837878155] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.9531). Triggering recovery.
+[INFO] [1789369291.838717048] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369324.628655654] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.9070). Triggering recovery.
+[INFO] [1789369324.629496506] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369357.702009596] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8473). Triggering recovery.
+[INFO] [1789369357.702526010] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369372.484675199] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.9539). Triggering recovery.
+[INFO] [1789369372.485531985] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369384.610482701] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.9037). Triggering recovery.
+[INFO] [1789369384.611295451] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369393.512904245] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.1099). Triggering recovery.
+[INFO] [1789369393.513446841] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369402.701777221] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.4667). Triggering recovery.
+[INFO] [1789369402.702497754] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369408.609452075] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8187). Triggering recovery.
+[INFO] [1789369408.610358814] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369414.521807937] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.7230). Triggering recovery.
+[INFO] [1789369414.522666046] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369432.579469094] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8173). Triggering recovery.
+[INFO] [1789369432.580405096] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369442.162152512] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.1265). Triggering recovery.
+[INFO] [1789369442.163024125] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369450.712160507] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8306). Triggering recovery.
+[INFO] [1789369450.712804882] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369456.578438581] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8843). Triggering recovery.
+[INFO] [1789369456.579344833] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369462.561121134] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8114). Triggering recovery.
+[INFO] [1789369462.562046581] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369483.471466202] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8866). Triggering recovery.
+[INFO] [1789369483.472373746] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369504.872554184] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8289). Triggering recovery.
+[INFO] [1789369504.873400272] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369528.654217364] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.0149). Triggering recovery.
+[INFO] [1789369528.654890736] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369537.509466796] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.9311). Triggering recovery.
+[INFO] [1789369537.510095878] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369543.540835595] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 7.5608). Triggering recovery.
+[INFO] [1789369543.541775681] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369561.587328408] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 8.1293). Triggering recovery.
+[INFO] [1789369561.587861618] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369579.599879019] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 8.2049). Triggering recovery.
+[INFO] [1789369579.600818858] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369585.495052481] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.9913). Triggering recovery.
+[INFO] [1789369585.495846318] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369591.509194141] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.6208). Triggering recovery.
+[INFO] [1789369591.509680259] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369603.498030442] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.9544). Triggering recovery.
+[INFO] [1789369603.498935089] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369609.536561098] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.9924). Triggering recovery.
+[INFO] [1789369609.537168691] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369621.772649721] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8195). Triggering recovery.
+[INFO] [1789369621.773499276] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369627.581981890] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.4082). Triggering recovery.
+[INFO] [1789369627.582881404] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369639.496347771] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 1.2973). Triggering recovery.
+[INFO] [1789369639.497107905] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369651.714946541] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8469). Triggering recovery.
+[INFO] [1789369651.715886883] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369663.629166916] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8820). Triggering recovery.
+[INFO] [1789369663.630050316] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369676.236794870] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.9383). Triggering recovery.
+[INFO] [1789369676.238386274] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369684.549148867] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8788). Triggering recovery.
+[INFO] [1789369684.549882621] [amcl_recovery_monitor]: Recovery pose published on /initialpose.
+[WARN] [1789369691.354977612] [amcl_recovery_monitor]: Localization quality degraded (Max Cov: 0.8503). Triggering recovery.
+[INFO] [1789369691.355768282] [amcl_recovery_monitor]: Recovery pose published on /initialpose.

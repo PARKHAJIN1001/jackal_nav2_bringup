@@ -1,0 +1,164 @@
+{
+  "duration_sec": 60.12143577399911,
+  "topics": {
+    "/static_costmap/costmap": {
+      "messages": 40,
+      "max_gap_sec": 2.0098857980010507,
+      "last_received": 21801.117664046,
+      "latest_digest": "73078ec40e19c0ed03c95bdabdffc408384504a268bd108aadfe522eda2c0040",
+      "shape": [
+        1224,
+        528
+      ],
+      "latest_origin": [
+        -57.6,
+        -18.7
+      ],
+      "cell_changes": 0,
+      "origin_changes": 0,
+      "receipt_silence_sec": 0.26590261299861595
+    },
+    "/j100_0519/nav2_cmd_vel": {
+      "messages": 1192,
+      "max_gap_sec": 0.07633243199961726,
+      "last_received": 21801.383471603,
+      "nonfinite": 0,
+      "nonzero": 0,
+      "receipt_silence_sec": 9.505599882686511e-05
+    },
+    "/nav2/lidar_relay_diagnostics": {
+      "messages": 119,
+      "max_gap_sec": 0.5027020790003007,
+      "last_received": 21800.890937061,
+      "levels": {
+        "b'\\x00'": 119
+      },
+      "reasons": {
+        "fresh": 119
+      },
+      "latest_values": {
+        "received_count": "8604.000000",
+        "measurement_stamp_sec": "1789374786.840703",
+        "measurement_age_sec": "0.074319",
+        "age_at_receipt_sec": "0.071003",
+        "receipt_silence_sec": "0.003318",
+        "last_interval_sec": "0.065986",
+        "max_interval_sec": "0.332486",
+        "stamp_regressions": "0.000000",
+        "clock_regressions": "0.000000"
+      },
+      "receipt_silence_sec": 0.4926295979967108
+    },
+    "/map": {
+      "messages": 1,
+      "max_gap_sec": 0,
+      "last_received": 21741.960131386,
+      "latest_digest": "da9e96ecb94a47e799e27c19ff5853cd40923be70789530d71cf7c4947dcacde",
+      "shape": [
+        1224,
+        528
+      ],
+      "latest_origin": [
+        -57.6,
+        -18.7
+      ],
+      "receipt_silence_sec": 59.42343527299818
+    },
+    "/local_costmap/costmap": {
+      "messages": 100,
+      "max_gap_sec": 0.601010980000865,
+      "last_received": 21801.137096782,
+      "latest_digest": "2c9d9a18b6e47dc414f7bc18b0e1737c5464701d0d22e3293263bc0ce205763d",
+      "shape": [
+        80,
+        80
+      ],
+      "latest_origin": [
+        -2.050000000372529,
+        -1.9500000003725293
+      ],
+      "cell_changes": 7,
+      "origin_changes": 3,
+      "receipt_silence_sec": 0.24646987699816236
+    },
+    "/global_costmap/costmap": {
+      "messages": 39,
+      "max_gap_sec": 2.014576579000277,
+      "last_received": 21800.11760999,
+      "latest_digest": "7f9dab0584ceb9dfd8b219d171add6b011fd29b927462efa47765afe806bf482",
+      "shape": [
+        1224,
+        528
+      ],
+      "latest_origin": [
+        -57.6,
+        -18.7
+      ],
+      "cell_changes": 0,
+      "origin_changes": 0,
+      "receipt_silence_sec": 1.2659566689981148
+    },
+    "/nav2/safety_diagnostics": {
+      "messages": 58,
+      "max_gap_sec": 1.0553009559989732,
+      "last_received": 21800.983760579,
+      "levels": {
+        "b'\\x01'": 58
+      },
+      "reasons": {
+        "independent_stop": 55,
+        "tf_stale:map->odom": 3
+      },
+      "latest_values": {
+        "enable_motion": "False",
+        "sensor_error": "",
+        "raw_sensor_stamp_age": "0.09855866432189941",
+        "raw_sensor_receipt_age": "0.026201996999589028",
+        "sensor_stamp_age": "0.09855866432189941",
+        "sensor_receipt_age": "0.026201996999589028",
+        "command_receipt_age": "missing",
+        "filtered_points": "7458",
+        "stop_points": "192"
+      },
+      "receipt_silence_sec": 0.39980607999677886
+    },
+    "/ped_tracking": {
+      "messages": 859,
+      "max_gap_sec": 0.09732448199792998,
+      "last_received": 21801.372190179,
+      "frames": {
+        "odom": 859
+      },
+      "nonempty": 859,
+      "max_people": 5,
+      "latest_ids": [
+        410,
+        418,
+        419
+      ],
+      "receipt_silence_sec": 0.011376479997124989
+    },
+    "/nav2/localization_diagnostics": {
+      "messages": 7,
+      "max_gap_sec": 4.471912118002365,
+      "last_received": 21800.172880006,
+      "levels": {
+        "b'\\x00'": 7
+      },
+      "reasons": {
+        "covariance_below_limits_not_accuracy_verification": 7
+      },
+      "latest_values": {
+        "pose_stamp_sec": "1789374786.1072292",
+        "pose_age_sec": "0.0898599624633789",
+        "variance_x_m2": "0.25704092555685065",
+        "variance_y_m2": "0.0028800726389716647",
+        "variance_yaw_rad2": "0.012264566030844387",
+        "automatic_reinitialization": "False"
+      },
+      "receipt_silence_sec": 1.2106866529975377
+    }
+  },
+  "read_only": true,
+  "motion_commands_published": false
+}

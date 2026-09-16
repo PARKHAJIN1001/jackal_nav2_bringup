@@ -1,0 +1,108 @@
+Arguments (pass arguments as '<name>:=<value>'):
+
+    'map':
+        Absolute path to the occupancy-grid map YAML
+
+    'params_file':
+        no description given
+        (default: '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/share/jackal_nav2_bringup/config/nav2_params.yaml')
+
+    'use_sim_time':
+        no description given
+        (default: 'false')
+
+    'autostart':
+        no description given
+        (default: 'true')
+
+    'use_respawn':
+        no description given
+        (default: 'false')
+
+    'use_composition':
+        no description given
+        (default: 'true')
+
+    'container_name':
+        no description given
+        (default: 'nav2_container')
+
+    'log_level':
+        no description given
+        (default: 'info')
+
+    'use_rviz':
+        no description given
+        (default: 'true')
+
+    'rviz_config':
+        no description given
+        (default: '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/share/jackal_nav2_bringup/rviz/jackal_nav2.rviz')
+
+    'fast_livo_odom_topic':
+        no description given
+        (default: '/aft_mapped_to_init')
+
+    'nav_odom_topic':
+        no description given
+        (default: '/odom')
+
+    'use_map_patch':
+        no description given
+        (default: 'true')
+
+    'enable_motion':
+        no description given
+        (default: 'false')
+
+    'use_amcl_quality_monitor':
+        no description given
+        (default: 'true')
+
+    'safety_params_file':
+        no description given
+        (default: '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/share/jackal_nav2_bringup/config/nav2_safety.yaml')
+
+    'use_pedestrian_figures':
+        no description given
+        (default: 'true')
+
+    'use_pedestrian_traces':
+        no description given
+        (default: 'true')
+
+    'tracks_topic':
+        no description given
+        (default: '/ped_tracking')
+
+    'traces_topic':
+        no description given
+        (default: '/ped_traces')
+
+    'pedestrian_viz_params_file':
+        no description given
+        (default: '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/share/jackal_nav2_bringup/config/pedestrian_viz.yaml')
+
+    'use_scan_projection':
+        no description given
+        (default: 'true')
+
+    'use_lidar_relay':
+        no description given
+        (default: 'true')
+
+    'raw_lidar_topic':
+        no description given
+        (default: '/livox/lidar')
+
+    'lidar_pointcloud_topic':
+        Auto: relay output when enabled, raw_lidar_topic otherwise; set explicitly for an external/custom relay
+        (default: '')
+
+    'scan_topic':
+        no description given
+        (default: '/scan')
+
+    'nav_cmd_vel_topic':
+        no description given
+        (default: '/j100_0519/nav2_cmd_vel')

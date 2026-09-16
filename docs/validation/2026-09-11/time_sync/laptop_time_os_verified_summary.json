@@ -1,0 +1,42 @@
+{
+  "source": "/tmp/nav2_connected_20260911_ivpM2r/laptop_time_os_verified.json",
+  "samples": 7,
+  "start_utc": "2026-09-11T08:11:36.646224+00:00",
+  "duration_sec": 107.12850155099295,
+  "nuc_system_minus_served_ntp_sec_range": [
+    -0.005240917205810547,
+    0.03680992126464844
+  ],
+  "max_abs_served_ntp_offset_sec": 0.03680992126464844,
+  "direct_host_samples": 7,
+  "nuc_minus_laptop_system_sec_range": [
+    -0.001189632,
+    0.016311552
+  ],
+  "max_abs_host_offset_sec": 0.016311552,
+  "max_host_roundtrip_sec": 0.001534591,
+  "max_adjtime_pending_sec": 0.0,
+  "max_chrony_remaining_correction_sec": 0.021362737,
+  "max_lan_response_root_distance_sec": 0.10871124267578125,
+  "tracking_skew_ppm_range": [
+    28.878,
+    45.423
+  ],
+  "packet_counts": [
+    27,
+    28,
+    28,
+    29,
+    29,
+    30,
+    30
+  ],
+  "ignored_packet_counts_observed": [
+    27
+  ],
+  "host_offset_over_20ms_samples": 0,
+  "remaining_over_5ms_samples": 1,
+  "root_distance_over_5s_samples": 0,
+  "errors": [],
+  "meaning": "Served NTP estimate is NOT laptop OS time. Only host_clock measures OS-to-OS offset. Sampled pre-ROS window, not continuous/reboot/ROS validation."
+}

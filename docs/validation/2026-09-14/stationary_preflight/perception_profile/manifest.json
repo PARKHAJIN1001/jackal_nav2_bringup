@@ -1,0 +1,18 @@
+{
+  "source_share": "/home/parkhajin/moai_navigation_ws/install/mid360_bringup/share/mid360_bringup",
+  "sources": {
+    "lidar_preprocess.yaml": {
+      "sha256": "857b73f5d8cc104cdbcd7dfdba2e2c991c9075682a489f865504bdeb56e34ccd",
+      "overrides": {
+        "input_cloud_topic": "/livox/lidar_local"
+      }
+    },
+    "mask_3d_extractor.yaml": {
+      "sha256": "a3c567243ffc3c549610195f5ea3b23af73a67408e6567b1373b804d42e29c36",
+      "overrides": {
+        "tracking_frame": "odom",
+        "use_latest_tf_fallback": false
+      }
+    }
+  }
+}

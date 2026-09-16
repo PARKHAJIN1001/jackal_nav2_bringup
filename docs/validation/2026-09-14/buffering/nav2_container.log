@@ -1,0 +1,713 @@
+[INFO] [1789369056.097358762] [nav2_container]: Load Library: /opt/ros/humble/lib/libmap_server_core.so
+[INFO] [1789369056.113657854] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_map_server::CostmapFilterInfoServer>
+[INFO] [1789369056.113711438] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_map_server::MapSaver>
+[INFO] [1789369056.113727290] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_map_server::MapServer>
+[INFO] [1789369056.113730021] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_map_server::MapServer>
+[INFO] [1789369056.142546952] [map_server]: 
+	map_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369056.142609238] [map_server]: Creating
+[INFO] [1789369056.145331853] [nav2_container]: Load Library: /opt/ros/humble/lib/libamcl_core.so
+[INFO] [1789369056.147947268] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_amcl::AmclNode>
+[INFO] [1789369056.147989516] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_amcl::AmclNode>
+[INFO] [1789369056.792583022] [amcl]: 
+	amcl lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369056.793243588] [amcl]: Creating
+[INFO] [1789369056.809350804] [nav2_container]: Load Library: /opt/ros/humble/lib/libcontroller_server_core.so
+[INFO] [1789369056.810803556] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_controller::ControllerServer>
+[INFO] [1789369056.810820500] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_controller::ControllerServer>
+[INFO] [1789369057.326093848] [controller_server]: 
+	controller_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369057.331790360] [controller_server]: Creating controller server
+[INFO] [1789369057.451173848] [local_costmap.local_costmap]: 
+	local_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369057.451803102] [local_costmap.local_costmap]: Creating Costmap
+[INFO] [1789369057.455687267] [nav2_container]: Load Library: /opt/ros/humble/lib/libpointcloud_to_laserscan.so
+[INFO] [1789369057.456223163] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<pointcloud_to_laserscan::PointCloudToLaserScanNode>
+[INFO] [1789369057.456239005] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<pointcloud_to_laserscan::PointCloudToLaserScanNode>
+[INFO] [1789369057.531265266] [pointcloud_to_laserscan]: Got a subscriber to laserscan, starting pointcloud subscriber
+[INFO] [1789369057.531623748] [nav2_container]: Load Library: /opt/ros/humble/lib/libnav2_lifecycle_manager_core.so
+[INFO] [1789369057.532292620] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_lifecycle_manager::LifecycleManager>
+[INFO] [1789369057.532316656] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_lifecycle_manager::LifecycleManager>
+[INFO] [1789369057.555220594] [lifecycle_manager_localization]: Creating
+[INFO] [1789369057.562185531] [lifecycle_manager_localization]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[INFO] [1789369057.562379897] [nav2_container]: Load Library: /opt/ros/humble/lib/libsmoother_server_core.so
+[INFO] [1789369057.563626544] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_smoother::SmootherServer>
+[INFO] [1789369057.563654638] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_smoother::SmootherServer>
+[INFO] [1789369057.575503804] [lifecycle_manager_localization]: [34m[1mStarting managed nodes bringup...[0m[0m
+[INFO] [1789369057.575580998] [lifecycle_manager_localization]: [34m[1mConfiguring map_server[0m[0m
+[INFO] [1789369057.575787876] [map_server]: Configuring
+[INFO] [1789369057.575842370] [map_io]: Loading yaml file: /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.yaml
+[INFO] [1789369057.576009411] [map_io]: resolution: 0.05
+[INFO] [1789369057.576014193] [map_io]: origin[0]: -57.6
+[INFO] [1789369057.576016579] [map_io]: origin[1]: -18.7
+[INFO] [1789369057.576018924] [map_io]: origin[2]: 0
+[INFO] [1789369057.576021214] [map_io]: free_thresh: 0.25
+[INFO] [1789369057.576023447] [map_io]: occupied_thresh: 0.65
+[INFO] [1789369057.576025844] [map_io]: mode: trinary
+[INFO] [1789369057.576028614] [map_io]: negate: 0
+[INFO] [1789369057.576151391] [map_io]: Loading image_file: /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.pgm
+[INFO] [1789369057.613754377] [smoother_server]: 
+	smoother_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369057.615446982] [smoother_server]: Creating smoother server
+[INFO] [1789369057.618514836] [map_io]: Read map /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.pgm: 1224 X 528 map @ 0.05 m/cell
+[INFO] [1789369057.621294558] [nav2_container]: Load Library: /opt/ros/humble/lib/libplanner_server_core.so
+[INFO] [1789369057.621839733] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_planner::PlannerServer>
+[INFO] [1789369057.621851511] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_planner::PlannerServer>
+[INFO] [1789369057.628108197] [lifecycle_manager_localization]: [34m[1mConfiguring amcl[0m[0m
+[INFO] [1789369057.628225886] [amcl]: Configuring
+[INFO] [1789369057.628287860] [amcl]: initTransforms
+[INFO] [1789369057.666031035] [amcl]: initPubSub
+[INFO] [1789369057.686940769] [amcl]: Subscribed to map topic.
+[INFO] [1789369057.697792577] [planner_server]: 
+	planner_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369057.699182312] [planner_server]: Creating
+[INFO] [1789369057.711222587] [lifecycle_manager_localization]: [34m[1mActivating map_server[0m[0m
+[INFO] [1789369057.711372690] [map_server]: Activating
+[INFO] [1789369057.711936580] [map_server]: Creating bond (map_server) to lifecycle manager.
+[INFO] [1789369057.712222541] [amcl]: Received a 1224 X 528 map @ 0.050 m/pix
+[INFO] [1789369057.775428805] [global_costmap.global_costmap]: 
+	global_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369057.775837930] [global_costmap.global_costmap]: Creating Costmap
+[INFO] [1789369057.779589811] [nav2_container]: Load Library: /opt/ros/humble/lib/libbehavior_server_core.so
+[INFO] [1789369057.781494718] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<behavior_server::BehaviorServer>
+[INFO] [1789369057.781511525] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<behavior_server::BehaviorServer>
+[INFO] [1789369057.821025678] [lifecycle_manager_localization]: Server map_server connected with bond.
+[INFO] [1789369057.821070340] [lifecycle_manager_localization]: [34m[1mActivating amcl[0m[0m
+[INFO] [1789369057.821289880] [amcl]: Activating
+[INFO] [1789369057.821329225] [amcl]: Creating bond (amcl) to lifecycle manager.
+[INFO] [1789369057.833176358] [behavior_server]: 
+	behavior_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369057.838667385] [nav2_container]: Load Library: /opt/ros/humble/lib/libbt_navigator_core.so
+[INFO] [1789369057.839698267] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_bt_navigator::BtNavigator>
+[INFO] [1789369057.839712321] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_bt_navigator::BtNavigator>
+[INFO] [1789369057.916546999] [bt_navigator]: 
+	bt_navigator lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369057.916628595] [bt_navigator]: Creating
+[INFO] [1789369057.919897784] [nav2_container]: Load Library: /opt/ros/humble/lib/libwaypoint_follower_core.so
+[INFO] [1789369057.920476781] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_waypoint_follower::WaypointFollower>
+[INFO] [1789369057.920494858] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_waypoint_follower::WaypointFollower>
+[INFO] [1789369057.941378771] [lifecycle_manager_localization]: Server amcl connected with bond.
+[INFO] [1789369057.941413163] [lifecycle_manager_localization]: [34m[1mManaged nodes are active[0m[0m
+[INFO] [1789369057.941423598] [lifecycle_manager_localization]: [34m[1mCreating bond timer...[0m[0m
+[INFO] [1789369058.000733405] [waypoint_follower]: 
+	waypoint_follower lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369058.001451216] [waypoint_follower]: Creating
+[INFO] [1789369058.003848875] [nav2_container]: Load Library: /opt/ros/humble/lib/libvelocity_smoother_core.so
+[INFO] [1789369058.005031087] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_velocity_smoother::VelocitySmoother>
+[INFO] [1789369058.005066629] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_velocity_smoother::VelocitySmoother>
+[INFO] [1789369058.086616533] [velocity_smoother]: 
+	velocity_smoother lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789369058.088764124] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_lifecycle_manager::LifecycleManager>
+[INFO] [1789369058.088784297] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_lifecycle_manager::LifecycleManager>
+[INFO] [1789369058.142689266] [lifecycle_manager_navigation]: Creating
+[INFO] [1789369058.148272663] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[INFO] [1789369058.719667464] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369057.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369059.491785379] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[INFO] [1789369059.491862545] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[INFO] [1789369059.492193917] [controller_server]: Configuring controller interface
+[INFO] [1789369059.492589762] [controller_server]: getting goal checker plugins..
+[INFO] [1789369059.493145647] [controller_server]: Controller frequency set to 20.0000Hz
+[INFO] [1789369059.493235870] [local_costmap.local_costmap]: Configuring
+[INFO] [1789369059.515526444] [local_costmap.local_costmap]: Using plugin "static_layer"
+[INFO] [1789369059.523844650] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1789369059.532203931] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[INFO] [1789369059.532276011] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[INFO] [1789369059.534006451] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1789369059.603866569] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 1224 X 528 at 0.050000 m/pix
+[INFO] [1789369059.603880626] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[INFO] [1789369059.605467223] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[INFO] [1789369059.606117043] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[INFO] [1789369059.608266812] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[INFO] [1789369059.611357021] [controller_server]: Setting transform_tolerance to 0.200000
+[INFO] [1789369059.665106572] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[INFO] [1789369059.667135433] [controller_server]: Critic plugin initialized
+[INFO] [1789369059.667527910] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[INFO] [1789369059.668948741] [controller_server]: Critic plugin initialized
+[INFO] [1789369059.669436787] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[INFO] [1789369059.670221663] [controller_server]: Critic plugin initialized
+[INFO] [1789369059.670761018] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[INFO] [1789369059.671795206] [controller_server]: Critic plugin initialized
+[INFO] [1789369059.672069900] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[INFO] [1789369059.672967048] [controller_server]: Critic plugin initialized
+[INFO] [1789369059.673374833] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[INFO] [1789369059.674067255] [controller_server]: Critic plugin initialized
+[INFO] [1789369059.674391256] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[INFO] [1789369059.675123259] [controller_server]: Critic plugin initialized
+[INFO] [1789369059.675171581] [controller_server]: Controller Server has FollowPath  controllers available.
+[INFO] [1789369059.718790917] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[INFO] [1789369059.719042980] [smoother_server]: Configuring smoother server
+[INFO] [1789369059.754375347] [amcl]: createLaserObject
+[INFO] [1789369059.759529975] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+[INFO] [1789369059.761352803] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+[INFO] [1789369059.808984147] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[INFO] [1789369059.809245566] [planner_server]: Configuring
+[INFO] [1789369059.809305214] [global_costmap.global_costmap]: Configuring
+[INFO] [1789369059.833966403] [global_costmap.global_costmap]: Using plugin "static_layer"
+[INFO] [1789369059.836655613] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1789369059.844295631] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[INFO] [1789369059.844348932] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[INFO] [1789369059.846083240] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[WARN] [1789369059.849737186] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[INFO] [1789369059.917683358] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 1224 X 528 at 0.050000 m/pix
+[INFO] [1789369059.918562155] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner/NavfnPlanner
+[INFO] [1789369059.918630628] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[INFO] [1789369059.920978827] [planner_server]: Planner Server has GridBased  planners available.
+[INFO] [1789369060.032565190] [lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[INFO] [1789369060.032746701] [behavior_server]: Configuring
+[INFO] [1789369060.078496583] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors/Spin
+[INFO] [1789369060.079320714] [behavior_server]: Configuring spin
+[INFO] [1789369060.149927720] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors/BackUp
+[INFO] [1789369060.151059251] [behavior_server]: Configuring backup
+[INFO] [1789369060.201244295] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors/DriveOnHeading
+[INFO] [1789369060.202014027] [behavior_server]: Configuring drive_on_heading
+[INFO] [1789369060.254667558] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors/AssistedTeleop
+[INFO] [1789369060.256524449] [behavior_server]: Configuring assisted_teleop
+[INFO] [1789369060.330696230] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors/Wait
+[INFO] [1789369060.331725684] [behavior_server]: Configuring wait
+[INFO] [1789369060.397308812] [lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[INFO] [1789369060.397503517] [bt_navigator]: Configuring
+[INFO] [1789369061.041901042] [lifecycle_manager_navigation]: [34m[1mConfiguring waypoint_follower[0m[0m
+[INFO] [1789369061.042172389] [waypoint_follower]: Configuring
+[INFO] [1789369061.189875231] [waypoint_follower]: Created waypoint_task_executor : wait_at_waypoint of type nav2_waypoint_follower::WaitAtWaypoint
+[INFO] [1789369061.191187829] [lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[INFO] [1789369061.191349694] [velocity_smoother]: Configuring velocity smoother
+[INFO] [1789369061.232124947] [lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[INFO] [1789369061.232358382] [controller_server]: Activating
+[INFO] [1789369061.232397880] [local_costmap.local_costmap]: Activating
+[INFO] [1789369061.232410511] [local_costmap.local_costmap]: Checking transform
+[INFO] [1789369061.232503093] [local_costmap.local_costmap]: start
+[INFO] [1789369061.324763141] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369060.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[ERROR] [1789369061.535346307] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369061.582629761] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[INFO] [1789369061.714519184] [lifecycle_manager_navigation]: Server controller_server connected with bond.
+[INFO] [1789369061.714557475] [lifecycle_manager_navigation]: [34m[1mActivating smoother_server[0m[0m
+[INFO] [1789369061.714884137] [smoother_server]: Activating
+[INFO] [1789369061.714915409] [smoother_server]: Creating bond (smoother_server) to lifecycle manager.
+[INFO] [1789369061.835754803] [lifecycle_manager_navigation]: Server smoother_server connected with bond.
+[INFO] [1789369061.835804827] [lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[INFO] [1789369061.836213977] [planner_server]: Activating
+[INFO] [1789369061.836279053] [global_costmap.global_costmap]: Activating
+[INFO] [1789369061.836297881] [global_costmap.global_costmap]: Checking transform
+[INFO] [1789369061.836313217] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369061.838366465] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[WARN] [1789369061.849805701] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[ERROR] [1789369062.143561523] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369062.336379856] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369062.541220125] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369062.836372986] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369062.846184057] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789369063.149153866] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369063.336372654] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369063.549047355] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369063.836369054] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369063.853373229] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369064.009988741] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369062.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[ERROR] [1789369064.156137831] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369064.336372421] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369064.556224596] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369064.836375225] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369064.859131070] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789369065.162133929] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369065.336378796] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369065.562174479] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369065.836377048] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369065.865072326] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789369066.167673877] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369066.336375514] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[WARN] [1789369066.461718856] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[ERROR] [1789369066.567858226] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369066.792034294] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369065.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369066.836372134] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369066.870592262] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789369067.173435763] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369067.336378231] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369067.573404409] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369067.836375935] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369067.876680780] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789369068.179559779] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369068.336384220] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369068.579650796] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369068.836329543] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369068.882128138] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789369069.184988381] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369069.320007500] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369068.576 for reason 'discarding message because the queue is full'
+[INFO] [1789369069.336377356] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[WARN] [1789369069.429491138] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[ERROR] [1789369069.585065457] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369069.836376680] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369069.888037005] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789369070.190681848] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369070.336378924] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369070.590741956] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369070.836379032] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[ERROR] [1789369070.893378627] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789369071.049412021] [amcl]: initialPoseReceived
+[WARN] [1789369071.049513668] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369071.049469 but the latest data is at time 1789369070.915529, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369071.049525119] [amcl]: Setting pose (1789369071.049525): -12.248 -0.708 0.016
+[INFO] [1789369071.336394341] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 1789369071.182219 but the earliest data is at time 1789369071.975354, when looking up transform from frame [base_link] to frame [map]
+[INFO] [1789369071.836400838] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 1789369071.248890 but the earliest data is at time 1789369071.975354, when looking up transform from frame [base_link] to frame [map]
+[INFO] [1789369072.089627424] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369071.308 for reason 'discarding message because the queue is full'
+[INFO] [1789369072.336393994] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 1789369071.248890 but the earliest data is at time 1789369071.975354, when looking up transform from frame [base_link] to frame [map]
+[INFO] [1789369072.836475809] [global_costmap.global_costmap]: start
+[INFO] [1789369073.886626243] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[INFO] [1789369073.901398967] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[INFO] [1789369074.019048971] [lifecycle_manager_navigation]: Server planner_server connected with bond.
+[INFO] [1789369074.019107381] [lifecycle_manager_navigation]: [34m[1mActivating behavior_server[0m[0m
+[INFO] [1789369074.019576666] [behavior_server]: Activating
+[INFO] [1789369074.019628195] [behavior_server]: Activating spin
+[INFO] [1789369074.019679258] [behavior_server]: Activating backup
+[INFO] [1789369074.019701570] [behavior_server]: Activating drive_on_heading
+[INFO] [1789369074.019721141] [behavior_server]: Activating assisted_teleop
+[INFO] [1789369074.019740848] [behavior_server]: Activating wait
+[INFO] [1789369074.019768054] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[INFO] [1789369074.146037276] [lifecycle_manager_navigation]: Server behavior_server connected with bond.
+[INFO] [1789369074.146089348] [lifecycle_manager_navigation]: [34m[1mActivating bt_navigator[0m[0m
+[INFO] [1789369074.146559343] [bt_navigator]: Activating
+[INFO] [1789369074.840896749] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369073.707 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369075.345473478] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[INFO] [1789369075.487343765] [lifecycle_manager_navigation]: Server bt_navigator connected with bond.
+[INFO] [1789369075.487386778] [lifecycle_manager_navigation]: [34m[1mActivating waypoint_follower[0m[0m
+[INFO] [1789369075.487741596] [waypoint_follower]: Activating
+[INFO] [1789369075.487780876] [waypoint_follower]: Creating bond (waypoint_follower) to lifecycle manager.
+[INFO] [1789369075.645943282] [lifecycle_manager_navigation]: Server waypoint_follower connected with bond.
+[INFO] [1789369075.646040977] [lifecycle_manager_navigation]: [34m[1mActivating velocity_smoother[0m[0m
+[INFO] [1789369075.646609190] [velocity_smoother]: Activating
+[INFO] [1789369075.646664971] [velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[INFO] [1789369075.772249827] [lifecycle_manager_navigation]: Server velocity_smoother connected with bond.
+[INFO] [1789369075.772298162] [lifecycle_manager_navigation]: [34m[1mManaged nodes are active[0m[0m
+[INFO] [1789369075.772307498] [lifecycle_manager_navigation]: [34m[1mCreating bond timer...[0m[0m
+[INFO] [1789369077.357586887] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369076.242 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369079.867428155] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369079.108 for reason 'discarding message because the queue is full'
+[INFO] [1789369082.544389078] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369081.641 for reason 'discarding message because the queue is full'
+[INFO] [1789369085.160199264] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369084.041 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369087.781409080] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369086.642 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369090.376748056] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369089.508 for reason 'discarding message because the queue is full'
+[INFO] [1789369093.358531468] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369092.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369096.302745327] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369095.174 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369098.950948076] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369097.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369101.470910341] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369100.374 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369103.980291985] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369102.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369108.245523519] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369107.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369110.979177537] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369109.842 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369113.515278292] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369112.374 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369116.399777222] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369115.308 for reason 'discarding message because the queue is full'
+[INFO] [1789369118.984817466] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369118.174 for reason 'discarding message because the queue is full'
+[INFO] [1789369122.004014173] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369120.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369124.662836314] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369123.708 for reason 'discarding message because the queue is full'
+[INFO] [1789369127.263666465] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369126.174 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369129.793695100] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369128.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369132.337780320] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369131.574 for reason 'discarding message because the queue is full'
+[INFO] [1789369135.170421161] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369134.041 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369137.678340573] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369136.574 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369140.205981978] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369139.241 for reason 'discarding message because the queue is full'
+[INFO] [1789369142.775171026] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369141.974 for reason 'discarding message because the queue is full'
+[INFO] [1789369145.410900976] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369144.641 for reason 'discarding message because the queue is full'
+[INFO] [1789369148.284411322] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369147.175 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369150.789369709] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369149.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369153.373955305] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369152.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369155.961670742] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369154.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369158.521170632] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369157.708 for reason 'discarding message because the queue is full'
+[INFO] [1789369161.426124063] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369160.309 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369164.022520931] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369162.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369166.931130337] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369166.175 for reason 'discarding message because the queue is full'
+[INFO] [1789369169.502492266] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369168.375 for reason 'discarding message because the queue is full'
+[INFO] [1789369172.071597645] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369170.975 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369172.095234579] [amcl]: initialPoseReceived
+[WARN] [1789369172.095345113] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369172.095288 but the latest data is at time 1789369171.935600, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369172.095372944] [amcl]: Setting pose (1789369172.095373): -12.285 -0.564 -0.010
+[INFO] [1789369174.890979131] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369173.775 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369177.430493045] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369176.308 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369179.942616896] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369178.975 for reason 'discarding message because the queue is full'
+[INFO] [1789369185.028879358] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369184.175 for reason 'discarding message because the queue is full'
+[INFO] [1789369188.908259101] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369187.775 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369191.477927878] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369190.375 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369194.028204249] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369192.908 for reason 'discarding message because the queue is full'
+[INFO] [1789369197.097432628] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369195.975 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369199.608512186] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369198.841 for reason 'discarding message because the queue is full'
+[INFO] [1789369202.148477329] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369201.041 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369204.903192431] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369203.775 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369207.418956284] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369206.307 for reason 'discarding message because the queue is full'
+[INFO] [1789369209.988644465] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369208.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369212.493739292] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369211.708 for reason 'discarding message because the queue is full'
+[INFO] [1789369215.249735683] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369214.107 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369217.788406282] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369216.642 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369220.400542167] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369219.308 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369223.031128127] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369221.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369225.898585890] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369224.775 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369228.407019171] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369227.575 for reason 'discarding message because the queue is full'
+[INFO] [1789369230.908770337] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369229.774 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369233.772664873] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369232.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369236.475687879] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369235.308 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369239.980402225] [amcl]: initialPoseReceived
+[WARN] [1789369239.980510886] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369239.980460 but the latest data is at time 1789369239.859106, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369239.980527042] [amcl]: Setting pose (1789369239.980527): -12.376 -0.569 -0.076
+[INFO] [1789369242.294428338] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369241.508 for reason 'discarding message because the queue is full'
+[INFO] [1789369244.840895141] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369243.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369248.052465306] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369246.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369250.600076605] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369249.775 for reason 'discarding message because the queue is full'
+[INFO] [1789369253.251069784] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369252.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369255.940745216] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369254.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369258.499544591] [amcl]: initialPoseReceived
+[WARN] [1789369258.499657003] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369258.499602 but the latest data is at time 1789369258.411728, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369258.499682447] [amcl]: Setting pose (1789369258.499682): -12.394 -0.592 -0.124
+[INFO] [1789369258.756387514] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369257.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369262.652477486] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369261.508 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369265.352316938] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369264.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369267.896148639] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369266.774 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369270.481192118] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369269.308 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369273.251357191] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369272.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369275.757973140] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369274.642 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369276.621607585] [amcl]: initialPoseReceived
+[WARN] [1789369276.621713534] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369276.621665 but the latest data is at time 1789369276.492386, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369276.621728580] [amcl]: Setting pose (1789369276.621729): -12.430 -0.579 -0.134
+[INFO] [1789369278.435639175] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369277.441 for reason 'discarding message because the queue is full'
+[INFO] [1789369282.379465289] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369281.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369284.902457343] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369284.108 for reason 'discarding message because the queue is full'
+[INFO] [1789369288.385233382] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369287.242 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369291.514663432] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369290.379 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369291.899118433] [amcl]: initialPoseReceived
+[WARN] [1789369291.899220881] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369291.899169 but the latest data is at time 1789369291.703733, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369291.899241447] [amcl]: Setting pose (1789369291.899241): -12.472 -0.598 -0.180
+[INFO] [1789369294.498366273] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369293.375 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369297.045399956] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369295.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369299.557533907] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369298.708 for reason 'discarding message because the queue is full'
+[INFO] [1789369302.241871206] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369301.174 for reason 'discarding message because the queue is full'
+[INFO] [1789369305.032076760] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369303.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369307.839596436] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369306.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369310.346689960] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369309.308 for reason 'discarding message because the queue is full'
+[INFO] [1789369312.885730275] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369311.774 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369316.783215516] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369315.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369319.566113494] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369318.441 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369322.358343507] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369321.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369324.918163508] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369323.774 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369327.451449171] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369326.374 for reason 'discarding message because the queue is full'
+[INFO] [1789369330.051125308] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369328.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369332.688844692] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369331.575 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369335.236956441] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369334.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369337.967784165] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369336.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369341.092919719] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369339.974 for reason 'discarding message because the queue is full'
+[INFO] [1789369344.297958233] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369343.175 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369346.981192010] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369345.842 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369349.710669783] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369348.575 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369352.773088941] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369351.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369355.299660795] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369354.175 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369357.801131986] [amcl]: initialPoseReceived
+[WARN] [1789369357.801253254] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369357.801200 but the latest data is at time 1789369357.493872, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369357.801280027] [amcl]: Setting pose (1789369357.801280): -12.663 -0.559 -0.040
+[INFO] [1789369358.963680702] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369357.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369361.518726757] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369360.707 for reason 'discarding message because the queue is full'
+[INFO] [1789369364.367680808] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369363.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369367.038026687] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369365.909 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369369.781734812] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369368.642 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369372.555422588] [amcl]: initialPoseReceived
+[WARN] [1789369372.555517731] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the past.  Requested time 1789369372.555465 but the earliest data is at time 1789369372.708840, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369372.555534053] [amcl]: Setting pose (1789369372.555534): -12.346 -0.619 -0.035
+[INFO] [1789369372.995304604] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369371.975 for reason 'discarding message because the queue is full'
+[ERROR] [1789369373.139953833] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789369372.377005 but the earliest data is at time 1789369372.708840, when looking up transform from frame [base_link] to frame [map]
+
+[ERROR] [1789369374.141079248] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789369372.377005 but the earliest data is at time 1789369372.708840, when looking up transform from frame [base_link] to frame [map]
+
+[ERROR] [1789369375.140470955] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789369372.377005 but the earliest data is at time 1789369372.708840, when looking up transform from frame [base_link] to frame [map]
+
+[INFO] [1789369375.635546004] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369374.509 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[ERROR] [1789369376.140930382] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789369372.377005 but the earliest data is at time 1789369372.708840, when looking up transform from frame [base_link] to frame [map]
+
+[ERROR] [1789369377.139834464] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789369372.377005 but the earliest data is at time 1789369372.708840, when looking up transform from frame [base_link] to frame [map]
+
+[ERROR] [1789369378.139977970] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789369372.377005 but the earliest data is at time 1789369372.708840, when looking up transform from frame [base_link] to frame [map]
+
+[INFO] [1789369378.578023386] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369377.441 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[ERROR] [1789369379.140250235] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789369372.377005 but the earliest data is at time 1789369372.708840, when looking up transform from frame [base_link] to frame [map]
+
+[INFO] [1789369381.509489988] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369380.375 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369384.900659672] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369383.775 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369387.699412539] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369386.574 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369390.236781329] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369389.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369392.960087063] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369391.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369393.538017195] [amcl]: initialPoseReceived
+[WARN] [1789369393.538106815] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369393.538067 but the latest data is at time 1789369390.974898, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369393.538120269] [amcl]: Setting pose (1789369393.538120): -12.789 -0.543 -0.027
+[INFO] [1789369395.462667582] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369394.374 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369398.212475818] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369397.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369400.742601847] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369399.841 for reason 'discarding message because the queue is full'
+[INFO] [1789369402.793604582] [amcl]: initialPoseReceived
+[WARN] [1789369402.793740083] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369402.793683 but the latest data is at time 1789369402.467445, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369402.793783640] [amcl]: Setting pose (1789369402.793783): -12.786 -0.557 -0.030
+[INFO] [1789369403.461797269] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369402.308 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369406.047393121] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369404.907 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369408.911227158] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369407.775 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369411.707063322] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369410.575 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369414.228324565] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369413.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369414.566189054] [amcl]: initialPoseReceived
+[WARN] [1789369414.566303390] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369414.566252 but the latest data is at time 1789369414.344339, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369414.566328558] [amcl]: Setting pose (1789369414.566329): -12.442 -0.561 -0.005
+[INFO] [1789369416.841144575] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369415.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369419.662256318] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369418.507 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369422.571650496] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369421.441 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369425.107585840] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369423.975 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369428.107870573] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369426.975 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369430.718672421] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369429.575 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369433.321406582] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369432.175 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369435.827524482] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369434.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369438.438481774] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369437.308 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369440.938589186] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369440.175 for reason 'discarding message because the queue is full'
+[INFO] [1789369442.229773365] [amcl]: initialPoseReceived
+[WARN] [1789369442.229883398] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369442.229837 but the latest data is at time 1789369442.103155, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369442.229910880] [amcl]: Setting pose (1789369442.229911): -12.508 -0.604 -0.032
+[INFO] [1789369444.117220794] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369442.975 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369446.850505933] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369445.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369450.045374963] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369448.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369450.747781530] [amcl]: initialPoseReceived
+[WARN] [1789369450.747951034] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369450.747857 but the latest data is at time 1789369450.441162, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369450.747993947] [amcl]: Setting pose (1789369450.747994): -12.803 -0.582 -0.075
+[INFO] [1789369452.603537949] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369451.508 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369455.196906937] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369454.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369456.655544733] [amcl]: initialPoseReceived
+[WARN] [1789369456.655668112] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369456.655622 but the latest data is at time 1789369456.449662, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369456.655684359] [amcl]: Setting pose (1789369456.655684): -12.635 -0.610 -0.061
+[INFO] [1789369458.184147563] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369457.041 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369460.981696181] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369459.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369462.591022330] [amcl]: initialPoseReceived
+[WARN] [1789369462.591124031] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369462.591077 but the latest data is at time 1789369462.453241, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369462.591140791] [amcl]: Setting pose (1789369462.591141): -12.752 -0.604 -0.049
+[INFO] [1789369463.765344416] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369462.974 for reason 'discarding message because the queue is full'
+[INFO] [1789369468.509405205] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369467.374 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369471.213489604] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369470.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369474.237178957] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369473.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369476.821412671] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369475.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369479.748745930] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369478.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369482.572668402] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369481.441 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369483.520436172] [amcl]: initialPoseReceived
+[WARN] [1789369483.520561165] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369483.520510 but the latest data is at time 1789369483.336747, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369483.520594948] [amcl]: Setting pose (1789369483.520595): -12.604 -0.564 -0.004
+[INFO] [1789369485.315895432] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369484.174 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369489.232338154] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369488.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369492.303406048] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369491.175 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369495.238495145] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369494.108 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369497.914663442] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369496.774 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369500.568375822] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369499.441 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369503.103677760] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369501.974 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369504.956528042] [amcl]: initialPoseReceived
+[WARN] [1789369504.956650267] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369504.956583 but the latest data is at time 1789369504.908147, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369504.956690790] [amcl]: Setting pose (1789369504.956691): -12.865 -0.540 0.012
+[INFO] [1789369506.859906377] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369505.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369509.392211720] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369508.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369511.974401337] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369510.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369515.275240681] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369514.374 for reason 'discarding message because the queue is full'
+[INFO] [1789369518.806317392] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369517.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369521.388276710] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369520.241 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369523.899120320] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369522.774 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369526.960725756] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369525.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369528.721792885] [amcl]: initialPoseReceived
+[WARN] [1789369528.722035552] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369528.721940 but the latest data is at time 1789369528.378299, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369528.722055858] [amcl]: Setting pose (1789369528.722056): -12.592 -0.565 -0.037
+[INFO] [1789369530.121674518] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369528.974 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369532.765256940] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369531.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369535.638676569] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369534.509 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369537.556877637] [amcl]: initialPoseReceived
+[WARN] [1789369537.557002722] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369537.556933 but the latest data is at time 1789369535.374511, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369537.557045371] [amcl]: Setting pose (1789369537.557045): -12.657 -0.518 -0.020
+[INFO] [1789369538.377858914] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369537.308 for reason 'discarding message because the queue is full'
+[INFO] [1789369540.909375260] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369539.775 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369543.445757187] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369542.308 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369545.951917806] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369545.041 for reason 'discarding message because the queue is full'
+[INFO] [1789369548.957816090] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369547.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369551.633428658] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369550.509 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369554.699261651] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369553.575 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369557.228874809] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369556.109 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369559.774303988] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369558.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369562.299372092] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369561.175 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369566.164196611] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369565.041 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369569.311087329] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369568.175 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369571.834649626] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369570.975 for reason 'discarding message because the queue is full'
+[INFO] [1789369574.687197025] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369573.575 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369577.567953353] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369576.441 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369579.673646699] [amcl]: initialPoseReceived
+[WARN] [1789369579.673728639] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369579.673690 but the latest data is at time 1789369579.422666, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369579.673739141] [amcl]: Setting pose (1789369579.673739): -12.673 -0.550 -0.046
+[INFO] [1789369580.072320392] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369578.975 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369582.580542206] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369581.441 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369585.226436613] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369584.175 for reason 'discarding message because the queue is full'
+[INFO] [1789369585.535239332] [amcl]: initialPoseReceived
+[WARN] [1789369585.535338886] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369585.535293 but the latest data is at time 1789369585.359536, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369585.535353928] [amcl]: Setting pose (1789369585.535354): -12.666 -0.575 -0.086
+[INFO] [1789369590.970519599] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369589.841 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369591.526977584] [amcl]: initialPoseReceived
+[WARN] [1789369591.527160039] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369591.527090 but the latest data is at time 1789369591.431573, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369591.527179753] [amcl]: Setting pose (1789369591.527180): -12.614 -0.580 -0.088
+[INFO] [1789369595.748077147] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369594.975 for reason 'discarding message because the queue is full'
+[INFO] [1789369598.452484001] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369597.307 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369601.820888304] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369600.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369603.586712276] [amcl]: initialPoseReceived
+[WARN] [1789369603.586856642] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369603.586808 but the latest data is at time 1789369603.377017, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369603.586886365] [amcl]: Setting pose (1789369603.586886): -12.625 -0.565 -0.143
+[INFO] [1789369604.330696969] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369603.575 for reason 'discarding message because the queue is full'
+[INFO] [1789369607.050937611] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369605.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369609.555127301] [amcl]: initialPoseReceived
+[WARN] [1789369609.555241326] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369609.555180 but the latest data is at time 1789369609.383730, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369609.555260276] [amcl]: Setting pose (1789369609.555260): -12.679 -0.574 -0.107
+[INFO] [1789369609.909840777] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369608.775 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369613.544101335] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369612.708 for reason 'discarding message because the queue is full'
+[INFO] [1789369616.633960488] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369615.508 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369619.252272514] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369618.107 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369621.781193859] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369620.641 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369621.892130151] [amcl]: initialPoseReceived
+[WARN] [1789369621.892213309] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369621.892178 but the latest data is at time 1789369621.590416, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369621.892227450] [amcl]: Setting pose (1789369621.892227): -12.373 -0.522 0.039
+[INFO] [1789369625.505939850] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369624.374 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369628.093775313] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369626.975 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369630.953696910] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369629.842 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369634.032115390] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369632.908 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369636.628836506] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369635.508 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369639.133830742] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369638.375 for reason 'discarding message because the queue is full'
+[INFO] [1789369639.525347781] [amcl]: initialPoseReceived
+[WARN] [1789369639.525480817] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369639.525409 but the latest data is at time 1789369639.409351, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369639.525508582] [amcl]: Setting pose (1789369639.525508): -12.452 -0.514 0.049
+[INFO] [1789369641.684050605] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369640.575 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369644.244070552] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369643.107 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369648.833261351] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369647.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369651.507131941] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369650.375 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369651.783582726] [amcl]: initialPoseReceived
+[WARN] [1789369651.783681349] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369651.783636 but the latest data is at time 1789369651.418515, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369651.783698626] [amcl]: Setting pose (1789369651.783699): -12.916 -0.582 -0.099
+[INFO] [1789369654.892251798] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369653.774 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369657.440064873] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369656.307 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369659.990780229] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369658.842 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369662.661973893] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369661.642 for reason 'discarding message because the queue is full'
+[INFO] [1789369668.174175581] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369667.042 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369670.681335890] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369669.575 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369673.453879142] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369672.308 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369676.557667812] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369675.442 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369679.095814156] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369677.974 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369681.646113847] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369680.508 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369684.300527380] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369683.174 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369686.806002415] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369685.708 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369689.345205925] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369688.242 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369691.446887326] [amcl]: initialPoseReceived
+[WARN] [1789369691.446978983] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1789369691.446939 but the latest data is at time 1789369691.242147, when looking up transform from frame [base_link] to frame [odom])
+[INFO] [1789369691.446990073] [amcl]: Setting pose (1789369691.446990): -12.958 -0.597 -0.087
+[INFO] [1789369691.960560544] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369690.842 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369694.719413494] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369693.574 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369697.699497014] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369696.574 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369700.297168296] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369699.174 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369704.680040709] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369703.574 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369707.191164779] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369706.174 for reason 'discarding message because the queue is full'
+[INFO] [1789369709.911535553] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369708.774 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[ERROR] [1789369711.139764113] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789369710.801574 but the earliest data is at time 1789369711.042304, when looking up transform from frame [base_link] to frame [map]
+
+[INFO] [1789369711.715255953] [rclcpp]: signal_handler(signum=2)
+[INFO] [1789369711.716431328] [waypoint_follower]: Running Nav2 LifecycleNode rcl preshutdown (waypoint_follower)
+[INFO] [1789369711.720778321] [waypoint_follower]: Deactivating
+[INFO] [1789369711.720968121] [waypoint_follower]: Destroying bond (waypoint_follower) to lifecycle manager.
+[INFO] [1789369711.733379614] [waypoint_follower]: Cleaning up
+[INFO] [1789369711.777408030] [lifecycle_manager_navigation]: [34m[1mHave not received a heartbeat from waypoint_follower.[0m[0m
+[ERROR] [1789369711.777469934] [lifecycle_manager_navigation]: CRITICAL FAILURE: SERVER waypoint_follower IS DOWN after not receiving a heartbeat for 4000 ms. Shutting down related nodes.
+[INFO] [1789369711.777519963] [lifecycle_manager_navigation]: [34m[1mTerminating bond timer...[0m[0m
+[INFO] [1789369711.777535642] [lifecycle_manager_navigation]: [34m[1mResetting managed nodes...[0m[0m
+[INFO] [1789369711.777551957] [lifecycle_manager_navigation]: [34m[1mDeactivating velocity_smoother[0m[0m
+[INFO] [1789369711.778190546] [velocity_smoother]: Deactivating
+[INFO] [1789369711.778234111] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[INFO] [1789369712.083094233] [waypoint_follower]: Destroying bond (waypoint_follower) to lifecycle manager.
+[INFO] [1789369712.083150556] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[INFO] [1789369712.083191545] [bt_navigator]: Deactivating
+[INFO] [1789369712.083214859] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[INFO] [1789369712.085926856] [lifecycle_manager_navigation]: [34m[1mDeactivating waypoint_follower[0m[0m
+[INFO] [1789369712.093599232] [bt_navigator]: Cleaning up
+[WARN] [1789369712.136602419] [rcl_lifecycle]: No transition matching 4 found for current state unconfigured
+[ERROR] [1789369712.136645342] [waypoint_follower]: Unable to start transition 4 from current state unconfigured: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[ERROR] [1789369712.137116558] [lifecycle_manager_navigation]: Failed to change state for node: waypoint_follower
+[INFO] [1789369712.137144461] [lifecycle_manager_navigation]: [34m[1mDeactivating bt_navigator[0m[0m
+[WARN] [1789369712.381107792] [rcl_lifecycle]: No transition matching 4 found for current state cleaningup
+[ERROR] [1789369712.381129780] [bt_navigator]: Unable to start transition 4 from current state cleaningup: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[ERROR] [1789369712.381431462] [lifecycle_manager_navigation]: Failed to change state for node: bt_navigator
+[INFO] [1789369712.381488715] [lifecycle_manager_navigation]: [34m[1mDeactivating behavior_server[0m[0m
+[INFO] [1789369712.381736415] [behavior_server]: Deactivating
+[INFO] [1789369712.381773885] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[INFO] [1789369712.526335851] [lifecycle_manager_navigation]: [34m[1mDeactivating planner_server[0m[0m
+[INFO] [1789369712.526806360] [planner_server]: Deactivating
+[INFO] [1789369712.526941737] [global_costmap.global_costmap]: Deactivating
+[INFO] [1789369712.638081183] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789369711.508 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1789369712.836635378] [planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[INFO] [1789369712.836715822] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[INFO] [1789369712.979255348] [lifecycle_manager_navigation]: [34m[1mDeactivating smoother_server[0m[0m
+[INFO] [1789369712.979700125] [smoother_server]: Deactivating
+[INFO] [1789369712.979758836] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+[INFO] [1789369713.030797207] [bt_navigator]: Completed Cleaning up
+[INFO] [1789369713.030845976] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[INFO] [1789369713.030852985] [velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+[INFO] [1789369713.030864879] [velocity_smoother]: Cleaning up
+[INFO] [1789369713.030880166] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[INFO] [1789369713.030884584] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[INFO] [1789369713.030895393] [planner_server]: Cleaning up
+[INFO] [1789369713.104164228] [lifecycle_manager_navigation]: [34m[1mDeactivating controller_server[0m[0m
+[INFO] [1789369713.104582449] [controller_server]: Deactivating
+[INFO] [1789369713.104659192] [local_costmap.local_costmap]: Deactivating
+[INFO] [1789369713.123473838] [global_costmap.global_costmap]: Cleaning up
+[INFO] [1789369713.158982802] [planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[INFO] [1789369713.159170573] [planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[INFO] [1789369713.252517309] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[INFO] [1789369713.252553117] [lifecycle_manager_localization]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_localization)
+[INFO] [1789369713.252565268] [lifecycle_manager_localization]: [34m[1mTerminating bond timer...[0m[0m
+[INFO] [1789369713.293813283] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [1789369713.294101165] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[INFO] [1789369713.294127532] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [1789369713.294132004] [smoother_server]: Running Nav2 LifecycleNode rcl preshutdown (smoother_server)
+[INFO] [1789369713.294146612] [smoother_server]: Cleaning up
+[INFO] [1789369713.380487435] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+[INFO] [1789369713.380537435] [amcl]: Running Nav2 LifecycleNode rcl preshutdown (amcl)
+[INFO] [1789369713.380567633] [amcl]: Deactivating
+[INFO] [1789369713.380600515] [amcl]: Destroying bond (amcl) to lifecycle manager.
+[INFO] [1789369713.390748937] [amcl]: Cleaning up
+[INFO] [1789369713.425647532] [lifecycle_manager_navigation]: [34m[1mCleaning up velocity_smoother[0m[0m
+[WARN] [1789369713.429334976] [rcl_lifecycle]: No transition matching 2 found for current state unconfigured
+[ERROR] [1789369713.429353320] [velocity_smoother]: Unable to start transition 2 from current state unconfigured: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[INFO] [1789369713.429538338] [lifecycle_manager_navigation]: [34m[1mCleaning up waypoint_follower[0m[0m
+[WARN] [1789369713.429704321] [rcl_lifecycle]: No transition matching 2 found for current state unconfigured
+[ERROR] [1789369713.429715623] [waypoint_follower]: Unable to start transition 2 from current state unconfigured: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[INFO] [1789369713.429832626] [lifecycle_manager_navigation]: [34m[1mCleaning up bt_navigator[0m[0m
+[INFO] [1789369713.432939550] [amcl]: Destroying bond (amcl) to lifecycle manager.
+[INFO] [1789369713.432962749] [lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)
+[INFO] [1789369713.450697287] [pointcloud_to_laserscan]: No subscribers to laserscan, shutting down pointcloud subscriber
+[WARN] [1789369713.513511785] [rcl_lifecycle]: No transition matching 2 found for current state unconfigured
+[ERROR] [1789369713.513696211] [bt_navigator]: Unable to start transition 2 from current state unconfigured: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[INFO] [1789369713.514666984] [lifecycle_manager_navigation]: [34m[1mCleaning up behavior_server[0m[0m
+[INFO] [1789369713.514834621] [behavior_server]: Cleaning up
+[INFO] [1789369713.755218709] [lifecycle_manager_navigation]: [34m[1mCleaning up planner_server[0m[0m
+[WARN] [1789369713.757935578] [rcl_lifecycle]: No transition matching 2 found for current state unconfigured
+[ERROR] [1789369713.757953514] [planner_server]: Unable to start transition 2 from current state unconfigured: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[INFO] [1789369713.758268001] [lifecycle_manager_navigation]: [34m[1mCleaning up smoother_server[0m[0m
+[WARN] [1789369713.777056659] [rcl_lifecycle]: No transition matching 2 found for current state unconfigured
+[ERROR] [1789369713.777079352] [smoother_server]: Unable to start transition 2 from current state unconfigured: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[INFO] [1789369713.777470858] [lifecycle_manager_navigation]: [34m[1mCleaning up controller_server[0m[0m
+[INFO] [1789369713.777666208] [controller_server]: Cleaning up
+[INFO] [1789369713.822262776] [local_costmap.local_costmap]: Cleaning up
+[INFO] [1789369713.973483850] [lifecycle_manager_navigation]: [34m[1mManaged nodes have been reset[0m[0m
+[INFO] [1789369714.091208800] [behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[INFO] [1789369714.091260729] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[INFO] [1789369714.091266171] [map_server]: Running Nav2 LifecycleNode rcl preshutdown (map_server)
+[INFO] [1789369714.091288696] [map_server]: Deactivating
+[INFO] [1789369714.091306380] [map_server]: Destroying bond (map_server) to lifecycle manager.
+[INFO] [1789369714.101430449] [map_server]: Cleaning up
+[INFO] [1789369714.101499608] [map_server]: Destroying bond (map_server) to lifecycle manager.

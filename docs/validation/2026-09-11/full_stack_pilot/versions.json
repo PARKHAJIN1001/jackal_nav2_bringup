@@ -1,0 +1,65 @@
+{
+  "jackal_nav2_bringup": {
+    "version": "0.1.0",
+    "share": "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/share/jackal_nav2_bringup",
+    "config_sha256": {
+      "nav2_params.yaml": "748a1e620344220e5c904deb3b468d3039c18b0b77e8f3c850c679387d53c61a",
+      "pedestrian_viz.yaml": "23f7b1c14ff10c478502960281b57e79449356a85feaf33e11c8a0f210468c9f",
+      "nav2_safety.yaml": "2b943cbb4cfb5e38b66efe7776972c6bcb49f2710ed66fca2db328aa9c2f545d"
+    }
+  },
+  "moai_nav_viz": {
+    "version": "0.0.0",
+    "share": "/home/parkhajin/moai_navigation_ws/install/moai_nav_viz/share/moai_nav_viz",
+    "config_sha256": {}
+  },
+  "mid360_bringup": {
+    "version": "0.1.0",
+    "share": "/home/parkhajin/moai_navigation_ws/install/mid360_bringup/share/mid360_bringup",
+    "config_sha256": {
+      "static_tf.yaml": "c6722fd20a6a6773d874cb4336432905afd9c133e0400d98e5dc74e5ff814571",
+      "pedestrian_tracker.yaml": "d43d32e06605289c63c5b4ca67af51426b57c0f81f8c3c7337bdc8fd2002a5aa",
+      "mask_3d_extractor.yaml": "a3c567243ffc3c549610195f5ea3b23af73a67408e6567b1373b804d42e29c36",
+      "ped_yolo.yaml": "3e70c863c0b927effa14c4271d420ec77ec727acf97633dce4cdbf8cd735de61",
+      "lidar_preprocess.yaml": "857b73f5d8cc104cdbcd7dfdba2e2c991c9075682a489f865504bdeb56e34ccd"
+    }
+  },
+  "mid360_perception": {
+    "version": "0.1.0",
+    "share": "/home/parkhajin/moai_navigation_ws/install/mid360_perception/share/mid360_perception",
+    "config_sha256": {}
+  },
+  "fast_livo": {
+    "version": "0.0.1",
+    "share": "/home/parkhajin/moai_navigation_ws/install/fast_livo/share/fast_livo",
+    "config_sha256": {
+      "camera_pinhole.yaml": "617bb0cc707d82bd435fef83f7f7e91d81b10da7712330ef9a364cfc17fa5998",
+      "avia.yaml": "2153367ee7fd852bd3888429cac075927ceffa44c7c973659fa026d3650c8d03"
+    }
+  },
+  "nav2_collision_monitor": {
+    "version": "1.1.20",
+    "share": "/opt/ros/humble/share/nav2_collision_monitor",
+    "config_sha256": {}
+  },
+  "nav2_amcl": {
+    "version": "1.1.20",
+    "share": "/opt/ros/humble/share/nav2_amcl",
+    "config_sha256": {}
+  },
+  "nav2_costmap_2d": {
+    "version": "1.1.20",
+    "share": "/opt/ros/humble/share/nav2_costmap_2d",
+    "config_sha256": {}
+  },
+  "tf2_ros": {
+    "version": "0.25.12",
+    "share": "/opt/ros/humble/share/tf2_ros",
+    "config_sha256": {}
+  },
+  "rmw_fastrtps_cpp": {
+    "version": "6.2.7",
+    "share": "/opt/ros/humble/share/rmw_fastrtps_cpp",
+    "config_sha256": {}
+  }
+}

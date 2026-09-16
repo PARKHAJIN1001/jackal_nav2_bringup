@@ -1,0 +1,60 @@
+-- Install configuration: "Debug"
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/launch
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/launch/mapping_mid360.launch.py
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/launch/__pycache__
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/launch/__pycache__/mapping_mid360.launch.cpython-310.pyc
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/config
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/config/camera_pinhole.yaml
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/config/avia.yaml
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/rviz_cfg
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/rviz_cfg/mapping_mid360.rviz
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/rviz_cfg/fast_livo2.rviz
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/LIVMapper.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/base_pose.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/vio.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/measurement_stamp.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/frame.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/IMU_Processing.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/visual_point.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/feature.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/utils
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/utils/so3_math.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/utils/types.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/utils/color.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/preprocess.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/voxel_map.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/buffer_contract.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/include/common_lib.h
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/environment/library_path.sh
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/environment/library_path.dsv
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/lib/liblio.so
+-- Set runtime path of "/tmp/fast_livo_followup.dYwWPy/install/lib/liblio.so" to ""
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/lib/libvio.so
+-- Set runtime path of "/tmp/fast_livo_followup.dYwWPy/install/lib/libvio.so" to ""
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/lib/libpre.so
+-- Set runtime path of "/tmp/fast_livo_followup.dYwWPy/install/lib/libpre.so" to ""
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/lib/libimu_proc.so
+-- Set runtime path of "/tmp/fast_livo_followup.dYwWPy/install/lib/libimu_proc.so" to ""
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/lib/liblaser_mapping.so
+-- Set runtime path of "/tmp/fast_livo_followup.dYwWPy/install/lib/liblaser_mapping.so" to ""
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/lib/fast_livo/fastlivo_mapping
+-- Set runtime path of "/tmp/fast_livo_followup.dYwWPy/install/lib/fast_livo/fastlivo_mapping" to ""
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/ament_index/resource_index/package_run_dependencies/fast_livo
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/ament_index/resource_index/parent_prefix_path/fast_livo
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/environment/ament_prefix_path.sh
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/environment/ament_prefix_path.dsv
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/environment/path.sh
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/environment/path.dsv
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/local_setup.bash
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/local_setup.sh
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/local_setup.zsh
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/local_setup.dsv
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/package.dsv
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/ament_index/resource_index/packages/fast_livo
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/cmake/fast_livoConfig.cmake
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/cmake/fast_livoConfig-version.cmake
+-- Installing: /tmp/fast_livo_followup.dYwWPy/install/share/fast_livo/package.xml

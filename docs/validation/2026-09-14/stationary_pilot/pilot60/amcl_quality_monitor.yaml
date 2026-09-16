@@ -1,0 +1,6 @@
+/amcl_quality_monitor:
+  ros__parameters:
+    position_variance_limit: 0.8
+    use_sim_time: false
+    yaw_variance_limit: 0.8
+

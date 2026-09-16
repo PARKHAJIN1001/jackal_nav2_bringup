@@ -1,0 +1,314 @@
+[
+  {
+    "elapsed_sec": 2.8240028768777847e-06,
+    "wall_time": 1789113665.7971144,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113611.045010350,0.003474554,-0.015028974,0.069487140,-18.429,-1.665,97.869,0.168007359,0.062216137,64.4,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,54,-0.053560961,-0.068589292,0.112341158",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=59.082ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:00:34 KST, ReceiveTimestamp=Fri 2026-09-11 17:00:34 KST, TransmitTimestamp=Fri 2026-09-11 17:00:34 KST, DestinationTimestamp=Fri 2026-09-11 17:00:34 KST, Ignored=no PacketCount=7, Jitter=29.172ms }\nFrequency=12109863",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.005248427391052246, \"roundtrip_sec\": 0.0006234645843505859, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.062286376953125}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 16.724763696009177,
+    "wall_time": 1789113682.5218766,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113611.045010350,0.003388515,-0.015028974,0.069487140,-18.429,-1.665,97.869,0.168007359,0.063897602,64.4,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,71,-0.053560961,-0.068589292,0.112341158",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=62.316ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:01:06 KST, ReceiveTimestamp=Fri 2026-09-11 17:01:06 KST, TransmitTimestamp=Fri 2026-09-11 17:01:06 KST, DestinationTimestamp=Fri 2026-09-11 17:01:06 KST, Ignored=no PacketCount=8, Jitter=28.686ms }\nFrequency=6936035",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.0022444725036621094, \"roundtrip_sec\": 0.0006623268127441406, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.0639495849609375}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 33.24112762599543,
+    "wall_time": 1789113699.0382404,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113611.045010350,0.003303556,-0.015028974,0.069487140,-18.429,-1.665,97.869,0.168007359,0.065557979,64.4,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,88,-0.053560961,-0.068589292,0.112341158",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=65.551ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:01:38 KST, ReceiveTimestamp=Fri 2026-09-11 17:01:38 KST, TransmitTimestamp=Fri 2026-09-11 17:01:38 KST, DestinationTimestamp=Fri 2026-09-11 17:01:38 KST, Ignored=no PacketCount=9, Jitter=28.369ms }\nFrequency=3771973",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.003068089485168457, \"roundtrip_sec\": 0.0009372234344482422, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.06561279296875}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 49.74736365300487,
+    "wall_time": 1789113715.5444775,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113611.045010350,0.003218639,-0.015028974,0.069487140,-18.429,-1.665,97.869,0.168007359,0.067217521,64.4,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,104,-0.053560961,-0.068589292,0.112341158",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=65.551ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:01:38 KST, ReceiveTimestamp=Fri 2026-09-11 17:01:38 KST, TransmitTimestamp=Fri 2026-09-11 17:01:38 KST, DestinationTimestamp=Fri 2026-09-11 17:01:38 KST, Ignored=no PacketCount=9, Jitter=28.369ms }\nFrequency=3771973",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.0009254217147827148, \"roundtrip_sec\": 0.0010273456573486328, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.0672760009765625}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 66.27427033500862,
+    "wall_time": 1789113732.0713837,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113611.045010350,0.003133625,-0.015028974,0.069487140,-18.429,-1.665,97.869,0.168007359,0.068878971,64.4,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,121,-0.053560961,-0.068589292,0.112341158",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=68.801ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:02:11 KST, ReceiveTimestamp=Fri 2026-09-11 17:02:11 KST, TransmitTimestamp=Fri 2026-09-11 17:02:11 KST, DestinationTimestamp=Fri 2026-09-11 17:02:11 KST, Ignored=no PacketCount=10, Jitter=26.898ms }\nFrequency=2528810",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.0010347366333007812, \"roundtrip_sec\": 0.0009837150573730469, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.0689544677734375}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 82.94939275500656,
+    "wall_time": 1789113748.746507,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113740.981764951,0.014333392,-0.011507710,0.066021658,-26.866,-2.142,92.184,0.168007359,0.070122480,130.2,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,7,-0.092590638,-0.104097292,0.156229213",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=68.801ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:02:11 KST, ReceiveTimestamp=Fri 2026-09-11 17:02:11 KST, TransmitTimestamp=Fri 2026-09-11 17:02:11 KST, DestinationTimestamp=Fri 2026-09-11 17:02:11 KST, Ignored=no PacketCount=10, Jitter=26.898ms }\nFrequency=2528810",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": 0.010967135429382324, \"roundtrip_sec\": 0.0006196498870849609, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.0701751708984375}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 99.46311963300104,
+    "wall_time": 1789113765.260235,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113740.981764951,0.013731822,-0.011507710,0.066021658,-26.866,-2.142,92.184,0.168007359,0.071696460,130.2,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,24,-0.092590638,-0.104097292,0.156229213",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=71.533ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:02:43 KST, ReceiveTimestamp=Fri 2026-09-11 17:02:43 KST, TransmitTimestamp=Fri 2026-09-11 17:02:43 KST, DestinationTimestamp=Fri 2026-09-11 17:02:43 KST, Ignored=no PacketCount=11, Jitter=27.426ms }\nFrequency=13754395",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": 0.008326053619384766, \"roundtrip_sec\": 0.0011930465698242188, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.071746826171875}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 115.99330780400487,
+    "wall_time": 1789113781.7904215,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113740.981764951,0.013129684,-0.011507710,0.066021658,-26.866,-2.142,92.184,0.168007359,0.073271930,130.2,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,40,-0.092590638,-0.104097292,0.156229213",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=71.533ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:02:43 KST, ReceiveTimestamp=Fri 2026-09-11 17:02:43 KST, TransmitTimestamp=Fri 2026-09-11 17:02:43 KST, DestinationTimestamp=Fri 2026-09-11 17:02:43 KST, Ignored=no PacketCount=11, Jitter=27.426ms }\nFrequency=13754395",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.0024164915084838867, \"roundtrip_sec\": 0.0010640621185302734, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.073333740234375}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 132.51020828599576,
+    "wall_time": 1789113798.3073227,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113740.981764951,0.012527841,-0.011507710,0.066021658,-26.866,-2.142,92.184,0.168007359,0.074846625,130.2,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,57,-0.092590638,-0.104097292,0.156229213",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=74.600ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:03:15 KST, ReceiveTimestamp=Fri 2026-09-11 17:03:15 KST, TransmitTimestamp=Fri 2026-09-11 17:03:15 KST, DestinationTimestamp=Fri 2026-09-11 17:03:15 KST, Ignored=no PacketCount=12, Jitter=27.156ms }\nFrequency=7835450",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.004061341285705566, \"roundtrip_sec\": 0.0005772113800048828, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.074920654296875}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 149.25210562499706,
+    "wall_time": 1789113815.0492203,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113740.981764951,0.011917962,-0.011507710,0.066021658,-26.866,-2.142,92.184,0.168007359,0.076442346,130.2,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,74,-0.092590638,-0.104097292,0.156229213",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=74.600ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:03:15 KST, ReceiveTimestamp=Fri 2026-09-11 17:03:15 KST, TransmitTimestamp=Fri 2026-09-11 17:03:15 KST, DestinationTimestamp=Fri 2026-09-11 17:03:15 KST, Ignored=no PacketCount=12, Jitter=27.156ms }\nFrequency=7835450",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.0021857023239135742, \"roundtrip_sec\": 0.0006377696990966797, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.0764923095703125}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 165.78011088000494,
+    "wall_time": 1789113831.5772254,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113740.981764951,0.011315792,-0.011507710,0.066021658,-26.866,-2.142,92.184,0.168007359,0.078017890,130.2,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,90,-0.092590638,-0.104097292,0.156229213",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=77.682ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:03:47 KST, ReceiveTimestamp=Fri 2026-09-11 17:03:47 KST, TransmitTimestamp=Fri 2026-09-11 17:03:47 KST, DestinationTimestamp=Fri 2026-09-11 17:03:47 KST, Ignored=no PacketCount=13, Jitter=11.184ms }\nFrequency=4914552",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.0020598173141479492, \"roundtrip_sec\": 0.0008842945098876953, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.0780792236328125}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 182.2994322440063,
+    "wall_time": 1789113848.096546,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113740.981764951,0.010714035,-0.011507710,0.066021658,-26.866,-2.142,92.184,0.168007359,0.079592362,130.2,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,107,-0.092590638,-0.104097292,0.156229213",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=77.682ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:03:47 KST, ReceiveTimestamp=Fri 2026-09-11 17:03:47 KST, TransmitTimestamp=Fri 2026-09-11 17:03:47 KST, DestinationTimestamp=Fri 2026-09-11 17:03:47 KST, Ignored=no PacketCount=13, Jitter=11.184ms }\nFrequency=4914552",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.0012583732604980469, \"roundtrip_sec\": 0.0007219314575195312, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.07965087890625}",
+      "stderr": ""
+    }
+  },
+  {
+    "elapsed_sec": 198.80108446400845,
+    "wall_time": 1789113864.5981975,
+    "tracking": {
+      "returncode": 0,
+      "stdout": "CBF8F08C,203.248.240.140,3,1789113740.981764951,0.010112833,-0.011507710,0.066021658,-26.866,-2.142,92.184,0.168007359,0.081165381,130.2,Normal",
+      "stderr": ""
+    },
+    "sources": {
+      "returncode": 0,
+      "stdout": "^,*,203.248.240.140,2,6,377,123,-0.092590638,-0.104097292,0.156229213",
+      "stderr": ""
+    },
+    "nuc_timesync": {
+      "returncode": 0,
+      "stdout": "LinkNTPServers=\nSystemNTPServers=192.168.50.1\nFallbackNTPServers=\nServerName=192.168.50.1\nServerAddress=192.168.50.1\nRootDistanceMaxUSec=5s\nPollIntervalMinUSec=16s\nPollIntervalMaxUSec=32s\nPollIntervalUSec=32s\nNTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-25, RootDelay=168.014ms, RootDispersion=80.749ms, Reference=CBF8F08C, OriginateTimestamp=Fri 2026-09-11 17:04:20 KST, ReceiveTimestamp=Fri 2026-09-11 17:04:20 KST, TransmitTimestamp=Fri 2026-09-11 17:04:20 KST, DestinationTimestamp=Fri 2026-09-11 17:04:20 KST, Ignored=no PacketCount=14, Jitter=10.318ms }\nFrequency=3253420",
+      "stderr": ""
+    },
+    "nuc_ntp": {
+      "returncode": 0,
+      "stdout": "{\"leap\": 0, \"stratum\": 3, \"laptop_minus_nuc_sec\": -0.0010896921157836914, \"roundtrip_sec\": 0.001161813735961914, \"root_delay_sec\": 0.1680145263671875, \"root_dispersion_sec\": 0.08123779296875}",
+      "stderr": ""
+    }
+  }
+]

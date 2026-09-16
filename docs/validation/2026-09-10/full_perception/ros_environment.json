@@ -1,0 +1,9 @@
+{
+  "ROS_DISTRO": "humble",
+  "ROS_DOMAIN_ID": "1",
+  "ROS_LOCALHOST_ONLY": "0",
+  "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+  "FASTRTPS_DEFAULT_PROFILES_FILE": "/home/parkhajin/moai_navigation_ws/install/jackal_network_bringup/share/jackal_network_bringup/config/fastdds_laptop.xml",
+  "FASTDDS_DEFAULT_PROFILES_FILE": "/home/parkhajin/moai_navigation_ws/install/jackal_network_bringup/share/jackal_network_bringup/config/fastdds_laptop.xml",
+  "LD_LIBRARY_PATH": "/home/parkhajin/moai_navigation_ws/install/fast_livo/lib:/home/parkhajin/moai_navigation_ws/install/vikit_ros/lib:/home/parkhajin/moai_navigation_ws/install/vikit_common/lib:/home/parkhajin/moai_navigation_ws/install/moai_nav_msgs/lib:/home/parkhajin/ws_livox/install/livox_sdk2/lib:/home/parkhajin/ws_livox/install/livox_ros_driver2/lib:/home/parkhajin/ws_zed/install/zed_ipc/lib:/home/parkhajin/ws_zed/install/zed_topic_benchmark_component/lib:/home/parkhajin/ws_zed/install/zed_topic_benchmark_interfaces/lib:/home/parkhajin/ws_zed/install/zed_rgb_convert/lib:/home/parkhajin/ws_zed/install/zed_aruco_localization/lib:/home/parkhajin/ws_zed/install/zed_components/lib:/home/parkhajin/ws_zed/install/rviz_plugin_zed_od/lib:/home/parkhajin/ws_zed/install/zed_msgs/lib:/home/parkhajin/ws_zed/install/moai_nav_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib:/usr/local/cuda-12.4/lib64:/usr/local/cuda/extras/CUPTI/lib64::/path/to/nvidia/sdk/lib"
+}

@@ -1,0 +1,13 @@
+Reference ID    : CBF8F08C (time.bora.net)
+Stratum         : 3
+Ref time (UTC)  : Mon Sep 14 08:23:15 2026
+System time     : 0.000154953 seconds fast of NTP time
+Last offset     : +0.000112011 seconds
+RMS offset      : 0.000067217 seconds
+Frequency       : 7.573 ppm slow
+Residual freq   : +0.013 ppm
+Skew            : 0.469 ppm
+Root delay      : 0.007543224 seconds
+Root dispersion : 0.028012650 seconds
+Update interval : 64.7 seconds
+Leap status     : Normal

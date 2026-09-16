@@ -1,0 +1,11 @@
+LinkNTPServers=
+SystemNTPServers=192.168.50.1
+FallbackNTPServers=
+ServerName=192.168.50.1
+ServerAddress=192.168.50.1
+RootDistanceMaxUSec=5s
+PollIntervalMinUSec=16s
+PollIntervalMaxUSec=32s
+PollIntervalUSec=32s
+NTPMessage={ Leap=0, Version=4, Mode=4, Stratum=3, Precision=-26, RootDelay=7.659ms, RootDispersion=29.525ms, Reference=CBF8F08C, OriginateTimestamp=Mon 2026-09-14 17:23:07 KST, ReceiveTimestamp=Mon 2026-09-14 17:23:07 KST, TransmitTimestamp=Mon 2026-09-14 17:23:07 KST, DestinationTimestamp=Mon 2026-09-14 17:23:07 KST, Ignored=no PacketCount=291, Jitter=332us }
+Frequency=764653

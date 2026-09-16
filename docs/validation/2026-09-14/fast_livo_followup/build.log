@@ -1,0 +1,20 @@
+Consolidate compiler generated dependencies of target lio
+[  9%] Built target lio
+Consolidate compiler generated dependencies of target vio
+[ 27%] Built target vio
+Consolidate compiler generated dependencies of target pre
+[ 36%] Built target pre
+Consolidate compiler generated dependencies of target imu_proc
+[ 45%] Built target imu_proc
+Consolidate compiler generated dependencies of target laser_mapping
+[ 54%] Built target laser_mapping
+Consolidate compiler generated dependencies of target fastlivo_mapping
+[ 63%] Built target fastlivo_mapping
+Consolidate compiler generated dependencies of target test_base_pose
+[ 72%] Built target test_base_pose
+Consolidate compiler generated dependencies of target test_buffer_contract
+[ 81%] Built target test_buffer_contract
+Consolidate compiler generated dependencies of target test_measurement_stamp
+[ 90%] Built target test_measurement_stamp
+Consolidate compiler generated dependencies of target test_vio_patch_lifetime
+[100%] Built target test_vio_patch_lifetime

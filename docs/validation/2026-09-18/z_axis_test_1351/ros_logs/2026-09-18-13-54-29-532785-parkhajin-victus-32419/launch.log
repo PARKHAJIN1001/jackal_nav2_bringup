@@ -1,0 +1,129 @@
+1789707269.5340245 [INFO] [launch]: All log files can be found below /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/docs/validation/2026-09-18/z_axis_test_1351/ros_logs/2026-09-18-13-54-29-532785-parkhajin-victus-32419
+1789707269.5341597 [INFO] [launch]: Default logging verbosity is set to INFO
+1789707269.6433620 [INFO] [launch.user]: [nav_bringup] LiDAR relay: /livox/lidar → /livox/lidar_local
+1789707269.7333872 [INFO] [launch.user]: [nav_bringup] Phase 1: relay + visualizers + RViz
+1789707269.7475393 [INFO] [launch.user]: [nav_bringup] Motion DISABLED.
+1789707269.7586575 [INFO] [pointcloud_relay_node-1]: process started with pid [32428]
+1789707269.7589726 [INFO] [rviz2-2]: process started with pid [32430]
+1789707269.7591102 [INFO] [pedestrian_figures_node-3]: process started with pid [32432]
+1789707269.7592361 [INFO] [pedestrian_traces_node-4]: process started with pid [32434]
+1789707269.7593591 [INFO] [battery_percentage_bridge.py-5]: process started with pid [32436]
+1789707269.7594657 [INFO] [speed_overlay.py-6]: process started with pid [32438]
+1789707269.7595646 [INFO] [topic_ready_gate.py-7]: process started with pid [32440]
+1789707276.8730123 [INFO] [topic_ready_gate.py-7]: process has finished cleanly [pid 32440]
+1789707276.8736024 [INFO] [launch.user]: [nav_bringup] Phase 2: starting FAST-LIVO2
+1789707276.9303567 [INFO] [fastlivo_mapping-8]: process started with pid [32718]
+1789707276.9306579 [INFO] [static_transform_publisher-9]: process started with pid [32720]
+1789707276.9307845 [INFO] [topic_ready_gate.py-10]: process started with pid [32722]
+1789707283.3431277 [INFO] [topic_ready_gate.py-10]: process has finished cleanly [pid 32722]
+1789707283.3439522 [INFO] [launch.user]: [nav_bringup] Phase 3: starting Nav2
+1789707284.1371510 [INFO] [fast_livo_odom_adapter.py-11]: process started with pid [32867]
+1789707284.1375380 [INFO] [amcl_quality_monitor.py-12]: process started with pid [32869]
+1789707284.1377184 [INFO] [pointcloud_to_laserscan_node-13]: process started with pid [32871]
+1789707284.1378732 [INFO] [map_server-14]: process started with pid [32873]
+1789707284.1380122 [INFO] [amcl-15]: process started with pid [32875]
+1789707284.1381400 [INFO] [lifecycle_manager-16]: process started with pid [32877]
+1789707284.1382861 [INFO] [static_costmap_node-17]: process started with pid [32879]
+1789707284.1384156 [INFO] [map_patch_node.py-18]: process started with pid [32881]
+1789707284.1385391 [INFO] [lifecycle_manager-19]: process started with pid [32883]
+1789707284.1386719 [INFO] [controller_server-20]: process started with pid [32890]
+1789707284.1388180 [INFO] [smoother_server-21]: process started with pid [32893]
+1789707284.1389370 [INFO] [planner_server-22]: process started with pid [32917]
+1789707284.1390562 [INFO] [behavior_server-23]: process started with pid [32921]
+1789707284.1392391 [INFO] [bt_navigator-24]: process started with pid [32928]
+1789707284.1393869 [INFO] [waypoint_follower-25]: process started with pid [32932]
+1789707284.1395156 [INFO] [velocity_smoother-26]: process started with pid [32936]
+1789707284.1396372 [INFO] [lifecycle_manager-27]: process started with pid [32942]
+1789707284.1397588 [INFO] [nav2_safety_guard.py-28]: process started with pid [32947]
+1789707284.1398814 [INFO] [collision_monitor-29]: process started with pid [32956]
+1789707284.1400042 [INFO] [lifecycle_manager-30]: process started with pid [32963]
+1789707284.1401203 [INFO] [topic_ready_gate.py-31]: process started with pid [32967]
+1789707296.6765845 [INFO] [topic_ready_gate.py-31]: process has finished cleanly [pid 32967]
+1789707296.6782072 [INFO] [launch.user]: [nav_bringup] AMCL/map_server active; fresh scan, odom and scan-time TF ready. Set initial pose with RViz 2D Pose Estimate, check scan/map alignment, then run the printed perception command in a separate terminal with the same ROS/workspace/network environment. Keep the robot stationary during startup.
+1789707296.6898458 [INFO] [ros2-32]: process started with pid [33305]
+1789707297.7349617 [INFO] [ros2-32]: process has finished cleanly [pid 33305]
+1789709470.6936328 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1789709475.7348824 [ERROR] [lifecycle_manager-30]: process[lifecycle_manager-30] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7365642 [ERROR] [collision_monitor-29]: process[collision_monitor-29] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7387815 [ERROR] [nav2_safety_guard.py-28]: process[nav2_safety_guard.py-28] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7406566 [ERROR] [lifecycle_manager-27]: process[lifecycle_manager-27] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7456994 [INFO] [lifecycle_manager-30]: sending signal 'SIGTERM' to process[lifecycle_manager-30]
+1789709475.7628508 [ERROR] [velocity_smoother-26]: process[velocity_smoother-26] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7657337 [INFO] [collision_monitor-29]: sending signal 'SIGTERM' to process[collision_monitor-29]
+1789709475.7802470 [ERROR] [waypoint_follower-25]: process[waypoint_follower-25] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7820575 [ERROR] [bt_navigator-24]: process[bt_navigator-24] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7851577 [ERROR] [behavior_server-23]: process[behavior_server-23] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7873359 [ERROR] [planner_server-22]: process[planner_server-22] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7894800 [ERROR] [smoother_server-21]: process[smoother_server-21] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7912223 [ERROR] [controller_server-20]: process[controller_server-20] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7938731 [ERROR] [lifecycle_manager-19]: process[lifecycle_manager-19] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7969050 [ERROR] [map_patch_node.py-18]: process[map_patch_node.py-18] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.7989755 [ERROR] [static_costmap_node-17]: process[static_costmap_node-17] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8015656 [ERROR] [lifecycle_manager-16]: process[lifecycle_manager-16] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8039420 [ERROR] [amcl-15]: process[amcl-15] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8066049 [ERROR] [map_server-14]: process[map_server-14] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8100233 [INFO] [nav2_safety_guard.py-28]: sending signal 'SIGTERM' to process[nav2_safety_guard.py-28]
+1789709475.8236132 [ERROR] [pointcloud_to_laserscan_node-13]: process[pointcloud_to_laserscan_node-13] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8257725 [ERROR] [amcl_quality_monitor.py-12]: process[amcl_quality_monitor.py-12] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8277178 [ERROR] [fast_livo_odom_adapter.py-11]: process[fast_livo_odom_adapter.py-11] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8297484 [ERROR] [static_transform_publisher-9]: process[static_transform_publisher-9] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8323760 [ERROR] [fastlivo_mapping-8]: process[fastlivo_mapping-8] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8347340 [ERROR] [speed_overlay.py-6]: process[speed_overlay.py-6] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8388734 [INFO] [lifecycle_manager-27]: sending signal 'SIGTERM' to process[lifecycle_manager-27]
+1789709475.8512938 [ERROR] [battery_percentage_bridge.py-5]: process[battery_percentage_bridge.py-5] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8538570 [ERROR] [pedestrian_traces_node-4]: process[pedestrian_traces_node-4] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8564396 [ERROR] [pedestrian_figures_node-3]: process[pedestrian_figures_node-3] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8586881 [ERROR] [rviz2-2]: process[rviz2-2] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8605578 [ERROR] [pointcloud_relay_node-1]: process[pointcloud_relay_node-1] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709475.8665867 [INFO] [velocity_smoother-26]: sending signal 'SIGTERM' to process[velocity_smoother-26]
+1789709475.8872356 [INFO] [waypoint_follower-25]: sending signal 'SIGTERM' to process[waypoint_follower-25]
+1789709475.9054151 [INFO] [bt_navigator-24]: sending signal 'SIGTERM' to process[bt_navigator-24]
+1789709475.9258518 [INFO] [behavior_server-23]: sending signal 'SIGTERM' to process[behavior_server-23]
+1789709475.9535098 [INFO] [planner_server-22]: sending signal 'SIGTERM' to process[planner_server-22]
+1789709475.9676280 [INFO] [smoother_server-21]: sending signal 'SIGTERM' to process[smoother_server-21]
+1789709475.9827938 [INFO] [controller_server-20]: sending signal 'SIGTERM' to process[controller_server-20]
+1789709476.0011077 [INFO] [lifecycle_manager-19]: sending signal 'SIGTERM' to process[lifecycle_manager-19]
+1789709476.0171208 [INFO] [map_patch_node.py-18]: sending signal 'SIGTERM' to process[map_patch_node.py-18]
+1789709476.0334373 [INFO] [static_costmap_node-17]: sending signal 'SIGTERM' to process[static_costmap_node-17]
+1789709476.0481112 [INFO] [lifecycle_manager-16]: sending signal 'SIGTERM' to process[lifecycle_manager-16]
+1789709476.0640330 [INFO] [amcl-15]: sending signal 'SIGTERM' to process[amcl-15]
+1789709476.0810435 [INFO] [map_server-14]: sending signal 'SIGTERM' to process[map_server-14]
+1789709476.0892074 [INFO] [lifecycle_manager-30]: process has finished cleanly [pid 32963]
+1789709476.1011662 [INFO] [pointcloud_to_laserscan_node-13]: sending signal 'SIGTERM' to process[pointcloud_to_laserscan_node-13]
+1789709476.1189332 [INFO] [amcl_quality_monitor.py-12]: sending signal 'SIGTERM' to process[amcl_quality_monitor.py-12]
+1789709476.1349206 [INFO] [fast_livo_odom_adapter.py-11]: sending signal 'SIGTERM' to process[fast_livo_odom_adapter.py-11]
+1789709476.1679852 [INFO] [static_transform_publisher-9]: sending signal 'SIGTERM' to process[static_transform_publisher-9]
+1789709476.1763036 [INFO] [collision_monitor-29]: process has finished cleanly [pid 32956]
+1789709476.1884329 [INFO] [fastlivo_mapping-8]: sending signal 'SIGTERM' to process[fastlivo_mapping-8]
+1789709476.1944661 [INFO] [nav2_safety_guard.py-28]: process has finished cleanly [pid 32947]
+1789709476.2076726 [INFO] [speed_overlay.py-6]: sending signal 'SIGTERM' to process[speed_overlay.py-6]
+1789709476.2115605 [INFO] [velocity_smoother-26]: process has finished cleanly [pid 32936]
+1789709476.2269735 [INFO] [battery_percentage_bridge.py-5]: sending signal 'SIGTERM' to process[battery_percentage_bridge.py-5]
+1789709476.2440836 [INFO] [pedestrian_traces_node-4]: sending signal 'SIGTERM' to process[pedestrian_traces_node-4]
+1789709476.2635710 [INFO] [pedestrian_figures_node-3]: sending signal 'SIGTERM' to process[pedestrian_figures_node-3]
+1789709476.2832696 [INFO] [rviz2-2]: sending signal 'SIGTERM' to process[rviz2-2]
+1789709476.3007095 [INFO] [pointcloud_relay_node-1]: sending signal 'SIGTERM' to process[pointcloud_relay_node-1]
+1789709476.3027403 [INFO] [lifecycle_manager-19]: process has finished cleanly [pid 32883]
+1789709476.3051612 [INFO] [waypoint_follower-25]: process has finished cleanly [pid 32932]
+1789709476.3397219 [INFO] [pointcloud_to_laserscan_node-13]: process has finished cleanly [pid 32871]
+1789709476.3742459 [INFO] [smoother_server-21]: process has finished cleanly [pid 32893]
+1789709476.3779213 [INFO] [static_transform_publisher-9]: process has finished cleanly [pid 32720]
+1789709476.3943319 [INFO] [map_server-14]: process has finished cleanly [pid 32873]
+1789709476.4124219 [INFO] [lifecycle_manager-27]: process has finished cleanly [pid 32942]
+1789709476.4227581 [INFO] [lifecycle_manager-16]: process has finished cleanly [pid 32877]
+1789709476.4364924 [INFO] [amcl-15]: process has finished cleanly [pid 32875]
+1789709476.4562533 [INFO] [fast_livo_odom_adapter.py-11]: process has finished cleanly [pid 32867]
+1789709476.4730475 [INFO] [pointcloud_relay_node-1]: process has finished cleanly [pid 32428]
+1789709476.5052865 [INFO] [speed_overlay.py-6]: process has finished cleanly [pid 32438]
+1789709476.5098300 [INFO] [fastlivo_mapping-8]: process has finished cleanly [pid 32718]
+1789709476.5155056 [ERROR] [map_patch_node.py-18]: process has died [pid 32881, exit code 1, cmd '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/map_patch_node.py --ros-args --log-level info --ros-args -r __node:=map_patch_node --params-file /tmp/launch_params_neym33_l -r /tf:=/tf -r /tf_static:=/tf_static'].
+1789709476.5193441 [INFO] [battery_percentage_bridge.py-5]: process has finished cleanly [pid 32436]
+1789709476.5462983 [INFO] [planner_server-22]: process has finished cleanly [pid 32917]
+1789709476.5520587 [INFO] [pedestrian_traces_node-4]: process has finished cleanly [pid 32434]
+1789709476.5538385 [INFO] [pedestrian_figures_node-3]: process has finished cleanly [pid 32432]
+1789709476.5550237 [INFO] [behavior_server-23]: process has finished cleanly [pid 32921]
+1789709476.5636551 [ERROR] [amcl_quality_monitor.py-12]: process has died [pid 32869, exit code 1, cmd '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/amcl_quality_monitor.py --ros-args -r __node:=amcl_quality_monitor --params-file /tmp/launch_params_oq2fbm2_'].
+1789709477.0149698 [INFO] [bt_navigator-24]: process has finished cleanly [pid 32928]
+1789709477.6385455 [ERROR] [rviz2-2]: process has died [pid 32430, exit code -11, cmd '/opt/ros/humble/lib/rviz2/rviz2 -d /tmp/nav_bringup_s10y02uu.rviz --ros-args -r __node:=jackal_nav2_rviz --params-file /tmp/launch_params_7guyvhya'].
+1789709477.6531324 [ERROR] [static_costmap_node-17]: process has died [pid 32879, exit code -11, cmd '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/static_costmap_node --ros-args --log-level info --ros-args --params-file /tmp/launch_params_neym33_l -r /tf:=/tf -r /tf_static:=/tf_static'].
+1789709477.9144318 [INFO] [controller_server-20]: process has finished cleanly [pid 32890]

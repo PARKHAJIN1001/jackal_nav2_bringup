@@ -34,8 +34,11 @@ install(
 
 install(
   PROGRAMS
+    scripts/battery_percentage_bridge.py
+    scripts/speed_overlay.py
     scripts/tf_localization_audit.py
     scripts/record_navigation_validation.py
+    scripts/check_navigation_ready.py
     scripts/fast_livo_odom_adapter.py
     scripts/map_patch_node.py
     scripts/nav2_twist_stamper.py
@@ -45,6 +48,9 @@ install(
     scripts/amcl_quality_monitor.py
     scripts/prepare_perception_config.py
     scripts/runtime_resource_audit.py
+    scripts/topic_ready_gate.py
+    scripts/nav_session.py
+    scripts/ipfrag_session.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -64,9 +70,28 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   find_package(ament_cmake_pytest REQUIRED)
   find_package(ament_cmake_gtest REQUIRED)
+  find_package(nav2_amcl REQUIRED)
+  find_package(pluginlib REQUIRED)
+  find_package(yaml_cpp_vendor REQUIRED)
+  find_package(yaml-cpp REQUIRED)
+  ament_add_gtest(test_amcl_motion_model test/test_amcl_motion_model.cpp)
+  ament_target_dependencies(test_amcl_motion_model nav2_amcl pluginlib)
+  if(TARGET yaml-cpp::yaml-cpp)
+    target_link_libraries(test_amcl_motion_model yaml-cpp::yaml-cpp)
+  else()
+    target_link_libraries(test_amcl_motion_model yaml-cpp)
+  endif()
+  target_compile_definitions(test_amcl_motion_model PRIVATE
+    JACKAL_NAV2_CONFIG_PATH="${CMAKE_CURRENT_SOURCE_DIR}/config/nav2_params.yaml")
   ament_add_gtest(test_relay_health test/test_relay_health.cpp)
   target_include_directories(test_relay_health PRIVATE include)
   ament_add_pytest_test(test_followup test/test_followup.py)
+  ament_add_pytest_test(test_topic_ready_gate test/test_topic_ready_gate.py)
+  ament_add_pytest_test(test_nav_bringup test/test_nav_bringup.py)
+  ament_add_pytest_test(test_navigation_ready test/test_navigation_ready.py)
+  ament_add_pytest_test(test_navigation_recording test/test_navigation_recording.py)
+  ament_add_pytest_test(test_nav_session test/test_nav_session.py)
+  ament_add_pytest_test(test_pilot_preflight test/test_pilot_preflight.py)
 
   ament_add_pytest_test(test_tf_localization_audit
     test/test_tf_localization_audit.py
@@ -85,6 +110,8 @@ if(BUILD_TESTING)
     test/test_nav2_twist_stamper.py
   )
   ament_add_pytest_test(test_nav2_safety test/test_nav2_safety.py)
+  ament_add_pytest_test(test_battery_percentage_bridge test/test_battery_percentage_bridge.py)
+  ament_add_pytest_test(test_speed_overlay test/test_speed_overlay.py)
 
   # Python source files rely on the package LICENSE file.
   set(ament_cmake_copyright_FOUND TRUE)

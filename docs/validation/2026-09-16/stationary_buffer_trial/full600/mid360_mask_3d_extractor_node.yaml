@@ -1,0 +1,55 @@
+/mid360_mask_3d_extractor_node:
+  ros__parameters:
+    camera_info_topic: /camera/camera/color/camera_info
+    detection_score_threshold: 0.4
+    detections2d_topic: /ped_yolo/detections2d
+    detections_topic: /ped_detection
+    enable_foreground_range_filter: true
+    extrinsic_camera_frame: camera_color_optical_frame
+    extrinsic_lidar_frame: livox_frame
+    extrinsic_path: ~/data/calib/extrinsic.txt
+    fixed_box_depth_m: 0.5
+    fixed_box_height_m: 1.8
+    fixed_box_width_m: 0.5
+    foreground_range_band_m: 0.8
+    input_cloud_topic: /lidar/accumulated
+    instance_mask_topic: /ped_yolo/instance_mask
+    lower_percentile: 0.1
+    markers_topic: /pedestrian_3d_bbox_markers
+    max_box_depth_m: 1.2
+    max_box_height_m: 2.3
+    max_box_width_m: 1.2
+    max_camera_info_staleness_sec: 1.0
+    max_detection_staleness_sec: 0.8
+    max_mask_staleness_sec: 0.8
+    max_paired_yolo_frames: 24
+    max_range_m: 20.0
+    max_tf_fallback_age_sec: 0.5
+    max_yolo_pair_slop_sec: 0.05
+    min_box_depth_m: 0.1
+    min_box_height_m: 0.3
+    min_box_width_m: 0.1
+    min_points_per_instance: 4
+    min_projection_depth_m: 0.1
+    min_range_m: 0.5
+    odom_topic: /aft_mapped_to_init
+    output_queue_depth: 10
+    pedestrian_class_name: person
+    publish_debug_markers: false
+    publish_empty_detections: true
+    qos_overrides:
+      /parameter_events:
+        publisher:
+          depth: 1000
+          durability: volatile
+          history: keep_last
+          reliability: reliable
+    sensor_queue_depth: 10
+    tf_lookup_timeout_ms: 20.0
+    tracking_frame: odom
+    upper_percentile: 0.9
+    use_extrinsic_fallback: true
+    use_fixed_box_size: true
+    use_latest_tf_fallback: false
+    use_sim_time: false
+

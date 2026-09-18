@@ -112,9 +112,17 @@ def generate_launch_description():
         DeclareLaunchArgument('log_level', default_value='info'),
         DeclareLaunchArgument('use_rviz', default_value='true'),
         DeclareLaunchArgument('rviz_config', default_value=default_rviz),
+        DeclareLaunchArgument('use_battery_gauge', default_value='true'),
+        DeclareLaunchArgument('use_speed_display', default_value='true'),
+        DeclareLaunchArgument(
+            'battery_state_topic', default_value='/j100_0519/platform/bms/state',
+            description='sensor_msgs/BatteryState input; percentage must be 0..1'),
         DeclareLaunchArgument(
             'fast_livo_odom_topic', default_value='/aft_mapped_to_init'),
         DeclareLaunchArgument('nav_odom_topic', default_value='/odom'),
+        DeclareLaunchArgument(
+            'speed_odom_topic', default_value=nav_odom_topic,
+            description='Odometry used to display planar speed in m/s'),
         DeclareLaunchArgument('use_map_patch', default_value='true'),
         DeclareLaunchArgument('enable_motion', default_value='false'),
         DeclareLaunchArgument('use_amcl_quality_monitor', default_value='true'),
@@ -212,6 +220,29 @@ def generate_launch_description():
                 'traces_topic': LaunchConfiguration('traces_topic'),
                 'output_topic': '/nav2/pedestrian_traces',
                 'target_frame': 'odom',
+            }],
+        ),
+        Node(
+            package='jackal_nav2_bringup',
+            executable='battery_percentage_bridge.py',
+            name='battery_percentage_bridge',
+            output='screen',
+            condition=IfCondition(LaunchConfiguration('use_battery_gauge')),
+            parameters=[{
+                'use_sim_time': use_sim_time,
+                'input_topic': LaunchConfiguration('battery_state_topic'),
+                'output_topic': '/nav2/battery_percentage',
+            }],
+        ),
+        Node(
+            package='jackal_nav2_bringup',
+            executable='speed_overlay.py',
+            name='speed_overlay',
+            output='screen',
+            condition=IfCondition(LaunchConfiguration('use_speed_display')),
+            parameters=[{
+                'use_sim_time': use_sim_time,
+                'input_topic': LaunchConfiguration('speed_odom_topic'),
             }],
         ),
         Node(

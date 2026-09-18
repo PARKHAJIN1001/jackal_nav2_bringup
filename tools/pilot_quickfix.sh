@@ -6,7 +6,7 @@
 #   1) 랩톱에서:  sudo bash pilot_quickfix.sh laptop
 #   2) NUC에서:   sudo bash pilot_quickfix.sh nuc
 #
-# 각 단계는 독립적으로 실행되며, 실패해도 다음 단계를 시도합니다.
+# 변경 명령이 실패하면 중단합니다. DDS SHM은 조회만 합니다.
 # --dry-run 옵션으로 실제 변경 없이 확인만 가능합니다.
 # ============================================================================
 
@@ -45,17 +45,19 @@ echo -e "${CYAN} $(date '+%Y-%m-%d %H:%M:%S %Z')${NC}"
 echo -e "${CYAN}============================================${NC}"
 
 # ──────────────────────────────────────────────
-# [1] FastDDS 공유메모리 잔여 정리
+# [1] FastDDS 공유메모리 조회 (활성 자원을 삭제하지 않음)
 # ──────────────────────────────────────────────
-echo -e "\n${GREEN}[1/5] FastDDS SHM 잔여 정리${NC}"
-SHM_COUNT=$(ls /dev/shm/ 2>/dev/null | grep -c 'fastrtps' || true)
+echo -e "\n${GREEN}[1/5] FastDDS SHM 조회${NC}"
+shopt -s nullglob
+SHM_FILES=(/dev/shm/fastrtps_*)
+SHM_COUNT=${#SHM_FILES[@]}
+shopt -u nullglob
 if [[ "$SHM_COUNT" -gt 0 ]]; then
     echo "  발견: ${SHM_COUNT}개 fastrtps SHM 파일"
-    run_or_dry "rm -f /dev/shm/fastrtps_*"
-    AFTER=$(ls /dev/shm/ 2>/dev/null | grep -c 'fastrtps' || true)
-    echo -e "  ${GREEN}✅ 정리 완료 (남은: ${AFTER}개)${NC}"
+    echo "  사용 중인 자원일 수 있으므로 자동 삭제하지 않습니다."
+    echo "  파일 존재만으로 DDS 장애나 종료 후 잔여물로 판단하지 않습니다."
 else
-    echo -e "  ${GREEN}✅ SHM 잔여 없음${NC}"
+    echo -e "  ${GREEN}✅ SHM 파일 없음${NC}"
 fi
 
 if [[ "$TARGET" == "laptop" ]]; then

@@ -1,0 +1,182 @@
+{
+  "duration_sec": 690.1504807590009,
+  "topics": {
+    "/j100_0519/nav2_cmd_vel": {
+      "messages": 13801,
+      "max_gap_sec": 0.09716304500034312,
+      "last_received": 8983.121198945,
+      "nonfinite": 0,
+      "nonzero": 0,
+      "receipt_silence_sec": 6.39770005363971e-05
+    },
+    "/ped_tracking": {
+      "messages": 10306,
+      "max_gap_sec": 0.409547332999864,
+      "last_received": 8983.086149184,
+      "frames": {
+        "odom": 10306
+      },
+      "nonempty": 10306,
+      "max_people": 5,
+      "latest_ids": [
+        44
+      ],
+      "receipt_silence_sec": 0.03511373800029105
+    },
+    "/nav2/pedestrian_figures": {
+      "messages": 17206,
+      "max_gap_sec": 0.11046535099922039,
+      "last_received": 8983.111415175,
+      "nonempty": 17206,
+      "add_markers": 58752,
+      "delete_markers": 54,
+      "duplicate_keys": 0,
+      "frames": {
+        "odom": 58752
+      },
+      "types": {
+        "11": 19584,
+        "2": 19584,
+        "9": 19584
+      },
+      "sphere_top_z": 0.85,
+      "sphere_diameter": 0.16,
+      "latest_add_count": 3,
+      "receipt_silence_sec": 0.009847747000094387
+    },
+    "/static_costmap/costmap": {
+      "messages": 441,
+      "max_gap_sec": 2.0139521500004776,
+      "last_received": 8982.756791356,
+      "latest_digest": "73078ec40e19c0ed03c95bdabdffc408384504a268bd108aadfe522eda2c0040",
+      "shape": [
+        1224,
+        528
+      ],
+      "latest_origin": [
+        -57.6,
+        -18.7
+      ],
+      "cell_changes": 0,
+      "origin_changes": 0,
+      "receipt_silence_sec": 0.36447156600115704
+    },
+    "/nav2/pedestrian_traces": {
+      "messages": 6900,
+      "max_gap_sec": 0.11594382400107861,
+      "last_received": 8983.099403142,
+      "nonempty": 6900,
+      "add_markers": 7860,
+      "delete_markers": 23,
+      "duplicate_keys": 0,
+      "frames": {
+        "odom": 7860
+      },
+      "types": {
+        "4": 7860
+      },
+      "max_trace_points": 10,
+      "latest_add_count": 1,
+      "receipt_silence_sec": 0.02185978000125033
+    },
+    "/nav2/lidar_relay_diagnostics": {
+      "messages": 1380,
+      "max_gap_sec": 0.5063596130003134,
+      "last_received": 8983.023794152,
+      "levels": {
+        "b'\\x00'": 1380
+      },
+      "reasons": {
+        "fresh": 1380
+      },
+      "latest_values": {
+        "received_count": "16847.000000",
+        "measurement_stamp_sec": "1789533023.181770",
+        "measurement_age_sec": "0.092352",
+        "age_at_receipt_sec": "0.071209",
+        "receipt_silence_sec": "0.021146",
+        "last_interval_sec": "0.065060",
+        "max_interval_sec": "0.840198",
+        "stamp_regressions": "0.000000",
+        "clock_regressions": "0.000000"
+      },
+      "receipt_silence_sec": 0.09746876999997767
+    },
+    "/local_costmap/costmap": {
+      "messages": 1150,
+      "max_gap_sec": 0.6111015770002268,
+      "last_received": 8982.60037918,
+      "latest_digest": "54d9043ea014f042af6a49f10d053a7b6e8d6ea1a1998c90536902cfcf0aa7da",
+      "shape": [
+        80,
+        80
+      ],
+      "latest_origin": [
+        -2.000000000372529,
+        -1.9500000003725293
+      ],
+      "cell_changes": 0,
+      "origin_changes": 0,
+      "receipt_silence_sec": 0.5208837420013879
+    },
+    "/global_costmap/costmap": {
+      "messages": 445,
+      "max_gap_sec": 2.019994008998765,
+      "last_received": 8982.657204788,
+      "latest_digest": "7f9dab0584ceb9dfd8b219d171add6b011fd29b927462efa47765afe806bf482",
+      "shape": [
+        1224,
+        528
+      ],
+      "latest_origin": [
+        -57.6,
+        -18.7
+      ],
+      "cell_changes": 0,
+      "origin_changes": 0,
+      "receipt_silence_sec": 0.46405813400087936
+    },
+    "/map": {
+      "messages": 1,
+      "max_gap_sec": 0,
+      "last_received": 8293.704873431,
+      "latest_digest": "da9e96ecb94a47e799e27c19ff5853cd40923be70789530d71cf7c4947dcacde",
+      "shape": [
+        1224,
+        528
+      ],
+      "latest_origin": [
+        -57.6,
+        -18.7
+      ],
+      "receipt_silence_sec": 689.4163894910016
+    },
+    "/nav2/safety_diagnostics": {
+      "messages": 672,
+      "max_gap_sec": 1.069835045000218,
+      "last_received": 8982.572086942,
+      "levels": {
+        "b'\\x01'": 672
+      },
+      "reasons": {
+        "independent_stop": 602,
+        "tf_stale:map->odom": 69,
+        "tf_stale:odom->base_link": 1
+      },
+      "latest_values": {
+        "enable_motion": "False",
+        "sensor_error": "",
+        "raw_sensor_stamp_age": "0.1051034927368164",
+        "raw_sensor_receipt_age": "0.03303093400063517",
+        "sensor_stamp_age": "0.1051034927368164",
+        "sensor_receipt_age": "0.03303093400063517",
+        "command_receipt_age": "missing",
+        "filtered_points": "5690",
+        "stop_points": "2216"
+      },
+      "receipt_silence_sec": 0.5491759800006548
+    }
+  },
+  "read_only": true,
+  "motion_commands_published": false
+}

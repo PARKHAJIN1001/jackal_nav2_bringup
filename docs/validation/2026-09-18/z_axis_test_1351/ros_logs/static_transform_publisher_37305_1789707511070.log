@@ -1,0 +1,5 @@
+[INFO] [1789707511.214704957] [lidar_to_camera_tf]: Spinning until stopped - publishing transform
+translation: ('0.038671', '0.037984', '-0.064309')
+rotation: ('-0.006713', '-0.263273', '-0.003858', '0.964694')
+from 'livox_frame' to 'camera_link'
+[INFO] [1789709467.408005106] [rclcpp]: signal_handler(signum=15)

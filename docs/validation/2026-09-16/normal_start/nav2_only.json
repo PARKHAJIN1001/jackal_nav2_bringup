@@ -1,0 +1,97 @@
+{
+  "duration_sec": 20.002805011999953,
+  "interrupted": false,
+  "topics": {
+    "/j100_0519/nav2_cmd_vel": {
+      "count": 393,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.06198528200002329,
+      "last_stamp": 1789536185.9960918,
+      "frame": "base_link",
+      "age_min_median_max_sec": [
+        0.000339508056640625,
+        0.0005006790161132812,
+        0.016006946563720703
+      ],
+      "max_receipt_gap_sec": 0.13106289399911475,
+      "receipt_age_at_end_sec": 0.04689144700023462,
+      "publishers_at_end": [
+        "/nav2_safety_guard"
+      ]
+    },
+    "/livox/imu": {
+      "count": 3920,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.07861442399916996,
+      "last_stamp": 1789536186.043211,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.0001480579376220703,
+        0.00042057037353515625,
+        0.037145137786865234
+      ],
+      "max_receipt_gap_sec": 0.051863835999029106,
+      "receipt_age_at_end_sec": 2.4000000848900527e-05,
+      "publishers_at_end": [
+        "/livox_lidar_publisher"
+      ]
+    },
+    "/livox/lidar_local": {
+      "count": 292,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.07978929899945797,
+      "last_stamp": 1789536185.9147048,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.0704503059387207,
+        0.07396411895751953,
+        0.20572543144226074
+      ],
+      "max_receipt_gap_sec": 0.26885503299854463,
+      "receipt_age_at_end_sec": 0.05456770199998573,
+      "publishers_at_end": [
+        "/pointcloud_relay"
+      ]
+    }
+  },
+  "diagnostics": {
+    "pointcloud_relay": {
+      "messages": {
+        "fresh": 40
+      },
+      "last_values": {
+        "received_count": "355.000000",
+        "measurement_stamp_sec": "1789536185.582148",
+        "measurement_age_sec": "0.098750",
+        "age_at_receipt_sec": "0.073400",
+        "receipt_silence_sec": "0.025352",
+        "last_interval_sec": "0.069467",
+        "max_interval_sec": "0.449644",
+        "stamp_regressions": "0.000000",
+        "clock_regressions": "0.000000"
+      }
+    },
+    "nav2_safety_guard": {
+      "messages": {
+        "required_tf_missing_or_invalid": 19
+      },
+      "last_values": {
+        "enable_motion": "False",
+        "sensor_error": "",
+        "raw_sensor_stamp_age": "0.09762930870056152",
+        "raw_sensor_receipt_age": "0.024252917000922025",
+        "sensor_stamp_age": "0.09762930870056152",
+        "sensor_receipt_age": "0.024252917000922025",
+        "command_receipt_age": "missing",
+        "filtered_points": "6086",
+        "stop_points": "1788"
+      }
+    }
+  }
+}

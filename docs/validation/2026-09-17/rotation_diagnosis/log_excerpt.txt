@@ -1,0 +1,79 @@
+SOURCE /tmp/jackal_nav2_validation_20260917_KXP5m6/restart_02/nav2.log
+[amcl_quality_monitor.py-3] [WARN] [1789612850.275291562] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[amcl_quality_monitor.py-3] [WARN] [1789612855.367893186] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[amcl_quality_monitor.py-3] [WARN] [1789612861.950708526] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[amcl-5] [INFO] [1789612897.467107308] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789612896.387 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[pointcloud_relay_node-1] [WARN] [1789612906.046135105] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[fast_livo_odom_adapter.py-2] [WARN] [1789612908.106544445] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[lifecycle_manager-17] [ERROR] [1789612908.214684570] [lifecycle_manager_navigation]: CRITICAL FAILURE: SERVER controller_server IS DOWN after not receiving a heartbeat for 4000 ms. Shutting down related nodes.
+[map_patch_node.py-8] [WARN] [1789612908.831572077] [map_patch_node]: Cannot publish static map patch: Lookup would require extrapolation into the past.  Requested time 1789612897.253362 but the earliest data is at time 1789612897.654235, when looking up transform from frame [base_link] to frame [map]
+[planner_server-12] [ERROR] [1789612909.606892756] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789612897.253362 but the earliest data is at time 1789612898.253798, when looking up transform from frame [base_link] to frame [map]
+[fast_livo_odom_adapter.py-2] [WARN] [1789612910.660293871] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[planner_server-12] [ERROR] [1789612911.252497937] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789612897.253362 but the earliest data is at time 1789612900.653767, when looking up transform from frame [base_link] to frame [map]
+[fast_livo_odom_adapter.py-2] [WARN] [1789612913.111934973] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[planner_server-12] [ERROR] [1789612913.464674754] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1789612897.253362 but the earliest data is at time 1789612901.053428, when looking up transform from frame [base_link] to frame [map]
+[map_patch_node.py-8] [WARN] [1789612913.962115558] [map_patch_node]: Cannot publish static map patch: Lookup would require extrapolation into the past.  Requested time 1789612897.253362 but the earliest data is at time 1789612900.853859, when looking up transform from frame [base_link] to frame [map]
+[fast_livo_odom_adapter.py-2] [WARN] [1789612915.733315300] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[fast_livo_odom_adapter.py-2] [WARN] [1789612918.580520083] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+SOURCE /tmp/jackal_nav2_validation_20260917_KXP5m6/restart_02/fast_livo.log
+[fastlivo_mapping-1] [INFO] [1789612809.583691364] [laserMapping]: buffers lidar=0 imu=2 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612811.581370231] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612813.584132528] [laserMapping]: buffers lidar=0 imu=2 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612815.581718571] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612817.581729805] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612819.581477457] [laserMapping]: buffers lidar=0 imu=25 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612821.581401514] [laserMapping]: buffers lidar=0 imu=25 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612823.581591748] [laserMapping]: buffers lidar=0 imu=24 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612825.581442566] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612827.583849220] [laserMapping]: buffers lidar=0 imu=2 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612829.581714431] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612831.584293734] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612833.581690086] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612835.581633719] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612837.582831406] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612839.581680939] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612841.581850165] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612843.581829754] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612845.581623581] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612847.581929521] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612849.581672724] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612851.581692890] [laserMapping]: buffers lidar=0 imu=4 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612853.581788641] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612855.581694844] [laserMapping]: buffers lidar=0 imu=11 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612857.582171242] [laserMapping]: buffers lidar=0 imu=25 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612859.581786190] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612861.582033872] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612863.585952712] [laserMapping]: buffers lidar=0 imu=3 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612865.588434099] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612867.581874177] [laserMapping]: buffers lidar=0 imu=10 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612869.587303584] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612871.614569497] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612873.593473799] [laserMapping]: buffers lidar=0 imu=2 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612875.583550605] [laserMapping]: buffers lidar=0 imu=2 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612877.602328446] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612879.607041840] [laserMapping]: buffers lidar=0 imu=3 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612881.631736662] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612883.608575976] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612885.627199369] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612887.624869137] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612889.597631917] [laserMapping]: buffers lidar=0 imu=2 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612891.582151331] [laserMapping]: buffers lidar=0 imu=8 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612893.597311811] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612895.582141089] [laserMapping]: buffers lidar=0 imu=25 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612897.582302896] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612899.582273416] [laserMapping]: buffers lidar=0 imu=8 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612901.582117322] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612903.582537863] [laserMapping]: buffers lidar=0 imu=12 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612908.106401980] [laserMapping]: buffers lidar=0 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612910.662466380] [laserMapping]: buffers lidar=4 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612913.110593564] [laserMapping]: buffers lidar=3 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612913.582493469] [laserMapping]: buffers lidar=3 imu=13 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612915.736238516] [laserMapping]: buffers lidar=1 imu=1 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+[fastlivo_mapping-1] [INFO] [1789612917.617842577] [laserMapping]: buffers lidar=0 imu=2 image=0 prop_imu=0 pending_color=0 measurement_groups=1 path=2000 visual_voxels=0
+SYNC WARNING SUMMARY: 1681 lines in selected excerpt; first and last 3 follow.
+[fastlivo_mapping-1] [WARN] [1789612908.107563369] [fast_livo]: IMU and LiDAR not synced! delta time: 1.987419 .
+[fastlivo_mapping-1] [WARN] [1789612908.109997095] [fast_livo]: IMU and LiDAR not synced! delta time: 2.316010 .
+[fastlivo_mapping-1] [WARN] [1789612908.111493468] [fast_livo]: IMU and LiDAR not synced! delta time: 2.376549 .
+[fastlivo_mapping-1] [WARN] [1789612918.696078873] [fast_livo]: IMU and LiDAR not synced! delta time: 1.008919 .
+[fastlivo_mapping-1] [WARN] [1789612918.696303313] [fast_livo]: IMU and LiDAR not synced! delta time: 1.003057 .
+[fastlivo_mapping-1] [WARN] [1789612918.696604407] [fast_livo]: IMU and LiDAR not synced! delta time: 0.999147 .

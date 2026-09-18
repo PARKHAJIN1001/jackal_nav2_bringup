@@ -1,0 +1,14 @@
+# RViz-only dimensions. These do not change tracked positions, costmaps or safety geometry.
+pedestrian_figures:
+  ros__parameters:
+    figure_scale: 0.5
+    label_height: 0.18
+
+pedestrian_traces:
+  ros__parameters:
+    history_seconds: 3.0
+    max_points: 100
+    line_width: 0.03
+    ground_z: 0.02
+    input_timeout: 1.0
+    marker_lifetime: 0.3

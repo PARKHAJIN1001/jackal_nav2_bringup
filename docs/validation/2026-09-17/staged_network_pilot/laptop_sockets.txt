@@ -1,0 +1,47 @@
+State  Recv-Q Send-Q       Local Address:Port   Peer Address:PortProcess                                                                                        
+UNCONN 0      0              224.0.0.251:5353        0.0.0.0:*    users:(("ChatGPT",pid=39975,fd=132))
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o48,bl0,d15758)
+UNCONN 0      0              224.0.0.251:5353        0.0.0.0:*    users:(("ChatGPT",pid=39975,fd=128))
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o48,bl0,d15565)
+UNCONN 0      0              224.0.0.251:5353        0.0.0.0:*    users:(("ChatGPT",pid=39975,fd=77))
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o48,bl0,d15722) 
+UNCONN 0      0              224.0.0.251:5353        0.0.0.0:*    users:(("ChatGPT",pid=39975,fd=75))
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o48,bl0,d15532) 
+UNCONN 0      0                  0.0.0.0:5353        0.0.0.0:*   
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o192,bl0,d9285)                                     
+UNCONN 0      0             10.50.33.104:47986       0.0.0.0:*    users:(("ChatGPT",pid=39975,fd=55))
+	 skmem:(r0,rb425984,t0,tb425984,f0,w0,o0,bl0,d0)         
+UNCONN 0      0             192.168.50.1:7660        0.0.0.0:*    users:(("python3",pid=314065,fd=11))
+	 skmem:(r0,rb425984,t0,tb212992,f4096,w0,o0,bl0,d8524)  
+UNCONN 0      0             192.168.50.1:7661        0.0.0.0:*    users:(("python3",pid=314065,fd=12))
+	 skmem:(r0,rb425984,t0,tb212992,f4096,w0,o0,bl0,d1)     
+UNCONN 0      0             192.168.50.1:7662        0.0.0.0:*    users:(("python3",pid=307682,fd=11))
+	 skmem:(r0,rb425984,t0,tb212992,f4096,w0,o0,bl0,d6297)  
+UNCONN 0      0             192.168.50.1:7663        0.0.0.0:*    users:(("python3",pid=307682,fd=12))
+	 skmem:(r0,rb425984,t0,tb212992,f4096,w0,o0,bl0,d0)     
+UNCONN 0      0             192.168.50.1:40460       0.0.0.0:*    users:(("ChatGPT",pid=39975,fd=53))
+	 skmem:(r0,rb425984,t0,tb425984,f0,w0,o0,bl0,d0)         
+UNCONN 0      0                  0.0.0.0:32815       0.0.0.0:*    users:(("rustdesk",pid=286003,fd=18))
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o0,bl0,d0)    
+UNCONN 0      0            127.0.0.53%lo:53          0.0.0.0:*   
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o0,bl0,d0)                                          
+ESTAB  0      0      10.50.33.104%wlp5s0:68    10.20.254.198:67  
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o496,bl0,d0)                                        
+UNCONN 0      0             192.168.50.1:123         0.0.0.0:*   
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o0,bl0,d0)                                          
+UNCONN 0      0                127.0.0.1:323         0.0.0.0:*   
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o0,bl0,d0)                                          
+UNCONN 0      0             192.168.50.1:51018       0.0.0.0:*    users:(("python3",pid=307682,fd=14))
+	 skmem:(r0,rb212992,t0,tb425984,f0,w0,o0,bl0,d0)        
+UNCONN 0      0                  0.0.0.0:43465       0.0.0.0:*   
+	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                                             
+UNCONN 0      0             192.168.50.1:60193       0.0.0.0:*    users:(("python3",pid=314065,fd=14))
+	 skmem:(r0,rb212992,t0,tb425984,f0,w0,o0,bl0,d0)        
+UNCONN 0      0                  0.0.0.0:21119       0.0.0.0:*    users:(("rustdesk",pid=286003,fd=1743))
+	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)     
+UNCONN 0      0                     [::]:5353           [::]:*   
+	 skmem:(r0,rb212992,t0,tb212992,f4096,w0,o112,bl0,d0)                                        
+UNCONN 0      0                    [::1]:323            [::]:*   
+	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                                             
+UNCONN 0      0                     [::]:51937          [::]:*   
+	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                                             

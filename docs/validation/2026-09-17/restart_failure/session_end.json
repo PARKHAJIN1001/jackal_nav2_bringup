@@ -1,0 +1,10 @@
+{
+  "ended_wall_time": 1789623775.861615,
+  "reason": "User stopped work for today due to usage concerns",
+  "rotation_performed": false,
+  "user_correction": "Stationary divergence occurred before any rotation; earlier rotation-complete reply was retracted.",
+  "status": "Shutting down all local validation processes; no further launch or verification.",
+  "bag_limitation": "Recorder exited after 20.36 s with SQLite database is locked after agent read the active database; failure onset is not in the bag.",
+  "temporary_root": "/tmp/jackal_amcl_live_20260917_wkQykO/restart_02",
+  "do_not_relaunch_before_preserving": "FAST mat_pre/mat_out/imu logs have been copied here."
+}

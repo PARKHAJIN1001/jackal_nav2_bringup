@@ -1,0 +1,41 @@
+[INFO] [1789623482.335172577] [rosbag2_recorder]: Press SPACE for pausing/resuming
+[INFO] [1789623482.337134301] [rosbag2_storage]: Opened database '/tmp/jackal_amcl_live_20260917_wkQykO/restart_02/rotation_bag/rotation_bag_0.db3' for READ_WRITE.
+[INFO] [1789623482.339215758] [rosbag2_recorder]: Listening for topics...
+[INFO] [1789623482.339235423] [rosbag2_recorder]: Event publisher thread: Starting
+[INFO] [1789623482.339506693] [rosbag2_recorder]: Recording...
+[INFO] [1789623482.541188641] [rosbag2_recorder]: Overriding subscription profile for /initialpose
+[INFO] [1789623482.821525345] [rosbag2_recorder]: Subscribed to topic '/initialpose'
+[INFO] [1789623482.821972778] [rosbag2_recorder]: Overriding subscription profile for /map
+[INFO] [1789623482.824530829] [rosbag2_recorder]: Subscribed to topic '/map'
+[INFO] [1789623482.825000127] [rosbag2_recorder]: Overriding subscription profile for /nav2/localization_diagnostics
+[INFO] [1789623482.837526164] [rosbag2_recorder]: Subscribed to topic '/nav2/localization_diagnostics'
+[INFO] [1789623482.941277110] [rosbag2_recorder]: Overriding subscription profile for /aft_mapped_to_init
+[INFO] [1789623482.942905907] [rosbag2_recorder]: Subscribed to topic '/aft_mapped_to_init'
+[INFO] [1789623482.943460692] [rosbag2_recorder]: Overriding subscription profile for /j100_0519/sensors/imu_0/data
+[INFO] [1789623482.945288096] [rosbag2_recorder]: Subscribed to topic '/j100_0519/sensors/imu_0/data'
+[INFO] [1789623482.945804685] [rosbag2_recorder]: Overriding subscription profile for /tf_static
+[INFO] [1789623482.948084994] [rosbag2_recorder]: Subscribed to topic '/tf_static'
+[INFO] [1789623482.948640977] [rosbag2_recorder]: Overriding subscription profile for /tf
+[INFO] [1789623482.951357534] [rosbag2_recorder]: Subscribed to topic '/tf'
+[INFO] [1789623483.372401146] [rosbag2_recorder]: Overriding subscription profile for /particle_cloud
+[INFO] [1789623483.375656942] [rosbag2_recorder]: Subscribed to topic '/particle_cloud'
+[INFO] [1789623483.376207833] [rosbag2_recorder]: Overriding subscription profile for /nav2/lidar_relay_diagnostics
+[INFO] [1789623483.377648860] [rosbag2_recorder]: Subscribed to topic '/nav2/lidar_relay_diagnostics'
+[INFO] [1789623483.378126734] [rosbag2_recorder]: Overriding subscription profile for /nav2/safety_diagnostics
+[INFO] [1789623483.379795762] [rosbag2_recorder]: Subscribed to topic '/nav2/safety_diagnostics'
+[INFO] [1789623483.380347515] [rosbag2_recorder]: Overriding subscription profile for /j100_0519/platform/odom
+[INFO] [1789623483.382125811] [rosbag2_recorder]: Subscribed to topic '/j100_0519/platform/odom'
+[INFO] [1789623483.382643092] [rosbag2_recorder]: Overriding subscription profile for /j100_0519/nav2_cmd_vel
+[INFO] [1789623483.384315261] [rosbag2_recorder]: Subscribed to topic '/j100_0519/nav2_cmd_vel'
+[INFO] [1789623483.384814651] [rosbag2_recorder]: Overriding subscription profile for /scan
+[INFO] [1789623483.386784435] [rosbag2_recorder]: Subscribed to topic '/scan'
+[INFO] [1789623483.387329642] [rosbag2_recorder]: Overriding subscription profile for /amcl_pose
+[INFO] [1789623483.389127006] [rosbag2_recorder]: Subscribed to topic '/amcl_pose'
+[INFO] [1789623483.389692366] [rosbag2_recorder]: Overriding subscription profile for /odom
+[INFO] [1789623483.391450082] [rosbag2_recorder]: Subscribed to topic '/odom'
+[INFO] [1789623484.385685107] [rosbag2_recorder]: Overriding subscription profile for /livox/imu
+[INFO] [1789623484.388668685] [rosbag2_recorder]: Subscribed to topic '/livox/imu'
+[INFO] [1789623484.388744678] [rosbag2_recorder]: All requested topics are subscribed. Stopping discovery...
+terminate called after throwing an instance of 'rosbag2_storage_plugins::SqliteException'
+  what():  Error when processing SQL statement. SQLite error (5): database is locked
+timeout: the monitored command dumped core

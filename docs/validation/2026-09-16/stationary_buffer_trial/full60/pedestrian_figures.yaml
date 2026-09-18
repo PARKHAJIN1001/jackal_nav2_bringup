@@ -1,0 +1,9 @@
+/pedestrian_figures:
+  ros__parameters:
+    figure_scale: 0.5
+    label_height: 0.18
+    output_topic: /nav2/pedestrian_figures
+    target_frame: odom
+    tracks_topic: /ped_tracking
+    use_sim_time: false
+

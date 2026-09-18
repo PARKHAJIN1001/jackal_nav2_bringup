@@ -1,0 +1,14 @@
+Test project /tmp/jackal_nav2_validation_20260917_KXP5m6/build
+    Start  1: test_relay_health
+1/2 Test  #1: test_relay_health ................   Passed    0.06 sec
+    Start 17: uncrustify
+2/2 Test #17: uncrustify .......................   Passed    0.12 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Label Time Summary:
+gtest         =   0.06 sec*proc (1 test)
+linter        =   0.12 sec*proc (1 test)
+uncrustify    =   0.12 sec*proc (1 test)
+
+Total Test time (real) =   0.19 sec

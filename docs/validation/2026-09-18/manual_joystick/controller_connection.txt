@@ -1,0 +1,38 @@
+Device A4:53:85:6E:27:41 (public)
+	Name: Wireless Controller
+	Alias: Wireless Controller
+	Class: 0x00002508
+	Icon: input-gaming
+	Paired: yes
+	Trusted: yes
+	Blocked: no
+	Connected: no
+	WakeAllowed: yes
+	LegacyPairing: no
+	UUID: Human Interface Device... (00001124-0000-1000-8000-00805f9b34fb)
+	UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
+	Modalias: usb:v054Cp09CCd0100
+Sep 18 13:38:06 cpr-j100-0519 systemd[1]: Started ds4drv daemon.
+Sep 18 13:38:07 cpr-j100-0519 ds4drv[875]: [info][controller 1] Created devices /dev/input/js0 (joystick) /dev/input/event7 (evdev)
+Sep 18 13:38:07 cpr-j100-0519 ds4drv[875]: [info][hidraw] Scanning for devices
+Sep 18 13:43:11 cpr-j100-0519 ds4drv[875]: [info][controller 1] Connected to Bluetooth Controller (A4:53:85:6E:27:41 hidraw0)
+Sep 18 13:43:11 cpr-j100-0519 ds4drv[875]: [info][hidraw] Scanning for devices
+Sep 18 13:43:12 cpr-j100-0519 ds4drv[875]: [info][controller 1] Battery: Fully charged
+Sep 18 14:01:19 cpr-j100-0519 ds4drv[875]: [info][controller 1] Battery: Fully charged
+Sep 18 14:27:35 cpr-j100-0519 ds4drv[875]: [warning][controller 1] Signal strength is low (10 reports/s)
+Sep 18 14:27:40 cpr-j100-0519 ds4drv[875]: [warning][controller 1] Signal strength is low (0 reports/s)
+Sep 18 14:27:46 cpr-j100-0519 ds4drv[875]: [warning][controller 1] Signal strength is low (0 reports/s)
+Sep 18 14:27:51 cpr-j100-0519 ds4drv[875]: [warning][controller 1] Signal strength is low (0 reports/s)
+Sep 18 14:27:55 cpr-j100-0519 ds4drv[875]: [info][controller 1] Disconnected
+# /lib/systemd/system/ds4drv.service
+[Unit]
+Description=ds4drv daemon
+Requires=bluetooth.service
+After=bluetooth.service
+
+[Service]
+ExecStart=/usr/sbin/ds4drv
+Restart=on-abort
+
+[Install]
+WantedBy=bluetooth.target

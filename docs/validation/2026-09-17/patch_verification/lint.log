@@ -1,0 +1,882 @@
+Test project /tmp/jackal_nav2_validation_20260917_KXP5m6/build
+    Start 12: cppcheck
+1/7 Test #12: cppcheck .........................   Passed    0.13 sec
+    Start 13: cpplint
+2/7 Test #13: cpplint ..........................   Passed    0.19 sec
+    Start 14: flake8
+3/7 Test #14: flake8 ...........................***Failed    0.78 sec
+-- run_test.py: invoking following command in '/home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup':
+ - /opt/ros/humble/bin/ament_flake8 --xunit-file /tmp/jackal_nav2_validation_20260917_KXP5m6/build/test_results/jackal_nav2_bringup/flake8.xunit.xml
+from diagnostic_msgs.msg import DiagnosticArray
+^
+from sensor_msgs.msg import PointCloud2, Imu
+^
+def receive(topic, msg):
+^
+def diag(msg):
+^
+topics = [('/livox/lidar_local', PointCloud2), ('/livox/imu', Imu),
+^
+                    ('/aft_mapped_to_init', Odometry),
+                    ^
+                                              qos_profile_sensor_data))
+                                              ^
+remote_probe = '''
+import json, socket, struct, time
+message = bytearray(48)
+message[0] = 0x23
+epoch = 2208988800
+t1 = time.time()
+struct.pack_into('!II', message, 40, int(t1) + epoch, int((t1 % 1) * 2**32))
+with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+    sock.settimeout(3)
+    sock.connect(('192.168.50.1', 123))
+    sock.send(message)
+    data = sock.recv(512)
+t4 = time.time()
+if len(data) < 48 or data[24:32] != message[40:48] or data[0] & 7 != 4:
+    raise RuntimeError('Invalid or unmatched NTP response')
+def timestamp(start):
+    sec, frac = struct.unpack_from('!II', data, start)
+    return sec - epoch + frac / 2**32
+t2, t3 = timestamp(32), timestamp(40)
+print(json.dumps({'leap': data[0] >> 6, 'stratum': data[1],
+ 'served_ntp_minus_nuc_system_sec': ((t2-t1)+(t3-t4))/2,
+ 'roundtrip_sec': (t4-t1)-(t3-t2),
+ 'root_delay_sec': struct.unpack_from('!i', data, 4)[0]/65536,
+ 'root_dispersion_sec': struct.unpack_from('!I', data, 8)[0]/65536}))
+'''
+               ^
+        if host_offsets else None,
+        ^
+        if host_offsets else None,
+        ^
+        'OS-to-OS offset. Sampled pre-ROS window, not continuous/reboot/ROS validation.',
+        ^
+remote_probe = '''
+import json, socket, struct, time
+message = bytearray(48)
+message[0] = 0x23
+epoch = 2208988800
+t1 = time.time()
+struct.pack_into('!II', message, 40, int(t1) + epoch, int((t1 % 1) * 2**32))
+with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+    sock.settimeout(3)
+    sock.connect(('192.168.50.1', 123))
+    sock.send(message)
+    data = sock.recv(512)
+t4 = time.time()
+if len(data) < 48 or data[24:32] != message[40:48] or data[0] & 7 != 4:
+    raise RuntimeError('Invalid or unmatched NTP response')
+def timestamp(start):
+    sec, frac = struct.unpack_from('!II', data, start)
+    return sec - epoch + frac / 2**32
+t2, t3 = timestamp(32), timestamp(40)
+print(json.dumps({'leap': data[0] >> 6, 'stratum': data[1],
+ 'laptop_minus_nuc_sec': ((t2-t1)+(t3-t4))/2,
+ 'roundtrip_sec': (t4-t1)-(t3-t2),
+ 'root_delay_sec': struct.unpack_from('!i', data, 4)[0]/65536,
+ 'root_dispersion_sec': struct.unpack_from('!I', data, 8)[0]/65536}))
+'''
+               ^
+import ctypes
+^
+SLEW = '''import ctypes
+class Timeval(ctypes.Structure):
+    _fields_ = [('tv_sec', ctypes.c_long), ('tv_usec', ctypes.c_long)]
+old = Timeval()
+libc = ctypes.CDLL(None, use_errno=True)
+rc = libc.adjtime(None, ctypes.byref(old))
+slew = old.tv_sec + old.tv_usec / 1e6 if rc == 0 else None
+'''
+       ^
+remote = SLEW + '''
+import sys, time, json
+print(json.dumps({'pending_slew_sec': slew}), flush=True)
+for line in sys.stdin:
+    print(time.time_ns(), flush=True)
+'''
+                ^
+def read_line():
+^
+try:
+^
+from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
+^
+from diagnostic_msgs.msg import DiagnosticArray
+^
+    def __init__(self):
+^
+                            durability=DurabilityPolicy.TRANSIENT_LOCAL)
+                            ^
+        s['delete_markers'] = s.get('delete_markers', 0) + sum(m.action in (2, 3) for m in msg.markers)
+                                                                                                   ^
+from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
+^
+from diagnostic_msgs.msg import DiagnosticArray
+^
+from rcl_interfaces.srv import GetParameters
+^
+def record(topic, stamp, size=0, frame=''):
+^
+def callback(topic, data):
+^
+def diag(msg):
+^
+def tf(msg):
+^
+topics = ['/livox/lidar', '/livox/imu'] if a.nuc else [
+^
+            lambda msg, topic=topic: callback(topic, msg), qos, raw=True))
+            ^
+    subscriptions.append(n.create_subscription(DiagnosticArray, '/nav2/safety_diagnostics', diag, qos))
+                                                                                                   ^
+                         'common/img_en', 'common/lidar_en', 'use_sim_time'],
+                         ^
+        '/mid360_lidar_accumulator_node': ['input_cloud_topic', 'output_cloud_topic', 'accumulation_frames'],
+                                                                                                   ^
+                                  'integer': value.integer_value, 'double': value.double_value,
+                                  ^
+                                  'string': value.string_value}
+                                  ^
+def stats(values):
+^
+summary = {}
+^
+        'interval_sec': stats([b[0]-a[0] for a,b in zip(rows,rows[1:])]),
+                                              ^
+        'interval_sec': stats([b[0]-a[0] for a,b in zip(rows,rows[1:])]),
+                                                            ^
+        'stamp_delta_sec': stats([b[2]-a[2] for a,b in zip(rows,rows[1:])]),
+                                                 ^
+        'stamp_delta_sec': stats([b[2]-a[2] for a,b in zip(rows,rows[1:])]),
+                                                               ^
+        'stamp_regressions': sum(b[2]<a[2] for a,b in zip(rows,rows[1:])),
+                                     ^
+        'stamp_regressions': sum(b[2]<a[2] for a,b in zip(rows,rows[1:])),
+                                                ^
+        'stamp_regressions': sum(b[2]<a[2] for a,b in zip(rows,rows[1:])),
+                                                              ^
+          'limitations': 'Additional depth-1 best-effort probe; no remote cloud/image subscription on laptop.'}
+                                                                                                   ^
+print(json.dumps({k:v for k,v in report.items() if k not in ('samples', 'diagnostics')}, indent=2))
+                   ^
+print(json.dumps({k:v for k,v in report.items() if k not in ('samples', 'diagnostics')}, indent=2))
+                           ^
+    assert original['mid360_mask_3d_extractor_node']['ros__parameters']['tracking_frame'] == 'base_link'
+                                                                                                   ^
+"""
+연결 후 검증 및 런타임 환경 진단 스크립트.
+ROS2 의존성 없이 stdlib 및 paramiko만 사용하여 시스템 상태를 점검합니다.
+"""
+^
+import sys
+^
+class Colors:
+^
+def color_print(text, color, json_mode):
+^
+        print(f"{color}{text}{Colors.RESET}")
+              ^
+def run_local_cmd(cmd):
+^
+        return 1, "", str(e)
+                  ^
+def dds_shm_cleanup(fix=False):
+^
+    msg = f"/dev/shm/fastrtps_* 파일 수: {count}"
+          ^
+    
+^
+def nuc_connectivity():
+^
+    """(b) NUC Connectivity"""
+^
+    
+^
+        with socket.create_connection((NUC_IP, 22), timeout=2.0) as sock:
+                                                                    ^
+            msg = f"SSH 포트 개방 확인 (RTT: {rtt:.2f}ms)"
+                  ^
+        msg = f"접속 불가: {e}"
+              ^
+        
+^
+    return {"name": "NUC Connectivity", "status": status, "msg": msg, "rtt_ms": rtt}
+            ^
+    return {"name": "NUC Connectivity", "status": status, "msg": msg, "rtt_ms": rtt}
+                    ^
+    return {"name": "NUC Connectivity", "status": status, "msg": msg, "rtt_ms": rtt}
+                                        ^
+    return {"name": "NUC Connectivity", "status": status, "msg": msg, "rtt_ms": rtt}
+                                                          ^
+    return {"name": "NUC Connectivity", "status": status, "msg": msg, "rtt_ms": rtt}
+                                                                      ^
+def get_ssh_client():
+^
+    
+^
+        
+^
+            
+^
+def nuc_ssh_connection():
+^
+    """(c) NUC SSH 연결 검증"""
+^
+
+./docs/validation/2026-09-16/relaunch/startup_observer.py:10:1: I100 Import statements are in the wrong order. 'from diagnostic_msgs.msg import DiagnosticArray' should be before 'from rclpy.qos import qos_profile_sensor_data'
+
+./docs/validation/2026-09-16/relaunch/startup_observer.py:13:1: I101 Imported names are in the wrong order. Should be Imu, PointCloud2
+
+./docs/validation/2026-09-16/relaunch/startup_observer.py:27:1: E302 expected 2 blank lines, found 1
+
+./docs/validation/2026-09-16/relaunch/startup_observer.py:47:1: E302 expected 2 blank lines, found 1
+
+./docs/validation/2026-09-16/relaunch/startup_observer.py:53:1: E305 expected 2 blank lines after class or function definition, found 1
+
+./docs/validation/2026-09-16/relaunch/startup_observer.py:54:21: E127 continuation line over-indented for visual indent
+
+./docs/validation/2026-09-16/relaunch/startup_observer.py:63:47: E128 continuation line under-indented for visual indent
+
+./docs/validation/2026-09-11/time_sync/observe_laptop_time.v2.py:15:16: Q001 Single quote multiline found but double quotes preferred
+
+./docs/validation/2026-09-11/time_sync/summarize_time.v2.py:62:9: E131 continuation line unaligned for hanging indent
+
+./docs/validation/2026-09-11/time_sync/summarize_time.v2.py:72:9: E131 continuation line unaligned for hanging indent
+
+./docs/validation/2026-09-11/time_sync/summarize_time.v2.py:77:9: E131 continuation line unaligned for hanging indent
+
+./docs/validation/2026-09-11/time_sync/observe_laptop_time.py:14:16: Q001 Single quote multiline found but double quotes preferred
+
+./docs/validation/2026-09-11/time_sync/clock_probe.py:3:1: F401 'ctypes' imported but unused
+
+./docs/validation/2026-09-11/time_sync/clock_probe.py:11:8: Q001 Single quote multiline found but double quotes preferred
+
+./docs/validation/2026-09-11/time_sync/clock_probe.py:25:17: Q001 Single quote multiline found but double quotes preferred
+
+./docs/validation/2026-09-11/time_sync/clock_probe.py:38:1: E302 expected 2 blank lines, found 1
+
+./docs/validation/2026-09-11/time_sync/clock_probe.py:46:1: E305 expected 2 blank lines after class or function definition, found 1
+
+./docs/validation/2026-09-14/stationary_pilot/scene_observer.py:12:1: I101 Imported names are in the wrong order. Should be DurabilityPolicy, QoSProfile, ReliabilityPolicy
+
+./docs/validation/2026-09-14/stationary_pilot/scene_observer.py:13:1: I100 Import statements are in the wrong order. 'from diagnostic_msgs.msg import DiagnosticArray' should be before 'from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy'
+
+./docs/validation/2026-09-14/stationary_pilot/scene_observer.py:21:1: CNL100 Class definition does not have a new line.
+
+./docs/validation/2026-09-14/stationary_pilot/scene_observer.py:40:29: E128 continuation line under-indented for visual indent
+
+./docs/validation/2026-09-14/stationary_pilot/scene_observer.py:74:100: E501 line too long (103 > 99 characters)
+
+./docs/validation/2026-09-14/buffering/probe.py:11:1: I101 Imported names are in the wrong order. Should be DurabilityPolicy, QoSProfile, ReliabilityPolicy
+
+./docs/validation/2026-09-14/buffering/probe.py:13:1: I100 Import statements are in the wrong order. 'from diagnostic_msgs.msg import DiagnosticArray' should be before 'from rosidl_runtime_py.utilities import get_message'
+
+./docs/validation/2026-09-14/buffering/probe.py:15:1: I100 Import statements are in the wrong order. 'from rcl_interfaces.srv import GetParameters' should be before 'from tf2_msgs.msg import TFMessage'
+
+./docs/validation/2026-09-14/buffering/probe.py:27:1: E302 expected 2 blank lines, found 0
+
+./docs/validation/2026-09-14/buffering/probe.py:32:1: E302 expected 2 blank lines, found 0
+
+./docs/validation/2026-09-14/buffering/probe.py:43:1: E302 expected 2 blank lines, found 0
+
+./docs/validation/2026-09-14/buffering/probe.py:49:1: E302 expected 2 blank lines, found 0
+
+./docs/validation/2026-09-14/buffering/probe.py:54:1: E305 expected 2 blank lines after class or function definition, found 0
+
+./docs/validation/2026-09-14/buffering/probe.py:69:13: E128 continuation line under-indented for visual indent
+
+./docs/validation/2026-09-14/buffering/probe.py:73:100: E501 line too long (103 > 99 characters)
+
+./docs/validation/2026-09-14/buffering/probe.py:79:26: E128 continuation line under-indented for visual indent
+
+./docs/validation/2026-09-14/buffering/probe.py:83:100: E501 line too long (109 > 99 characters)
+
+./docs/validation/2026-09-14/buffering/probe.py:97:35: E128 continuation line under-indented for visual indent
+
+./docs/validation/2026-09-14/buffering/probe.py:98:35: E128 continuation line under-indented for visual indent
+
+./docs/validation/2026-09-14/buffering/probe.py:111:1: E302 expected 2 blank lines, found 0
+
+./docs/validation/2026-09-14/buffering/probe.py:117:1: E305 expected 2 blank lines after class or function definition, found 0
+
+./docs/validation/2026-09-14/buffering/probe.py:124:47: E231 missing whitespace after ','
+
+./docs/validation/2026-09-14/buffering/probe.py:124:61: E231 missing whitespace after ','
+
+./docs/validation/2026-09-14/buffering/probe.py:125:50: E231 missing whitespace after ','
+
+./docs/validation/2026-09-14/buffering/probe.py:125:64: E231 missing whitespace after ','
+
+./docs/validation/2026-09-14/buffering/probe.py:126:38: E225 missing whitespace around operator
+
+./docs/validation/2026-09-14/buffering/probe.py:126:49: E231 missing whitespace after ','
+
+./docs/validation/2026-09-14/buffering/probe.py:126:63: E231 missing whitespace after ','
+
+./docs/validation/2026-09-14/buffering/probe.py:133:100: E501 line too long (111 > 99 characters)
+
+./docs/validation/2026-09-14/buffering/probe.py:135:20: E231 missing whitespace after ':'
+
+./docs/validation/2026-09-14/buffering/probe.py:135:28: E231 missing whitespace after ','
+
+./test/test_config_and_launch.py:226:100: E501 line too long (104 > 99 characters)
+
+./tools/pilot_preflight.py:3:1: D205 1 blank line required between summary line and description
+
+./tools/pilot_preflight.py:15:1: I100 Import statements are in the wrong order. 'import sys' should be before 'import time'
+
+./tools/pilot_preflight.py:31:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:37:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:39:15: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:41:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:52:19: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:54:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:59:11: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:60:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:68:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:69:1: D400 First line should end with a period
+
+./tools/pilot_preflight.py:74:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:76:69: F841 local variable 'sock' is assigned to but never used
+
+./tools/pilot_preflight.py:80:19: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:82:15: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:83:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:84:13: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:84:21: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:84:41: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:84:59: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:84:71: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:86:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:89:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:101:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:109:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:112:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:113:1: D400 First line should end with a period
+
+        return {"name": "NUC SSH", "status": "PASS", "msg": "SSH 연결 성공"}
+                ^
+        return {"name": "NUC SSH", "status": "PASS", "msg": "SSH 연결 성공"}
+                        ^
+        return {"name": "NUC SSH", "status": "PASS", "msg": "SSH 연결 성공"}
+                                   ^
+        return {"name": "NUC SSH", "status": "PASS", "msg": "SSH 연결 성공"}
+                                             ^
+        return {"name": "NUC SSH", "status": "PASS", "msg": "SSH 연결 성공"}
+                                                     ^
+        return {"name": "NUC SSH", "status": "PASS", "msg": "SSH 연결 성공"}
+                                                            ^
+    return {"name": "NUC SSH", "status": "FAIL", "msg": "SSH 연결 실패"}
+            ^
+    return {"name": "NUC SSH", "status": "FAIL", "msg": "SSH 연결 실패"}
+                    ^
+    return {"name": "NUC SSH", "status": "FAIL", "msg": "SSH 연결 실패"}
+                               ^
+    return {"name": "NUC SSH", "status": "FAIL", "msg": "SSH 연결 실패"}
+                                         ^
+    return {"name": "NUC SSH", "status": "FAIL", "msg": "SSH 연결 실패"}
+                                                 ^
+    return {"name": "NUC SSH", "status": "FAIL", "msg": "SSH 연결 실패"}
+                                                        ^
+def clock_offset_measurement(client):
+^
+    """(d) Clock Offset Measurement"""
+^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": "SSH 연결 필요"}
+                ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": "SSH 연결 필요"}
+                        ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": "SSH 연결 필요"}
+                                        ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": "SSH 연결 필요"}
+                                                  ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": "SSH 연결 필요"}
+                                                          ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": "SSH 연결 필요"}
+                                                                 ^
+        
+^
+            
+^
+                
+^
+            
+^
+            
+^
+            return {"name": "Clock Offset", "status": "FAIL", "msg": "시간 측정 실패"}
+                    ^
+            return {"name": "Clock Offset", "status": "FAIL", "msg": "시간 측정 실패"}
+                            ^
+            return {"name": "Clock Offset", "status": "FAIL", "msg": "시간 측정 실패"}
+                                            ^
+            return {"name": "Clock Offset", "status": "FAIL", "msg": "시간 측정 실패"}
+                                                      ^
+            return {"name": "Clock Offset", "status": "FAIL", "msg": "시간 측정 실패"}
+                                                              ^
+            return {"name": "Clock Offset", "status": "FAIL", "msg": "시간 측정 실패"}
+                                                                     ^
+            
+^
+        
+^
+        status = 'PASS' if abs(avg_offset) < 20.0 else 'FAIL'  # 20ms 기준 (Connected_Validation 문서 참고)
+                                                                                                   ^
+        msg = f"NUC-Laptop 오프셋: {avg_offset:.2f}ms (평균 RTT: {avg_rtt:.2f}ms)"
+              ^
+        return {"name": "Clock Offset", "status": status, "msg": msg, "offset_ms": avg_offset}
+                ^
+        return {"name": "Clock Offset", "status": status, "msg": msg, "offset_ms": avg_offset}
+                        ^
+        return {"name": "Clock Offset", "status": status, "msg": msg, "offset_ms": avg_offset}
+                                        ^
+        return {"name": "Clock Offset", "status": status, "msg": msg, "offset_ms": avg_offset}
+                                                          ^
+        return {"name": "Clock Offset", "status": status, "msg": msg, "offset_ms": avg_offset}
+                                                                      ^
+        
+^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": str(e)}
+                ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": str(e)}
+                        ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": str(e)}
+                                        ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": str(e)}
+                                                  ^
+        return {"name": "Clock Offset", "status": "FAIL", "msg": str(e)}
+                                                          ^
+def chrony_is_synchronized(returncode, output):
+^
+    """(f) WiFi Power Management"""
+^
+        return {'name': 'WiFi Power Management', 'status': 'SKIP', 'msg': f'{WIFI_IFACE} 장치를 찾을 수 없음'}
+                                                                                                   ^
+    msg = '절전 모드 켜짐 (NTP 지터 유발 가능, sudo iwconfig wlp5s0 power off 권장)' if is_on else '절전 모드 꺼짐 (양호)'
+                                                                                                   ^
+    """(g) NUC Network Buffers"""
+^
+        stdin, stdout, stderr = client.exec_command('sysctl -n net.core.rmem_max net.ipv4.ipfrag_high_thresh')
+                                                                                                   ^
+    """(h) NUC ROS Process Check"""
+^
+        return {'name': 'NUC ROS Process', 'status': 'PASS' if running else 'INFO', 'msg': msg, 'running': running}
+                                                                                                   ^
+def main():
+^
+    parser = argparse.ArgumentParser(description="Jackal Nav2 Pilot Preflight Script")
+                                                 ^
+    parser.add_argument('--json', action='store_true', help="JSON 형식 출력")
+                                                            ^
+    
+^
+    
+^
+    
+^
+    
+^
+        
+^
+    
+^
+    
+^
+    
+^
+    
+^
+    
+^
+    
+^
+        
+^
+        print("Jackal Nav2 Preflight Summary")
+              ^
+            color = Colors.GREEN if r['status'] == 'PASS' else Colors.RED if r['status'] == 'FAIL' else Colors.YELLOW
+                                                                                                   ^
+        
+^
+    fail_count = sum(1 for r in results if r['status'] == 'FAIL' and r['name'] != 'NUC ROS Process')
+                                                                                                   ^
+            print(f"{Colors.RED}{fail_count}개의 항목 실패. 확인이 필요합니다.{Colors.RESET}")
+                  ^
+            print(f"{Colors.GREEN}모든 중요 점검 항목 통과!{Colors.RESET}")
+                  ^
+if __name__ == '__main__':
+^
+1     CNL100 Class definition does not have a new line.
+1     D205 1 blank line required between summary line and description
+6     D400 First line should end with a period
+1     E127 continuation line over-indented for visual indent
+6     E128 continuation line under-indented for visual indent
+3     E131 continuation line unaligned for hanging indent
+1     E225 missing whitespace around operator
+8     E231 missing whitespace after ','
+18    E302 expected 2 blank lines, found 1
+5     E305 expected 2 blank lines after class or function definition, found 1
+12    E501 line too long (103 > 99 characters)
+1     F401 'ctypes' imported but unused
+1     F841 local variable 'sock' is assigned to but never used
+5     I100 Import statements are in the wrong order. 'from diagnostic_msgs.msg import DiagnosticArray' should be before 'from rosidl_runtime_py.utilities import get_message'
+3     I101 Imported names are in the wrong order. Should be DurabilityPolicy, QoSProfile, ReliabilityPolicy
+50    Q000 Double quotes found but single quotes preferred
+4     Q001 Single quote multiline found but double quotes preferred
+27    W293 blank line contains whitespace
+./tools/pilot_preflight.py:117:17: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:117:25: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:117:36: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:117:46: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:117:54: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:117:61: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:118:13: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:118:21: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:118:32: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:118:42: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:118:50: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:118:57: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:120:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:121:1: D400 First line should end with a period
+
+./tools/pilot_preflight.py:123:17: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:123:25: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:123:41: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:123:51: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:123:59: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:123:66: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:124:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:133:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:136:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:142:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:145:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:147:21: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:147:29: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:147:45: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:147:55: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:147:63: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:147:70: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:148:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:151:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:152:100: E501 line too long (101 > 99 characters)
+
+./tools/pilot_preflight.py:153:15: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:154:17: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:154:25: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:154:41: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:154:59: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:154:71: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:155:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:157:17: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:157:25: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:157:41: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:157:51: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:157:59: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:159:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:208:1: D400 First line should end with a period
+
+./tools/pilot_preflight.py:211:100: E501 line too long (102 > 99 characters)
+
+./tools/pilot_preflight.py:215:100: E501 line too long (100 > 99 characters)
+
+./tools/pilot_preflight.py:221:1: D400 First line should end with a period
+
+./tools/pilot_preflight.py:226:100: E501 line too long (110 > 99 characters)
+
+./tools/pilot_preflight.py:245:1: D400 First line should end with a period
+
+./tools/pilot_preflight.py:256:100: E501 line too long (115 > 99 characters)
+
+./tools/pilot_preflight.py:279:1: E302 expected 2 blank lines, found 1
+
+./tools/pilot_preflight.py:280:50: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:283:61: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:287:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:290:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:293:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:297:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:301:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:304:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:307:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:310:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:313:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:316:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:319:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:322:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:328:15: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:331:100: E501 line too long (117 > 99 characters)
+
+./tools/pilot_preflight.py:335:1: W293 blank line contains whitespace
+
+./tools/pilot_preflight.py:337:100: E501 line too long (100 > 99 characters)
+
+./tools/pilot_preflight.py:340:19: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:344:19: Q000 Double quotes found but single quotes preferred
+
+./tools/pilot_preflight.py:347:1: E305 expected 2 blank lines after class or function definition, found 1
+
+
+37 files checked
+153 errors
+
+'C'-type errors: 1
+'D'-type errors: 7
+'E'-type errors: 54
+'F'-type errors: 2
+'I'-type errors: 8
+'Q'-type errors: 54
+'W'-type errors: 27
+
+Checked files:
+
+* ./docs/validation/2026-09-16/relaunch/startup_observer.py
+* ./docs/validation/2026-09-11/time_sync/observe_laptop_time.v2.py
+* ./docs/validation/2026-09-11/time_sync/summarize_time.v2.py
+* ./docs/validation/2026-09-11/time_sync/observe_laptop_time.py
+* ./docs/validation/2026-09-11/time_sync/summarize_time.py
+* ./docs/validation/2026-09-11/time_sync/clock_probe.py
+* ./docs/validation/2026-09-14/stationary_pilot/scene_observer.py
+* ./docs/validation/2026-09-14/buffering/probe.py
+* ./test/integration_static_safety.py
+* ./test/test_map_patch.py
+* ./test/test_battery_percentage_bridge.py
+* ./test/test_fast_livo_odom_adapter.py
+* ./test/test_tf_localization_audit.py
+* ./test/test_nav2_twist_stamper.py
+* ./test/test_followup.py
+* ./test/test_speed_overlay.py
+* ./test/test_nav2_safety.py
+* ./test/test_pilot_preflight.py
+* ./test/test_config_and_launch.py
+* ./tools/pilot_preflight.py
+* ./launch/navigation.launch.py
+* ./launch/bringup.launch.py
+* ./launch/safety.launch.py
+* ./launch/localization.launch.py
+* ./scripts/amcl_recovery_monitor.py
+* ./scripts/prepare_perception_config.py
+* ./scripts/nav2_safety_guard.py
+* ./scripts/amcl_quality_monitor.py
+* ./scripts/runtime_resource_audit.py
+* ./scripts/battery_percentage_bridge.py
+* ./scripts/nav2_twist_stamper.py
+* ./scripts/tf_localization_audit.py
+* ./scripts/nav2_safety_core.py
+* ./scripts/record_navigation_validation.py
+* ./scripts/fast_livo_odom_adapter.py
+* ./scripts/map_patch_node.py
+* ./scripts/speed_overlay.py
+-- run_test.py: return code 1
+-- run_test.py: verify result file '/tmp/jackal_nav2_validation_20260917_KXP5m6/build/test_results/jackal_nav2_bringup/flake8.xunit.xml'
+
+    Start 15: lint_cmake
+4/7 Test #15: lint_cmake .......................   Passed    0.12 sec
+    Start 16: pep257
+5/7 Test #16: pep257 ...........................***Failed    0.40 sec
+-- run_test.py: invoking following command in '/home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup':
+ - /opt/ros/humble/bin/ament_pep257 --xunit-file /tmp/jackal_nav2_validation_20260917_KXP5m6/build/test_results/jackal_nav2_bringup/pep257.xunit.xml
+checking ./docs/validation/2026-09-11/time_sync/clock_probe.py
+checking ./docs/validation/2026-09-11/time_sync/observe_laptop_time.py
+checking ./docs/validation/2026-09-11/time_sync/observe_laptop_time.v2.py
+checking ./docs/validation/2026-09-11/time_sync/summarize_time.py
+checking ./docs/validation/2026-09-11/time_sync/summarize_time.v2.py
+checking ./docs/validation/2026-09-14/buffering/probe.py
+checking ./docs/validation/2026-09-14/stationary_pilot/scene_observer.py
+checking ./docs/validation/2026-09-16/relaunch/startup_observer.py
+checking ./launch/bringup.launch.py
+checking ./launch/localization.launch.py
+checking ./launch/navigation.launch.py
+checking ./launch/safety.launch.py
+checking ./scripts/amcl_quality_monitor.py
+checking ./scripts/amcl_recovery_monitor.py
+checking ./scripts/battery_percentage_bridge.py
+checking ./scripts/fast_livo_odom_adapter.py
+checking ./scripts/map_patch_node.py
+checking ./scripts/nav2_safety_core.py
+checking ./scripts/nav2_safety_guard.py
+checking ./scripts/nav2_twist_stamper.py
+checking ./scripts/prepare_perception_config.py
+checking ./scripts/record_navigation_validation.py
+checking ./scripts/runtime_resource_audit.py
+checking ./scripts/speed_overlay.py
+checking ./scripts/tf_localization_audit.py
+checking ./test/integration_static_safety.py
+checking ./test/test_battery_percentage_bridge.py
+checking ./test/test_config_and_launch.py
+checking ./test/test_fast_livo_odom_adapter.py
+checking ./test/test_followup.py
+checking ./test/test_map_patch.py
+checking ./test/test_nav2_safety.py
+checking ./test/test_nav2_twist_stamper.py
+checking ./test/test_pilot_preflight.py
+checking ./test/test_speed_overlay.py
+checking ./test/test_tf_localization_audit.py
+checking ./tools/pilot_preflight.py
+./tools/pilot_preflight.py:3 at module level: D205: 1 blank line required between summary line and description (found 0)
+./tools/pilot_preflight.py:69 in public function `nuc_connectivity`: D400: First line should end with a period (not 'y')
+./tools/pilot_preflight.py:69 in public function `nuc_connectivity`: D415: First line should end with a period, question mark, or exclamation point (not 'y')
+./tools/pilot_preflight.py:113 in public function `nuc_ssh_connection`: D400: First line should end with a period (not '증')
+./tools/pilot_preflight.py:113 in public function `nuc_ssh_connection`: D415: First line should end with a period, question mark, or exclamation point (not '증')
+./tools/pilot_preflight.py:121 in public function `clock_offset_measurement`: D400: First line should end with a period (not 't')
+./tools/pilot_preflight.py:121 in public function `clock_offset_measurement`: D415: First line should end with a period, question mark, or exclamation point (not 't')
+./tools/pilot_preflight.py:208 in public function `wifi_power_management`: D400: First line should end with a period (not 't')
+./tools/pilot_preflight.py:208 in public function `wifi_power_management`: D415: First line should end with a period, question mark, or exclamation point (not 't')
+./tools/pilot_preflight.py:221 in public function `nuc_network_buffers`: D400: First line should end with a period (not 's')
+./tools/pilot_preflight.py:221 in public function `nuc_network_buffers`: D415: First line should end with a period, question mark, or exclamation point (not 's')
+./tools/pilot_preflight.py:245 in public function `nuc_ros_process_check`: D400: First line should end with a period (not 'k')
+./tools/pilot_preflight.py:245 in public function `nuc_ros_process_check`: D415: First line should end with a period, question mark, or exclamation point (not 'k')
+13 errors
+-- run_test.py: return code 1
+-- run_test.py: verify result file '/tmp/jackal_nav2_validation_20260917_KXP5m6/build/test_results/jackal_nav2_bringup/pep257.xunit.xml'
+
+    Start 17: uncrustify
+6/7 Test #17: uncrustify .......................***Failed    0.17 sec
+-- run_test.py: invoking following command in '/home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup':
+ - /opt/ros/humble/bin/ament_uncrustify --xunit-file /tmp/jackal_nav2_validation_20260917_KXP5m6/build/test_results/jackal_nav2_bringup/uncrustify.xunit.xml
+Code style divergence in file 'src/static_costmap_node.cpp':
+
+--- src/static_costmap_node.cpp
++++ src/static_costmap_node.cpp.uncrustify
+@@ -28,2 +28,3 @@
+-  auto options = rclcpp::NodeOptions().arguments({
+-      "--ros-args", "-r", "__node:=static_costmap", "-r", "__ns:=/static_costmap"});
++  auto options = rclcpp::NodeOptions().arguments(
++  {
++    "--ros-args", "-r", "__node:=static_costmap", "-r", "__ns:=/static_costmap"});
+
+1 files with code style divergence
+No code style divergence in file 'include/jackal_nav2_bringup/relay_health.hpp'
+
+No code style divergence in file 'src/pointcloud_relay_node.cpp'
+
+No code style divergence in file 'src/tf_authority_probe.cpp'
+
+No code style divergence in file 'test/test_relay_health.cpp'
+
+-- run_test.py: return code 1
+-- run_test.py: verify result file '/tmp/jackal_nav2_validation_20260917_KXP5m6/build/test_results/jackal_nav2_bringup/uncrustify.xunit.xml'
+
+    Start 18: xmllint
+7/7 Test #18: xmllint ..........................***Failed    0.13 sec
+-- run_test.py: invoking following command in '/home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup':
+ - /opt/ros/humble/bin/ament_xmllint --xunit-file /tmp/jackal_nav2_validation_20260917_KXP5m6/build/test_results/jackal_nav2_bringup/xmllint.xunit.xml
+File 'package.xml' is invalid:
+warning: failed to load external entity "http://download.ros.org/schema/package_format3.xsd"
+Schemas parser error : Failed to locate the main schema resource at 'http://download.ros.org/schema/package_format3.xsd'.
+WXS schema http://download.ros.org/schema/package_format3.xsd failed to compile
+
+1 files are invalid
+File 'docs/validation/2026-09-16/relaunch/fastdds_laptop_original.xml' is valid
+
+File 'docs/validation/2026-09-16/relaunch/fastdds_laptop_udp_only.xml' is valid
+
+-- run_test.py: return code 1
+-- run_test.py: verify result file '/tmp/jackal_nav2_validation_20260917_KXP5m6/build/test_results/jackal_nav2_bringup/xmllint.xunit.xml'
+
+
+43% tests passed, 4 tests failed out of 7
+
+Label Time Summary:
+cppcheck      =   0.13 sec*proc (1 test)
+cpplint       =   0.19 sec*proc (1 test)
+flake8        =   0.78 sec*proc (1 test)
+lint_cmake    =   0.12 sec*proc (1 test)
+linter        =   1.92 sec*proc (7 tests)
+pep257        =   0.40 sec*proc (1 test)
+uncrustify    =   0.17 sec*proc (1 test)
+xmllint       =   0.13 sec*proc (1 test)
+
+Total Test time (real) =   1.92 sec
+
+The following tests FAILED:
+	 14 - flake8 (Failed)                                   flake8 linter
+	 16 - pep257 (Failed)                                   linter pep257
+	 17 - uncrustify (Failed)                               linter uncrustify
+	 18 - xmllint (Failed)                                  linter xmllint
+Errors while running CTest

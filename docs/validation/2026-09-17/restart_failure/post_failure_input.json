@@ -1,0 +1,26 @@
+{
+  "streams": {},
+  "parameters": {
+    "/amcl": {
+      "error": "no service response"
+    },
+    "/pointcloud_to_laserscan": {
+      "error": "no service response"
+    },
+    "/cmd_vel_safety_bridge": {
+      "error": "no service response"
+    },
+    "/nav2_safety_guard": {
+      "error": "no service response"
+    },
+    "/amcl/state": {
+      "error": "no service response"
+    },
+    "/map_server/state": {
+      "error": "no service response"
+    },
+    "/static_costmap/static_costmap/state": {
+      "error": "no service response"
+    }
+  }
+}

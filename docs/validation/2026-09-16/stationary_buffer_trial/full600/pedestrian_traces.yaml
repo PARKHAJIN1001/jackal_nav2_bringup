@@ -1,0 +1,14 @@
+/pedestrian_traces:
+  ros__parameters:
+    ground_z: 0.02
+    history_seconds: 3.0
+    input_timeout: 1.0
+    line_width: 0.03
+    marker_lifetime: 0.3
+    max_points: 100
+    output_topic: /nav2/pedestrian_traces
+    target_frame: odom
+    traces_topic: /ped_traces
+    tracks_topic: /ped_tracking
+    use_sim_time: false
+

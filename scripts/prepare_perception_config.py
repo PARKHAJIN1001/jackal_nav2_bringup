@@ -59,15 +59,19 @@ def prepare(share, output, lidar_topic='/livox/lidar_local'):
     return output
 
 
-def perception_command(directory):
+def perception_command(directory, use_sim_time=False):
     return [
         'ros2', 'launch', 'mid360_bringup', 'perception.launch.py',
         f'lidar_preprocess_config:={directory / "lidar_preprocess.yaml"}',
         f'extractor_config:={directory / "mask_3d_extractor.yaml"}',
+        f'use_sim_time:={str(use_sim_time).lower()}',
         'publish_sensor_static_tf:=true', 'publish_base_to_lidar_tf:=false',
         'publish_lidar_to_imu_tf:=false', 'publish_lidar_to_camera_tf:=true',
         'launch_rviz:=false', 'launch_detection_markers:=false',
         'launch_track_markers:=false', 'launch_trace_markers:=false',
+        # Cold YOLO startup exceeded the upstream 10-second discovery check.
+        # This checks endpoint connections, not inference/message freshness.
+        'topic_validation_timeout_sec:=60.0',
     ]
 
 
@@ -76,6 +80,7 @@ def main(argv=None):
     parser.add_argument('--share', type=Path, help='mid360_bringup share directory')
     parser.add_argument('--output-dir', type=Path, help='must not already exist')
     parser.add_argument('--lidar-topic', default='/livox/lidar_local')
+    parser.add_argument('--use-sim-time', choices=('true', 'false'), default='false')
     args = parser.parse_args(argv)
     if args.share is None:
         from ament_index_python.packages import get_package_share_directory
@@ -85,8 +90,8 @@ def main(argv=None):
     except (OSError, ValueError, yaml.YAMLError) as exc:
         parser.error(str(exc))
     print(f'Profiles saved to {directory}; no ROS nodes were started.')
-    print('After fixing the FAST-LIVO2 frame/timestamp contract, run separately:')
-    print(shlex.join(perception_command(directory)))
+    print('After setting the initial pose and checking scan/map alignment, run separately:')
+    print(shlex.join(perception_command(directory, args.use_sim_time == 'true')))
     return 0
 
 

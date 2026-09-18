@@ -1,0 +1,21 @@
+Device A4:53:85:6E:27:41 (public)
+	Name: Wireless Controller
+	Alias: Wireless Controller
+	Class: 0x00002508
+	Icon: input-gaming
+	Paired: yes
+	Trusted: yes
+	Blocked: no
+	Connected: yes
+	WakeAllowed: yes
+	LegacyPairing: no
+	UUID: Human Interface Device... (00001124-0000-1000-8000-00805f9b34fb)
+	UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
+	Modalias: usb:v054Cp09CCd0100
+Sep 18 14:27:40 cpr-j100-0519 ds4drv[875]: [warning][controller 1] Signal strength is low (0 reports/s)
+Sep 18 14:27:46 cpr-j100-0519 ds4drv[875]: [warning][controller 1] Signal strength is low (0 reports/s)
+Sep 18 14:27:51 cpr-j100-0519 ds4drv[875]: [warning][controller 1] Signal strength is low (0 reports/s)
+Sep 18 14:27:55 cpr-j100-0519 ds4drv[875]: [info][controller 1] Disconnected
+Sep 18 14:51:37 cpr-j100-0519 ds4drv[875]: [info][controller 1] Connected to Bluetooth Controller (A4:53:85:6E:27:41 hidraw1)
+Sep 18 14:51:37 cpr-j100-0519 ds4drv[875]: [info][hidraw] Scanning for devices
+Sep 18 14:51:38 cpr-j100-0519 ds4drv[875]: [info][controller 1] Battery: Fully charged

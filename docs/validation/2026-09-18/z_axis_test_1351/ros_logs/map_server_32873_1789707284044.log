@@ -1,0 +1,25 @@
+[INFO] [1789707284.218111404] [map_server]: 
+	map_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789707284.218383857] [map_server]: Creating
+[INFO] [1789707285.723609200] [map_server]: Configuring
+[INFO] [1789707285.724028216] [map_io]: Loading yaml file: /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.yaml
+[INFO] [1789707285.727982378] [map_io]: resolution: 0.05
+[INFO] [1789707285.728036679] [map_io]: origin[0]: -57.6
+[INFO] [1789707285.728050709] [map_io]: origin[1]: -18.7
+[INFO] [1789707285.728063241] [map_io]: origin[2]: 0
+[INFO] [1789707285.728075115] [map_io]: free_thresh: 0.25
+[INFO] [1789707285.728086336] [map_io]: occupied_thresh: 0.65
+[INFO] [1789707285.728098887] [map_io]: mode: trinary
+[INFO] [1789707285.728111621] [map_io]: negate: 0
+[INFO] [1789707285.733149639] [map_io]: Loading image_file: /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.pgm
+[INFO] [1789707285.898474260] [map_io]: Read map /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.pgm: 1224 X 528 map @ 0.05 m/cell
+[INFO] [1789707287.358968969] [map_server]: Activating
+[INFO] [1789707287.370712447] [map_server]: Creating bond (map_server) to lifecycle manager.
+[INFO] [1789709476.081593508] [rclcpp]: signal_handler(signum=15)
+[INFO] [1789709476.081933940] [map_server]: Running Nav2 LifecycleNode rcl preshutdown (map_server)
+[INFO] [1789709476.082169530] [map_server]: Deactivating
+[INFO] [1789709476.082233629] [map_server]: Destroying bond (map_server) to lifecycle manager.
+[INFO] [1789709476.096374618] [map_server]: Cleaning up
+[INFO] [1789709476.096661213] [map_server]: Destroying bond (map_server) to lifecycle manager.

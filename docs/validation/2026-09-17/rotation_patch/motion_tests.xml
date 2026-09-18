@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.229" timestamp="2026-09-17T14:02:16" name="AllTests">
+  <testsuite name="AmclMotionModel" tests="4" failures="0" disabled="0" errors="0" time="0.229" timestamp="2026-09-17T14:02:16">
+    <testcase name="SmallLateralShiftDoesNotExplodeAtOneCentimetre" status="run" result="completed" time="0.018" timestamp="2026-09-17T14:02:16" classname="AmclMotionModel" />
+    <testcase name="ZeroMotionDoesNotDiffuseParticles" status="run" result="completed" time="0.013" timestamp="2026-09-17T14:02:16" classname="AmclMotionModel" />
+    <testcase name="NoiseFreeForwardReverseAndLateralMotionPreservePose" status="run" result="completed" time="0.073" timestamp="2026-09-17T14:02:16" classname="AmclMotionModel" />
+    <testcase name="TurningWithLeverArmRemainsLocallyConcentrated" status="run" result="completed" time="0.124" timestamp="2026-09-17T14:02:16" classname="AmclMotionModel" />
+  </testsuite>
+</testsuites>

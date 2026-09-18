@@ -1,0 +1,31 @@
+import argparse,json,sqlite3,math
+from pathlib import Path
+import numpy as np
+import yaml
+from rclpy.serialization import deserialize_message
+from rosidl_runtime_py.utilities import get_message
+
+p=argparse.ArgumentParser()
+p.add_argument('--recording',type=Path,required=True)
+p.add_argument('--config',type=Path,required=True)
+p.add_argument('--output',type=Path,required=True)
+args=p.parse_args()
+d=np.load(args.recording/'trajectories.npz');fast=d['fast'];amcl=d['amcl']
+initial=amcl[0];begin=initial[0];t0=fast[0,0]
+def pose(t):return [float(np.interp(t,fast[:,0],fast[:,i])) for i in (1,2,4)]
+c=sqlite3.connect('file:'+str(args.recording/'bag/bag_0.db3')+'?mode=ro',uri=True)
+types={n:get_message(t) for n,t in c.execute('select name,type from topics')}
+def messages(name):
+    for data, in c.execute('select m.data from messages m join topics t on t.id=m.topic_id where t.name=? order by m.timestamp',(name,)):
+        yield deserialize_message(data,types[name])
+m=next(messages('/map'))
+grid={'width':m.info.width,'height':m.info.height,'resolution':m.info.resolution,'origin':[m.info.origin.position.x,m.info.origin.position.y],'cells':list(m.data)}
+frames=[]
+for m in messages('/scan'):
+    t=m.header.stamp.sec+m.header.stamp.nanosec/1e9
+    if t<begin-1e-6 or t>fast[-1,0]:continue
+    assert m.header.frame_id=='base_link'
+    frames.append({'t':t-t0,'pose':pose(t),'angle_min':m.angle_min,'angle_increment':m.angle_increment,'range_min':m.range_min,'range_max':m.range_max,'ranges':[float(r) if math.isfinite(r) else None for r in m.ranges]})
+output={'map':grid,'frames':frames,'initial_pose':[float(initial[i]) for i in (1,2,4)],'initial_odom':pose(begin),'params':yaml.safe_load(args.config.read_text())['amcl']['ros__parameters'], 'initial_covariance':[.25,.25,(math.pi/12)**2], 'assumption':'Synthetic common initialization at the first current AMCL pose; not a known ground-truth pose. FAST odometry substitutes for TF timing; callbacks and network are not replayed.'}
+args.output.write_text(json.dumps(output,separators=(',',':'))+'\n')
+print(json.dumps({'frames':len(frames),'begin':begin,'initial_pose':output['initial_pose'],'initial_covariance':output['initial_covariance']}))

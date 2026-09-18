@@ -1,0 +1,5 @@
+[INFO] [1789707285.822111972] [map_patch_node]: Publishing 200x200 robot-centric static patches from /static_costmap/costmap to /map_encoder/input
+[WARN] [1789707285.864395715] [map_patch_node]: Waiting for /static_costmap/costmap
+[WARN] [1789707290.964731217] [map_patch_node]: Waiting for /static_costmap/costmap
+[WARN] [1789707296.061924355] [map_patch_node]: Waiting for /static_costmap/costmap
+[WARN] [1789707301.062750306] [map_patch_node]: Waiting for /static_costmap/costmap

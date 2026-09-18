@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Record localization-only or full-perception evidence, never a motion test."""
+"""Record localization/perception and optional navigation evidence; never command motion."""
 
 import argparse
 from datetime import datetime, timezone
@@ -13,6 +13,8 @@ import subprocess
 import tempfile
 import time
 import xml.etree.ElementTree as ET
+
+import yaml
 
 from ament_index_python.packages import get_package_share_directory
 
@@ -118,10 +120,10 @@ def parameter_nodes(require_perception):
     return nodes
 
 
-def audit_command(duration, directory, require_perception):
+def audit_command(duration, directory, require_perception, lidar_topic='/livox/lidar_local'):
     command = ['ros2', 'run', 'jackal_nav2_bringup', 'tf_localization_audit.py',
                '--duration', str(duration), '--warmup', '3',
-               '--output', str(directory / 'audit.json')]
+               '--output', str(directory / 'audit.json'), '--lidar-topic', lidar_topic]
     if require_perception:
         command.append('--require-perception')
     return command
@@ -149,8 +151,105 @@ def summarize_audit(recording, code):
     return ('recorded_with_findings', 1) if issues or code else ('recorded', 0)
 
 
-def collect(recording, duration, require_perception):
+def navigation_topics(nav_cmd_topic='/j100_0519/nav2_cmd_vel', odom_topic='/odom'):
+    """Record the action and complete command chain, without raw clouds or images."""
+    return [
+        '/navigate_to_pose/_action/status', '/navigate_to_pose/_action/feedback',
+        '/goal_pose', '/initialpose', '/plan', '/local_plan', '/tf', '/tf_static',
+        odom_topic, '/cmd_vel_nav', '/nav2_cmd_vel_unstamped',
+        '/nav2/collision_checked_cmd_vel', nav_cmd_topic,
+        '/j100_0519/cmd_vel', '/j100_0519/platform/cmd_vel_unstamped',
+        '/j100_0519/platform/odom', '/nav2/safety_diagnostics',
+    ]
+
+
+def inspect_navigation_bag(directory, duration, nav_cmd_topic, odom_topic):
+    """Reject short/incomplete captures; message counts never imply goal success."""
+    metadata = yaml.safe_load((directory / 'metadata.yaml').read_text())['rosbag2_bagfile_information']
+    elapsed = metadata['duration']['nanoseconds'] * 1e-9
+    counts = {entry['topic_metadata']['name']: entry['message_count']
+              for entry in metadata['topics_with_message_count']}
+    required = ('/tf', odom_topic, nav_cmd_topic, '/nav2/safety_diagnostics')
+    missing = [topic for topic in required if counts.get(topic, 0) <= 0]
+    if not math.isfinite(elapsed) or elapsed < duration - 0.5 or missing:
+        raise ValueError(f'incomplete navigation capture: duration={elapsed}, missing={missing}')
+    files = metadata['relative_file_paths']
+    if not files or any(not (directory / path).is_file() for path in files):
+        raise ValueError('navigation bag storage files missing')
+    return {'duration_sec': elapsed, 'topic_message_counts': counts,
+            'meaning': 'Capture integrity only; action terminal states and actual stopping '
+                       'must be assessed separately. Native RViz goals use the action, '
+                       'so /goal_pose may be absent. Log intended test poses separately.'}
+
+
+class NavigationBag:
+    """Own one recorder process group and finalize its evidence on every exit path."""
+
+    def __init__(self, recording, nav_cmd_topic, odom_topic):
+        self.recording = recording
+        self.nav_cmd_topic, self.odom_topic = nav_cmd_topic, odom_topic
+        self.directory = recording.directory / 'navigation_bag'
+        self.process = self.stream = None
+        command = ['ros2', 'bag', 'record', '--storage', 'sqlite3', '--output',
+                   str(self.directory), '--include-hidden-topics'] + navigation_topics(
+                       nav_cmd_topic, odom_topic)
+        self.step = {'command': command, 'file': 'navigation.console',
+                     'state': 'running', 'started_utc': utc_now()}
+
+    def start(self):
+        """Wait for storage creation before telling the operator to send test goals."""
+        self.recording.status['steps'].append(self.step)
+        self.recording.save()
+        self.stream = (self.recording.directory / 'navigation.console').open('w')
+        self.process = subprocess.Popen(self.step['command'], stdout=self.stream,
+                                        stderr=subprocess.STDOUT, start_new_session=True)
+        deadline = time.monotonic() + 20
+        while time.monotonic() < deadline:
+            if self.process.poll() is not None:
+                raise RuntimeError('navigation bag recorder exited during startup')
+            if list(self.directory.glob('*.db3')):
+                print('Navigation recording active. Send goals only after readiness and '
+                      'physical alignment checks.', flush=True)
+                return
+            time.sleep(0.1)
+        raise RuntimeError('navigation bag recorder startup timed out')
+
+    def stop(self):
+        """Flush rosbag and preserve incomplete/interrupted acquisition as a failure."""
+        try:
+            if self.process:
+                if self.process.poll() is None:
+                    signal_group(self.process.pid, signal.SIGINT)
+                try:
+                    self.process.wait(timeout=15)
+                except subprocess.TimeoutExpired:
+                    signal_group(self.process.pid, signal.SIGKILL)
+                    self.process.wait(timeout=5)
+                self.step['returncode'] = self.process.returncode
+                if self.process.returncode not in (0, -signal.SIGINT, 130):
+                    raise RuntimeError(f'bag recorder exited {self.process.returncode}')
+            else:
+                raise RuntimeError('bag recorder did not start')
+            summary = inspect_navigation_bag(
+                self.directory, self.recording.status['requested_duration_sec'],
+                self.nav_cmd_topic, self.odom_topic)
+            self.recording.status['navigation_capture'] = summary
+            self.step['state'] = 'captured'
+        except (OSError, ValueError, KeyError, TypeError, RuntimeError) as error:
+            self.step.update(state='failed', error=str(error))
+        finally:
+            if self.stream:
+                self.stream.close()
+            self.step['finished_utc'] = utc_now()
+            self.recording.save()
+
+
+def collect(recording, duration, require_perception, lidar_topic='/livox/lidar_local',
+            navigation=False, nav_cmd_topic='/j100_0519/nav2_cmd_vel', odom_topic='/odom'):
     directory = recording.directory
+    recording.status['lidar_topic'] = lidar_topic
+    recording.status['navigation'] = navigation
+    recording.save()
     environment = {name: os.environ.get(name, '') for name in (
         'ROS_DISTRO', 'ROS_DOMAIN_ID', 'ROS_LOCALHOST_ONLY', 'RMW_IMPLEMENTATION',
         'FASTRTPS_DEFAULT_PROFILES_FILE', 'FASTDDS_DEFAULT_PROFILES_FILE',
@@ -191,8 +290,28 @@ def collect(recording, duration, require_perception):
             recording.run(['ros2', 'param', 'dump', '/' + node], node + '.yaml')
     for node in parameter_nodes(require_perception):
         recording.run(['ros2', 'param', 'dump', '/'+node], node.replace('/', '_')+'.yaml')
-    code = recording.run(audit_command(duration, directory, require_perception),
-                         'audit.console', timeout=duration+45)
+    if navigation:
+        for node in ('bt_navigator', 'planner_server', 'controller_server', 'velocity_smoother'):
+            recording.run(['ros2', 'param', 'dump', '/' + node], node + '.yaml')
+        if '/cmd_vel_safety_bridge' in present:
+            recording.run(['ros2', 'param', 'dump', '/cmd_vel_safety_bridge'], 'bridge.yaml')
+        # Preserve the actual installed default tree, not a hardcoded source filename.
+        try:
+            params = yaml.safe_load((directory / 'bt_navigator.yaml').read_text())
+            entry = params.get('/bt_navigator', params.get('bt_navigator', {}))
+            tree = Path(entry['ros__parameters']['default_nav_to_pose_bt_xml'])
+            (directory / 'navigation_tree.xml').write_bytes(tree.read_bytes())
+        except (OSError, KeyError, TypeError, yaml.YAMLError) as error:
+            recording.status['metadata_errors'].append({'navigation_tree': str(error)})
+    bag = NavigationBag(recording, nav_cmd_topic, odom_topic) if navigation else None
+    try:
+        if bag:
+            bag.start()
+        code = recording.run(audit_command(duration, directory, require_perception, lidar_topic),
+                             'audit.console', timeout=duration+45)
+    finally:
+        if bag:
+            bag.stop()
     return summarize_audit(recording, code)
 
 
@@ -201,9 +320,16 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--duration', type=float, default=600.0)
     parser.add_argument('--output-dir', type=Path)
+    parser.add_argument('--lidar-topic', default='/livox/lidar_local',
+                        help='required cloud input; match bringup lidar_pointcloud_topic')
     parser.add_argument('--localization-only', action='store_true',
                         help='omit perception inputs and parameter queries; '
                         'default is full perception')
+    parser.add_argument('--navigation', action='store_true',
+                        help='also capture navigation action/TF/odom/velocity evidence in rosbag2; '
+                        'does not send goals or enable motion')
+    parser.add_argument('--nav-cmd-topic', default='/j100_0519/nav2_cmd_vel')
+    parser.add_argument('--odom-topic', default='/odom')
     args = parser.parse_args(argv)
     if not math.isfinite(args.duration) or args.duration < 12:
         parser.error('--duration must be at least 12 seconds')
@@ -215,7 +341,9 @@ def main(argv=None):
     print(f'Validation artifacts: {directory}', flush=True)
     recording = Recording(directory, args.duration, not args.localization_only)
     try:
-        state, code = collect(recording, args.duration, not args.localization_only)
+        state, code = collect(
+            recording, args.duration, not args.localization_only, args.lidar_topic,
+            args.navigation, args.nav_cmd_topic, args.odom_topic)
     except KeyboardInterrupt:
         state, code = 'interrupted', 130
     except Exception as exc:

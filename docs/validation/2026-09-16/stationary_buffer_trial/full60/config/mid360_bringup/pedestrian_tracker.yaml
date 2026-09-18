@@ -1,0 +1,29 @@
+pedestrian_tracker_node:
+  ros__parameters:
+    detections_topic: "/ped_detection"
+    odom_topic: "/aft_mapped_to_init"
+    tracks_topic: "/ped_tracking"
+    traces_topic: "/ped_traces"
+    detection_queue_depth: 10
+    odom_queue_depth: 20
+    output_queue_depth: 10
+    max_match_distance_m: 1.0
+    velocity_alpha: 0.4
+    score_on_spawn: 0.4
+    score_hit_gain: 0.2
+    score_miss_decay: 0.85
+    min_hits_to_confirm: 3
+    max_missed_frames: 8
+    max_unconfirmed_missed_frames: 2
+    max_speed_mps: 3.0
+    trace_window: 10
+    trace_down_sample: 1
+    measurement_noise_m2: 0.25
+    position_process_noise_m2ps: 0.20
+    missed_uncertainty_growth_m2: 0.08
+    min_position_update_gain: 0.15
+    max_position_update_gain: 0.65
+    size_alpha: 0.25
+    max_match_mahalanobis: 3.0
+    max_adaptive_match_distance_m: 1.5
+    publish_unconfirmed_tracks: false

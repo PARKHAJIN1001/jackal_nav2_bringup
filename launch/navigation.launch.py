@@ -38,6 +38,13 @@ def _validate_params(context):
 def generate_launch_description():
     package_share = get_package_share_directory('jackal_nav2_bringup')
     default_params = os.path.join(package_share, 'config', 'nav2_params.yaml')
+    # Use the installed Humble tree: periodic planning and following only.
+    # Failures terminate the goal; no automatic spin, backup or map clearing.
+    navigation_tree = os.path.join(
+        get_package_share_directory('nav2_bt_navigator'), 'behavior_trees',
+        'navigate_w_replanning_time.xml')
+    if not os.path.isfile(navigation_tree):
+        raise RuntimeError(f'Nav2 navigation behavior tree missing: {navigation_tree}')
 
     params_file = LaunchConfiguration('params_file')
     use_sim_time = LaunchConfiguration('use_sim_time')
@@ -65,6 +72,9 @@ def generate_launch_description():
         allow_substs=True,
     )
     tf_remaps = [('/tf', 'tf'), ('/tf_static', 'tf_static')]
+    # Humble RewrittenYaml does not insert missing keys. Override the navigator
+    # directly so alternate parameter files cannot silently restore recovery.
+    bt_parameters = [configured_params, {'default_nav_to_pose_bt_xml': navigation_tree}]
     common = {
         'output': 'screen',
         'respawn': use_respawn,
@@ -174,7 +184,7 @@ def generate_launch_description():
                     executable='bt_navigator',
                     name='bt_navigator',
                     remappings=tf_remaps,
-                    **common,
+                    **{**common, 'parameters': bt_parameters},
                 ),
                 Node(
                     package='nav2_waypoint_follower',
@@ -246,7 +256,7 @@ def generate_launch_description():
                     package='nav2_bt_navigator',
                     plugin='nav2_bt_navigator::BtNavigator',
                     name='bt_navigator',
-                    parameters=[configured_params],
+                    parameters=bt_parameters,
                     remappings=tf_remaps,
                 ),
                 ComposableNode(

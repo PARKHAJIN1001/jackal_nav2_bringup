@@ -1,0 +1,61 @@
+{
+  "meaning": "Analytical process-noise standard deviations, not measured robot errors and not a full AMCL replay. Update boundaries inferred from recorded AMCL pose stamps.",
+  "differential_alpha_0.2": {
+    "translation_std_m": {
+      "median": 0.4026004345061102,
+      "p90": 0.8907005426443465,
+      "max": 0.969037837569275
+    },
+    "yaw_std_deg": {
+      "median": 23.07450095636381,
+      "p90": 51.03466685433776,
+      "max": 55.522891759664205
+    }
+  },
+  "differential_all_alpha_0.01": {
+    "translation_std_m": {
+      "median": 0.09002419393266144,
+      "p90": 0.1991666960948709,
+      "max": 0.21668344775742984
+    },
+    "yaw_std_deg": {
+      "median": 5.159615268531338,
+      "p90": 11.411698429535457,
+      "max": 12.415296028197208
+    }
+  },
+  "omni_alpha_0.2": {
+    "translation_std_m": {
+      "median": 0.027946217697506513,
+      "p90": 0.04806561320804632,
+      "max": 0.07229635466851352
+    },
+    "yaw_std_deg": {
+      "median": 1.6012003274209323,
+      "p90": 2.7539567765293196,
+      "max": 4.142275996686751
+    }
+  },
+  "in_place_constant_pivot_fit": {
+    "assumption": "Robot pivot fixed, constant planar lever arm. Skid/slip and odometry drift can violate this assumption; fitted offset is not an extrinsic calibration.",
+    "pivot_odom_xy": [
+      -0.2534697640383041,
+      0.7800447685977655
+    ],
+    "equivalent_body_offset_xy_m": [
+      0.13661918652965777,
+      0.0191412505678889
+    ],
+    "equivalent_radius_m": 0.13795357770398028,
+    "residual_m": {
+      "median": 0.015599423370472843,
+      "p90": 0.04352501957293843,
+      "max": 0.055025660945390256
+    },
+    "constant_position_residual_m": {
+      "median": 0.08213448032592156,
+      "p90": 0.15036045758211306,
+      "max": 0.1714423954124995
+    }
+  }
+}

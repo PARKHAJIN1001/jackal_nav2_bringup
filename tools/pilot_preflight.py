@@ -10,7 +10,6 @@ import glob
 import json
 import os
 import socket
-import struct
 import subprocess
 import time
 import sys
@@ -40,28 +39,31 @@ def color_print(text, color, json_mode):
         print(f"{color}{text}{Colors.RESET}")
 
 def run_local_cmd(cmd):
+    """Run Bash setup commands with a deadline and preserve failures."""
     try:
-        res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        res = subprocess.run(
+            ['bash', '-o', 'pipefail', '-c', cmd],
+            capture_output=True, text=True, timeout=15,
+            env={**os.environ, 'LC_ALL': 'C'})
         return res.returncode, res.stdout.strip(), res.stderr.strip()
+    except subprocess.TimeoutExpired:
+        return 124, '', 'command timed out after 15 seconds'
     except Exception as e:
         return 1, "", str(e)
 
 def dds_shm_cleanup(fix=False):
-    """(a) DDS SHM 정리 (로컬)"""
+    """Report SHM presence without assuming that existing segments are stale."""
     files = glob.glob('/dev/shm/fastrtps_*')
     count = len(files)
-    status = 'PASS' if count == 0 else 'FAIL'
+    status = 'PASS' if count == 0 else 'INFO'
     msg = f"/dev/shm/fastrtps_* 파일 수: {count}"
     
-    if count > 0 and fix:
-        rc, _, err = run_local_cmd("rm -f /dev/shm/fastrtps_*")
-        if rc == 0:
-            msg += " -> 삭제 성공"
-            status = 'PASS'
-        else:
-            msg += f" -> 삭제 실패 ({err})"
-            
-    return {"name": "DDS SHM Cleanup", "status": status, "msg": msg, "count": count}
+    if count > 0:
+        msg += ' (사용 중일 수 있음; 파일 존재만으로 장애 판정하지 않음)'
+    if fix:
+        msg += ' --fix로 SHM을 삭제하지 않음'
+
+    return {'name': 'DDS SHM Inspection', 'status': status, 'msg': msg, 'count': count}
 
 def nuc_connectivity():
     """(b) NUC Connectivity"""
@@ -154,24 +156,50 @@ def clock_offset_measurement(client):
     except Exception as e:
         return {"name": "Clock Offset", "status": "FAIL", "msg": str(e)}
 
+def chrony_is_synchronized(returncode, output):
+    """Require a synchronized leap state and a valid NTP stratum."""
+    if returncode != 0:
+        return False
+    fields = {}
+    for line in output.splitlines():
+        key, separator, value = line.partition(':')
+        if separator:
+            fields[key.strip()] = value.strip()
+    try:
+        stratum = int(fields.get('Stratum', ''))
+    except ValueError:
+        return False
+    reference = fields.get('Reference ID', '').split()
+    return (
+        fields.get('Leap status') in ('Normal', 'Insert second', 'Delete second')
+        and 1 <= stratum <= 15
+        and bool(reference)
+        and reference[0] not in ('00000000', '0.0.0.0')
+    )
+
+
 def chrony_status_check(client):
-    """(e) Chrony Status Check"""
-    laptop_rc, laptop_out, _ = run_local_cmd('chronyc tracking')
-    laptop_synced = 'System time' in laptop_out or 'Reference ID' in laptop_out
+    """Check actual local and remote synchronization states."""
+    laptop_rc, laptop_out, laptop_error = run_local_cmd('chronyc -n tracking')
+    laptop_synced = chrony_is_synchronized(laptop_rc, laptop_out)
 
     nuc_synced = False
     nuc_msg = 'Unknown'
     if client:
-        stdin, stdout, stderr = client.exec_command('timedatectl status')
-        out = stdout.read().decode()
-        if 'synchronized: yes' in out or 'NTPSynchronized=yes' in out:
-            nuc_synced = True
-            nuc_msg = 'NUC Clock Synchronized (OK)'
-        else:
-            nuc_msg = 'NUC Clock NOT Synchronized'
+        try:
+            _, stdout, _ = client.exec_command(
+                'LC_ALL=C timedatectl show --property=NTPSynchronized --value', timeout=5)
+            out = stdout.read().decode().strip()
+            nuc_synced = stdout.channel.recv_exit_status() == 0 and out == 'yes'
+            nuc_msg = 'NUC Clock Synchronized (OK)' if nuc_synced else (
+                'NUC Clock NOT Synchronized')
+        except Exception as error:
+            nuc_msg = f'NUC time sync query failed: {error}'
 
     status = 'PASS' if laptop_synced and nuc_synced else 'FAIL'
     laptop_msg = 'Laptop Chrony OK' if laptop_synced else 'Laptop Chrony NOT Tracking'
+    if laptop_rc != 0:
+        laptop_msg += f' (exit {laptop_rc}: {laptop_error})'
 
     return {'name': 'Time Sync Status', 'status': status, 'msg': f'{laptop_msg}, {nuc_msg}'}
 
@@ -231,21 +259,27 @@ def nuc_ros_process_check(client):
 
 
 def dds_discovery():
-    """(i) DDS / ROS2 Discovery"""
-    rc, out, _ = run_local_cmd(
-        'source /opt/ros/humble/setup.bash && '
-        'source /home/parkhajin/moai_navigation_ws/install/setup.bash && '
+    """Check exact topic discovery; this does not establish message delivery."""
+    rc, out, error = run_local_cmd(
+        'source /opt/ros/humble/setup.bash >/dev/null && '
+        'source /home/parkhajin/moai_navigation_ws/install/setup.bash >/dev/null && '
         'source /home/parkhajin/moai_navigation_ws/install/jackal_network_bringup/share/'
-        'jackal_network_bringup/config/network_env.sh laptop && '
-        'timeout 3 ros2 topic list 2>/dev/null | grep -c "/livox/lidar" || true'
+        'jackal_network_bringup/config/network_env.sh laptop >/dev/null && '
+        'exec ros2 topic list --no-daemon --spin-time 3'
     )
-    if rc == 0 and out.strip() != '0':
-        return {'name': 'DDS Topic Discovery', 'status': 'PASS', 'msg': 'ROS2 토픽 연결 확인 (/livox/lidar 수신 중)'}
-    return {'name': 'DDS Topic Discovery', 'status': 'WARN', 'msg': 'ROS2 토픽 미수신 (센서 서비스 확인 필요)'}
+    if rc != 0:
+        return {'name': 'DDS Topic Discovery', 'status': 'FAIL',
+                'msg': f'DDS 조회 실패 (exit {rc}): {error}'}
+    if '/livox/lidar' in {line.strip() for line in out.splitlines()}:
+        return {'name': 'DDS Topic Discovery', 'status': 'PASS',
+                'msg': '/livox/lidar 발견 (메시지 수신 여부는 별도 확인 필요)'}
+    return {'name': 'DDS Topic Discovery', 'status': 'FAIL',
+            'msg': '/livox/lidar 토픽 미발견 (네트워크·센서 서비스 확인 필요)'}
 
 def main():
     parser = argparse.ArgumentParser(description="Jackal Nav2 Pilot Preflight Script")
-    parser.add_argument('--fix', action='store_true', help="발견된 문제 자동 수정 시도")
+    parser.add_argument('--fix', action='store_true',
+                        help='이전 호출과의 호환성 옵션; SHM 자동 삭제는 수행하지 않음')
     parser.add_argument('--json', action='store_true', help="JSON 형식 출력")
     args = parser.parse_args()
 

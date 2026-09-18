@@ -1,0 +1,116 @@
+{
+  "duration_sec": 35.00106937499913,
+  "interrupted": false,
+  "topics": {
+    "/livox/imu": {
+      "count": 6827,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.10447012599979644,
+      "last_stamp": 1789535217.8825805,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.0006592273712158203,
+        0.0015430450439453125,
+        0.328113317489624
+      ],
+      "max_receipt_gap_sec": 0.32237721100136696,
+      "receipt_age_at_end_sec": 0.00020970799960196018,
+      "publishers_at_end": [
+        "/livox_lidar_publisher"
+      ]
+    },
+    "/aft_mapped_to_init": {
+      "count": 64,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.13752134099922841,
+      "last_stamp": 1789535187.448293,
+      "frame": "odom",
+      "age_min_median_max_sec": [
+        0.023917436599731445,
+        0.03784990310668945,
+        0.3311913013458252
+      ],
+      "max_receipt_gap_sec": 0.36400909700023476,
+      "receipt_age_at_end_sec": 30.406710577999547,
+      "publishers_at_end": []
+    },
+    "/j100_0519/nav2_cmd_vel": {
+      "count": 696,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.13846750699849508,
+      "last_stamp": 1789535217.8784816,
+      "frame": "base_link",
+      "age_min_median_max_sec": [
+        0.0006244182586669922,
+        0.0015976428985595703,
+        0.22895359992980957
+      ],
+      "max_receipt_gap_sec": 0.3178232179998304,
+      "receipt_age_at_end_sec": 0.004696273999797995,
+      "publishers_at_end": [
+        "/nav2_safety_guard"
+      ]
+    },
+    "/livox/lidar_local": {
+      "count": 289,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 2.043544085998292,
+      "last_stamp": 1789535217.7816536,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.07161092758178711,
+        0.07506537437438965,
+        0.08646297454833984
+      ],
+      "max_receipt_gap_sec": 12.932993107000584,
+      "receipt_age_at_end_sec": 0.026933507999274298,
+      "publishers_at_end": [
+        "/pointcloud_relay"
+      ]
+    }
+  },
+  "diagnostics": {
+    "nav2_safety_guard": {
+      "messages": {
+        "independent_stop": 4,
+        "tf_stale:odom->base_link": 30
+      },
+      "last_values": {
+        "enable_motion": "False",
+        "sensor_error": "",
+        "raw_sensor_stamp_age": "0.09295511245727539",
+        "raw_sensor_receipt_age": "0.02001771200048097",
+        "sensor_stamp_age": "0.09295511245727539",
+        "sensor_receipt_age": "0.02001771200048097",
+        "command_receipt_age": "missing",
+        "filtered_points": "6441",
+        "stop_points": "2020"
+      }
+    },
+    "pointcloud_relay": {
+      "messages": {
+        "fresh": 41,
+        "receipt_timeout": 25
+      },
+      "last_values": {
+        "received_count": "2844.000000",
+        "measurement_stamp_sec": "1789535217.514603",
+        "measurement_age_sec": "0.082063",
+        "age_at_receipt_sec": "0.071368",
+        "receipt_silence_sec": "0.010699",
+        "last_interval_sec": "0.065818",
+        "max_interval_sec": "28.065510",
+        "stamp_regressions": "0.000000",
+        "clock_regressions": "0.000000"
+      }
+    }
+  }
+}

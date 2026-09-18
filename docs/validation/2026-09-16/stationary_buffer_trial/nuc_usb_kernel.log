@@ -1,0 +1,50 @@
+Sep 16 13:00:03 cpr-j100-0519 kernel: usb 2-3: new SuperSpeed USB device number 2 using xhci_hcd
+Sep 16 13:00:03 cpr-j100-0519 kernel: usb 2-3: New USB device found, idVendor=8086, idProduct=0b5c, bcdDevice=51.10
+Sep 16 13:00:03 cpr-j100-0519 kernel: usb 2-3: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+Sep 16 13:00:03 cpr-j100-0519 kernel: usb 2-3: Product: Intel(R) RealSense(TM) Depth Camera 455 
+Sep 16 13:00:03 cpr-j100-0519 kernel: usb 2-3: Manufacturer: Intel(R) RealSense(TM) Depth Camera 455 
+Sep 16 13:00:03 cpr-j100-0519 kernel: usb 2-3: SerialNumber: 302643060879
+Sep 16 13:00:03 cpr-j100-0519 kernel: uvcvideo 2-3:1.1: Unknown video format 00000050-0000-0010-8000-00aa00389b71
+Sep 16 13:00:03 cpr-j100-0519 kernel: usb 2-3: Found UVC 1.50 device Intel(R) RealSense(TM) Depth Camera 455  (8086:0b5c)
+Sep 16 13:00:03 cpr-j100-0519 kernel: uvcvideo 2-3:1.4: Unknown video format 36315752-1a66-a242-9065-d01814a8ef8a
+Sep 16 13:00:03 cpr-j100-0519 kernel: usb 2-3: Found UVC 1.50 device Intel(R) RealSense(TM) Depth Camera 455  (8086:0b5c)
+Sep 16 13:00:03 cpr-j100-0519 kernel: usbcore: registered new interface driver uvcvideo
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 11 on unit 3: -32 (exp. 1).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:07 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).
+Sep 16 13:02:08 cpr-j100-0519 kernel: usb 2-3: Failed to query (GET_CUR) UVC control 1 on unit 3: -32 (exp. 1024).

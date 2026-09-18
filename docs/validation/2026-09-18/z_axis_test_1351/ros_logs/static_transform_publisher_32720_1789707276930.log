@@ -1,0 +1,5 @@
+[INFO] [1789707276.982042421] [lidar_to_imu_tf]: Spinning until stopped - publishing transform
+translation: ('-0.041650', '-0.023260', '0.028400')
+rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+from 'livox_frame' to 'livox_imu_frame'
+[INFO] [1789709476.168442123] [rclcpp]: signal_handler(signum=15)

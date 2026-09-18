@@ -1,0 +1,18 @@
+[  8%] Building CXX object CMakeFiles/tf_authority_probe.dir/src/tf_authority_probe.cpp.o
+[ 16%] Building CXX object CMakeFiles/pointcloud_relay_node.dir/src/pointcloud_relay_node.cpp.o
+[ 25%] Building CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
+[ 33%] Building CXX object CMakeFiles/static_costmap_node.dir/src/static_costmap_node.cpp.o
+[ 41%] Linking CXX static library libgtest_main.a
+[ 41%] Built target gtest_main
+[ 50%] Building CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+[ 58%] Linking CXX static library libgtest.a
+[ 58%] Built target gtest
+[ 66%] Building CXX object CMakeFiles/test_relay_health.dir/test/test_relay_health.cpp.o
+[ 75%] Linking CXX executable static_costmap_node
+[ 83%] Linking CXX executable test_relay_health
+[ 83%] Built target test_relay_health
+[ 83%] Built target static_costmap_node
+[ 91%] Linking CXX executable pointcloud_relay_node
+[ 91%] Built target pointcloud_relay_node
+[100%] Linking CXX executable tf_authority_probe
+[100%] Built target tf_authority_probe

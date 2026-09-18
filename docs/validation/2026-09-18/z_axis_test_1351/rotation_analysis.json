@@ -1,0 +1,603 @@
+{
+  "start": 1789707604.2772014,
+  "end": 1789707745.6281183,
+  "record_last": 1789707905.2992072,
+  "phases": {
+    "before": {
+      "duration_sec": 30.0,
+      "poses": {
+        "odom -> base_link": {
+          "n": 389,
+          "z_min_mm": -2.0473208411169175,
+          "z_max_mm": 6.050728834642305,
+          "z_range_mm": 8.098049675759222,
+          "z_std_mm": 1.0640074990995232,
+          "z_p05_p95_mm": [
+            -0.9374662659163535,
+            2.365931520573494
+          ],
+          "z_first_last_mm": [
+            0.10278068219937708,
+            -0.2421592197852096
+          ],
+          "roll_range_deg": 0.2915672154889647,
+          "pitch_range_deg": 0.13484070441685853,
+          "yaw_range_deg": 0.188123934349525,
+          "xy_max_from_first_m": 0.011163330223796352,
+          "z_roll_correlation": -0.5641459341115045,
+          "z_pitch_correlation": 0.1273840218553591
+        },
+        "map -> odom": {
+          "n": 390,
+          "z_min_mm": -1.672371881209593,
+          "z_max_mm": -1.672371881209593,
+          "z_range_mm": 0.0,
+          "z_std_mm": 6.505213034913027e-16,
+          "z_p05_p95_mm": [
+            -1.672371881209593,
+            -1.672371881209593
+          ],
+          "z_first_last_mm": [
+            -1.672371881209593,
+            -1.672371881209593
+          ],
+          "roll_range_deg": 0.0,
+          "pitch_range_deg": 0.0,
+          "yaw_range_deg": 0.0,
+          "xy_max_from_first_m": 0.0
+        },
+        "map -> base_link (1Hz)": {
+          "n": 30,
+          "z_min_mm": -2.7107464658510945,
+          "z_max_mm": 4.4598113086250475,
+          "z_range_mm": 7.170557774476142,
+          "z_std_mm": 1.2393864399551988,
+          "z_p05_p95_mm": [
+            -1.9601839884439312,
+            0.6894975230334528
+          ],
+          "z_first_last_mm": [
+            0.3864589440950028,
+            -1.3389400637310267
+          ],
+          "roll_range_deg": 0.1757886118261908,
+          "pitch_range_deg": 0.08729001911939492,
+          "yaw_range_deg": 0.1577125161264429,
+          "xy_max_from_first_m": 0.005237512903956505,
+          "z_roll_correlation": -0.4767213741354147,
+          "z_pitch_correlation": -0.22498034458717833
+        }
+      },
+      "inputs": {
+        "/livox/imu": {
+          "count": 5759,
+          "max_receipt_gap_sec": 0.0712289810180664,
+          "max_age_sec": 0.04366493225097656,
+          "regressions": 0,
+          "approx_hz": 191.96666666666667
+        },
+        "/livox/lidar": {
+          "count": 405,
+          "max_receipt_gap_sec": 0.21036028861999512,
+          "max_age_sec": 0.13924169540405273,
+          "regressions": 0,
+          "approx_hz": 13.5
+        },
+        "/livox/lidar_local": {
+          "count": 387,
+          "max_receipt_gap_sec": 0.21669840812683105,
+          "max_age_sec": 0.1625077724456787,
+          "regressions": 0,
+          "approx_hz": 12.9
+        },
+        "/scan": {
+          "count": 387,
+          "max_receipt_gap_sec": 0.21904587745666504,
+          "max_age_sec": 0.16535496711730957,
+          "regressions": 0,
+          "approx_hz": 12.9
+        },
+        "/aft_mapped_to_init": {
+          "count": 387,
+          "max_receipt_gap_sec": 0.27192139625549316,
+          "max_age_sec": 0.17047381401062012,
+          "regressions": 0,
+          "approx_hz": 12.9
+        },
+        "/odom": {
+          "count": 387,
+          "max_receipt_gap_sec": 0.2675011157989502,
+          "max_age_sec": 0.17941021919250488,
+          "regressions": 0,
+          "approx_hz": 12.9
+        }
+      },
+      "kernel_delta": {
+        "Ip": {
+          "ReasmReqds": 927166,
+          "ReasmOKs": 21975,
+          "ReasmFails": 460
+        },
+        "Icmp": {
+          "InErrors": 0
+        },
+        "IcmpMsg": {},
+        "Tcp": {},
+        "Udp": {
+          "InErrors": 70044,
+          "RcvbufErrors": 70044
+        },
+        "UdpLite": {
+          "InErrors": 0,
+          "RcvbufErrors": 0
+        }
+      },
+      "notes": [
+        "Receive gaps are observer-local and include scheduling; AMCL pose intervals are movement-gated, not a sensor-rate failure test.",
+        "Composed map/base samples are 1 Hz; their extrema can miss faster peaks.",
+        "Input statistics use overlapping 1-second health bins."
+      ]
+    },
+    "rotation_window": {
+      "duration_sec": 141.3509168624878,
+      "poses": {
+        "odom -> base_link": {
+          "n": 1791,
+          "z_min_mm": -7.558863292886242,
+          "z_max_mm": 9.472871551625905,
+          "z_range_mm": 17.031734844512147,
+          "z_std_mm": 2.284435708266038,
+          "z_p05_p95_mm": [
+            -2.562694132684673,
+            5.029105364142305
+          ],
+          "z_first_last_mm": [
+            -0.7776314061113121,
+            -2.1744276050008615
+          ],
+          "roll_range_deg": 1.0680499051039316,
+          "pitch_range_deg": 1.7229237537681024,
+          "yaw_range_deg": 90.64857685444795,
+          "xy_max_from_first_m": 0.11827816184013769,
+          "z_roll_correlation": -0.4024364404041807,
+          "z_pitch_correlation": -0.576079398481354
+        },
+        "map -> odom": {
+          "n": 1790,
+          "z_min_mm": -7.515978581274125,
+          "z_max_mm": 4.150237705682611,
+          "z_range_mm": 11.666216286956736,
+          "z_std_mm": 1.2489400534183839,
+          "z_p05_p95_mm": [
+            -4.625473258790397,
+            0.4664940399743897
+          ],
+          "z_first_last_mm": [
+            -1.672371881209593,
+            -1.6588516800447004
+          ],
+          "roll_range_deg": 1.0677161675656408,
+          "pitch_range_deg": 1.1043537259000935,
+          "yaw_range_deg": 2.327161794302778,
+          "xy_max_from_first_m": 0.10919643814734217,
+          "z_roll_correlation": -0.46599840924597935,
+          "z_pitch_correlation": -0.49512738774493364
+        },
+        "map -> base_link (1Hz)": {
+          "n": 141,
+          "z_min_mm": -6.275948886273995,
+          "z_max_mm": 7.4404627670065135,
+          "z_range_mm": 13.716411653280508,
+          "z_std_mm": 2.3379454156939077,
+          "z_p05_p95_mm": [
+            -3.97963646928091,
+            3.3876691918607222
+          ],
+          "z_first_last_mm": [
+            -2.861708799024332,
+            -3.3875055598335266
+          ],
+          "roll_range_deg": 0.7759733737293785,
+          "pitch_range_deg": 0.8990253981439889,
+          "yaw_range_deg": 90.34555289069156,
+          "xy_max_from_first_m": 0.1593932715577461,
+          "z_roll_correlation": -0.6870056956236721,
+          "z_pitch_correlation": -0.1864251512079263
+        },
+        "amcl_pose": {
+          "n": 100,
+          "z_min_mm": 0.0,
+          "z_max_mm": 0.0,
+          "z_range_mm": 0.0,
+          "z_std_mm": 0.0,
+          "z_p05_p95_mm": [
+            0.0,
+            0.0
+          ],
+          "z_first_last_mm": [
+            0.0,
+            0.0
+          ],
+          "roll_range_deg": 0.0,
+          "pitch_range_deg": 0.0,
+          "yaw_range_deg": 89.5774065575228,
+          "xy_max_from_first_m": 0.18247818085042294
+        }
+      },
+      "inputs": {
+        "/livox/imu": {
+          "count": 27461,
+          "max_receipt_gap_sec": 0.04186224937438965,
+          "max_age_sec": 0.03612399101257324,
+          "regressions": 0,
+          "approx_hz": 194.27535816209266
+        },
+        "/livox/lidar": {
+          "count": 1924,
+          "max_receipt_gap_sec": 0.3293497562408447,
+          "max_age_sec": 0.11810755729675293,
+          "regressions": 0,
+          "approx_hz": 13.611514114703263
+        },
+        "/livox/lidar_local": {
+          "count": 1787,
+          "max_receipt_gap_sec": 0.32219719886779785,
+          "max_age_sec": 0.12984800338745117,
+          "regressions": 0,
+          "approx_hz": 12.64229507431119
+        },
+        "/scan": {
+          "count": 1787,
+          "max_receipt_gap_sec": 0.32627010345458984,
+          "max_age_sec": 0.13664531707763672,
+          "regressions": 0,
+          "approx_hz": 12.64229507431119
+        },
+        "/aft_mapped_to_init": {
+          "count": 1787,
+          "max_receipt_gap_sec": 0.3490414619445801,
+          "max_age_sec": 0.20196223258972168,
+          "regressions": 0,
+          "approx_hz": 12.64229507431119
+        },
+        "/odom": {
+          "count": 1787,
+          "max_receipt_gap_sec": 0.35056495666503906,
+          "max_age_sec": 0.21143770217895508,
+          "regressions": 0,
+          "approx_hz": 12.64229507431119
+        },
+        "/amcl_pose": {
+          "count": 100,
+          "max_receipt_gap_sec": 256.80193758010864,
+          "max_age_sec": 0.21082329750061035,
+          "regressions": 0,
+          "approx_hz": 0.7074591535708556
+        }
+      },
+      "kernel_delta": {
+        "Ip": {
+          "ReasmReqds": 4490260,
+          "ReasmOKs": 106461,
+          "ReasmFails": 2034
+        },
+        "Icmp": {
+          "InErrors": 0
+        },
+        "IcmpMsg": {},
+        "Tcp": {},
+        "Udp": {
+          "InErrors": 115714,
+          "RcvbufErrors": 115714
+        },
+        "UdpLite": {
+          "InErrors": 0,
+          "RcvbufErrors": 0
+        }
+      },
+      "notes": [
+        "Receive gaps are observer-local and include scheduling; AMCL pose intervals are movement-gated, not a sensor-rate failure test.",
+        "Composed map/base samples are 1 Hz; their extrema can miss faster peaks.",
+        "Input statistics use overlapping 1-second health bins."
+      ]
+    },
+    "after_response_with_manual_translation": {
+      "duration_sec": 30.0,
+      "poses": {
+        "map -> base_link (1Hz)": {
+          "n": 30,
+          "z_min_mm": -3.34682145347405,
+          "z_max_mm": 2.6638321881991773,
+          "z_range_mm": 6.010653641673228,
+          "z_std_mm": 1.2602030619347524,
+          "z_p05_p95_mm": [
+            -2.671263842821945,
+            1.5391740008439048
+          ],
+          "z_first_last_mm": [
+            -3.34682145347405,
+            -0.8651318377822915
+          ],
+          "roll_range_deg": 0.3403873215540032,
+          "pitch_range_deg": 0.2723047094268569,
+          "yaw_range_deg": 2.046159187816815,
+          "xy_max_from_first_m": 0.46278398581230457,
+          "z_roll_correlation": -0.4827245356298573,
+          "z_pitch_correlation": -0.38855003044516545
+        },
+        "odom -> base_link": {
+          "n": 383,
+          "z_min_mm": -3.6016589435116098,
+          "z_max_mm": 6.212292478411596,
+          "z_range_mm": 9.813951421923207,
+          "z_std_mm": 1.7672961723285394,
+          "z_p05_p95_mm": [
+            -2.9363180122741857,
+            2.8993178062855134
+          ],
+          "z_first_last_mm": [
+            -2.23154958240368,
+            0.30709941051054734
+          ],
+          "roll_range_deg": 0.6013791460028381,
+          "pitch_range_deg": 0.5322064032277444,
+          "yaw_range_deg": 2.455291505336907,
+          "xy_max_from_first_m": 0.5077069080440461,
+          "z_roll_correlation": -0.05254524587168916,
+          "z_pitch_correlation": -0.5691683263800308
+        },
+        "map -> odom": {
+          "n": 383,
+          "z_min_mm": -3.4812947762741833,
+          "z_max_mm": 0.4182936566324673,
+          "z_range_mm": 3.8995884329066506,
+          "z_std_mm": 0.8212470515003913,
+          "z_p05_p95_mm": [
+            -3.4812947762741833,
+            -1.1631109549986307
+          ],
+          "z_first_last_mm": [
+            -1.6588516800447004,
+            -2.69625736640583
+          ],
+          "roll_range_deg": 0.31461955952288,
+          "pitch_range_deg": 0.26503766634845183,
+          "yaw_range_deg": 0.6485301258500923,
+          "xy_max_from_first_m": 0.029745539899725892,
+          "z_roll_correlation": -0.4017879324239978,
+          "z_pitch_correlation": 0.48993861903754227
+        },
+        "amcl_pose": {
+          "n": 10,
+          "z_min_mm": 0.0,
+          "z_max_mm": 0.0,
+          "z_range_mm": 0.0,
+          "z_std_mm": 0.0,
+          "z_p05_p95_mm": [
+            0.0,
+            0.0
+          ],
+          "z_first_last_mm": [
+            0.0,
+            0.0
+          ],
+          "roll_range_deg": 0.0,
+          "pitch_range_deg": 0.0,
+          "yaw_range_deg": 1.5822882751454743,
+          "xy_max_from_first_m": 0.45027446593738746
+        }
+      },
+      "inputs": {
+        "/livox/imu": {
+          "count": 5843,
+          "max_receipt_gap_sec": 0.0328218936920166,
+          "max_age_sec": 0.03791618347167969,
+          "regressions": 0,
+          "approx_hz": 194.76666666666668
+        },
+        "/livox/lidar": {
+          "count": 397,
+          "max_receipt_gap_sec": 0.33800721168518066,
+          "max_age_sec": 0.11220717430114746,
+          "regressions": 0,
+          "approx_hz": 13.233333333333333
+        },
+        "/livox/lidar_local": {
+          "count": 383,
+          "max_receipt_gap_sec": 0.27054619789123535,
+          "max_age_sec": 0.12525653839111328,
+          "regressions": 0,
+          "approx_hz": 12.766666666666667
+        },
+        "/scan": {
+          "count": 383,
+          "max_receipt_gap_sec": 0.2680807113647461,
+          "max_age_sec": 0.12655162811279297,
+          "regressions": 0,
+          "approx_hz": 12.766666666666667
+        },
+        "/aft_mapped_to_init": {
+          "count": 383,
+          "max_receipt_gap_sec": 0.2882239818572998,
+          "max_age_sec": 0.16190218925476074,
+          "regressions": 0,
+          "approx_hz": 12.766666666666667
+        },
+        "/odom": {
+          "count": 383,
+          "max_receipt_gap_sec": 0.2902863025665283,
+          "max_age_sec": 0.16733431816101074,
+          "regressions": 0,
+          "approx_hz": 12.766666666666667
+        },
+        "/amcl_pose": {
+          "count": 10,
+          "max_receipt_gap_sec": 51.482245206832886,
+          "max_age_sec": 0.1739356517791748,
+          "regressions": 0,
+          "approx_hz": 0.3333333333333333
+        }
+      },
+      "kernel_delta": {
+        "Ip": {
+          "ReasmReqds": 931359,
+          "ReasmOKs": 22027,
+          "ReasmFails": 420
+        },
+        "Icmp": {
+          "InErrors": 0
+        },
+        "IcmpMsg": {},
+        "Tcp": {},
+        "Udp": {
+          "InErrors": 31529,
+          "RcvbufErrors": 31529
+        },
+        "UdpLite": {
+          "InErrors": 0,
+          "RcvbufErrors": 0
+        }
+      },
+      "notes": [
+        "Receive gaps are observer-local and include scheduling; AMCL pose intervals are movement-gated, not a sensor-rate failure test.",
+        "Composed map/base samples are 1 Hz; their extrema can miss faster peaks.",
+        "Input statistics use overlapping 1-second health bins."
+      ]
+    },
+    "stationary_recheck": {
+      "duration_sec": 30.0,
+      "poses": {
+        "odom -> base_link": {
+          "n": 392,
+          "z_min_mm": -5.2092749641994285,
+          "z_max_mm": 1.1875641322210972,
+          "z_range_mm": 6.396839096420526,
+          "z_std_mm": 1.1022203927258067,
+          "z_p05_p95_mm": [
+            -3.938465233575406,
+            -0.41253633499077624
+          ],
+          "z_first_last_mm": [
+            -3.2988639738841252,
+            -1.9107751645851545
+          ],
+          "roll_range_deg": 0.34718176779861987,
+          "pitch_range_deg": 0.11217087926846209,
+          "yaw_range_deg": 0.18125570992851203,
+          "xy_max_from_first_m": 0.015511371516753638,
+          "z_roll_correlation": -0.506909418640022,
+          "z_pitch_correlation": -0.2239562137773238
+        },
+        "map -> odom": {
+          "n": 392,
+          "z_min_mm": -2.69625736640583,
+          "z_max_mm": -2.69625736640583,
+          "z_range_mm": 0.0,
+          "z_std_mm": 0.0,
+          "z_p05_p95_mm": [
+            -2.69625736640583,
+            -2.69625736640583
+          ],
+          "z_first_last_mm": [
+            -2.69625736640583,
+            -2.69625736640583
+          ],
+          "roll_range_deg": 0.0,
+          "pitch_range_deg": 0.0,
+          "yaw_range_deg": 0.0,
+          "xy_max_from_first_m": 0.0
+        },
+        "map -> base_link (1Hz)": {
+          "n": 30,
+          "z_min_mm": -3.165627715018594,
+          "z_max_mm": 1.141462555322788,
+          "z_range_mm": 4.307090270341382,
+          "z_std_mm": 1.055344804861429,
+          "z_p05_p95_mm": [
+            -2.5557317447887633,
+            0.8169561361454311
+          ],
+          "z_first_last_mm": [
+            -1.535477786177976,
+            -1.7536311520188201
+          ],
+          "roll_range_deg": 0.23488061613867803,
+          "pitch_range_deg": 0.07223255785868044,
+          "yaw_range_deg": 0.14632726155898707,
+          "xy_max_from_first_m": 0.013701110005096192,
+          "z_roll_correlation": -0.4421690953115022,
+          "z_pitch_correlation": -0.21738498298197426
+        }
+      },
+      "inputs": {
+        "/livox/imu": {
+          "count": 5897,
+          "max_receipt_gap_sec": 0.031989097595214844,
+          "max_age_sec": 0.03203463554382324,
+          "regressions": 0,
+          "approx_hz": 196.56666666666666
+        },
+        "/livox/lidar": {
+          "count": 417,
+          "max_receipt_gap_sec": 0.26888108253479004,
+          "max_age_sec": 0.10296750068664551,
+          "regressions": 0,
+          "approx_hz": 13.9
+        },
+        "/livox/lidar_local": {
+          "count": 390,
+          "max_receipt_gap_sec": 0.267528772354126,
+          "max_age_sec": 0.10563540458679199,
+          "regressions": 0,
+          "approx_hz": 13.0
+        },
+        "/scan": {
+          "count": 390,
+          "max_receipt_gap_sec": 0.25673770904541016,
+          "max_age_sec": 0.1166079044342041,
+          "regressions": 0,
+          "approx_hz": 13.0
+        },
+        "/aft_mapped_to_init": {
+          "count": 390,
+          "max_receipt_gap_sec": 0.2535898685455322,
+          "max_age_sec": 0.17423796653747559,
+          "regressions": 0,
+          "approx_hz": 13.0
+        },
+        "/odom": {
+          "count": 390,
+          "max_receipt_gap_sec": 0.2515566349029541,
+          "max_age_sec": 0.17898344993591309,
+          "regressions": 0,
+          "approx_hz": 13.0
+        }
+      },
+      "kernel_delta": {
+        "Ip": {
+          "ReasmReqds": 904953,
+          "ReasmOKs": 21540,
+          "ReasmFails": 361
+        },
+        "Icmp": {
+          "InErrors": 0
+        },
+        "IcmpMsg": {},
+        "Tcp": {},
+        "Udp": {
+          "InErrors": 19720,
+          "RcvbufErrors": 19720
+        },
+        "UdpLite": {
+          "InErrors": 0,
+          "RcvbufErrors": 0
+        }
+      },
+      "notes": [
+        "Receive gaps are observer-local and include scheduling; AMCL pose intervals are movement-gated, not a sensor-rate failure test.",
+        "Composed map/base samples are 1 Hz; their extrema can miss faster peaks.",
+        "Input statistics use overlapping 1-second health bins."
+      ]
+    }
+  }
+}

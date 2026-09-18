@@ -1,0 +1,77 @@
+{
+  "start": 1789707218.5600822,
+  "end": 1789707248.5600822,
+  "duration": 30.0,
+  "poses": {
+    "/j100_0519/tf: odom -> base_link": {
+      "samples": 1500,
+      "z_m": {
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0,
+        "std": 0.0,
+        "first": 0.0,
+        "last": 0.0
+      },
+      "roll_deg": {
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0,
+        "std": 0.0,
+        "first": 0.0,
+        "last": 0.0
+      },
+      "pitch_deg": {
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0,
+        "std": 0.0,
+        "first": 0.0,
+        "last": 0.0
+      },
+      "yaw_deg": {
+        "min": -175.892512863042,
+        "max": -175.88698512819266,
+        "range": 0.005527734849323451,
+        "std": 0.0008963205740789465,
+        "first": -175.8900127602801,
+        "last": -175.88950659430353
+      }
+    }
+  },
+  "inputs": {
+    "/livox/imu": {
+      "count": 6000,
+      "max_receipt_gap": 0.01046609878540039,
+      "max_age": 0.00661921501159668,
+      "regressions": 0
+    },
+    "/livox/lidar": {
+      "count": 450,
+      "max_receipt_gap": 0.0718374252319336,
+      "max_age": 0.08039331436157227,
+      "regressions": 0
+    }
+  },
+  "kernel_delta": {
+    "Ip": {
+      "ReasmReqds": 104037,
+      "ReasmOKs": 2610,
+      "ReasmFails": 0
+    },
+    "Icmp": {
+      "InErrors": 0
+    },
+    "IcmpMsg": {},
+    "Tcp": {},
+    "Udp": {
+      "InErrors": 0,
+      "RcvbufErrors": 0
+    },
+    "UdpLite": {
+      "InErrors": 0,
+      "RcvbufErrors": 0
+    }
+  },
+  "ipfrag_high_thresh": "134217728"
+}

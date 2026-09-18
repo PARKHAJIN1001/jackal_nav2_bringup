@@ -1,0 +1,18 @@
+{
+  "/scan": {
+    "count": 97,
+    "observed_rate_hz": 9.62556655395414,
+    "max_gap_sec": 1.2703444229996421,
+    "age_min_sec": 0.0711512565612793,
+    "age_max_sec": 0.1361219882965088,
+    "stamp_regressions": 0
+  },
+  "/nav2_validation/scan": {
+    "count": 171,
+    "observed_rate_hz": 14.575112075789502,
+    "max_gap_sec": 0.18573674099980053,
+    "age_min_sec": 0.0704658031463623,
+    "age_max_sec": 0.12102007865905762,
+    "stamp_regressions": 0
+  }
+}

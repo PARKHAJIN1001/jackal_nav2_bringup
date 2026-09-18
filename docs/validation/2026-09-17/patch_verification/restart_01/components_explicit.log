@@ -1,0 +1,12 @@
+1  /controller_server
+2  /pointcloud_to_laserscan
+3  /map_server
+4  /smoother_server
+5  /amcl
+6  /planner_server
+7  /lifecycle_manager_localization
+8  /behavior_server
+9  /bt_navigator
+10  /waypoint_follower
+11  /velocity_smoother
+12  /lifecycle_manager_navigation

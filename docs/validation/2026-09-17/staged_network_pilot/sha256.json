@@ -1,0 +1,22 @@
+{
+  "baseline_launch.log": "b6d2635bbb6ea09f35bb1ec9cacb38777a7cbd5a0c8f2911777a4e538f5f9fd1",
+  "cleanup_confirmation.json": "2e07ea9dd780811fd185ec9c04516064f386ac58b3568dae193fa0790ce49158",
+  "fragment_end.json": "2d7efa74bc2278ba71a41d58e9cde72b0602c0e0c2966505bac2234865412fbd",
+  "fragment_laptop.jsonl": "49f5e4c255621ddd5fd2babd43b555c7f8a95415ee730235243924f051f52531",
+  "fragment_launch.log": "07cb24cfde51f5f35d87eaad0c957e42c481ddac2186abfaaed3e3fc433d74de",
+  "fragment_launch.out": "23be0655736bb43687cf17131ecf21466eb0145e9e364d9c9f228d2b35c19db8",
+  "fragment_run.json": "ae8c2b4eef8a6d5268f9ec3c0c8c9b4ddad3d51008d34990ff86aa33444d9a9f",
+  "laptop.jsonl": "1d8dd618db085d140e634fc93ddab8d5f94f75866a01efcbdc6879b876e7aeb5",
+  "laptop_sockets.txt": "1a956d9eeda0b4ea5583a7404d3b10a9065cc11af2f982af66ae6032946e90bf",
+  "launch.out": "07152a6852c74bae39a5fcd90f64a101ee2a519e59bc2020f96f5d9560d7a128",
+  "nav_start_before_fast.launch.py.txt": "f0a49ba9c8284a6f55d6a80102ff82e0b00594df1c993601c42ed10acae20108",
+  "nuc.jsonl": "252b40b9d635dc1ce265781f698a2823eee0a3e0438356489dfd2e57c600f0bc",
+  "nuc_sockets.txt": "a3e9fb4e5c8c10720342f010544738f700949bc8218f7b5844b2f0c5f44f6192",
+  "observe.py.txt": "9fcdb3358b25e3a1a2791d7d32c64b21447dcdbced657c8b72ec8037927b87d9",
+  "order_laptop.jsonl": "87b81c24d8ba53c25453476f3175cc40727da2b310f0942a485c9674f3fc31bd",
+  "order_launch.log": "5f658d1eef6998cfe8fad8fe9f9f11a22f4f0362f18a912ba874512ca6e8d157",
+  "order_launch.out": "02fc460319de48ef9dabc947a1c4a5df6e7b83633cd4357969e858b0e3779052",
+  "reception_comparison.png": "8cd73ec2b8886a5488a8130d74e94c5050d63510f577498672dd354b90bfd984",
+  "summary.json": "6c35fbea734a38ccc796d4658a03e587c2701bdc5e5c7c0c6db067e860656d7d",
+  "temporary_ipfrag.sh.txt": "29a57521f3c965581efe77caebcb89beaea7aa934c44c4a9c37914af3763fc2f"
+}

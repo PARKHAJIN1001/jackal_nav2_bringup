@@ -1,0 +1,11 @@
+[INFO] [1789707284.213732609] [lifecycle_manager_safety]: Creating
+[INFO] [1789707284.217789660] [lifecycle_manager_safety]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[INFO] [1789707285.009536900] [lifecycle_manager_safety]: [34m[1mStarting managed nodes bringup...[0m[0m
+[INFO] [1789707285.009689075] [lifecycle_manager_safety]: [34m[1mConfiguring collision_monitor[0m[0m
+[INFO] [1789707286.216932104] [lifecycle_manager_safety]: [34m[1mActivating collision_monitor[0m[0m
+[INFO] [1789707286.726534744] [lifecycle_manager_safety]: Server collision_monitor connected with bond.
+[INFO] [1789707286.726635982] [lifecycle_manager_safety]: [34m[1mManaged nodes are active[0m[0m
+[INFO] [1789707286.726658452] [lifecycle_manager_safety]: [34m[1mCreating bond timer...[0m[0m
+[INFO] [1789709475.746101321] [rclcpp]: signal_handler(signum=15)
+[INFO] [1789709475.746323980] [lifecycle_manager_safety]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_safety)
+[INFO] [1789709475.746411066] [lifecycle_manager_safety]: [34m[1mTerminating bond timer...[0m[0m

@@ -1,0 +1,50 @@
+[INFO] [1789707284.106277568] [static_costmap.static_costmap]: 
+	static_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789707284.111639318] [static_costmap.static_costmap]: Creating Costmap
+[INFO] [1789707285.810521642] [static_costmap.static_costmap]: Configuring
+[INFO] [1789707285.868730747] [static_costmap.static_costmap]: Using plugin "static_layer"
+[INFO] [1789707285.887494380] [static_costmap.static_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1789707285.896332193] [static_costmap.static_costmap]: Initialized plugin "static_layer"
+[INFO] [1789707285.896413949] [static_costmap.static_costmap]: Using plugin "inflation_layer"
+[INFO] [1789707285.897507489] [static_costmap.static_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1789707287.542151788] [static_costmap.static_costmap]: StaticLayer: Resizing costmap to 1224 X 528 at 0.050000 m/pix
+[INFO] [1789707287.582932034] [static_costmap.static_costmap]: Activating
+[INFO] [1789707287.583086250] [static_costmap.static_costmap]: Checking transform
+[INFO] [1789707287.583146969] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707288.083223649] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707288.583248203] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707289.083204657] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707289.583227701] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707290.083215501] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707290.583204240] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707291.083268246] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707291.583219136] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707292.083218936] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707292.583623268] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707293.083242574] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707293.583236699] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707294.083596854] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707294.583243022] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707295.083265194] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707295.583252118] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707296.083237882] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707296.583224784] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707297.083241814] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707297.583214779] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707298.083264262] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707298.583213845] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707299.083251243] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707299.583194223] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707300.083223695] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707300.583205888] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707301.083208321] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707301.583345195] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1789707302.083300683] [static_costmap.static_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 1789707301.962176 but the earliest data is at time 1789707302.495939, when looking up transform from frame [base_link] to frame [map]
+[INFO] [1789707302.583418129] [static_costmap.static_costmap]: start
+[INFO] [1789709476.033811467] [rclcpp]: signal_handler(signum=15)
+[INFO] [1789709476.037788532] [static_costmap.static_costmap]: Running Nav2 LifecycleNode rcl preshutdown (static_costmap)
+[INFO] [1789709476.037947791] [static_costmap.static_costmap]: Deactivating
+[INFO] [1789709476.583770732] [static_costmap.static_costmap]: Cleaning up
+[INFO] [1789709476.590448035] [static_costmap.static_costmap]: Destroying bond (static_costmap) to lifecycle manager.

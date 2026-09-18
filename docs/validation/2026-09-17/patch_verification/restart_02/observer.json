@@ -1,0 +1,122 @@
+{
+  "duration_sec": 15.003607359999933,
+  "command_count": 301,
+  "nonzero_commands": 0,
+  "diagnostics": {
+    "pointcloud_relay": {
+      "messages": {
+        "fresh": 32
+      },
+      "last": {
+        "received_count": "603.000000",
+        "measurement_stamp_sec": "1789611462.786300",
+        "measurement_age_sec": "0.246198",
+        "age_at_receipt_sec": "0.074823",
+        "receipt_silence_sec": "0.171380",
+        "last_interval_sec": "0.067081",
+        "max_interval_sec": "29.868550",
+        "stamp_regressions": "0.000000",
+        "clock_regressions": "0.000000"
+      }
+    },
+    "nav2_safety_guard": {
+      "messages": {
+        "independent_stop": 6,
+        "motion_disabled": 8
+      },
+      "last": {
+        "enable_motion": "False",
+        "sensor_error": "",
+        "raw_sensor_stamp_age": "0.1133577823638916",
+        "raw_sensor_receipt_age": "0.033721551000326144",
+        "sensor_stamp_age": "0.1133577823638916",
+        "sensor_receipt_age": "0.033721551000326144",
+        "command_receipt_age": "missing",
+        "filtered_points": "6108",
+        "stop_points": "0"
+      }
+    }
+  },
+  "services": {
+    "/amcl": {
+      "current_state": {
+        "id": 3,
+        "label": "active"
+      }
+    },
+    "/map_server": {
+      "current_state": {
+        "id": 3,
+        "label": "active"
+      }
+    },
+    "/controller_server": {
+      "current_state": {
+        "id": 3,
+        "label": "active"
+      }
+    },
+    "/planner_server": {
+      "current_state": {
+        "id": 3,
+        "label": "active"
+      }
+    },
+    "/static_costmap/static_costmap": {
+      "current_state": {
+        "id": 2,
+        "label": "inactive"
+      }
+    },
+    "/collision_monitor": {
+      "current_state": {
+        "id": 3,
+        "label": "active"
+      }
+    },
+    "/nav2_safety_guard": {
+      "values": [
+        {
+          "type": 1,
+          "bool_value": false,
+          "integer_value": 0,
+          "double_value": 0.0,
+          "string_value": "",
+          "byte_array_value": [],
+          "bool_array_value": [],
+          "integer_array_value": [],
+          "double_array_value": [],
+          "string_array_value": []
+        },
+        {
+          "type": 4,
+          "bool_value": false,
+          "integer_value": 0,
+          "double_value": 0.0,
+          "string_value": "/j100_0519/nav2_cmd_vel",
+          "byte_array_value": [],
+          "bool_array_value": [],
+          "integer_array_value": [],
+          "double_array_value": [],
+          "string_array_value": []
+        }
+      ]
+    },
+    "/cmd_vel_safety_bridge": {
+      "values": [
+        {
+          "type": 1,
+          "bool_value": false,
+          "integer_value": 0,
+          "double_value": 0.0,
+          "string_value": "",
+          "byte_array_value": [],
+          "bool_array_value": [],
+          "integer_array_value": [],
+          "double_array_value": [],
+          "string_array_value": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "source_bag": "/tmp/jackal_nav2_validation_20260917_KXP5m6/rotation/bag/bag_0.db3",
+  "input_json_sha256": "096134c0fb21589515a1eeba8d671ef7002dded5283959b12c3d688956c17d07",
+  "temporary_install": "/tmp/jackal_amcl_rotation_patch_20260917/install",
+  "native_test_passed": 4,
+  "config_launch_pytests_passed": 17,
+  "full_package_build": "passed",
+  "cpplint": "passed on new C++ test",
+  "uncrustify": "passed on new C++ test",
+  "lint_cmake": "passed",
+  "ros_nodes_launched": false,
+  "hardware_motion": false,
+  "workspace_install_changed": false,
+  "models": [
+    "nav2_amcl::DifferentialMotionModel",
+    "nav2_amcl::OmniMotionModel"
+  ],
+  "seeds_per_model": 10,
+  "scans": 494,
+  "filter_updates_per_run": 49,
+  "initial_covariance": [
+    0.25,
+    0.25,
+    0.06853891945200942
+  ]
+}

@@ -1,0 +1,412 @@
+[INFO] [launch]: All log files can be found below /tmp/jackal_nav2_validation_20260917_KXP5m6/restart_02/ros_logs/2026-09-17-11-16-25-395719-parkhajin-victus-48707
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: [jackal_nav2_bringup] Nav2 cloud input: /livox/lidar_local; relay enabled. Configure external FAST-LIVO2/perception explicitly with this input.
+[INFO] [launch.user]: [jackal_nav2_bringup] Motion DISABLED: Guard outputs zero commands.
+[INFO] [launch.user]: [jackal_nav2_bringup] Initial pose required: once the map is visible and /scan and /odom are arriving, select "2D Pose Estimate", click the Jackal position, and drag the arrow in the robot forward direction. Scan display in the map frame becomes available AFTER this initialization.
+[INFO] [pointcloud_relay_node-1]: process started with pid [48747]
+[INFO] [fast_livo_odom_adapter.py-2]: process started with pid [48749]
+[INFO] [amcl_quality_monitor.py-3]: process started with pid [48751]
+[INFO] [map_server-4]: process started with pid [48753]
+[INFO] [amcl-5]: process started with pid [48755]
+[INFO] [lifecycle_manager-6]: process started with pid [48758]
+[INFO] [static_costmap_node-7]: process started with pid [48760]
+[INFO] [map_patch_node.py-8]: process started with pid [48763]
+[INFO] [lifecycle_manager-9]: process started with pid [48769]
+[INFO] [controller_server-10]: process started with pid [48772]
+[INFO] [smoother_server-11]: process started with pid [48774]
+[INFO] [planner_server-12]: process started with pid [48776]
+[INFO] [behavior_server-13]: process started with pid [48778]
+[INFO] [bt_navigator-14]: process started with pid [48780]
+[INFO] [waypoint_follower-15]: process started with pid [48783]
+[INFO] [velocity_smoother-16]: process started with pid [48785]
+[INFO] [lifecycle_manager-17]: process started with pid [48787]
+[INFO] [nav2_safety_guard.py-18]: process started with pid [48790]
+[INFO] [collision_monitor-19]: process started with pid [48804]
+[INFO] [lifecycle_manager-20]: process started with pid [48814]
+[INFO] [pedestrian_figures_node-21]: process started with pid [48817]
+[INFO] [pedestrian_traces_node-22]: process started with pid [48824]
+[INFO] [battery_percentage_bridge.py-23]: process started with pid [48844]
+[INFO] [speed_overlay.py-24]: process started with pid [48857]
+[INFO] [rviz2-25]: process started with pid [48870]
+[pointcloud_relay_node-1] [INFO] [1789611386.031836904] [pointcloud_relay]: Relaying PointCloud2 from /livox/lidar to bounded local topic /livox/lidar_local
+[lifecycle_manager-6] [INFO] [1789611386.004407695] [lifecycle_manager_localization]: Creating
+[lifecycle_manager-6] [INFO] [1789611386.007260888] [lifecycle_manager_localization]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[static_costmap_node-7] [INFO] [1789611386.010111783] [static_costmap.static_costmap]: 
+[static_costmap_node-7] 	static_costmap lifecycle node launched. 
+[static_costmap_node-7] 	Waiting on external lifecycle transitions to activate
+[static_costmap_node-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[static_costmap_node-7] [INFO] [1789611386.012157626] [static_costmap.static_costmap]: Creating Costmap
+[lifecycle_manager-9] [INFO] [1789611386.005555973] [lifecycle_manager_static_costmap]: Creating
+[lifecycle_manager-9] [INFO] [1789611386.008905920] [lifecycle_manager_static_costmap]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[smoother_server-11] [INFO] [1789611386.031963359] [smoother_server]: 
+[smoother_server-11] 	smoother_server lifecycle node launched. 
+[smoother_server-11] 	Waiting on external lifecycle transitions to activate
+[smoother_server-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[waypoint_follower-15] [INFO] [1789611386.033113785] [waypoint_follower]: 
+[waypoint_follower-15] 	waypoint_follower lifecycle node launched. 
+[waypoint_follower-15] 	Waiting on external lifecycle transitions to activate
+[waypoint_follower-15] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[waypoint_follower-15] [INFO] [1789611386.034356015] [waypoint_follower]: Creating
+[smoother_server-11] [INFO] [1789611386.038660192] [smoother_server]: Creating smoother server
+[velocity_smoother-16] [INFO] [1789611386.056644547] [velocity_smoother]: 
+[velocity_smoother-16] 	velocity_smoother lifecycle node launched. 
+[velocity_smoother-16] 	Waiting on external lifecycle transitions to activate
+[velocity_smoother-16] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-10] [INFO] [1789611386.087452533] [controller_server]: 
+[controller_server-10] 	controller_server lifecycle node launched. 
+[controller_server-10] 	Waiting on external lifecycle transitions to activate
+[controller_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[amcl-5] [INFO] [1789611386.087628157] [amcl]: 
+[amcl-5] 	amcl lifecycle node launched. 
+[amcl-5] 	Waiting on external lifecycle transitions to activate
+[amcl-5] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[amcl-5] [INFO] [1789611386.089201750] [amcl]: Creating
+[controller_server-10] [INFO] [1789611386.134859380] [controller_server]: Creating controller server
+[planner_server-12] [INFO] [1789611386.146847369] [planner_server]: 
+[planner_server-12] 	planner_server lifecycle node launched. 
+[planner_server-12] 	Waiting on external lifecycle transitions to activate
+[planner_server-12] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-12] [INFO] [1789611386.166520923] [planner_server]: Creating
+[controller_server-10] [INFO] [1789611386.189241713] [local_costmap.local_costmap]: 
+[controller_server-10] 	local_costmap lifecycle node launched. 
+[controller_server-10] 	Waiting on external lifecycle transitions to activate
+[controller_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-10] [INFO] [1789611386.190818418] [local_costmap.local_costmap]: Creating Costmap
+[planner_server-12] [INFO] [1789611386.239678874] [global_costmap.global_costmap]: 
+[planner_server-12] 	global_costmap lifecycle node launched. 
+[planner_server-12] 	Waiting on external lifecycle transitions to activate
+[planner_server-12] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-12] [INFO] [1789611386.241622898] [global_costmap.global_costmap]: Creating Costmap
+[pointcloud_relay_node-1] [WARN] [1789611386.535132927] [pointcloud_relay]: PointCloud2 relay health: waiting_for_cloud (see /nav2/lidar_relay_diagnostics)
+[lifecycle_manager-9] [INFO] [1789611386.639991488] [lifecycle_manager_static_costmap]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-9] [INFO] [1789611386.642237722] [lifecycle_manager_static_costmap]: [34m[1mConfiguring /static_costmap/static_costmap[0m[0m
+[static_costmap_node-7] [INFO] [1789611386.732988402] [static_costmap.static_costmap]: Configuring
+[static_costmap_node-7] [INFO] [1789611386.771007714] [static_costmap.static_costmap]: Using plugin "static_layer"
+[static_costmap_node-7] [INFO] [1789611386.785590464] [static_costmap.static_costmap]: Subscribing to the map topic (/map) with transient local durability
+[static_costmap_node-7] [INFO] [1789611386.790911972] [static_costmap.static_costmap]: Initialized plugin "static_layer"
+[static_costmap_node-7] [INFO] [1789611386.790974370] [static_costmap.static_costmap]: Using plugin "inflation_layer"
+[static_costmap_node-7] [INFO] [1789611386.794122327] [static_costmap.static_costmap]: Initialized plugin "inflation_layer"
+[static_costmap_node-7] [WARN] [1789611386.940725350] [static_costmap.static_costmap.rclcpp]: failed to send response to /static_costmap/static_costmap/change_state (timeout): client will not receive response, at ./src/rmw_response.cpp:154, at ./src/rcl/service.c:314
+[lifecycle_manager-6] [INFO] [1789611388.009350375] [lifecycle_manager_localization]: Waiting for service map_server/get_state...
+[lifecycle_manager-17] [INFO] [1789611388.079004292] [lifecycle_manager_navigation]: Creating
+[lifecycle_manager-17] [INFO] [1789611388.103397947] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[lifecycle_manager-20] [INFO] [1789611388.115865776] [lifecycle_manager_safety]: Creating
+[lifecycle_manager-20] [INFO] [1789611388.131265730] [lifecycle_manager_safety]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[behavior_server-13] [INFO] [1789611388.136882285] [behavior_server]: 
+[behavior_server-13] 	behavior_server lifecycle node launched. 
+[behavior_server-13] 	Waiting on external lifecycle transitions to activate
+[behavior_server-13] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-14] [INFO] [1789611388.139152938] [bt_navigator]: 
+[bt_navigator-14] 	bt_navigator lifecycle node launched. 
+[bt_navigator-14] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-14] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-14] [INFO] [1789611388.139431009] [bt_navigator]: Creating
+[collision_monitor-19] [INFO] [1789611388.185763292] [collision_monitor]: 
+[collision_monitor-19] 	collision_monitor lifecycle node launched. 
+[collision_monitor-19] 	Waiting on external lifecycle transitions to activate
+[collision_monitor-19] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-4] [INFO] [1789611388.351848081] [map_server]: 
+[map_server-4] 	map_server lifecycle node launched. 
+[map_server-4] 	Waiting on external lifecycle transitions to activate
+[map_server-4] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-4] [INFO] [1789611388.352052662] [map_server]: Creating
+[battery_percentage_bridge.py-23] [INFO] [1789611389.089570388] [battery_percentage_bridge]: Battery gauge: /j100_0519/platform/bms/state -> /nav2/battery_percentage (0..100 percent)
+[rviz2-25] [INFO] [1789611389.151468668] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-25] [INFO] [1789611389.151734164] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[lifecycle_manager-20] [INFO] [1789611389.198021413] [lifecycle_manager_safety]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-20] [INFO] [1789611389.198125253] [lifecycle_manager_safety]: [34m[1mConfiguring collision_monitor[0m[0m
+[rviz2-25] [INFO] [1789611389.255527638] [rviz2]: Stereo is NOT SUPPORTED
+[lifecycle_manager-6] [INFO] [1789611389.300504262] [lifecycle_manager_localization]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-6] [INFO] [1789611389.300601472] [lifecycle_manager_localization]: [34m[1mConfiguring map_server[0m[0m
+[map_server-4] [INFO] [1789611389.301891054] [map_server]: Configuring
+[map_server-4] [INFO] [1789611389.301997262] [map_io]: Loading yaml file: /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.yaml
+[map_server-4] [INFO] [1789611389.303796400] [map_io]: resolution: 0.05
+[map_server-4] [INFO] [1789611389.303844576] [map_io]: origin[0]: -57.6
+[map_server-4] [INFO] [1789611389.303857640] [map_io]: origin[1]: -18.7
+[map_server-4] [INFO] [1789611389.303868237] [map_io]: origin[2]: 0
+[map_server-4] [INFO] [1789611389.303879877] [map_io]: free_thresh: 0.25
+[map_server-4] [INFO] [1789611389.303891123] [map_io]: occupied_thresh: 0.65
+[map_server-4] [INFO] [1789611389.303903510] [map_io]: mode: trinary
+[map_server-4] [INFO] [1789611389.303916056] [map_io]: negate: 0
+[map_server-4] [INFO] [1789611389.304302979] [map_io]: Loading image_file: /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.pgm
+[collision_monitor-19] [INFO] [1789611389.390270374] [collision_monitor]: Configuring
+[fast_livo_odom_adapter.py-2] [INFO] [1789611389.471127540] [fast_livo_odom_adapter]: adapting pose-only odometry: /aft_mapped_to_init -> /odom; TF ownership remains with FAST-LIVO2
+[map_patch_node.py-8] [INFO] [1789611389.493401257] [map_patch_node]: Publishing 200x200 robot-centric static patches from /static_costmap/costmap to /map_encoder/input
+[map_patch_node.py-8] [WARN] [1789611389.497242397] [map_patch_node]: Waiting for /static_costmap/costmap
+[collision_monitor-19] [INFO] [1789611389.517714765] [collision_monitor]: [Stop]: Creating Polygon
+[map_server-4] [INFO] [1789611389.579287025] [map_io]: Read map /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.pgm: 1224 X 528 map @ 0.05 m/cell
+[lifecycle_manager-6] [INFO] [1789611389.767042065] [lifecycle_manager_localization]: [34m[1mConfiguring amcl[0m[0m
+[amcl-5] [INFO] [1789611389.769326238] [amcl]: Configuring
+[amcl-5] [INFO] [1789611389.769595617] [amcl]: initTransforms
+[collision_monitor-19] [INFO] [1789611389.852601433] [collision_monitor]: [Slow]: Creating Polygon
+[amcl-5] [INFO] [1789611389.857512953] [amcl]: initPubSub
+[amcl-5] [INFO] [1789611389.888565347] [amcl]: Subscribed to map topic.
+[lifecycle_manager-6] [INFO] [1789611389.920726740] [lifecycle_manager_localization]: [34m[1mActivating map_server[0m[0m
+[map_server-4] [INFO] [1789611389.922668029] [map_server]: Activating
+[map_server-4] [INFO] [1789611389.926517360] [map_server]: Creating bond (map_server) to lifecycle manager.
+[collision_monitor-19] [INFO] [1789611389.969467902] [collision_monitor]: [raw_lidar]: Creating PointCloud
+[static_costmap_node-7] [INFO] [1789611390.002087082] [static_costmap.static_costmap]: StaticLayer: Resizing costmap to 1224 X 528 at 0.050000 m/pix
+[lifecycle_manager-20] [INFO] [1789611390.027451837] [lifecycle_manager_safety]: [34m[1mActivating collision_monitor[0m[0m
+[collision_monitor-19] [INFO] [1789611390.031843027] [collision_monitor]: Activating
+[collision_monitor-19] [INFO] [1789611390.032234239] [collision_monitor]: Creating bond (collision_monitor) to lifecycle manager.
+[lifecycle_manager-6] [INFO] [1789611390.182550579] [lifecycle_manager_localization]: Server map_server connected with bond.
+[lifecycle_manager-6] [INFO] [1789611390.182650063] [lifecycle_manager_localization]: [34m[1mActivating amcl[0m[0m
+[amcl-5] [INFO] [1789611390.183292182] [amcl]: Activating
+[amcl-5] [INFO] [1789611390.183452875] [amcl]: Creating bond (amcl) to lifecycle manager.
+[amcl-5] [INFO] [1789611390.216537405] [amcl]: Received a 1224 X 528 map @ 0.050 m/pix
+[lifecycle_manager-6] [INFO] [1789611390.316249120] [lifecycle_manager_localization]: Server amcl connected with bond.
+[lifecycle_manager-6] [INFO] [1789611390.316426341] [lifecycle_manager_localization]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-6] [INFO] [1789611390.316459161] [lifecycle_manager_localization]: [34m[1mCreating bond timer...[0m[0m
+[lifecycle_manager-20] [INFO] [1789611390.486652807] [lifecycle_manager_safety]: Server collision_monitor connected with bond.
+[lifecycle_manager-20] [INFO] [1789611390.486789605] [lifecycle_manager_safety]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-20] [INFO] [1789611390.486836813] [lifecycle_manager_safety]: [34m[1mCreating bond timer...[0m[0m
+[lifecycle_manager-17] [INFO] [1789611391.086281363] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-17] [INFO] [1789611391.086440007] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[controller_server-10] [INFO] [1789611391.088840940] [controller_server]: Configuring controller interface
+[controller_server-10] [INFO] [1789611391.089740194] [controller_server]: getting goal checker plugins..
+[controller_server-10] [INFO] [1789611391.090644293] [controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-10] [INFO] [1789611391.090758408] [local_costmap.local_costmap]: Configuring
+[controller_server-10] [INFO] [1789611391.130734573] [local_costmap.local_costmap]: Using plugin "static_layer"
+[rviz2-25] [INFO] [1789611391.136541698] [rviz2]: Trying to create a map of size 1224 x 528 using 1 swatches
+[rviz2-25] [ERROR] [1789611391.151128389] [rviz2]: Vertex Program:rviz/glsl120/indexed_8bit_image.vert Fragment Program:rviz/glsl120/indexed_8bit_image.frag GLSL link result : 
+[rviz2-25] active samplers with a different type refer to the same texture image unit
+[controller_server-10] [INFO] [1789611391.166732763] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[controller_server-10] [INFO] [1789611391.177532389] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[controller_server-10] [INFO] [1789611391.177598348] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-10] [INFO] [1789611391.179031486] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[rviz2-25] [INFO] [1789611391.207647134] [rviz2]: Stereo is NOT SUPPORTED
+[controller_server-10] [INFO] [1789611391.271025537] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[controller_server-10] [INFO] [1789611391.277901519] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-10] [INFO] [1789611391.285672874] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[controller_server-10] [INFO] [1789611391.287032919] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 1224 X 528 at 0.050000 m/pix
+[controller_server-10] [INFO] [1789611391.296179493] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[controller_server-10] [INFO] [1789611391.321924835] [controller_server]: Setting transform_tolerance to 0.200000
+[controller_server-10] [INFO] [1789611391.419822673] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[controller_server-10] [INFO] [1789611391.428772957] [controller_server]: Critic plugin initialized
+[controller_server-10] [INFO] [1789611391.429273552] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[controller_server-10] [INFO] [1789611391.434678596] [controller_server]: Critic plugin initialized
+[controller_server-10] [INFO] [1789611391.435258347] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[controller_server-10] [INFO] [1789611391.436080041] [controller_server]: Critic plugin initialized
+[controller_server-10] [INFO] [1789611391.436508891] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[controller_server-10] [INFO] [1789611391.443434404] [controller_server]: Critic plugin initialized
+[controller_server-10] [INFO] [1789611391.447071079] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[controller_server-10] [INFO] [1789611391.451356071] [controller_server]: Critic plugin initialized
+[controller_server-10] [INFO] [1789611391.452901848] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[controller_server-10] [INFO] [1789611391.453581548] [controller_server]: Critic plugin initialized
+[controller_server-10] [INFO] [1789611391.453868750] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[controller_server-10] [INFO] [1789611391.454337158] [controller_server]: Critic plugin initialized
+[controller_server-10] [INFO] [1789611391.454376050] [controller_server]: Controller Server has FollowPath  controllers available.
+[lifecycle_manager-17] [INFO] [1789611391.536828419] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[smoother_server-11] [INFO] [1789611391.549837349] [smoother_server]: Configuring smoother server
+[smoother_server-11] [INFO] [1789611391.607399546] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+[smoother_server-11] [INFO] [1789611391.616902481] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+[lifecycle_manager-17] [INFO] [1789611391.679472648] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-12] [INFO] [1789611391.686084981] [planner_server]: Configuring
+[planner_server-12] [INFO] [1789611391.686532400] [global_costmap.global_costmap]: Configuring
+[planner_server-12] [INFO] [1789611391.725675584] [global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-12] [INFO] [1789611391.744330647] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[planner_server-12] [INFO] [1789611391.780810528] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-12] [INFO] [1789611391.780881008] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-12] [INFO] [1789611391.787032012] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-12] [INFO] [1789611391.876418994] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner/NavfnPlanner
+[planner_server-12] [INFO] [1789611391.876501297] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-12] [INFO] [1789611391.880240211] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 1224 X 528 at 0.050000 m/pix
+[planner_server-12] [INFO] [1789611391.881491281] [planner_server]: Planner Server has GridBased  planners available.
+[lifecycle_manager-17] [INFO] [1789611391.992080200] [lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-13] [INFO] [1789611391.995952491] [behavior_server]: Configuring
+[pointcloud_relay_node-1] [WARN] [1789611392.033731214] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[behavior_server-13] [INFO] [1789611392.067517698] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors/Spin
+[behavior_server-13] [INFO] [1789611392.069393350] [behavior_server]: Configuring spin
+[behavior_server-13] [INFO] [1789611392.124027256] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors/BackUp
+[behavior_server-13] [INFO] [1789611392.126243357] [behavior_server]: Configuring backup
+[behavior_server-13] [INFO] [1789611392.155267684] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors/DriveOnHeading
+[behavior_server-13] [INFO] [1789611392.157808229] [behavior_server]: Configuring drive_on_heading
+[behavior_server-13] [INFO] [1789611392.215188499] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors/AssistedTeleop
+[behavior_server-13] [INFO] [1789611392.220278899] [behavior_server]: Configuring assisted_teleop
+[behavior_server-13] [INFO] [1789611392.359089281] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors/Wait
+[behavior_server-13] [INFO] [1789611392.368357313] [behavior_server]: Configuring wait
+[lifecycle_manager-17] [INFO] [1789611392.460055245] [lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[bt_navigator-14] [INFO] [1789611392.460870608] [bt_navigator]: Configuring
+[lifecycle_manager-17] [INFO] [1789611393.107067222] [lifecycle_manager_navigation]: [34m[1mConfiguring waypoint_follower[0m[0m
+[waypoint_follower-15] [INFO] [1789611393.109468614] [waypoint_follower]: Configuring
+[waypoint_follower-15] [INFO] [1789611393.167188851] [waypoint_follower]: Created waypoint_task_executor : wait_at_waypoint of type nav2_waypoint_follower::WaitAtWaypoint
+[lifecycle_manager-17] [INFO] [1789611393.170621470] [lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[velocity_smoother-16] [INFO] [1789611393.174215305] [velocity_smoother]: Configuring velocity smoother
+[lifecycle_manager-17] [INFO] [1789611393.197983694] [lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[controller_server-10] [INFO] [1789611393.198800800] [controller_server]: Activating
+[controller_server-10] [INFO] [1789611393.198920364] [local_costmap.local_costmap]: Activating
+[controller_server-10] [INFO] [1789611393.198949601] [local_costmap.local_costmap]: Checking transform
+[controller_server-10] [INFO] [1789611393.199003633] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611393.699055965] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611394.199070045] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[map_patch_node.py-8] [WARN] [1789611394.568052671] [map_patch_node]: Waiting for /static_costmap/costmap
+[controller_server-10] [INFO] [1789611394.699071360] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611395.199046021] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611395.699076531] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611396.199041109] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611396.699055450] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611397.199101675] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[pointcloud_relay_node-1] [WARN] [1789611397.532170513] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[controller_server-10] [INFO] [1789611397.699090173] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611398.199113300] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611398.699317983] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611399.199060919] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[map_patch_node.py-8] [WARN] [1789611399.669730488] [map_patch_node]: Waiting for /static_costmap/costmap
+[controller_server-10] [INFO] [1789611399.700148269] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611400.199049367] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611400.699053103] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611401.199228071] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611401.699049846] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611402.199060107] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611402.699047543] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[pointcloud_relay_node-1] [WARN] [1789611403.032136969] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[controller_server-10] [INFO] [1789611403.199041959] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611403.699058470] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611404.199042370] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611404.699108105] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[map_patch_node.py-8] [WARN] [1789611404.767921539] [map_patch_node]: Waiting for /static_costmap/costmap
+[controller_server-10] [INFO] [1789611405.199044622] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611405.699054815] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611406.199406215] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611406.699172248] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611407.199052550] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611407.699072295] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[pointcloud_relay_node-1] [WARN] [1789611408.032216967] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[controller_server-10] [INFO] [1789611408.199230071] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[rviz2-25] [INFO] [1789611408.331571485] [rviz2]: Setting estimate pose: Frame:map, Position(-4.00095, -0.350398, 0), Orientation(0, 0, -0.999915, 0.0130101) = Angle: -3.11557
+[amcl-5] [INFO] [1789611408.332294311] [amcl]: initialPoseReceived
+[amcl-5] [INFO] [1789611408.332556340] [amcl]: Setting pose (1789611408.332556): -4.001 -0.350 -3.116
+[controller_server-10] [INFO] [1789611408.699057528] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611409.199074081] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611409.699246747] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[map_patch_node.py-8] [WARN] [1789611409.768634608] [map_patch_node]: Waiting for /static_costmap/costmap
+[controller_server-10] [INFO] [1789611410.199094564] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611410.699069422] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611411.199086446] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611411.699063785] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611412.199090862] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611412.699050845] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[pointcloud_relay_node-1] [WARN] [1789611413.032243193] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[controller_server-10] [INFO] [1789611413.199047886] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611413.699124263] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611414.199068774] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611414.699059618] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[map_patch_node.py-8] [WARN] [1789611414.768149107] [map_patch_node]: Waiting for /static_costmap/costmap
+[controller_server-10] [INFO] [1789611415.199041146] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611415.699108647] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611416.199048024] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611416.699086947] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611417.199047094] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611417.699068309] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-10] [INFO] [1789611418.199674618] [local_costmap.local_costmap]: start
+[amcl-5] [INFO] [1789611418.229887631] [amcl]: createLaserObject
+[controller_server-10] [ERROR] [1789611418.507674629] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[rviz2-25] [INFO] [1789611418.543490368] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611417.788 for reason 'discarding message because the queue is full'
+[controller_server-10] [INFO] [1789611418.549962686] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[rviz2-25] [INFO] [1789611418.606669655] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611417.854 for reason 'discarding message because the queue is full'
+[lifecycle_manager-17] [INFO] [1789611418.670289258] [lifecycle_manager_navigation]: Server controller_server connected with bond.
+[lifecycle_manager-17] [INFO] [1789611418.670419736] [lifecycle_manager_navigation]: [34m[1mActivating smoother_server[0m[0m
+[rviz2-25] [INFO] [1789611418.671126367] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611417.920 for reason 'discarding message because the queue is full'
+[smoother_server-11] [INFO] [1789611418.671720104] [smoother_server]: Activating
+[smoother_server-11] [INFO] [1789611418.671922562] [smoother_server]: Creating bond (smoother_server) to lifecycle manager.
+[rviz2-25] [INFO] [1789611418.734849988] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611417.988 for reason 'discarding message because the queue is full'
+[lifecycle_manager-17] [INFO] [1789611418.798969276] [lifecycle_manager_navigation]: Server smoother_server connected with bond.
+[lifecycle_manager-17] [INFO] [1789611418.799065380] [lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[planner_server-12] [INFO] [1789611418.799915376] [planner_server]: Activating
+[planner_server-12] [INFO] [1789611418.800027477] [global_costmap.global_costmap]: Activating
+[planner_server-12] [INFO] [1789611418.800053768] [global_costmap.global_costmap]: Checking transform
+[planner_server-12] [INFO] [1789611418.800157541] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 1789611418.720965 but the earliest data is at time 1789611419.121360, when looking up transform from frame [base_link] to frame [map]
+[rviz2-25] [INFO] [1789611418.830466169] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.054 for reason 'discarding message because the queue is full'
+[amcl-5] [INFO] [1789611418.869507092] [amcl]: Message Filter dropping message: frame 'base_link' at time 1789611417.788 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611418.895211463] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.121 for reason 'discarding message because the queue is full'
+[rviz2-25] [INFO] [1789611419.022893939] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.187 for reason 'discarding message because the queue is full'
+[rviz2-25] [INFO] [1789611419.087427563] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.254 for reason 'discarding message because the queue is full'
+[rviz2-25] [INFO] [1789611419.150671143] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.320 for reason 'discarding message because the queue is full'
+[rviz2-25] [INFO] [1789611419.214942290] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.388 for reason 'discarding message because the queue is full'
+[rviz2-25] [INFO] [1789611419.220387625] [rviz2]: Trying to create a map of size 80 x 80 using 1 swatches
+[rviz2-25] [INFO] [1789611419.283173785] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.454 for reason 'discarding message because the queue is full'
+[planner_server-12] [INFO] [1789611419.300406470] [global_costmap.global_costmap]: start
+[map_patch_node.py-8] [WARN] [1789611419.769823689] [map_patch_node]: Waiting for /static_costmap/costmap
+[rviz2-25] [INFO] [1789611420.338047176] [rviz2]: Trying to create a map of size 1224 x 528 using 1 swatches
+[planner_server-12] [INFO] [1789611420.350751142] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-12] [INFO] [1789611420.355414301] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-17] [INFO] [1789611420.473859982] [lifecycle_manager_navigation]: Server planner_server connected with bond.
+[lifecycle_manager-17] [INFO] [1789611420.473997467] [lifecycle_manager_navigation]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-13] [INFO] [1789611420.485153732] [behavior_server]: Activating
+[behavior_server-13] [INFO] [1789611420.485257727] [behavior_server]: Activating spin
+[behavior_server-13] [INFO] [1789611420.485293104] [behavior_server]: Activating backup
+[behavior_server-13] [INFO] [1789611420.485314666] [behavior_server]: Activating drive_on_heading
+[behavior_server-13] [INFO] [1789611420.485335905] [behavior_server]: Activating assisted_teleop
+[behavior_server-13] [INFO] [1789611420.485356989] [behavior_server]: Activating wait
+[behavior_server-13] [INFO] [1789611420.485399209] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[pointcloud_relay_node-1] [WARN] [1789611420.533320644] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[lifecycle_manager-17] [INFO] [1789611420.778506151] [lifecycle_manager_navigation]: Server behavior_server connected with bond.
+[lifecycle_manager-17] [INFO] [1789611420.778584372] [lifecycle_manager_navigation]: [34m[1mActivating bt_navigator[0m[0m
+[bt_navigator-14] [INFO] [1789611420.779271169] [bt_navigator]: Activating
+[bt_navigator-14] [INFO] [1789611421.232248091] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[lifecycle_manager-17] [INFO] [1789611421.348610460] [lifecycle_manager_navigation]: Server bt_navigator connected with bond.
+[lifecycle_manager-17] [INFO] [1789611421.348708944] [lifecycle_manager_navigation]: [34m[1mActivating waypoint_follower[0m[0m
+[waypoint_follower-15] [INFO] [1789611421.350043727] [waypoint_follower]: Activating
+[waypoint_follower-15] [INFO] [1789611421.350169335] [waypoint_follower]: Creating bond (waypoint_follower) to lifecycle manager.
+[lifecycle_manager-17] [INFO] [1789611421.470001660] [lifecycle_manager_navigation]: Server waypoint_follower connected with bond.
+[lifecycle_manager-17] [INFO] [1789611421.470123544] [lifecycle_manager_navigation]: [34m[1mActivating velocity_smoother[0m[0m
+[velocity_smoother-16] [INFO] [1789611421.471438366] [velocity_smoother]: Activating
+[velocity_smoother-16] [INFO] [1789611421.471609773] [velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[lifecycle_manager-17] [INFO] [1789611421.599276174] [lifecycle_manager_navigation]: Server velocity_smoother connected with bond.
+[lifecycle_manager-17] [INFO] [1789611421.599399925] [lifecycle_manager_navigation]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-17] [INFO] [1789611421.599425881] [lifecycle_manager_navigation]: [34m[1mCreating bond timer...[0m[0m
+[fast_livo_odom_adapter.py-2] [WARN] [1789611423.056302451] [fast_livo_odom_adapter]: odometry discontinuity detected; resetting twist estimate
+[amcl_quality_monitor.py-3] [WARN] [1789611423.129695787] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611424.768272017] [map_patch_node]: Waiting for /static_costmap/costmap
+[rviz2-25] [INFO] [1789611427.281930152] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.521 for reason 'discarding message because the queue is full'
+[rviz2-25] [INFO] [1789611427.607992571] [jackal_nav2_rviz]: Message Filter dropping message: frame 'odom' at time 1789611418.508 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611428.700339380] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.654 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611428.700529727] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.588 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611428.787416280] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.721 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611428.829275015] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.788 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611429.058435300] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.988 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611429.058844931] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611418.920 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611429.178926995] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611419.054 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-25] [INFO] [1789611429.179248282] [jackal_nav2_rviz]: Message Filter dropping message: frame 'base_link' at time 1789611419.120 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[map_patch_node.py-8] [WARN] [1789611429.869241187] [map_patch_node]: Waiting for /static_costmap/costmap
+[map_patch_node.py-8] [WARN] [1789611434.970010032] [map_patch_node]: Waiting for /static_costmap/costmap
+[map_patch_node.py-8] [WARN] [1789611440.069568843] [map_patch_node]: Waiting for /static_costmap/costmap
+[map_patch_node.py-8] [WARN] [1789611445.168865181] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611446.615844699] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611450.271736537] [map_patch_node]: Waiting for /static_costmap/costmap
+[map_patch_node.py-8] [WARN] [1789611455.369304719] [map_patch_node]: Waiting for /static_costmap/costmap
+[map_patch_node.py-8] [WARN] [1789611460.368321721] [map_patch_node]: Waiting for /static_costmap/costmap
+[map_patch_node.py-8] [WARN] [1789611465.470009931] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611468.852196850] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611470.567888330] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611473.860054067] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611475.668185244] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611478.864322766] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611480.669059943] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611484.529144630] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611485.668459605] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611489.579851250] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611490.669447342] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611494.591470260] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611495.768864030] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611499.754228722] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611500.868558348] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611504.860200597] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611505.871029819] [map_patch_node]: Waiting for /static_costmap/costmap
+[map_patch_node.py-8] [WARN] [1789611510.869633190] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611511.385033918] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611515.968135335] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611516.394237073] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611520.968883441] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611522.976793349] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611525.969184480] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611528.306062497] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611531.069276891] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611533.333064027] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611536.069139784] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611540.959460103] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611541.069645679] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611546.101709759] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed
+[map_patch_node.py-8] [WARN] [1789611546.168123299] [map_patch_node]: Waiting for /static_costmap/costmap
+[map_patch_node.py-8] [WARN] [1789611551.168919120] [map_patch_node]: Waiting for /static_costmap/costmap
+[amcl_quality_monitor.py-3] [WARN] [1789611553.104973712] [amcl_quality_monitor]: high_covariance_check_localization_manually; no automatic pose reset performed

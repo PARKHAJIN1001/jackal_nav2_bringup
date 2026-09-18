@@ -1,0 +1,60 @@
+import json
+import math
+import time
+from pathlib import Path
+import rclpy
+from rclpy.qos import QoSProfile, ReliabilityPolicy
+from sensor_msgs.msg import PointCloud2, Imu, LaserScan
+from nav_msgs.msg import Odometry
+from geometry_msgs.msg import PoseWithCovarianceStamped
+
+root = Path(__file__).parent
+rclpy.init()
+node = rclpy.create_node('first_pose_monitor')
+qos = QoSProfile(depth=5, reliability=ReliabilityPolicy.BEST_EFFORT)
+started = time.monotonic()
+streams = {}
+output = (root / 'first_pose_samples.jsonl').open('w')
+
+def observe(topic, message):
+    mono = time.monotonic()
+    stamp = message.header.stamp.sec + message.header.stamp.nanosec / 1e9
+    age = node.get_clock().now().nanoseconds / 1e9 - stamp
+    s = streams.setdefault(topic, dict(count=0, max_gap=0, max_age=-1e9))
+    gap = mono-s.get('last', mono)
+    s.update(count=s['count']+1, max_gap=max(s['max_gap'], gap),
+             max_age=max(s['max_age'], age), age=age, stamp=stamp, last=mono)
+    event = dict(topic=topic, elapsed=mono-started, stamp=stamp, age=age, gap=gap)
+    if hasattr(message, 'pose'):
+        pose = message.pose.pose
+        xyz = [pose.position.x, pose.position.y, pose.position.z]
+        q = pose.orientation
+        yaw = math.atan2(2*(q.w*q.z+q.x*q.y), 1-2*(q.y*q.y+q.z*q.z))
+        s.setdefault('first_pose', dict(xyz=xyz, yaw=yaw, stamp=stamp))
+        s.update(xyz=xyz, yaw=yaw, covariance=[message.pose.covariance[i] for i in (0,7,35)])
+        s['max_displacement'] = max(s.get('max_displacement', 0), math.dist(xyz, s['first_pose']['xyz']))
+        event.update(xyz=xyz, quat=[q.x,q.y,q.z,q.w], covariance=s['covariance'])
+    elif isinstance(message, Imu):
+        s['acc'] = [message.linear_acceleration.x, message.linear_acceleration.y, message.linear_acceleration.z]
+        s['gyro'] = [message.angular_velocity.x, message.angular_velocity.y, message.angular_velocity.z]
+    if hasattr(message, 'pose') or gap > .3 or s['count'] == 1:
+        output.write(json.dumps(event)+'\n')
+        output.flush()
+
+subscriptions = []
+for topic, typ in [('/livox/lidar_local', PointCloud2), ('/livox/imu', Imu),
+                   ('/scan', LaserScan), ('/aft_mapped_to_init', Odometry),
+                   ('/odom', Odometry), ('/amcl_pose', PoseWithCovarianceStamped),
+                   ('/initialpose', PoseWithCovarianceStamped)]:
+    subscriptions.append(node.create_subscription(typ, topic, lambda m,t=topic:observe(t,m), qos))
+last_report = started
+while time.monotonic()-started < 150:
+    rclpy.spin_once(node, timeout_sec=.05)
+    now = time.monotonic()
+    if now-last_report >= 1:
+        report = {t:dict(s, silence=now-s['last']) for t,s in streams.items()}
+        (root/'first_pose_status.json').write_text(json.dumps(dict(elapsed=now-started, wall_time=time.time(), streams=report), indent=2)+'\n')
+        last_report = now
+output.close()
+node.destroy_node()
+rclpy.shutdown()

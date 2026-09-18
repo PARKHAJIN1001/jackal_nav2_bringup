@@ -1,0 +1,13 @@
+{"wall_sec": 1789532732.0787003, "pid": 119098, "port": 7667, "receive_memory_bytes": 8812800, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532742.0916648, "pid": 119098, "port": 7667, "receive_memory_bytes": 8254720, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532752.105112, "pid": 119098, "port": 7667, "receive_memory_bytes": 11997440, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532762.1173174, "pid": 119098, "port": 7667, "receive_memory_bytes": 6178560, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532772.1295764, "pid": 119098, "port": 7667, "receive_memory_bytes": 7150080, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532782.1423297, "pid": 119098, "port": 7667, "receive_memory_bytes": 7247360, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532792.1554618, "pid": 119098, "port": 7667, "receive_memory_bytes": 2598400, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532802.167798, "pid": 119098, "port": 7667, "receive_memory_bytes": 2270720, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532812.181481, "pid": 119098, "port": 7667, "receive_memory_bytes": 554240, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532822.1945274, "pid": 119098, "port": 7667, "receive_memory_bytes": 1841920, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532832.207287, "pid": 119098, "port": 7667, "receive_memory_bytes": 1448960, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532842.2193117, "pid": 119098, "port": 7667, "receive_memory_bytes": 441600, "receive_limit_bytes": 52428800, "drops": 1275}
+{"wall_sec": 1789532852.2314403, "pid": 119098, "port": 7667, "receive_memory_bytes": 1120000, "receive_limit_bytes": 52428800, "drops": 1275}

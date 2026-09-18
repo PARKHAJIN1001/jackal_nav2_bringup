@@ -1,0 +1,116 @@
+{
+  "duration_sec": 30.000951473000896,
+  "interrupted": false,
+  "topics": {
+    "/livox/imu": {
+      "count": 5990,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.05953309000142326,
+      "last_stamp": 1789536482.8725483,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.00015783309936523438,
+        0.0005519390106201172,
+        0.009633064270019531
+      ],
+      "max_receipt_gap_sec": 0.009335182001450448,
+      "receipt_age_at_end_sec": 4.357699981483165e-05,
+      "publishers_at_end": [
+        "/livox_lidar_publisher"
+      ]
+    },
+    "/j100_0519/nav2_cmd_vel": {
+      "count": 599,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.0775518030004605,
+      "last_stamp": 1789536482.8488476,
+      "frame": "base_link",
+      "age_min_median_max_sec": [
+        0.0005362033843994141,
+        0.0008230209350585938,
+        0.0027222633361816406
+      ],
+      "max_receipt_gap_sec": 0.05843536999964272,
+      "receipt_age_at_end_sec": 0.023228361000292352,
+      "publishers_at_end": [
+        "/nav2_safety_guard"
+      ]
+    },
+    "/livox/lidar_local": {
+      "count": 449,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.11667187600141915,
+      "last_stamp": 1789536482.7821255,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.06957530975341797,
+        0.07262349128723145,
+        0.07543635368347168
+      ],
+      "max_receipt_gap_sec": 0.07007871299902035,
+      "receipt_age_at_end_sec": 0.01883037600055104,
+      "publishers_at_end": [
+        "/pointcloud_relay"
+      ]
+    },
+    "/aft_mapped_to_init": {
+      "count": 449,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.14828689400019357,
+      "last_stamp": 1789536482.8481402,
+      "frame": "odom",
+      "age_min_median_max_sec": [
+        0.011620521545410156,
+        0.016260147094726562,
+        0.0387723445892334
+      ],
+      "max_receipt_gap_sec": 0.08160727299946302,
+      "receipt_age_at_end_sec": 0.01016768800036516,
+      "publishers_at_end": [
+        "/laserMapping"
+      ]
+    }
+  },
+  "diagnostics": {
+    "pointcloud_relay": {
+      "messages": {
+        "fresh": 60
+      },
+      "last_values": {
+        "received_count": "4805.000000",
+        "measurement_stamp_sec": "1789536482.581784",
+        "measurement_age_sec": "0.101699",
+        "age_at_receipt_sec": "0.070559",
+        "receipt_silence_sec": "0.031144",
+        "last_interval_sec": "0.066515",
+        "max_interval_sec": "0.449644",
+        "stamp_regressions": "0.000000",
+        "clock_regressions": "0.000000"
+      }
+    },
+    "nav2_safety_guard": {
+      "messages": {
+        "independent_stop": 29
+      },
+      "last_values": {
+        "enable_motion": "False",
+        "sensor_error": "",
+        "raw_sensor_stamp_age": "0.10089945793151855",
+        "raw_sensor_receipt_age": "0.028220616999533377",
+        "sensor_stamp_age": "0.10089945793151855",
+        "sensor_receipt_age": "0.028220616999533377",
+        "command_receipt_age": "missing",
+        "filtered_points": "5426",
+        "stop_points": "1971"
+      }
+    }
+  }
+}

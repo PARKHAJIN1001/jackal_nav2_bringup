@@ -1,0 +1,2 @@
+[INFO] [1789707511.277571944] [mid360_lidar_accumulator_node]: input='/livox/lidar_local', output='/lidar/accumulated', accumulation_frames=2, voxel_leaf=0.080
+[INFO] [1789709467.433384604] [rclcpp]: signal_handler(signum=15)

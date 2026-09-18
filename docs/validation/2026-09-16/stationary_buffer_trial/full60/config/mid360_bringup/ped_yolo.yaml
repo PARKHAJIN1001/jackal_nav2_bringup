@@ -1,0 +1,17 @@
+ped_yolo_node:
+  ros__parameters:
+    input_image_topic: "/camera/camera/color/image_raw"
+    detections_2d_topic: "/ped_yolo/detections2d"
+    instance_mask_topic: "/ped_yolo/instance_mask"
+    detection_image_topic: "/ped_yolo/detection_image"
+    person_class_name: "person"
+    inference_device: "cuda:0"
+    inference_half: true
+    inference_imgsz: 384
+    output_queue_depth: 1
+    instance_mask_scale: 0.50
+    detection_threshold: 0.40
+    mask_threshold: 0.50
+    publish_instance_mask: true
+    publish_detection_image: false
+    fallback_bbox_as_mask: false

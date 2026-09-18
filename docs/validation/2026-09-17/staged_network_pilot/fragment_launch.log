@@ -1,0 +1,96 @@
+1789641648.9874842 [INFO] [launch]: All log files can be found below /tmp/nav_pilot_20260917_1933/fragment_comparison/ros_logs/2026-09-17-19-40-48-986079-parkhajin-victus-320858
+1789641648.9876158 [INFO] [launch]: Default logging verbosity is set to INFO
+1789641649.0892527 [INFO] [launch.user]: [nav_bringup] LiDAR relay: /livox/lidar → /livox/lidar_local
+1789641649.1819217 [INFO] [launch.user]: [nav_bringup] Phase 1: relay + visualizers + RViz
+1789641649.1976275 [INFO] [launch.user]: [nav_bringup] Motion DISABLED.
+1789641649.2166374 [INFO] [pointcloud_relay_node-1]: process started with pid [320894]
+1789641649.2171745 [INFO] [rviz2-2]: process started with pid [320896]
+1789641649.2175145 [INFO] [pedestrian_figures_node-3]: process started with pid [320898]
+1789641649.2178094 [INFO] [pedestrian_traces_node-4]: process started with pid [320900]
+1789641649.2181258 [INFO] [battery_percentage_bridge.py-5]: process started with pid [320902]
+1789641649.2184045 [INFO] [speed_overlay.py-6]: process started with pid [320904]
+1789641649.2186642 [INFO] [topic_ready_gate.py-7]: process started with pid [320906]
+1789641655.9238963 [INFO] [topic_ready_gate.py-7]: process has finished cleanly [pid 320906]
+1789641655.9247682 [INFO] [launch.user]: [nav_bringup] Phase 2: starting FAST-LIVO2
+1789641655.9708121 [INFO] [fastlivo_mapping-8]: process started with pid [321193]
+1789641655.9712470 [INFO] [static_transform_publisher-9]: process started with pid [321195]
+1789641655.9714193 [INFO] [topic_ready_gate.py-10]: process started with pid [321197]
+1789641663.0702505 [INFO] [topic_ready_gate.py-10]: process has finished cleanly [pid 321197]
+1789641663.0712094 [INFO] [launch.user]: [nav_bringup] Phase 3: starting Nav2
+1789641663.7079477 [INFO] [fast_livo_odom_adapter.py-11]: process started with pid [321371]
+1789641663.7085121 [INFO] [amcl_quality_monitor.py-12]: process started with pid [321373]
+1789641663.7089162 [INFO] [pointcloud_to_laserscan_node-13]: process started with pid [321375]
+1789641663.7093077 [INFO] [map_server-14]: process started with pid [321377]
+1789641663.7096729 [INFO] [amcl-15]: process started with pid [321379]
+1789641663.7099833 [INFO] [lifecycle_manager-16]: process started with pid [321381]
+1789641663.7102249 [INFO] [static_costmap_node-17]: process started with pid [321383]
+1789641663.7104459 [INFO] [map_patch_node.py-18]: process started with pid [321385]
+1789641663.7106540 [INFO] [lifecycle_manager-19]: process started with pid [321387]
+1789641663.7108560 [INFO] [controller_server-20]: process started with pid [321391]
+1789641663.7111084 [INFO] [smoother_server-21]: process started with pid [321393]
+1789641663.7112980 [INFO] [planner_server-22]: process started with pid [321399]
+1789641663.7114987 [INFO] [behavior_server-23]: process started with pid [321404]
+1789641663.7117732 [INFO] [bt_navigator-24]: process started with pid [321411]
+1789641663.7120783 [INFO] [waypoint_follower-25]: process started with pid [321420]
+1789641663.7123640 [INFO] [velocity_smoother-26]: process started with pid [321424]
+1789641663.7126157 [INFO] [lifecycle_manager-27]: process started with pid [321427]
+1789641663.7128766 [INFO] [nav2_safety_guard.py-28]: process started with pid [321429]
+1789641663.7131698 [INFO] [collision_monitor-29]: process started with pid [321431]
+1789641663.7134576 [INFO] [lifecycle_manager-30]: process started with pid [321434]
+1789641663.7137301 [INFO] [topic_ready_gate.py-31]: process started with pid [321444]
+1789641675.5284584 [INFO] [topic_ready_gate.py-31]: process has finished cleanly [pid 321444]
+1789641675.5296071 [INFO] [launch.user]: [nav_bringup] AMCL/map_server active; fresh scan, odom and scan-time TF ready. Set initial pose with RViz 2D Pose Estimate, check scan/map alignment, then run the printed perception command in a separate terminal with the same ROS/workspace/network environment. Keep the robot stationary during startup.
+1789641675.5392950 [INFO] [ros2-32]: process started with pid [321833]
+1789641676.9511502 [INFO] [ros2-32]: process has finished cleanly [pid 321833]
+1789641758.5574470 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1789641758.6666398 [INFO] [lifecycle_manager-30]: sending signal 'SIGINT' to process[lifecycle_manager-30]
+1789641758.6791027 [INFO] [collision_monitor-29]: sending signal 'SIGINT' to process[collision_monitor-29]
+1789641758.6966398 [INFO] [nav2_safety_guard.py-28]: sending signal 'SIGINT' to process[nav2_safety_guard.py-28]
+1789641758.7116804 [ERROR] [lifecycle_manager-30]: process has died [pid 321434, exit code -2, cmd '/opt/ros/humble/lib/nav2_lifecycle_manager/lifecycle_manager --ros-args -r __node:=lifecycle_manager_safety --params-file /tmp/launch_params_5wob4htu'].
+1789641758.7140267 [INFO] [lifecycle_manager-27]: sending signal 'SIGINT' to process[lifecycle_manager-27]
+1789641758.7269986 [INFO] [velocity_smoother-26]: sending signal 'SIGINT' to process[velocity_smoother-26]
+1789641758.7463303 [INFO] [waypoint_follower-25]: sending signal 'SIGINT' to process[waypoint_follower-25]
+1789641758.7619827 [INFO] [bt_navigator-24]: sending signal 'SIGINT' to process[bt_navigator-24]
+1789641758.7712753 [ERROR] [velocity_smoother-26]: process has died [pid 321424, exit code -2, cmd '/opt/ros/humble/lib/nav2_velocity_smoother/velocity_smoother --ros-args --log-level info --ros-args -r __node:=velocity_smoother --params-file /tmp/launch_params_uz5eoiig -r /tf:=tf -r /tf_static:=tf_static -r cmd_vel:=cmd_vel_nav -r cmd_vel_smoothed:=nav2_cmd_vel_unstamped'].
+1789641758.7755084 [INFO] [behavior_server-23]: sending signal 'SIGINT' to process[behavior_server-23]
+1789641758.7895150 [INFO] [planner_server-22]: sending signal 'SIGINT' to process[planner_server-22]
+1789641758.8028896 [INFO] [smoother_server-21]: sending signal 'SIGINT' to process[smoother_server-21]
+1789641758.8180993 [INFO] [controller_server-20]: sending signal 'SIGINT' to process[controller_server-20]
+1789641758.8272941 [INFO] [static_transform_publisher-9]: process has finished cleanly [pid 321195]
+1789641758.8337159 [INFO] [lifecycle_manager-19]: sending signal 'SIGINT' to process[lifecycle_manager-19]
+1789641758.8413143 [ERROR] [smoother_server-21]: process has died [pid 321393, exit code -2, cmd '/opt/ros/humble/lib/nav2_smoother/smoother_server --ros-args --log-level info --ros-args -r __node:=smoother_server --params-file /tmp/launch_params_uz5eoiig -r /tf:=tf -r /tf_static:=tf_static'].
+1789641758.8476610 [INFO] [map_patch_node.py-18]: sending signal 'SIGINT' to process[map_patch_node.py-18]
+1789641758.8654289 [INFO] [static_costmap_node-17]: sending signal 'SIGINT' to process[static_costmap_node-17]
+1789641758.8733299 [ERROR] [lifecycle_manager-19]: process has died [pid 321387, exit code -2, cmd '/opt/ros/humble/lib/nav2_lifecycle_manager/lifecycle_manager --ros-args --log-level info --ros-args -r __node:=lifecycle_manager_static_costmap --params-file /tmp/launch_params_jspepxji'].
+1789641758.8742471 [INFO] [pointcloud_relay_node-1]: process has finished cleanly [pid 320894]
+1789641758.8749723 [ERROR] [nav2_safety_guard.py-28]: process has died [pid 321429, exit code -2, cmd '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/nav2_safety_guard.py --ros-args -r __node:=nav2_safety_guard --params-file /tmp/launch_params_um0ybqjb'].
+1789641758.8824458 [INFO] [lifecycle_manager-16]: sending signal 'SIGINT' to process[lifecycle_manager-16]
+1789641758.8879545 [ERROR] [map_patch_node.py-18]: process has died [pid 321385, exit code -2, cmd '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/map_patch_node.py --ros-args --log-level info --ros-args -r __node:=map_patch_node --params-file /tmp/launch_params_uz5eoiig -r /tf:=/tf -r /tf_static:=/tf_static'].
+1789641758.8954771 [INFO] [amcl-15]: sending signal 'SIGINT' to process[amcl-15]
+1789641758.9082465 [INFO] [map_server-14]: sending signal 'SIGINT' to process[map_server-14]
+1789641758.9130852 [ERROR] [lifecycle_manager-16]: process has died [pid 321381, exit code -2, cmd '/opt/ros/humble/lib/nav2_lifecycle_manager/lifecycle_manager --ros-args --log-level info --ros-args -r __node:=lifecycle_manager_localization --params-file /tmp/launch_params_qcumt43c'].
+1789641758.9134507 [INFO] [map_server-14]: process has finished cleanly [pid 321377]
+1789641758.9197562 [INFO] [pointcloud_to_laserscan_node-13]: sending signal 'SIGINT' to process[pointcloud_to_laserscan_node-13]
+1789641758.9252627 [INFO] [pointcloud_to_laserscan_node-13]: process has finished cleanly [pid 321375]
+1789641758.9325130 [INFO] [amcl_quality_monitor.py-12]: sending signal 'SIGINT' to process[amcl_quality_monitor.py-12]
+1789641758.9385903 [INFO] [amcl_quality_monitor.py-12]: process has finished cleanly [pid 321373]
+1789641758.9487026 [INFO] [fast_livo_odom_adapter.py-11]: sending signal 'SIGINT' to process[fast_livo_odom_adapter.py-11]
+1789641758.9557972 [INFO] [collision_monitor-29]: process has finished cleanly [pid 321431]
+1789641758.9719601 [INFO] [battery_percentage_bridge.py-5]: process has finished cleanly [pid 320902]
+1789641758.9850595 [INFO] [fastlivo_mapping-8]: sending signal 'SIGINT' to process[fastlivo_mapping-8]
+1789641758.9907019 [ERROR] [fast_livo_odom_adapter.py-11]: process has died [pid 321371, exit code -2, cmd '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/fast_livo_odom_adapter.py --ros-args -r __node:=fast_livo_odom_adapter --params-file /tmp/launch_params_uapqg9z6'].
+1789641758.9913871 [INFO] [speed_overlay.py-6]: process has finished cleanly [pid 320904]
+1789641759.0254247 [INFO] [fastlivo_mapping-8]: process has finished cleanly [pid 321193]
+1789641759.0267174 [INFO] [pedestrian_figures_node-3]: process has finished cleanly [pid 320898]
+1789641759.0403316 [INFO] [pedestrian_traces_node-4]: sending signal 'SIGINT' to process[pedestrian_traces_node-4]
+1789641759.0422211 [INFO] [waypoint_follower-25]: process has finished cleanly [pid 321420]
+1789641759.0494137 [INFO] [pedestrian_traces_node-4]: process has finished cleanly [pid 320900]
+1789641759.0565677 [INFO] [rviz2-2]: sending signal 'SIGINT' to process[rviz2-2]
+1789641759.0880544 [INFO] [amcl-15]: process has finished cleanly [pid 321379]
+1789641759.0999010 [INFO] [behavior_server-23]: process has finished cleanly [pid 321404]
+1789641759.1294329 [INFO] [lifecycle_manager-27]: process has finished cleanly [pid 321427]
+1789641759.1470397 [INFO] [controller_server-20]: process has finished cleanly [pid 321391]
+1789641759.5569718 [INFO] [planner_server-22]: process has finished cleanly [pid 321399]
+1789641760.0202646 [INFO] [bt_navigator-24]: process has finished cleanly [pid 321411]
+1789641760.0851684 [ERROR] [rviz2-2]: process has died [pid 320896, exit code -11, cmd '/opt/ros/humble/lib/rviz2/rviz2 -d /tmp/nav_bringup__asbqa44.rviz --ros-args -r __node:=jackal_nav2_rviz --params-file /tmp/launch_params_eb62utdq'].
+1789641760.0976217 [ERROR] [static_costmap_node-17]: process has died [pid 321383, exit code -11, cmd '/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/static_costmap_node --ros-args --log-level info --ros-args --params-file /tmp/launch_params_uz5eoiig -r /tf:=/tf -r /tf_static:=/tf_static'].

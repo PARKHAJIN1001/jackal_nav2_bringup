@@ -1,0 +1,18 @@
+{
+  "/livox/lidar": {
+    "count": 180,
+    "observed_rate_hz": 14.998285139647724,
+    "max_gap_sec": 0.0687764059998699,
+    "age_min_sec": 0.07265734672546387,
+    "age_max_sec": 0.07607889175415039,
+    "stamp_regressions": 0
+  },
+  "/livox/imu": {
+    "count": 2401,
+    "observed_rate_hz": 200.0014197934118,
+    "max_gap_sec": 0.006883235000032073,
+    "age_min_sec": 0.00020456314086914062,
+    "age_max_sec": 0.0034258365631103516,
+    "stamp_regressions": 0
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "nav_launch_pid": 32419,
+  "nav_session": 94756,
+  "perception_launch_pid": 37283,
+  "perception_session": 12796,
+  "observers_stopped": true,
+  "kernel_ipfrag_high_thresh": 4194304,
+  "original_ipfrag_high_thresh": 4194304,
+  "restore_marker": "/tmp/nav_z_20260918_1351/restore.request",
+  "automatic_motion_forwarding": false,
+  "nav_running": false,
+  "perception_running": false,
+  "kernel_restored": true,
+  "shutdown_confirmation": "shutdown_confirmation.json"
+}

@@ -1,5 +1,8 @@
 # FAST-LIVO2 배포 후 정지 실기 예비 검증 — 미통과
 
+후속: [9월 16일 재빌드·버퍼 반영 후 10분 검증](Connected_Validation_2026-09-16.md).
+시각화는 복구됐지만 AMCL TF 안정화 기준은 여전히 미달이다. 아래는 9월 14일 기록이다.
+
 2026-09-14, frontier_10F. 사용자 정지·수동 조작·비상정지 가능, 지도 표시와
 2D Pose Estimate 입력 확인 후 실행했다. **10분 안정화 및 주행 검증은 하지 않았다.**
 증거는 [stationary_pilot](validation/2026-09-14/stationary_pilot/README.md)에 보관했다.

@@ -1,0 +1,12 @@
+{
+  "wall": 1789710190.8663778,
+  "remaining_stack_processes": [],
+  "ipfrag_original": 4194304,
+  "ipfrag_current": 4194304,
+  "restore_marker": true,
+  "hold_process_alive": false,
+  "shutdown_findings": [
+    "YOLO publisher context invalid during shutdown",
+    "RViz2 and static_costmap_node exit -11 during shutdown"
+  ]
+}

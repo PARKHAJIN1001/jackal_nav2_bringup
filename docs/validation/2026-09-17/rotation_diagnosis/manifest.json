@@ -1,0 +1,12 @@
+{
+  "bag_path": "/tmp/jackal_nav2_validation_20260917_KXP5m6/rotation/bag/bag_0.db3",
+  "bag_bytes": 237989888,
+  "bag_sha256": "dae965c5cd2bc5cee55717f1a548b38aaeabb4c81a220dcf9caea96ace3180df",
+  "offline_analysis_only": true,
+  "runtime_changed": false,
+  "parameter_changes": false,
+  "raw_bag_copied_into_repository": false,
+  "nav2_amcl_version": "1.1.20-1jammy.20260804.200729",
+  "pointcloud_to_laserscan_version": "2.0.1-3jammy.20260804.195259",
+  "live_parameter_query": "Failed before shutdown; analysis uses launched YAML, identical to source YAML, and installed-version implementation."
+}

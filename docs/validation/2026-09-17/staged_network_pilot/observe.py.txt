@@ -1,0 +1,82 @@
+import argparse
+import json
+import math
+from pathlib import Path
+import time
+
+import rclpy
+from rclpy.node import Node
+from rclpy.qos import QoSProfile, ReliabilityPolicy
+from sensor_msgs.msg import PointCloud2, Imu, LaserScan
+from nav_msgs.msg import Odometry
+from diagnostic_msgs.msg import DiagnosticArray
+from tf2_msgs.msg import TFMessage
+
+p = argparse.ArgumentParser()
+p.add_argument('--duration', type=float, default=110)
+p.add_argument('--nuc', action='store_true')
+args = p.parse_args()
+rclpy.init()
+n = Node('pilot_nuc_observer' if args.nuc else 'pilot_laptop_observer')
+samples = {}
+diag = {}
+began = time.monotonic()
+
+def receive(topic, msg):
+    now, mono = time.time(), time.monotonic()
+    stamp = msg.header.stamp.sec + msg.header.stamp.nanosec / 1e9
+    data = samples.setdefault(topic, {'count': 0, 'max_gap': 0.0, 'regressions': 0})
+    if data['count']:
+        data['max_gap'] = max(data['max_gap'], mono - data['mono'])
+        data['regressions'] += stamp < data['stamp']
+    data.update(count=data['count']+1, stamp=stamp, mono=mono, age_received=now-stamp)
+    if isinstance(msg, Odometry):
+        po, q = msg.pose.pose.position, msg.pose.pose.orientation
+        data['pose'] = [po.x, po.y, po.z, q.x, q.y, q.z, q.w]
+    if isinstance(msg, PointCloud2):
+        data['bytes'] = len(msg.data)
+
+qos = QoSProfile(depth=2, reliability=ReliabilityPolicy.BEST_EFFORT)
+topics = [('/livox/lidar', PointCloud2), ('/livox/imu', Imu)]
+if not args.nuc:
+    topics += [('/livox/lidar_local', PointCloud2), ('/aft_mapped_to_init', Odometry),
+               ('/odom', Odometry), ('/scan', LaserScan)]
+for topic, cls in topics:
+    n.create_subscription(cls, topic, lambda msg, topic=topic: receive(topic, msg), qos)
+
+def diagnostic(msg):
+    for s in msg.status:
+        diag[s.name] = {'message': s.message, 'values': {v.key: v.value for v in s.values}}
+
+if not args.nuc:
+    n.create_subscription(DiagnosticArray, '/nav2/lidar_relay_diagnostics', diagnostic, 2)
+
+def counters():
+    lines = [s.split() for s in Path('/proc/net/snmp').read_text().splitlines()]
+    out = {}
+    for a, b in zip(lines[::2], lines[1::2]):
+        if a[0] in ('Udp:', 'Ip:'):
+            out[a[0]] = {k: int(v) for k,v in zip(a[1:],b[1:])}
+    return out
+
+next_report = began
+try:
+    while time.monotonic()-began < args.duration:
+        rclpy.spin_once(n, timeout_sec=0.05)
+        mono, now = time.monotonic(), time.time()
+        if mono >= next_report:
+            report = {'wall':now, 'elapsed':mono-began, 'samples':{
+                topic:dict(d, silence=mono-d['mono'], age=now-d['stamp'])
+                for topic,d in samples.items()}, 'diag':diag, 'net':counters(), 'sockstat':Path('/proc/net/sockstat').read_text()}
+            if int(mono-began) % 10 == 0:
+                report['raw_publishers'] = [dict(name=e.node_name, qos=str(e.qos_profile),
+                    gid=list(e.endpoint_gid)) for e in n.get_publishers_info_by_topic('/livox/lidar')]
+                report['raw_subscribers'] = [dict(name=e.node_name, qos=str(e.qos_profile))
+                    for e in n.get_subscriptions_info_by_topic('/livox/lidar')]
+            print(json.dumps(report), flush=True)
+            next_report = mono+1.0
+except KeyboardInterrupt:
+    pass
+finally:
+    n.destroy_node()
+    rclpy.shutdown()

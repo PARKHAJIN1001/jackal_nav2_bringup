@@ -1,0 +1,397 @@
+{
+  "method": "Installed AMCL motion/sensor/pf libraries, 494 recorded scans, interpolated FAST poses, same synthetic initial mean/covariance, 10 RNG seeds per model; no ROS nodes or DDS. Relative LIO consistency is not ground-truth accuracy.",
+  "models": {
+    "DifferentialMotionModel": {
+      "runs": [
+        {
+          "seed": 1,
+          "updates": 49,
+          "max_xy_pose_step_m": 6.031451108582005,
+          "max_yaw_correction_step_deg": 16.897991047438037,
+          "max_xy_from_lio_reference_m": 7.0949006051683075,
+          "final_xy_from_lio_reference_m": 7.09253053582624,
+          "max_yaw_from_lio_reference_deg": 28.273039004093974,
+          "final_yaw_from_lio_reference_deg": 8.207443739315817,
+          "peak_xy_variance_m2": 8.67822638410935,
+          "final_xy_variance_m2": 0.5516459719863693,
+          "peak_yaw_variance_rad2": 4.367553351741035,
+          "final_yaw_variance_rad2": 4.211205435656018
+        },
+        {
+          "seed": 2,
+          "updates": 49,
+          "max_xy_pose_step_m": 6.751349198503694,
+          "max_yaw_correction_step_deg": 13.168589854199428,
+          "max_xy_from_lio_reference_m": 7.016317449015135,
+          "final_xy_from_lio_reference_m": 7.016317449015135,
+          "max_yaw_from_lio_reference_deg": 48.00435715609346,
+          "final_yaw_from_lio_reference_deg": 48.00435715609346,
+          "peak_xy_variance_m2": 9.960560384918908,
+          "final_xy_variance_m2": 0.494096347524831,
+          "peak_yaw_variance_rad2": 4.901106242810454,
+          "final_yaw_variance_rad2": 3.708020941390625
+        },
+        {
+          "seed": 3,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.460529642988042,
+          "max_yaw_correction_step_deg": 9.070923103382867,
+          "max_xy_from_lio_reference_m": 2.824994934089727,
+          "final_xy_from_lio_reference_m": 2.79305166939166,
+          "max_yaw_from_lio_reference_deg": 19.370814846686663,
+          "final_yaw_from_lio_reference_deg": 4.7183358986407935,
+          "peak_xy_variance_m2": 4.8517400928000205,
+          "final_xy_variance_m2": 2.9732217075771263,
+          "peak_yaw_variance_rad2": 3.507499694787334,
+          "final_yaw_variance_rad2": 2.6620015280357916
+        },
+        {
+          "seed": 4,
+          "updates": 49,
+          "max_xy_pose_step_m": 4.325829155163159,
+          "max_yaw_correction_step_deg": 28.39334832512631,
+          "max_xy_from_lio_reference_m": 6.825782043717821,
+          "final_xy_from_lio_reference_m": 6.825782043717821,
+          "max_yaw_from_lio_reference_deg": 48.804192668635295,
+          "final_yaw_from_lio_reference_deg": 42.26126946718096,
+          "peak_xy_variance_m2": 7.159007967872892,
+          "final_xy_variance_m2": 5.066979618269034,
+          "peak_yaw_variance_rad2": 6.162129408611402,
+          "final_yaw_variance_rad2": 2.9244075049266463
+        },
+        {
+          "seed": 5,
+          "updates": 49,
+          "max_xy_pose_step_m": 6.217590277541525,
+          "max_yaw_correction_step_deg": 66.59654831644609,
+          "max_xy_from_lio_reference_m": 7.085610617077087,
+          "final_xy_from_lio_reference_m": 7.085610617077087,
+          "max_yaw_from_lio_reference_deg": 67.03472277302309,
+          "final_yaw_from_lio_reference_deg": 38.20776872023494,
+          "peak_xy_variance_m2": 9.700299877292629,
+          "final_xy_variance_m2": 0.5393095022957337,
+          "peak_yaw_variance_rad2": 4.010911677730175,
+          "final_yaw_variance_rad2": 3.0559735344392096
+        },
+        {
+          "seed": 6,
+          "updates": 49,
+          "max_xy_pose_step_m": 5.216927389191217,
+          "max_yaw_correction_step_deg": 19.725744860009172,
+          "max_xy_from_lio_reference_m": 7.149452223703509,
+          "final_xy_from_lio_reference_m": 7.055280225084442,
+          "max_yaw_from_lio_reference_deg": 23.107819112673354,
+          "final_yaw_from_lio_reference_deg": 14.22788105408341,
+          "peak_xy_variance_m2": 11.30054560737941,
+          "final_xy_variance_m2": 0.5705892769289465,
+          "peak_yaw_variance_rad2": 4.151053207884235,
+          "final_yaw_variance_rad2": 3.9058047546218977
+        },
+        {
+          "seed": 7,
+          "updates": 49,
+          "max_xy_pose_step_m": 6.353960333528907,
+          "max_yaw_correction_step_deg": 34.547602920549494,
+          "max_xy_from_lio_reference_m": 7.084340903487221,
+          "final_xy_from_lio_reference_m": 7.035768994118723,
+          "max_yaw_from_lio_reference_deg": 30.819773023854292,
+          "final_yaw_from_lio_reference_deg": 0.43428332800391156,
+          "peak_xy_variance_m2": 8.42538789976422,
+          "final_xy_variance_m2": 0.5641183120943247,
+          "peak_yaw_variance_rad2": 3.9080910098216584,
+          "final_yaw_variance_rad2": 3.8239456205745825
+        },
+        {
+          "seed": 8,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.9349484661258374,
+          "max_yaw_correction_step_deg": 43.73058960633915,
+          "max_xy_from_lio_reference_m": 5.818166707071774,
+          "final_xy_from_lio_reference_m": 5.818166707071774,
+          "max_yaw_from_lio_reference_deg": 70.57069734108994,
+          "final_yaw_from_lio_reference_deg": 70.10737115440635,
+          "peak_xy_variance_m2": 6.428197500991663,
+          "final_xy_variance_m2": 5.703519280143765,
+          "peak_yaw_variance_rad2": 5.020304501077582,
+          "final_yaw_variance_rad2": 4.716643330493454
+        },
+        {
+          "seed": 9,
+          "updates": 49,
+          "max_xy_pose_step_m": 7.038565062311119,
+          "max_yaw_correction_step_deg": 125.35393773131243,
+          "max_xy_from_lio_reference_m": 7.179555588815906,
+          "final_xy_from_lio_reference_m": 7.146366393562594,
+          "max_yaw_from_lio_reference_deg": 106.40223481056623,
+          "final_yaw_from_lio_reference_deg": 61.98243817938246,
+          "peak_xy_variance_m2": 11.067479856976943,
+          "final_xy_variance_m2": 1.1993241288851064,
+          "peak_yaw_variance_rad2": 4.035514175880231,
+          "final_yaw_variance_rad2": 3.141237126161191
+        },
+        {
+          "seed": 10,
+          "updates": 49,
+          "max_xy_pose_step_m": 5.977334368142267,
+          "max_yaw_correction_step_deg": 26.25622256169534,
+          "max_xy_from_lio_reference_m": 7.131232689359029,
+          "final_xy_from_lio_reference_m": 7.080952101360269,
+          "max_yaw_from_lio_reference_deg": 24.379977415303404,
+          "final_yaw_from_lio_reference_deg": 14.737769504117683,
+          "peak_xy_variance_m2": 12.134791852936896,
+          "final_xy_variance_m2": 0.5561291770377932,
+          "peak_yaw_variance_rad2": 4.086561680892643,
+          "final_yaw_variance_rad2": 3.6334389217912775
+        }
+      ],
+      "aggregate": {
+        "max_xy_pose_step_m": {
+          "min": 0.460529642988042,
+          "median": 6.004392738362136,
+          "max": 7.038565062311119
+        },
+        "max_yaw_correction_step_deg": {
+          "min": 9.070923103382867,
+          "median": 27.324785443410825,
+          "max": 125.35393773131243
+        },
+        "max_xy_from_lio_reference_m": {
+          "min": 2.824994934089727,
+          "median": 7.084975760282154,
+          "max": 7.179555588815906
+        },
+        "final_xy_from_lio_reference_m": {
+          "min": 2.79305166939166,
+          "median": 7.045524609601583,
+          "max": 7.146366393562594
+        },
+        "max_yaw_from_lio_reference_deg": {
+          "min": 19.370814846686663,
+          "median": 39.41206508997388,
+          "max": 106.40223481056623
+        },
+        "final_yaw_from_lio_reference_deg": {
+          "min": 0.43428332800391156,
+          "median": 26.47276911217631,
+          "max": 70.10737115440635
+        },
+        "peak_xy_variance_m2": {
+          "min": 4.8517400928000205,
+          "median": 9.18926313070099,
+          "max": 12.134791852936896
+        },
+        "final_xy_variance_m2": {
+          "min": 0.494096347524831,
+          "median": 0.5673537945116356,
+          "max": 5.703519280143765
+        },
+        "peak_yaw_variance_rad2": {
+          "min": 3.507499694787334,
+          "median": 4.118807444388439,
+          "max": 6.162129408611402
+        },
+        "final_yaw_variance_rad2": {
+          "min": 2.6620015280357916,
+          "median": 3.670729931590951,
+          "max": 4.716643330493454
+        }
+      }
+    },
+    "OmniMotionModel": {
+      "runs": [
+        {
+          "seed": 1,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.04334409622085727,
+          "max_yaw_correction_step_deg": 1.091893581242615,
+          "max_xy_from_lio_reference_m": 0.304550521432093,
+          "final_xy_from_lio_reference_m": 0.23509135179512908,
+          "max_yaw_from_lio_reference_deg": 5.121321957260457,
+          "final_yaw_from_lio_reference_deg": 4.045635290767921,
+          "peak_xy_variance_m2": 0.2521556148291797,
+          "final_xy_variance_m2": 0.11094019244929143,
+          "peak_yaw_variance_rad2": 0.06321749022128942,
+          "final_yaw_variance_rad2": 0.0051309999098547365
+        },
+        {
+          "seed": 2,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.057440862475634964,
+          "max_yaw_correction_step_deg": 0.9435196395071465,
+          "max_xy_from_lio_reference_m": 0.34034466837090727,
+          "final_xy_from_lio_reference_m": 0.30527706131499466,
+          "max_yaw_from_lio_reference_deg": 5.439595394554774,
+          "final_yaw_from_lio_reference_deg": 4.728388823311579,
+          "peak_xy_variance_m2": 0.3700000602455571,
+          "final_xy_variance_m2": 0.04737290896778035,
+          "peak_yaw_variance_rad2": 0.056564683588258564,
+          "final_yaw_variance_rad2": 0.005280629672515242
+        },
+        {
+          "seed": 3,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.03940167802201406,
+          "max_yaw_correction_step_deg": 1.1196816281153956,
+          "max_xy_from_lio_reference_m": 0.19539064004071216,
+          "final_xy_from_lio_reference_m": 0.19539064004071216,
+          "max_yaw_from_lio_reference_deg": 4.756204965898567,
+          "final_yaw_from_lio_reference_deg": 3.6906091286455283,
+          "peak_xy_variance_m2": 0.27669197149246827,
+          "final_xy_variance_m2": 0.06883943597693332,
+          "peak_yaw_variance_rad2": 0.06424591327746745,
+          "final_yaw_variance_rad2": 0.005452285007380487
+        },
+        {
+          "seed": 4,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.05998312973658904,
+          "max_yaw_correction_step_deg": 0.8295029341406038,
+          "max_xy_from_lio_reference_m": 0.2789807409762093,
+          "final_xy_from_lio_reference_m": 0.2789807409762093,
+          "max_yaw_from_lio_reference_deg": 4.822644997211449,
+          "final_yaw_from_lio_reference_deg": 3.717907983582698,
+          "peak_xy_variance_m2": 0.25065625405913217,
+          "final_xy_variance_m2": 0.1252015757331435,
+          "peak_yaw_variance_rad2": 0.06051235461203496,
+          "final_yaw_variance_rad2": 0.005896970271542561
+        },
+        {
+          "seed": 5,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.053664281523281974,
+          "max_yaw_correction_step_deg": 1.3971299329880429,
+          "max_xy_from_lio_reference_m": 0.16008645877522845,
+          "final_xy_from_lio_reference_m": 0.0472615404939556,
+          "max_yaw_from_lio_reference_deg": 4.833708322776057,
+          "final_yaw_from_lio_reference_deg": 3.0611547863210635,
+          "peak_xy_variance_m2": 0.2673461757659883,
+          "final_xy_variance_m2": 0.20386015575754968,
+          "peak_yaw_variance_rad2": 0.06158996612627613,
+          "final_yaw_variance_rad2": 0.005919444833136042
+        },
+        {
+          "seed": 6,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.05784913321587376,
+          "max_yaw_correction_step_deg": 1.3830414581733332,
+          "max_xy_from_lio_reference_m": 0.30083867865057146,
+          "final_xy_from_lio_reference_m": 0.30083867865057146,
+          "max_yaw_from_lio_reference_deg": 4.324454783044155,
+          "final_yaw_from_lio_reference_deg": 3.219428065251237,
+          "peak_xy_variance_m2": 0.2909137008934337,
+          "final_xy_variance_m2": 0.0938002141012717,
+          "peak_yaw_variance_rad2": 0.06275852835549338,
+          "final_yaw_variance_rad2": 0.005556652921988235
+        },
+        {
+          "seed": 7,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.05619413179466294,
+          "max_yaw_correction_step_deg": 0.7814515427506787,
+          "max_xy_from_lio_reference_m": 0.3563771461625394,
+          "final_xy_from_lio_reference_m": 0.3563771461625394,
+          "max_yaw_from_lio_reference_deg": 4.549422270902678,
+          "final_yaw_from_lio_reference_deg": 3.97315865162618,
+          "peak_xy_variance_m2": 0.2606920448224628,
+          "final_xy_variance_m2": 0.09171774153755052,
+          "peak_yaw_variance_rad2": 0.061411599210248795,
+          "final_yaw_variance_rad2": 0.006530616066141029
+        },
+        {
+          "seed": 8,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.05144133425383824,
+          "max_yaw_correction_step_deg": 1.4089377611316802,
+          "max_xy_from_lio_reference_m": 0.39265121557025434,
+          "final_xy_from_lio_reference_m": 0.364642817583532,
+          "max_yaw_from_lio_reference_deg": 4.923456321974064,
+          "final_yaw_from_lio_reference_deg": 3.160399026329798,
+          "peak_xy_variance_m2": 0.23152179563160047,
+          "final_xy_variance_m2": 0.08395633204965236,
+          "peak_yaw_variance_rad2": 0.057115764820211815,
+          "final_yaw_variance_rad2": 0.005581215493129077
+        },
+        {
+          "seed": 9,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.04605744547337113,
+          "max_yaw_correction_step_deg": 0.7623616061483565,
+          "max_xy_from_lio_reference_m": 0.2570773160439186,
+          "final_xy_from_lio_reference_m": 0.22115336685895928,
+          "max_yaw_from_lio_reference_deg": 5.366601778863396,
+          "final_yaw_from_lio_reference_deg": 4.7695961255262675,
+          "peak_xy_variance_m2": 0.24350794681228294,
+          "final_xy_variance_m2": 0.06891306731697,
+          "peak_yaw_variance_rad2": 0.06595075699351445,
+          "final_yaw_variance_rad2": 0.005524160095325865
+        },
+        {
+          "seed": 10,
+          "updates": 49,
+          "max_xy_pose_step_m": 0.058318180136355285,
+          "max_yaw_correction_step_deg": 1.0664239181662791,
+          "max_xy_from_lio_reference_m": 0.4418051349246254,
+          "final_xy_from_lio_reference_m": 0.4284919225645462,
+          "max_yaw_from_lio_reference_deg": 4.442232362677862,
+          "final_yaw_from_lio_reference_deg": 3.328586585115721,
+          "peak_xy_variance_m2": 0.3029099170379528,
+          "final_xy_variance_m2": 0.03283313618296191,
+          "peak_yaw_variance_rad2": 0.06282613038939279,
+          "final_yaw_variance_rad2": 0.006899444626761951
+        }
+      ],
+      "aggregate": {
+        "max_xy_pose_step_m": {
+          "min": 0.03940167802201406,
+          "median": 0.054929206658972454,
+          "max": 0.05998312973658904
+        },
+        "max_yaw_correction_step_deg": {
+          "min": 0.7623616061483565,
+          "median": 1.079158749704447,
+          "max": 1.4089377611316802
+        },
+        "max_xy_from_lio_reference_m": {
+          "min": 0.16008645877522845,
+          "median": 0.3026946000413322,
+          "max": 0.4418051349246254
+        },
+        "final_xy_from_lio_reference_m": {
+          "min": 0.0472615404939556,
+          "median": 0.28990970981339037,
+          "max": 0.4284919225645462
+        },
+        "max_yaw_from_lio_reference_deg": {
+          "min": 4.324454783044155,
+          "median": 4.828176659993753,
+          "max": 5.439595394554774
+        },
+        "final_yaw_from_lio_reference_deg": {
+          "min": 3.0611547863210635,
+          "median": 3.7042585561141133,
+          "max": 4.7695961255262675
+        },
+        "peak_xy_variance_m2": {
+          "min": 0.23152179563160047,
+          "median": 0.26401911029422553,
+          "max": 0.3700000602455571
+        },
+        "final_xy_variance_m2": {
+          "min": 0.03283313618296191,
+          "median": 0.08783703679360144,
+          "max": 0.20386015575754968
+        },
+        "peak_yaw_variance_rad2": {
+          "min": 0.056564683588258564,
+          "median": 0.06217424724088476,
+          "max": 0.06595075699351445
+        },
+        "final_yaw_variance_rad2": {
+          "min": 0.0051309999098547365,
+          "median": 0.005568934207558656,
+          "max": 0.006899444626761951
+        }
+      }
+    }
+  }
+}

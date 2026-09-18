@@ -75,7 +75,11 @@ class PlanarTwistEstimator:
         self.filtered_twist = None
 
     def update(self, sample):
-        """Return (twist, reset_reason) for (stamp, x, y, z, yaw)."""
+        """Return (twist or None, reason); rejected samples retain the baseline."""
+        if not math.isfinite(sample[0]) or sample[0] <= 0.0:
+            return None, 'invalid_timestamp'
+        if self.previous is not None and sample[0] <= self.previous[0]:
+            return None, 'non_increasing_timestamp'
         if self.previous is None:
             self.previous = sample
             self.filtered_twist = None
@@ -88,9 +92,7 @@ class PlanarTwistEstimator:
         translation = math.sqrt(dx * dx + dy * dy + dz * dz)
         yaw_delta = abs(normalize_angle(sample[4] - self.previous[4]))
         discontinuity = (
-            not math.isfinite(dt)
-            or dt <= 0.0
-            or dt > self.max_dt
+            dt > self.max_dt
             or translation > self.max_translation_jump
             or yaw_delta > self.max_yaw_jump
         )
@@ -129,9 +131,13 @@ class FastLivoOdomAdapter(Node):
         self.declare_parameter('max_dt_sec', 0.5)
         self.declare_parameter('max_translation_jump_m', 0.5)
         self.declare_parameter('max_yaw_jump_rad', 0.75)
+        self.declare_parameter('max_message_age_sec', 0.30)
+        self.declare_parameter('future_tolerance_sec', 0.05)
 
         input_topic = self._required_string('input_topic')
         output_topic = self._required_string('output_topic')
+        if self.resolve_topic_name(input_topic) == self.resolve_topic_name(output_topic):
+            raise ValueError('input_topic and output_topic must resolve to different topics')
         self._expected_frame = self._required_string('expected_frame_id')
         self._expected_child_frame = self._required_string(
             'expected_child_frame_id')
@@ -140,6 +146,8 @@ class FastLivoOdomAdapter(Node):
         self._max_translation_jump = self._positive_double(
             'max_translation_jump_m')
         self._max_yaw_jump = self._positive_double('max_yaw_jump_rad')
+        self._max_message_age = self._positive_double('max_message_age_sec')
+        self._future_tolerance = self._positive_double('future_tolerance_sec')
 
         qos = QoSProfile(depth=20, reliability=ReliabilityPolicy.RELIABLE)
         self._publisher = self.create_publisher(Odometry, output_topic, qos)
@@ -152,6 +160,7 @@ class FastLivoOdomAdapter(Node):
             max_yaw_jump=self._max_yaw_jump,
         )
         self._last_warning_ns = 0
+        self._last_ros_ns = None
 
         self.get_logger().info(
             f'adapting pose-only odometry: {input_topic} -> {output_topic}; '
@@ -192,6 +201,23 @@ class FastLivoOdomAdapter(Node):
         message.twist.twist.angular.z = 0.0
 
     def _odometry_callback(self, incoming):
+        now_ns = self.get_clock().now().nanoseconds
+        if self._last_ros_ns is not None and now_ns < self._last_ros_ns:
+            # A ROS clock reset starts a new epoch. A late odometry packet alone
+            # must never reset the last accepted measurement's timestamp.
+            self._estimator.reset()
+            self._last_warning_ns = 0
+        self._last_ros_ns = now_ns
+
+        stamp = incoming.header.stamp
+        measurement = stamp_to_seconds(stamp)
+        age = now_ns * 1e-9 - measurement
+        if (stamp.sec < 0 or not 0 <= stamp.nanosec < 1_000_000_000
+                or measurement <= 0.0
+                or not -self._future_tolerance <= age <= self._max_message_age):
+            self._warn_throttled('dropping odometry with invalid, stale or future timestamp')
+            return
+
         if (incoming.header.frame_id != self._expected_frame or
                 incoming.child_frame_id != self._expected_child_frame):
             self._warn_throttled(
@@ -199,36 +225,35 @@ class FastLivoOdomAdapter(Node):
                 f'{incoming.header.frame_id} -> {incoming.child_frame_id}; '
                 f'expected {self._expected_frame} -> '
                 f'{self._expected_child_frame}')
-            self._estimator.reset()
             return
 
         position = incoming.pose.pose.position
         coordinates = (position.x, position.y, position.z)
         if not all(math.isfinite(value) for value in coordinates):
             self._warn_throttled('dropping odometry with a non-finite position')
-            self._estimator.reset()
             return
 
         try:
             yaw = quaternion_to_yaw(incoming.pose.pose.orientation)
         except ValueError as error:
             self._warn_throttled(f'dropping invalid odometry: {error}')
-            self._estimator.reset()
             return
 
         sample = (
-            stamp_to_seconds(incoming.header.stamp),
+            measurement,
             position.x,
             position.y,
             position.z,
             yaw,
         )
-        outgoing = copy.deepcopy(incoming)
-
         filtered_twist, reset_reason = self._estimator.update(sample)
+        if filtered_twist is None:
+            self._warn_throttled(f'dropping odometry: {reset_reason}')
+            return
         if reset_reason == 'discontinuity':
             self._warn_throttled(
                 'odometry discontinuity detected; resetting twist estimate')
+        outgoing = copy.deepcopy(incoming)
         self._zero_twist(outgoing)
         outgoing.twist.twist.linear.x = filtered_twist[0]
         outgoing.twist.twist.linear.y = filtered_twist[1]

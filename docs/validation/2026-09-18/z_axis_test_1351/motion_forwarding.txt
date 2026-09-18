@@ -1,0 +1,10 @@
+{
+  "wall": 1789707575.025673,
+  "kind": "motion_forwarding",
+  "values": [
+    {
+      "type": 1,
+      "bool_value": false
+    }
+  ]
+}

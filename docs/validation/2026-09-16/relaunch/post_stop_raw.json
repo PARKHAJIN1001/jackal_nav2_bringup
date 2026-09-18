@@ -1,0 +1,45 @@
+{
+  "duration_sec": 15.004331561000072,
+  "interrupted": false,
+  "topics": {
+    "/livox/imu": {
+      "count": 2991,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.05719234500065795,
+      "last_stamp": 1789535634.4727883,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.0007650852203369141,
+        0.001413583755493164,
+        0.0041387081146240234
+      ],
+      "max_receipt_gap_sec": 0.0075130069999431726,
+      "receipt_age_at_end_sec": 4.329900002630893e-05,
+      "publishers_at_end": [
+        "/livox_lidar_publisher"
+      ]
+    },
+    "/livox/lidar": {
+      "count": 224,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.1226658640007372,
+      "last_stamp": 1789535634.3823752,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.07109832763671875,
+        0.07346439361572266,
+        0.07802629470825195
+      ],
+      "max_receipt_gap_sec": 0.07050829599938879,
+      "receipt_age_at_end_sec": 0.01973652100059553,
+      "publishers_at_end": [
+        "/livox_lidar_publisher"
+      ]
+    }
+  },
+  "diagnostics": {}
+}

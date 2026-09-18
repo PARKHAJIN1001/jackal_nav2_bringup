@@ -1,0 +1,25 @@
+1789707510.7537122 [INFO] [launch]: All log files can be found below /home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/docs/validation/2026-09-18/z_axis_test_1351/ros_logs/2026-09-18-13-58-30-750533-parkhajin-victus-37283
+1789707510.7542369 [INFO] [launch]: Default logging verbosity is set to INFO
+1789707511.0475709 [INFO] [mid360_lidar_accumulator_node-1]: process started with pid [37294]
+1789707511.0479038 [INFO] [ped_yolo_node-2]: process started with pid [37296]
+1789707511.0480745 [INFO] [mid360_mask_3d_extractor_node-3]: process started with pid [37298]
+1789707511.0482147 [INFO] [pedestrian_tracker_node-4]: process started with pid [37300]
+1789707511.0483422 [INFO] [topic_connection_validator.py-5]: process started with pid [37303]
+1789707511.0485427 [INFO] [static_transform_publisher-6]: process started with pid [37305]
+1789707522.4533024 [INFO] [topic_connection_validator.py-5]: process has finished cleanly [pid 37303]
+1789709462.3926196 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1789709467.4065614 [ERROR] [static_transform_publisher-6]: process[static_transform_publisher-6] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709467.4076359 [INFO] [static_transform_publisher-6]: sending signal 'SIGTERM' to process[static_transform_publisher-6]
+1789709467.4111562 [ERROR] [pedestrian_tracker_node-4]: process[pedestrian_tracker_node-4] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709467.4120326 [ERROR] [mid360_mask_3d_extractor_node-3]: process[mid360_mask_3d_extractor_node-3] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709467.4130156 [ERROR] [ped_yolo_node-2]: process[ped_yolo_node-2] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709467.4183176 [ERROR] [mid360_lidar_accumulator_node-1]: process[mid360_lidar_accumulator_node-1] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1789709467.4201076 [INFO] [pedestrian_tracker_node-4]: sending signal 'SIGTERM' to process[pedestrian_tracker_node-4]
+1789709467.4255989 [INFO] [mid360_mask_3d_extractor_node-3]: sending signal 'SIGTERM' to process[mid360_mask_3d_extractor_node-3]
+1789709467.4302945 [INFO] [ped_yolo_node-2]: sending signal 'SIGTERM' to process[ped_yolo_node-2]
+1789709467.4329894 [INFO] [mid360_lidar_accumulator_node-1]: sending signal 'SIGTERM' to process[mid360_lidar_accumulator_node-1]
+1789709467.6632850 [INFO] [static_transform_publisher-6]: process has finished cleanly [pid 37305]
+1789709467.6866882 [INFO] [pedestrian_tracker_node-4]: process has finished cleanly [pid 37300]
+1789709467.7209044 [INFO] [mid360_lidar_accumulator_node-1]: process has finished cleanly [pid 37294]
+1789709467.7482376 [INFO] [mid360_mask_3d_extractor_node-3]: process has finished cleanly [pid 37298]
+1789709470.0855153 [ERROR] [ped_yolo_node-2]: process has died [pid 37296, exit code 1, cmd '/home/parkhajin/moai_navigation_ws/install/ped_yolo/lib/ped_yolo/ped_yolo_node --ros-args -r __node:=ped_yolo_node --params-file /home/parkhajin/moai_navigation_ws/install/mid360_bringup/share/mid360_bringup/config/ped_yolo.yaml --params-file /tmp/launch_params__c5qqyqu'].

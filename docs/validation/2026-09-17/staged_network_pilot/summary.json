@@ -1,0 +1,96 @@
+{
+  "baseline": {
+    "label": "Original order / 4 MiB",
+    "events": {
+      "start": 1789641239.1735513,
+      "phase3": 1789641252.755905,
+      "critical_exit": 1789641263.8759582
+    },
+    "observation_duration": 119.60171977700156,
+    "stream_counts": {
+      "/livox/lidar": 1536,
+      "/livox/imu": 23118,
+      "/livox/lidar_local": 202,
+      "/aft_mapped_to_init": 96
+    },
+    "stream_max_gap_sec": {
+      "/livox/lidar": 16.994454317999043,
+      "/livox/imu": 0.3434731670022302,
+      "/livox/lidar_local": 0.19916164399910485,
+      "/aft_mapped_to_init": 0.11117769799966482
+    },
+    "fragment_peak_bytes": null,
+    "udp_receive_errors_delta": 611805,
+    "ip_reassembly_failures_delta": 173757,
+    "max_odom_origin_position_norm_m": 0.018677804221151336
+  },
+  "order": {
+    "label": "Nav2 before FAST / 4 MiB",
+    "events": {
+      "start": 1789641415.2481384,
+      "phase3": 1789641459.1060731,
+      "critical_exit": 1789641470.599382
+    },
+    "observation_duration": 139.53206332699847,
+    "stream_counts": {
+      "/livox/lidar": 1298,
+      "/livox/imu": 27179,
+      "/livox/lidar_local": 201,
+      "/scan": 201,
+      "/aft_mapped_to_init": 97,
+      "/odom": 97
+    },
+    "stream_max_gap_sec": {
+      "/livox/lidar": 30.666693973998917,
+      "/livox/imu": 0.28407947899904684,
+      "/livox/lidar_local": 0.6019297120001283,
+      "/scan": 0.6000859500018123,
+      "/aft_mapped_to_init": 0.14316427900121198,
+      "/odom": 0.13928185899931123
+    },
+    "fragment_peak_bytes": 4195704,
+    "udp_receive_errors_delta": 701232,
+    "ip_reassembly_failures_delta": 848602,
+    "max_odom_origin_position_norm_m": 0.017847249601910427
+  },
+  "fragment": {
+    "label": "Original order / 128 MiB",
+    "events": {
+      "start": 1789641649.1819217,
+      "phase3": 1789641663.0712094,
+      "ready": 1789641675.529607,
+      "operator_stop": 1789641758.557447
+    },
+    "observation_duration": 109.43819775600059,
+    "stream_counts": {
+      "/livox/lidar": 1577,
+      "/livox/imu": 21069,
+      "/livox/lidar_local": 1569,
+      "/aft_mapped_to_init": 1456,
+      "/scan": 1361,
+      "/odom": 1327
+    },
+    "stream_max_gap_sec": {
+      "/livox/lidar": 4.5045199310006865,
+      "/livox/imu": 0.4638202599999204,
+      "/livox/lidar_local": 4.360054127002513,
+      "/aft_mapped_to_init": 4.434345309000491,
+      "/scan": 0.17400701100268634,
+      "/odom": 0.13611447799848975
+    },
+    "fragment_peak_bytes": 22478696,
+    "udp_receive_errors_delta": 725413,
+    "ip_reassembly_failures_delta": 292,
+    "after_ready_duration_sec": 81.17465615272522,
+    "after_ready_rates_hz": {
+      "/livox/lidar": 15.004683206891649,
+      "/aft_mapped_to_init": 14.99236409095824,
+      "/scan": 14.99236409095824,
+      "/odom": 15.004683206891649
+    },
+    "after_ready_relay_statuses": [
+      "fresh"
+    ],
+    "max_odom_origin_position_norm_m": 0.02449992726358099
+  }
+}

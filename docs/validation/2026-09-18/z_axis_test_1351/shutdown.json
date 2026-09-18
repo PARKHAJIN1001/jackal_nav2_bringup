@@ -1,0 +1,717 @@
+{
+  "started": 1789709462.313505,
+  "stacks": [
+    {
+      "launch_pid": 37283,
+      "group": 37226,
+      "launch": "perception.launch.py",
+      "initial_members": [
+        {
+          "pid": 37226,
+          "start": "836299",
+          "group": 37226,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/bin/bash",
+            "-c",
+            "source /tmp/nav_z_20260918_1351/env.sh\nros2 launch mid360_bringup perception.launch.py lidar_preprocess_config:=/tmp/nav_z_20260918_1351/perception/lidar_preprocess.yaml extractor_config:=/tmp/nav_z_20260918_1351/perception/mask_3d_extractor.yaml use_sim_time:=false publish_sensor_static_tf:=true publish_base_to_lidar_tf:=false publish_lidar_to_imu_tf:=false publish_lidar_to_camera_tf:=true launch_rviz:=false launch_detection_markers:=false launch_track_markers:=false launch_trace_markers:=false > docs/validation/2026-09-18/z_axis_test_1351/perception.console 2>&1"
+          ]
+        },
+        {
+          "pid": 37283,
+          "start": "836460",
+          "group": 37226,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/usr/bin/python3",
+            "/opt/ros/humble/bin/ros2",
+            "launch",
+            "mid360_bringup",
+            "perception.launch.py",
+            "lidar_preprocess_config:=/tmp/nav_z_20260918_1351/perception/lidar_preprocess.yaml",
+            "extractor_config:=/tmp/nav_z_20260918_1351/perception/mask_3d_extractor.yaml",
+            "use_sim_time:=false",
+            "publish_sensor_static_tf:=true",
+            "publish_base_to_lidar_tf:=false",
+            "publish_lidar_to_imu_tf:=false",
+            "publish_lidar_to_camera_tf:=true",
+            "launch_rviz:=false",
+            "launch_detection_markers:=false",
+            "launch_track_markers:=false",
+            "launch_trace_markers:=false"
+          ]
+        },
+        {
+          "pid": 37294,
+          "start": "836587",
+          "group": 37226,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/home/parkhajin/moai_navigation_ws/install/mid360_perception/lib/mid360_perception/mid360_lidar_accumulator_node",
+            "--ros-args",
+            "-r",
+            "__node:=mid360_lidar_accumulator_node",
+            "--params-file",
+            "/tmp/nav_z_20260918_1351/perception/lidar_preprocess.yaml",
+            "--params-file",
+            "/tmp/launch_params_ny_o8lnl"
+          ]
+        },
+        {
+          "pid": 37296,
+          "start": "836587",
+          "group": 37226,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/usr/bin/python3",
+            "/home/parkhajin/moai_navigation_ws/install/ped_yolo/lib/ped_yolo/ped_yolo_node",
+            "--ros-args",
+            "-r",
+            "__node:=ped_yolo_node",
+            "--params-file",
+            "/home/parkhajin/moai_navigation_ws/install/mid360_bringup/share/mid360_bringup/config/ped_yolo.yaml",
+            "--params-file",
+            "/tmp/launch_params__c5qqyqu"
+          ]
+        },
+        {
+          "pid": 37298,
+          "start": "836588",
+          "group": 37226,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/home/parkhajin/moai_navigation_ws/install/mid360_perception/lib/mid360_perception/mid360_mask_3d_extractor_node",
+            "--ros-args",
+            "-r",
+            "__node:=mid360_mask_3d_extractor_node",
+            "--params-file",
+            "/tmp/nav_z_20260918_1351/perception/mask_3d_extractor.yaml",
+            "--params-file",
+            "/tmp/launch_params_pb6b885y"
+          ]
+        },
+        {
+          "pid": 37300,
+          "start": "836588",
+          "group": 37226,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/home/parkhajin/moai_navigation_ws/install/mid360_perception/lib/mid360_perception/pedestrian_tracker_node",
+            "--ros-args",
+            "-r",
+            "__node:=pedestrian_tracker_node",
+            "--params-file",
+            "/home/parkhajin/moai_navigation_ws/install/mid360_bringup/share/mid360_bringup/config/pedestrian_tracker.yaml",
+            "--params-file",
+            "/tmp/launch_params_b0fceyfl"
+          ]
+        },
+        {
+          "pid": 37305,
+          "start": "836589",
+          "group": 37226,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/tf2_ros/static_transform_publisher",
+            "--x",
+            "0.03867148108327299",
+            "--y",
+            "0.03798376487165855",
+            "--z",
+            "-0.06430863774332571",
+            "--qx",
+            "-0.006713001497381612",
+            "--qy",
+            "-0.2632731673157715",
+            "--qz",
+            "-0.0038579105029377387",
+            "--qw",
+            "0.9646943999113516",
+            "--frame-id",
+            "livox_frame",
+            "--child-frame-id",
+            "camera_link",
+            "--ros-args",
+            "-r",
+            "__node:=lidar_to_camera_tf"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "pid": 37283,
+          "signal": "SIGINT"
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "launch_pid": 32419,
+      "group": 32378,
+      "launch": "nav_bringup.launch.py",
+      "initial_members": [
+        {
+          "pid": 32378,
+          "start": "812299",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/bin/bash",
+            "-c",
+            "source /tmp/nav_z_20260918_1351/env.sh\nros2 launch jackal_nav2_bringup nav_bringup.launch.py map:=/home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.yaml enable_motion:=false > docs/validation/2026-09-18/z_axis_test_1351/nav.console 2>&1"
+          ]
+        },
+        {
+          "pid": 32419,
+          "start": "812385",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/usr/bin/python3",
+            "/opt/ros/humble/bin/ros2",
+            "launch",
+            "jackal_nav2_bringup",
+            "nav_bringup.launch.py",
+            "map:=/home/parkhajin/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.yaml",
+            "enable_motion:=false"
+          ]
+        },
+        {
+          "pid": 32428,
+          "start": "812460",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/pointcloud_relay_node",
+            "--ros-args",
+            "-r",
+            "__node:=pointcloud_relay",
+            "--params-file",
+            "/tmp/launch_params_9_smum2k"
+          ]
+        },
+        {
+          "pid": 32430,
+          "start": "812460",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/rviz2/rviz2",
+            "-d",
+            "/tmp/nav_bringup_s10y02uu.rviz",
+            "--ros-args",
+            "-r",
+            "__node:=jackal_nav2_rviz",
+            "--params-file",
+            "/tmp/launch_params_7guyvhya"
+          ]
+        },
+        {
+          "pid": 32432,
+          "start": "812460",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/usr/bin/python3",
+            "/home/parkhajin/moai_navigation_ws/install/moai_nav_viz/lib/moai_nav_viz/pedestrian_figures_node",
+            "--ros-args",
+            "-r",
+            "__node:=pedestrian_figures",
+            "--params-file",
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/share/jackal_nav2_bringup/config/pedestrian_viz.yaml",
+            "--params-file",
+            "/tmp/launch_params_u844ijnl"
+          ]
+        },
+        {
+          "pid": 32434,
+          "start": "812460",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/usr/bin/python3",
+            "/home/parkhajin/moai_navigation_ws/install/moai_nav_viz/lib/moai_nav_viz/pedestrian_traces_node",
+            "--ros-args",
+            "-r",
+            "__node:=pedestrian_traces",
+            "--params-file",
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/share/jackal_nav2_bringup/config/pedestrian_viz.yaml",
+            "--params-file",
+            "/tmp/launch_params_n1t4g6f1"
+          ]
+        },
+        {
+          "pid": 32436,
+          "start": "812461",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "python3",
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/battery_percentage_bridge.py",
+            "--ros-args",
+            "-r",
+            "__node:=battery_percentage_bridge",
+            "--params-file",
+            "/tmp/launch_params_qsd5p7yn"
+          ]
+        },
+        {
+          "pid": 32438,
+          "start": "812461",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "python3",
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/speed_overlay.py",
+            "--ros-args",
+            "-r",
+            "__node:=speed_overlay",
+            "--params-file",
+            "/tmp/launch_params_br7ibt05"
+          ]
+        },
+        {
+          "pid": 32718,
+          "start": "813176",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/home/parkhajin/moai_navigation_ws/install/fast_livo/lib/fast_livo/fastlivo_mapping",
+            "--ros-args",
+            "-r",
+            "__node:=laserMapping",
+            "--params-file",
+            "/tmp/launch_params_lwakfhpv"
+          ]
+        },
+        {
+          "pid": 32720,
+          "start": "813176",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/tf2_ros/static_transform_publisher",
+            "--x",
+            "-0.04165",
+            "--y",
+            "-0.02326",
+            "--z",
+            "0.0284",
+            "--qx",
+            "0.0",
+            "--qy",
+            "0.0",
+            "--qz",
+            "0.0",
+            "--qw",
+            "1.0",
+            "--frame-id",
+            "livox_frame",
+            "--child-frame-id",
+            "livox_imu_frame",
+            "--ros-args",
+            "-r",
+            "__node:=lidar_to_imu_tf"
+          ]
+        },
+        {
+          "pid": 32867,
+          "start": "813880",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "python3",
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/fast_livo_odom_adapter.py",
+            "--ros-args",
+            "-r",
+            "__node:=fast_livo_odom_adapter",
+            "--params-file",
+            "/tmp/launch_params_t_xirt2q"
+          ]
+        },
+        {
+          "pid": 32869,
+          "start": "813880",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "python3",
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/amcl_quality_monitor.py",
+            "--ros-args",
+            "-r",
+            "__node:=amcl_quality_monitor",
+            "--params-file",
+            "/tmp/launch_params_oq2fbm2_"
+          ]
+        },
+        {
+          "pid": 32871,
+          "start": "813881",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/pointcloud_to_laserscan/pointcloud_to_laserscan_node",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=pointcloud_to_laserscan",
+            "--params-file",
+            "/tmp/launch_params_3dum6wc5",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static",
+            "-r",
+            "cloud_in:=/livox/lidar_local",
+            "-r",
+            "scan:=/scan"
+          ]
+        },
+        {
+          "pid": 32873,
+          "start": "813881",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_map_server/map_server",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=map_server",
+            "--params-file",
+            "/tmp/launch_params_3dum6wc5",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static"
+          ]
+        },
+        {
+          "pid": 32875,
+          "start": "813881",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_amcl/amcl",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=amcl",
+            "--params-file",
+            "/tmp/launch_params_3dum6wc5",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static"
+          ]
+        },
+        {
+          "pid": 32877,
+          "start": "813881",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_lifecycle_manager/lifecycle_manager",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=lifecycle_manager_localization",
+            "--params-file",
+            "/tmp/launch_params_zu6r_mc6"
+          ]
+        },
+        {
+          "pid": 32879,
+          "start": "813882",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/static_costmap_node",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=/tf",
+            "-r",
+            "/tf_static:=/tf_static"
+          ]
+        },
+        {
+          "pid": 32881,
+          "start": "813882",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "python3",
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/map_patch_node.py",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=map_patch_node",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=/tf",
+            "-r",
+            "/tf_static:=/tf_static"
+          ]
+        },
+        {
+          "pid": 32883,
+          "start": "813882",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_lifecycle_manager/lifecycle_manager",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=lifecycle_manager_static_costmap",
+            "--params-file",
+            "/tmp/launch_params_db4fxb4d"
+          ]
+        },
+        {
+          "pid": 32890,
+          "start": "813884",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_controller/controller_server",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=controller_server",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static",
+            "-r",
+            "cmd_vel:=cmd_vel_nav"
+          ]
+        },
+        {
+          "pid": 32893,
+          "start": "813884",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_smoother/smoother_server",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=smoother_server",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static"
+          ]
+        },
+        {
+          "pid": 32917,
+          "start": "813887",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_planner/planner_server",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=planner_server",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static"
+          ]
+        },
+        {
+          "pid": 32921,
+          "start": "813887",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_behaviors/behavior_server",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=behavior_server",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static",
+            "-r",
+            "cmd_vel:=cmd_vel_nav"
+          ]
+        },
+        {
+          "pid": 32928,
+          "start": "813888",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_bt_navigator/bt_navigator",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=bt_navigator",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static"
+          ]
+        },
+        {
+          "pid": 32932,
+          "start": "813888",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_waypoint_follower/waypoint_follower",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=waypoint_follower",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static"
+          ]
+        },
+        {
+          "pid": 32936,
+          "start": "813889",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_velocity_smoother/velocity_smoother",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=velocity_smoother",
+            "--params-file",
+            "/tmp/launch_params_neym33_l",
+            "-r",
+            "/tf:=tf",
+            "-r",
+            "/tf_static:=tf_static",
+            "-r",
+            "cmd_vel:=cmd_vel_nav",
+            "-r",
+            "cmd_vel_smoothed:=nav2_cmd_vel_unstamped"
+          ]
+        },
+        {
+          "pid": 32942,
+          "start": "813889",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_lifecycle_manager/lifecycle_manager",
+            "--ros-args",
+            "--log-level",
+            "info",
+            "--ros-args",
+            "-r",
+            "__node:=lifecycle_manager_navigation",
+            "--params-file",
+            "/tmp/launch_params_8nxwtfpw"
+          ]
+        },
+        {
+          "pid": 32947,
+          "start": "813890",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "python3",
+            "/home/parkhajin/moai_navigation_ws/install/jackal_nav2_bringup/lib/jackal_nav2_bringup/nav2_safety_guard.py",
+            "--ros-args",
+            "-r",
+            "__node:=nav2_safety_guard",
+            "--params-file",
+            "/tmp/launch_params_ecdi88ca"
+          ]
+        },
+        {
+          "pid": 32956,
+          "start": "813891",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_collision_monitor/collision_monitor",
+            "--ros-args",
+            "-r",
+            "__node:=collision_monitor",
+            "--params-file",
+            "/tmp/launch_params_w3shez1j",
+            "--params-file",
+            "/tmp/launch_params_m0ca52om"
+          ]
+        },
+        {
+          "pid": 32963,
+          "start": "813892",
+          "group": 32378,
+          "boot": "9de27395-2c69-4798-9379-ff5d19458d8e",
+          "args": [
+            "/opt/ros/humble/lib/nav2_lifecycle_manager/lifecycle_manager",
+            "--ros-args",
+            "-r",
+            "__node:=lifecycle_manager_safety",
+            "--params-file",
+            "/tmp/launch_params_h_eeaamv"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "pid": 32419,
+          "signal": "SIGINT"
+        }
+      ],
+      "remaining": []
+    }
+  ],
+  "stopped": 1789709478.2034478
+}

@@ -1,0 +1,7 @@
+[INFO] [1789707285.521143896] [fast_livo_odom_adapter]: adapting pose-only odometry: /aft_mapped_to_init -> /odom; TF ownership remains with FAST-LIVO2
+[WARN] [1789707289.117970158] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[WARN] [1789707291.179574958] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[WARN] [1789707356.446407470] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[WARN] [1789707389.448787541] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[WARN] [1789707512.655519775] [fast_livo_odom_adapter]: dropping odometry with invalid, stale or future timestamp
+[WARN] [1789707540.498260444] [fast_livo_odom_adapter]: odometry discontinuity detected; resetting twist estimate

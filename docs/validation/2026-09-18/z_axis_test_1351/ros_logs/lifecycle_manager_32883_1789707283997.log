@@ -1,0 +1,8 @@
+[INFO] [1789707284.134335985] [lifecycle_manager_static_costmap]: Creating
+[INFO] [1789707284.158402157] [lifecycle_manager_static_costmap]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[INFO] [1789707285.801781321] [lifecycle_manager_static_costmap]: [34m[1mStarting managed nodes bringup...[0m[0m
+[INFO] [1789707285.802513972] [lifecycle_manager_static_costmap]: [34m[1mConfiguring /static_costmap/static_costmap[0m[0m
+[INFO] [1789707287.581944924] [lifecycle_manager_static_costmap]: [34m[1mActivating /static_costmap/static_costmap[0m[0m
+[INFO] [1789707303.639167855] [lifecycle_manager_static_costmap]: [34m[1mManaged nodes are active[0m[0m
+[INFO] [1789709476.004246637] [rclcpp]: signal_handler(signum=15)
+[INFO] [1789709476.004570805] [lifecycle_manager_static_costmap]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_static_costmap)

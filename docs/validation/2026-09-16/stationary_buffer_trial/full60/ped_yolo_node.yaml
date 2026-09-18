@@ -1,0 +1,20 @@
+/ped_yolo_node:
+  ros__parameters:
+    detection_image_topic: /ped_yolo/detection_image
+    detection_threshold: 0.4
+    detections_2d_topic: /ped_yolo/detections2d
+    fallback_bbox_as_mask: false
+    inference_device: cuda:0
+    inference_half: true
+    inference_imgsz: 384
+    input_image_topic: /camera/camera/color/image_raw
+    instance_mask_scale: 0.5
+    instance_mask_topic: /ped_yolo/instance_mask
+    mask_threshold: 0.5
+    output_queue_depth: 1
+    person_class_name: person
+    publish_detection_image: false
+    publish_instance_mask: true
+    use_sim_time: false
+    yolo_model_path: /home/parkhajin/moai_navigation_ws/install/ped_yolo/share/ped_yolo/YOLO_models/yolo11n-seg.pt
+

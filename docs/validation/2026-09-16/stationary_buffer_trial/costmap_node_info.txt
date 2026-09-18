@@ -1,0 +1,105 @@
+/local_costmap/local_costmap
+  Subscribers:
+    /local_costmap/footprint: geometry_msgs/msg/Polygon
+    /map: nav_msgs/msg/OccupancyGrid
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+  Publishers:
+    /local_costmap/costmap: nav_msgs/msg/OccupancyGrid
+    /local_costmap/costmap_raw: nav2_msgs/msg/Costmap
+    /local_costmap/costmap_updates: map_msgs/msg/OccupancyGridUpdate
+    /local_costmap/local_costmap/transition_event: lifecycle_msgs/msg/TransitionEvent
+    /local_costmap/published_footprint: geometry_msgs/msg/PolygonStamped
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+  Service Servers:
+    /local_costmap/clear_around_local_costmap: nav2_msgs/srv/ClearCostmapAroundRobot
+    /local_costmap/clear_entirely_local_costmap: nav2_msgs/srv/ClearEntireCostmap
+    /local_costmap/clear_except_local_costmap: nav2_msgs/srv/ClearCostmapExceptRegion
+    /local_costmap/get_costmap: nav2_msgs/srv/GetCostmap
+    /local_costmap/local_costmap/change_state: lifecycle_msgs/srv/ChangeState
+    /local_costmap/local_costmap/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /local_costmap/local_costmap/get_available_states: lifecycle_msgs/srv/GetAvailableStates
+    /local_costmap/local_costmap/get_available_transitions: lifecycle_msgs/srv/GetAvailableTransitions
+    /local_costmap/local_costmap/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /local_costmap/local_costmap/get_parameters: rcl_interfaces/srv/GetParameters
+    /local_costmap/local_costmap/get_state: lifecycle_msgs/srv/GetState
+    /local_costmap/local_costmap/get_transition_graph: lifecycle_msgs/srv/GetAvailableTransitions
+    /local_costmap/local_costmap/list_parameters: rcl_interfaces/srv/ListParameters
+    /local_costmap/local_costmap/set_parameters: rcl_interfaces/srv/SetParameters
+    /local_costmap/local_costmap/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
+
+/global_costmap/global_costmap
+  Subscribers:
+    /global_costmap/footprint: geometry_msgs/msg/Polygon
+    /map: nav_msgs/msg/OccupancyGrid
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+  Publishers:
+    /global_costmap/costmap: nav_msgs/msg/OccupancyGrid
+    /global_costmap/costmap_raw: nav2_msgs/msg/Costmap
+    /global_costmap/costmap_updates: map_msgs/msg/OccupancyGridUpdate
+    /global_costmap/global_costmap/transition_event: lifecycle_msgs/msg/TransitionEvent
+    /global_costmap/published_footprint: geometry_msgs/msg/PolygonStamped
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+  Service Servers:
+    /global_costmap/clear_around_global_costmap: nav2_msgs/srv/ClearCostmapAroundRobot
+    /global_costmap/clear_entirely_global_costmap: nav2_msgs/srv/ClearEntireCostmap
+    /global_costmap/clear_except_global_costmap: nav2_msgs/srv/ClearCostmapExceptRegion
+    /global_costmap/get_costmap: nav2_msgs/srv/GetCostmap
+    /global_costmap/global_costmap/change_state: lifecycle_msgs/srv/ChangeState
+    /global_costmap/global_costmap/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /global_costmap/global_costmap/get_available_states: lifecycle_msgs/srv/GetAvailableStates
+    /global_costmap/global_costmap/get_available_transitions: lifecycle_msgs/srv/GetAvailableTransitions
+    /global_costmap/global_costmap/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /global_costmap/global_costmap/get_parameters: rcl_interfaces/srv/GetParameters
+    /global_costmap/global_costmap/get_state: lifecycle_msgs/srv/GetState
+    /global_costmap/global_costmap/get_transition_graph: lifecycle_msgs/srv/GetAvailableTransitions
+    /global_costmap/global_costmap/list_parameters: rcl_interfaces/srv/ListParameters
+    /global_costmap/global_costmap/set_parameters: rcl_interfaces/srv/SetParameters
+    /global_costmap/global_costmap/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
+
+/static_costmap/static_costmap
+  Subscribers:
+    /map: nav_msgs/msg/OccupancyGrid
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /static_costmap/footprint: geometry_msgs/msg/Polygon
+  Publishers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+    /static_costmap/costmap: nav_msgs/msg/OccupancyGrid
+    /static_costmap/costmap_raw: nav2_msgs/msg/Costmap
+    /static_costmap/costmap_updates: map_msgs/msg/OccupancyGridUpdate
+    /static_costmap/published_footprint: geometry_msgs/msg/PolygonStamped
+    /static_costmap/static_costmap/transition_event: lifecycle_msgs/msg/TransitionEvent
+  Service Servers:
+    /static_costmap/clear_around_static_costmap: nav2_msgs/srv/ClearCostmapAroundRobot
+    /static_costmap/clear_entirely_static_costmap: nav2_msgs/srv/ClearEntireCostmap
+    /static_costmap/clear_except_static_costmap: nav2_msgs/srv/ClearCostmapExceptRegion
+    /static_costmap/get_costmap: nav2_msgs/srv/GetCostmap
+    /static_costmap/static_costmap/change_state: lifecycle_msgs/srv/ChangeState
+    /static_costmap/static_costmap/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /static_costmap/static_costmap/get_available_states: lifecycle_msgs/srv/GetAvailableStates
+    /static_costmap/static_costmap/get_available_transitions: lifecycle_msgs/srv/GetAvailableTransitions
+    /static_costmap/static_costmap/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /static_costmap/static_costmap/get_parameters: rcl_interfaces/srv/GetParameters
+    /static_costmap/static_costmap/get_state: lifecycle_msgs/srv/GetState
+    /static_costmap/static_costmap/get_transition_graph: lifecycle_msgs/srv/GetAvailableTransitions
+    /static_costmap/static_costmap/list_parameters: rcl_interfaces/srv/ListParameters
+    /static_costmap/static_costmap/set_parameters: rcl_interfaces/srv/SetParameters
+    /static_costmap/static_costmap/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
+

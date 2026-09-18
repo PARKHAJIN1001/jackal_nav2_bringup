@@ -1,0 +1,6 @@
+{
+  "/amcl": {
+    "error": "service not discovered"
+  },
+  "/pointcloud_to_laserscan": {}
+}

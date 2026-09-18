@@ -1,0 +1,4 @@
+[INFO] [1789707285.560001245] [_localization_gate]: Waiting for continuous measurements: /scan, /odom
+[INFO] [1789707290.465366431] [_localization_gate]: /scan: collecting continuous measurements, /odom: no messages received; waiting for active AMCL/map_server, map and scan-time odom TF
+[INFO] [1789707295.565068706] [_localization_gate]: /scan: collecting continuous measurements, /odom: collecting continuous measurements
+[INFO] [1789707296.365840089] [_localization_gate]: Fresh measurement readiness checks passed

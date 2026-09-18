@@ -124,6 +124,8 @@ def test_profile_writes_manifest_never_overwrites(tmp_path):
     manifest = json.loads((output / 'manifest.json').read_text())
     assert len(manifest['sources']['lidar_preprocess.yaml']['sha256']) == 64
     assert 'lidar_input_topic:=' not in ' '.join(PROFILE.perception_command(output))
+    assert 'use_sim_time:=false' in PROFILE.perception_command(output)
+    assert 'use_sim_time:=true' in PROFILE.perception_command(output, use_sim_time=True)
     with pytest.raises(FileExistsError):
         PROFILE.prepare(share, output)
     for invalid in ('relative/topic', '/topic with spaces', ''):

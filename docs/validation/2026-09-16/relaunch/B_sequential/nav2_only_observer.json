@@ -1,0 +1,78 @@
+{
+  "duration_sec": 20.002176843998313,
+  "interrupted": false,
+  "topics": {
+    "/j100_0519/nav2_cmd_vel": {
+      "count": 352,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 2.4199463149998337,
+      "last_stamp": 1789535008.4682152,
+      "frame": "base_link",
+      "age_min_median_max_sec": [
+        0.0006642341613769531,
+        0.0012521743774414062,
+        0.004704475402832031
+      ],
+      "max_receipt_gap_sec": 0.05380211600095208,
+      "receipt_age_at_end_sec": 0.03245634099948802,
+      "publishers_at_end": [
+        "/nav2_safety_guard"
+      ]
+    },
+    "/livox/imu": {
+      "count": 3500,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 2.5122679039996,
+      "last_stamp": 1789535008.5002782,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.0005130767822265625,
+        0.0011456012725830078,
+        0.006729841232299805
+      ],
+      "max_receipt_gap_sec": 0.010959573999571148,
+      "receipt_age_at_end_sec": 0.00014399799874809105,
+      "publishers_at_end": [
+        "/livox_lidar_publisher"
+      ]
+    }
+  },
+  "diagnostics": {
+    "pointcloud_relay": {
+      "messages": {
+        "receipt_timeout": 37
+      },
+      "last_values": {
+        "received_count": "11.000000",
+        "measurement_stamp_sec": "1789534985.381941",
+        "measurement_age_sec": "22.713325",
+        "age_at_receipt_sec": "0.072126",
+        "receipt_silence_sec": "22.641204",
+        "last_interval_sec": "0.195183",
+        "max_interval_sec": "1.300931",
+        "stamp_regressions": "0.000000",
+        "clock_regressions": "0.000000"
+      }
+    },
+    "nav2_safety_guard": {
+      "messages": {
+        "required_tf_missing_or_invalid": 17
+      },
+      "last_values": {
+        "enable_motion": "False",
+        "sensor_error": "",
+        "raw_sensor_stamp_age": "22.686558961868286",
+        "raw_sensor_receipt_age": "22.612581903998944",
+        "sensor_stamp_age": "22.686558961868286",
+        "sensor_receipt_age": "22.612581903998944",
+        "command_receipt_age": "missing",
+        "filtered_points": "5374",
+        "stop_points": "1886"
+      }
+    }
+  }
+}

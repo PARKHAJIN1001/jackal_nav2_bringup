@@ -25,14 +25,14 @@ from sensor_msgs.msg import Image, LaserScan, PointCloud2
 from tf2_ros import Buffer, TransformException, TransformListener
 
 
-def input_topics(require_perception=False):
+def input_topics(require_perception=False, lidar_topic='/livox/lidar_local'):
     """Do not start remote image traffic during localization-only checks."""
     topics = [
         ('/scan', LaserScan),
         ('/odom', Odometry),
         ('/aft_mapped_to_init', Odometry),
         ('/amcl_pose', PoseWithCovarianceStamped),
-        ('/livox/lidar_local', PointCloud2),
+        (lidar_topic, PointCloud2),
     ]
     if require_perception:
         topics.extend([
@@ -83,12 +83,11 @@ def assess_edges(edges, max_age=0.5, map_future_tolerance=1.1):
             issues.append(f'{child} has multiple parents on root TF topics')
         if len({w for e in incoming for w in e['writers']}) > 1:
             issues.append(f'{child} has multiple root TF writers')
-        if any(
-            e['invalid_quaternion'] or e['stamp_regressions'] for e in incoming
-        ):
-            issues.append(
-                f'{child} has invalid quaternion or backwards timestamp'
-            )
+        for edge in incoming:
+            if edge['invalid_quaternion'] or edge['stamp_regressions']:
+                issues.append(
+                    f"{edge['parent']} -> {child} has invalid quaternion or backwards timestamp"
+                )
     parent_of = {e['child']: e['parent'] for e in roots}
     for child in parent_of:
         seen = set()
@@ -105,6 +104,45 @@ def assess_edges(edges, max_age=0.5, map_future_tolerance=1.1):
 def stamp_seconds(stamp):
     """Convert a ROS timestamp to seconds."""
     return stamp.sec + stamp.nanosec * 1e-9
+
+
+def assess_input_streams(samples, require_perception=False, lidar_topic='/livox/lidar_local'):
+    """Check measurement age as well as delivery, including faults before recovery."""
+    limits = dict.fromkeys(('/scan', '/odom', '/aft_mapped_to_init', lidar_topic), 0.30)
+    if require_perception:
+        limits.update(dict.fromkeys((
+            '/lidar/accumulated', '/camera/camera/color/image_raw',
+            '/ped_detection', '/ped_tracking'), 1.0))
+    issues = []
+    for topic, timeout in limits.items():
+        sample = samples.get(topic)
+        if not sample or sample.get('count', 0) <= 0:
+            issues.append(f'missing {topic} sample')
+            continue
+        stamp = sample.get('last_stamp_sec', math.nan)
+        if not math.isfinite(stamp) or stamp <= 0:
+            issues.append(f'invalid {topic} measurement timestamp')
+        age = sample.get('latest_age_sec', math.nan)
+        if not math.isfinite(age) or not -0.05 <= age <= timeout:
+            issues.append(f'stale or future {topic} measurement timestamp')
+        silence = sample.get('receipt_silence_sec', math.nan)
+        if not math.isfinite(silence) or not 0 <= silence <= timeout:
+            issues.append(f'stale {topic} stream')
+        steady = sample.get('phases', {}).get('steady', {})
+        if steady:
+            ages = (steady['age_min_sec'], steady['age_max_sec'])
+            if any(not math.isfinite(value) or not -0.05 <= value <= timeout
+                   for value in ages):
+                issues.append(f'steady {topic} measurement age outside allowed window')
+            if steady['interarrival_max_sec'] > timeout:
+                issues.append(f'steady {topic} receipt gap exceeds {timeout:g}s')
+            if steady['stamp_regressions']:
+                issues.append(f'steady {topic} has backwards timestamp')
+    # AMCL pose publication is event-driven. A stationary pose and latched map
+    # may be old without being unhealthy; only the continuous inputs have TTLs.
+    if not samples.get('/amcl_pose', {}).get('count', 0):
+        issues.append('missing /amcl_pose sample')
+    return issues
 
 
 def assess_planar_height(latest_tf, max_height=0.2):
@@ -177,7 +215,7 @@ class ExactTimeChecks:
 class Audit(Node):
     """Collect a bounded window of inputs and exact-time TF lookups."""
 
-    def __init__(self, warmup=3.0, require_perception=False):
+    def __init__(self, warmup=3.0, require_perception=False, lidar_topic='/livox/lidar_local'):
         """Create read-only subscriptions."""
         super().__init__('tf_localization_audit')
         self.samples = {}
@@ -188,6 +226,7 @@ class Audit(Node):
         self.start = time.monotonic()
         self.warmup = warmup
         self.require_perception = require_perception
+        self.lidar_topic = lidar_topic
         self.restart_until = self.start
         self.phase_events = []
         self.last_ros = None
@@ -204,7 +243,7 @@ class Audit(Node):
             self.on_map,
             QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL),
         )
-        for topic, msg_type in input_topics(require_perception):
+        for topic, msg_type in input_topics(require_perception, lidar_topic):
             self.create_subscription(
                 msg_type,
                 topic,
@@ -333,40 +372,12 @@ class Audit(Node):
             sample['latest_age_sec'] = now - sample['last_stamp_sec']
             sample['receipt_silence_sec'] = (
                 self.measurement_end_monotonic
-                - sample.pop('last_receipt_monotonic')
+                - sample['last_receipt_monotonic']
             )
-            if (
-                topic
-                in (
-                    '/scan',
-                    '/odom',
-                    '/aft_mapped_to_init',
-                    '/livox/lidar_local',
-                )
-                and sample['receipt_silence_sec'] > 0.5
-            ):
-                issues.append(f'stale {topic} stream')
-        for topic in ('/scan', '/odom', '/aft_mapped_to_init', '/amcl_pose'):
-            if topic not in self.samples:
-                issues.append(f'missing {topic} sample')
-        required = (
-            (
-                '/lidar/accumulated',
-                '/camera/camera/color/image_raw',
-                '/ped_detection',
-                '/ped_tracking',
-            )
-            if self.require_perception
-            else ()
-        )
-        for topic in required:
-            if (
-                topic not in self.samples
-                or self.samples[topic]['receipt_silence_sec'] > 1.0
-            ):
-                issues.append(
-                    f'missing or stale full-perception input {topic}'
-                )
+        issues.extend(assess_input_streams(
+            self.samples, self.require_perception, self.lidar_topic))
+        if self.map is None:
+            issues.append('missing /map sample')
         steady_checks = self.exact_checks.phases.get('steady', {})
         for target in ('odom', 'map'):
             check = steady_checks.get(
@@ -394,6 +405,7 @@ class Audit(Node):
                              'gap is only an inferred restart'),
             'warmup_sec': self.warmup,
             'require_perception': self.require_perception,
+            'lidar_topic': self.lidar_topic,
             'alignment_window': ('recent bounded scans only; TF success counts '
                                  'cover entire interval'),
             'latest_tf': latest_tf,
@@ -493,6 +505,8 @@ def main():
     parser.add_argument('--output', type=Path)
     parser.add_argument('--warmup', type=float, default=3.0)
     parser.add_argument('--require-perception', action='store_true')
+    parser.add_argument('--lidar-topic', default='/livox/lidar_local',
+                        help='required cloud input; match bringup lidar_pointcloud_topic')
     args, ros_args = parser.parse_known_args()
     if not math.isfinite(args.duration) or args.duration < 3:
         parser.error('--duration must be finite and at least 3 seconds')
@@ -501,7 +515,7 @@ def main():
         parser.error(
             '--warmup must be finite, nonnegative and shorter than duration'
         )
-    node = Audit(args.warmup, args.require_perception)
+    node = Audit(args.warmup, args.require_perception, args.lidar_topic)
     executable = (
         Path(get_package_prefix('jackal_nav2_bringup'))
         / 'lib'

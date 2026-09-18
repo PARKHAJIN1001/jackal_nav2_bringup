@@ -1,0 +1,13 @@
+[INFO] [1789707269.850839164] [pointcloud_relay]: Relaying PointCloud2 from /livox/lidar to bounded local topic /livox/lidar_local
+[WARN] [1789707270.351149263] [pointcloud_relay]: PointCloud2 relay health: waiting_for_cloud (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707284.352186001] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707511.368232435] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707520.352090978] [pointcloud_relay]: PointCloud2 relay health: measurement_stale (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707527.852039096] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707539.352087160] [pointcloud_relay]: PointCloud2 relay health: measurement_stale (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707573.359423643] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707688.352640468] [pointcloud_relay]: PointCloud2 relay health: measurement_stale (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707697.352581271] [pointcloud_relay]: PointCloud2 relay health: receipt_timeout (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789707762.853815915] [pointcloud_relay]: PointCloud2 relay health: measurement_stale (see /nav2/lidar_relay_diagnostics)
+[WARN] [1789709103.364340150] [pointcloud_relay]: PointCloud2 relay health: measurement_stale (see /nav2/lidar_relay_diagnostics)
+[INFO] [1789709476.302377646] [rclcpp]: signal_handler(signum=15)

@@ -1,0 +1,33 @@
+{
+  "updated_wall_time": 1789623412.9137995,
+  "run_root": "/tmp/jackal_amcl_live_20260917_wkQykO/restart_02",
+  "sessions": {
+    "nav2": 82856,
+    "projection": 42888,
+    "perception": 58916,
+    "fast_livo": 93803,
+    "initial_monitor": 31651
+  },
+  "launch_pids": {
+    "nav2": 149929,
+    "perception": 150671,
+    "fast_livo": 151385
+  },
+  "logs": {
+    "nav2": "/tmp/jackal_amcl_live_20260917_wkQykO/restart_02/nav2.log",
+    "projection": "/tmp/jackal_amcl_live_20260917_wkQykO/restart_02/projection.log",
+    "perception": "/tmp/jackal_amcl_live_20260917_wkQykO/restart_02/perception.log",
+    "fast_livo": "/tmp/jackal_amcl_live_20260917_wkQykO/restart_02/fast_livo.log"
+  },
+  "automatic_motion": false,
+  "NUC_forward_cmd_vel": false,
+  "nav_params": "/tmp/jackal_amcl_rotation_patch_20260917/install/share/jackal_nav2_bringup/config/nav2_params.yaml",
+  "startup_order": [
+    "nav2",
+    "projection",
+    "perception",
+    "wait for sensor input continuity",
+    "fast_livo"
+  ],
+  "recording": "first_pose_samples.jsonl; no motion bag running"
+}

@@ -28,6 +28,7 @@ def _load_launch(filename):
 def test_public_launch_files_generate_descriptions():
     for filename in (
             'bringup.launch.py',
+            'nav_bringup.launch.py',
             'localization.launch.py',
             'navigation.launch.py', 'safety.launch.py'):
         description = _load_launch(filename).generate_launch_description()

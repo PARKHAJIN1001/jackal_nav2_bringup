@@ -1,0 +1,272 @@
+{
+  "state": "recorded_with_findings",
+  "started_utc": "2026-09-16T04:18:40.195774+00:00",
+  "mode": "full_perception",
+  "requested_duration_sec": 600.0,
+  "steps": [
+    {
+      "command": [
+        "dpkg-query",
+        "-W",
+        "ros-humble-nav2-*",
+        "ros-humble-tf2*"
+      ],
+      "file": "system_versions.txt",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:18:40.201605+00:00",
+      "returncode": 0,
+      "elapsed_sec": 0.04763657100011187
+    },
+    {
+      "command": [
+        "ros2",
+        "node",
+        "list",
+        "--no-daemon",
+        "--spin-time",
+        "3"
+      ],
+      "file": "nodes.txt",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:18:40.249865+00:00",
+      "returncode": 0,
+      "elapsed_sec": 3.712130707999677
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/pointcloud_relay"
+      ],
+      "file": "pointcloud_relay.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:18:43.962554+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.3728103510002256
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/amcl_quality_monitor"
+      ],
+      "file": "amcl_quality_monitor.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:18:45.343174+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.2408044389994757
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/amcl"
+      ],
+      "file": "amcl.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:18:46.591834+00:00",
+      "returncode": 0,
+      "elapsed_sec": 3.6177673670008517
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/laserMapping"
+      ],
+      "file": "laserMapping.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:18:50.217270+00:00",
+      "returncode": 0,
+      "elapsed_sec": 4.541890660000718
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/nav2_safety_guard"
+      ],
+      "file": "nav2_safety_guard.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:18:54.767166+00:00",
+      "returncode": 0,
+      "elapsed_sec": 3.9452943800006324
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/collision_monitor"
+      ],
+      "file": "collision_monitor.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:18:58.713258+00:00",
+      "returncode": 0,
+      "elapsed_sec": 3.1015555829999357
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/pointcloud_to_laserscan"
+      ],
+      "file": "pointcloud_to_laserscan.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:01.822754+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.4715822629987088
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/local_costmap/local_costmap"
+      ],
+      "file": "local_costmap_local_costmap.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:03.302104+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.721849174999079
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/global_costmap/global_costmap"
+      ],
+      "file": "global_costmap_global_costmap.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:05.031782+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.7232356300009997
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/static_costmap/static_costmap"
+      ],
+      "file": "static_costmap_static_costmap.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:06.762664+00:00",
+      "returncode": 0,
+      "elapsed_sec": 3.753191517000232
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/pedestrian_figures"
+      ],
+      "file": "pedestrian_figures.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:10.523766+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.2268909930007794
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/pedestrian_traces"
+      ],
+      "file": "pedestrian_traces.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:11.758530+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.3408530229989992
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/ped_yolo_node"
+      ],
+      "file": "ped_yolo_node.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:13.107271+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.4197107780000806
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/mid360_lidar_accumulator_node"
+      ],
+      "file": "mid360_lidar_accumulator_node.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:14.534994+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.3415569659991888
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/mid360_mask_3d_extractor_node"
+      ],
+      "file": "mid360_mask_3d_extractor_node.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:15.884483+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.5191240860003745
+    },
+    {
+      "command": [
+        "ros2",
+        "param",
+        "dump",
+        "/pedestrian_tracker_node"
+      ],
+      "file": "pedestrian_tracker_node.yaml",
+      "state": "captured",
+      "started_utc": "2026-09-16T04:19:17.411592+00:00",
+      "returncode": 0,
+      "elapsed_sec": 1.5861530880010832
+    },
+    {
+      "command": [
+        "ros2",
+        "run",
+        "jackal_nav2_bringup",
+        "tf_localization_audit.py",
+        "--duration",
+        "600.0",
+        "--warmup",
+        "3",
+        "--output",
+        "/tmp/nav2_stationary_20260916.W3M8X4/full600/audit.json",
+        "--require-perception"
+      ],
+      "file": "audit.console",
+      "state": "failed",
+      "started_utc": "2026-09-16T04:19:19.005788+00:00",
+      "returncode": 1,
+      "elapsed_sec": 601.8513600179995
+    }
+  ],
+  "metadata_errors": [],
+  "meaning": "Evidence capture status, NOT pilot approval or localization acceptance",
+  "audit_duration_sec": 600.0351851579999,
+  "audit_issues": [
+    "odom has invalid quaternion or backwards timestamp",
+    "steady scan exact-time TF success below 99% to map"
+  ],
+  "finished_utc": "2026-09-16T04:29:20.866407+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "python_suite": "213 passed; later final managed-prompt/logging edits: 51 relevant tests passed",
+  "cmake_build": "passed",
+  "cmake_install": "passed, isolated /tmp prefix",
+  "ctest_targets_passed": [
+    "test_amcl_motion_model",
+    "test_relay_health",
+    "test_topic_ready_gate",
+    "test_nav_session"
+  ],
+  "dds_integration": "4 scenarios passed; localhost domain 187",
+  "dds_logs": "/tmp/nav_gate_integration_9b2tnwk0",
+  "installed_cli_help": "both tools passed",
+  "installed_launch_show_args": "passed with ROS_LOG_DIR=/tmp/nav_workflow_20260918_logs",
+  "style": "ament_flake8, ament_pep257 passed on changed Python files",
+  "main_workspace_rebuilt": false,
+  "robot_restarted": false,
+  "real_kernel_changed": false,
+  "source_sha256": {
+    "scripts/nav_session.py": "af7fe79e0f6927b1c0ade6354381f9058d768d96a6ee215a7c3fffd3ced055a7",
+    "scripts/ipfrag_session.py": "a013a0cbbdda9a32342db255fcc53ee33be7db5e05290674cee139c1af1789d7",
+    "scripts/topic_ready_gate.py": "38c6a000e9b735c4013ba665790bafe5df105b35ca8fcfca516d365c962c4cbd",
+    "scripts/prepare_perception_config.py": "16129dbbcefa559a972ece5994fb524841b2c73f03531729de79df608282f4b9",
+    "launch/nav_bringup.launch.py": "cbc681caba49a3ff651a8e63c17f0aad099a608c0176401c8d8f033c36c8b8a4",
+    "test/test_nav_session.py": "cc6b9df752f9d8621290edadaf3a02a83ade53610369348b6a304761969ba5fc",
+    "test/test_topic_ready_gate.py": "c903368c6cf25d3b9426c698d8a5baca9448a9ab88fc3126362ae69b61fb29c3",
+    "test/integration_topic_ready_gate.py": "876db5c4ad76bcd4d34cd223fcfaf211a67c2ad21607a3eac82deca87ef27a96"
+  }
+}

@@ -1,0 +1,30 @@
+import json,math
+from pathlib import Path
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+P=Path('/tmp/jackal_amcl_rotation_patch_20260917')
+d=json.loads((P/'replay_results.json').read_text())
+groups={}
+fig,ax=plt.subplots(3,1,figsize=(11,10),sharex=True)
+for run in d['runs']:
+    key=run['model'].split('::')[-1]
+    rows=run['rows'];t=np.array([r['t'] for r in rows]);poses=np.array([r['pose'] for r in rows]);cov=np.array([r['cov'] for r in rows])
+    xy=np.array([r['xy_from_lio_reference'] for r in rows]);yaw=np.array([r['yaw_from_lio_reference'] for r in rows])
+    dif=np.diff(yaw);step=np.degrees(abs(np.arctan2(np.sin(dif),np.cos(dif))))
+    summary={'seed':run['seed'],'updates':len(rows),'max_xy_pose_step_m':float(np.linalg.norm(np.diff(poses[:,:2],axis=0),axis=1).max()),'max_yaw_correction_step_deg':float(step.max()),'max_xy_from_lio_reference_m':float(xy.max()),'final_xy_from_lio_reference_m':float(xy[-1]),'max_yaw_from_lio_reference_deg':float(np.degrees(abs(yaw)).max()),'final_yaw_from_lio_reference_deg':float(np.degrees(abs(yaw[-1]))),'peak_xy_variance_m2':float(cov[:,:2].max()),'final_xy_variance_m2':float(cov[-1,:2].max()),'peak_yaw_variance_rad2':float(cov[:,2].max()),'final_yaw_variance_rad2':float(cov[-1,2])}
+    groups.setdefault(key,[]).append(summary)
+    color='tab:blue' if key=='OmniMotionModel' else 'tab:orange';label=key if run['seed']==1 else None
+    ax[0].plot(t,xy,color=color,alpha=.6,label=label)
+    ax[1].plot(t,np.degrees(yaw),color=color,alpha=.6,label=label)
+    ax[2].plot(t,np.sqrt(cov[:,:2].max(axis=1)),color=color,alpha=.6,label=label)
+result={'method':'Installed AMCL motion/sensor/pf libraries, 494 recorded scans, interpolated FAST poses, same synthetic initial mean/covariance, 10 RNG seeds per model; no ROS nodes or DDS. Relative LIO consistency is not ground-truth accuracy.', 'models':{}}
+for key,rows in groups.items():
+    result['models'][key]={'runs':rows,'aggregate':{field:{'min':min(r[field] for r in rows),'median':float(np.median([r[field] for r in rows])),'max':max(r[field] for r in rows)} for field in rows[0] if field not in ('seed','updates')}}
+ax[0].set_ylabel('Position vs LIO reference (m)');ax[1].set_ylabel('Yaw vs LIO reference (deg)');ax[2].set_ylabel('Max XY standard deviation (m)');ax[2].set_xlabel('Seconds in original recording')
+for a in ax:a.grid(alpha=.3);a.legend()
+fig.suptitle('Recorded scans + installed AMCL core, 10 seeds per model\nCommon assumed initialization; no network / lifecycle replay',fontsize=12)
+fig.tight_layout();fig.savefig(P/'replay_comparison.png',dpi=140)
+(P/'replay_summary.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps({k:v['aggregate'] for k,v in result['models'].items()},indent=2))

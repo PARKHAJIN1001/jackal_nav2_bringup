@@ -1,0 +1,2 @@
+[INFO] [1789707526.014617502] [ped_yolo_node]: Loading YOLO model: /home/parkhajin/moai_navigation_ws/install/ped_yolo/share/ped_yolo/YOLO_models/yolo11n-seg.pt
+[INFO] [1789707526.540648175] [ped_yolo_node]: Initialized ped_yolo: image=/camera/camera/color/image_raw, detections=/ped_yolo/detections2d, mask=/ped_yolo/instance_mask, model=/home/parkhajin/moai_navigation_ws/install/ped_yolo/share/ped_yolo/YOLO_models/yolo11n-seg.pt, person_class=person, imgsz=384, output_q_depth=1, instance_mask_scale=0.50

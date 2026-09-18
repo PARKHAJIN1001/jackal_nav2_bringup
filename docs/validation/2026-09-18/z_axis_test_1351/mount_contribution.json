@@ -1,0 +1,7 @@
+{
+  "n": 1791,
+  "base_z_range_mm": 17.031734844512147,
+  "mount_rotation_z_contribution_range_mm": 0.6750983065639815,
+  "reconstructed_imu_origin_z_range_mm": 17.09579478541712,
+  "notes": "Algebraic decomposition using configured mounts and published base pose, not independent ground truth or calibration validation."
+}

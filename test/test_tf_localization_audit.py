@@ -9,6 +9,7 @@ import subprocess
 from types import SimpleNamespace
 from unittest.mock import Mock
 
+from geometry_msgs.msg import TransformStamped
 import pytest
 from sensor_msgs.msg import LaserScan
 
@@ -319,3 +320,83 @@ def test_exact_time_tf_wait_failure_and_zero_stamp_are_counted():
     checks.process(SimpleNamespace(can_transform=lambda *args: True), 1.6)
     assert checks.totals()['map'] == {
         'checked_scans': 2, 'transformable_scans': 0}
+
+
+def _healthy_samples(lidar_topic='/livox/lidar_local'):
+    samples = {
+        topic: {
+            'count': 20, 'last_stamp_sec': 99.9, 'latest_age_sec': 0.1,
+            'receipt_silence_sec': 0.01, 'last_receipt_monotonic': 49.99,
+        }
+        for topic, _ in AUDIT.input_topics(lidar_topic=lidar_topic)
+    }
+    # A latched AMCL pose may be much older than the continuous streams.
+    samples['/amcl_pose'].update(last_stamp_sec=1.0, latest_age_sec=99.0)
+    return samples
+
+
+def test_event_driven_pose_does_not_require_continuous_republication():
+    assert AUDIT.assess_input_streams(_healthy_samples()) == []
+
+
+@pytest.mark.parametrize('age', [2.0, -0.2, float('nan')])
+def test_recent_receipt_cannot_hide_invalid_measurement_age(age):
+    samples = _healthy_samples()
+    samples['/scan']['latest_age_sec'] = age
+    issues = AUDIT.assess_input_streams(samples)
+    assert any('/scan measurement timestamp' in issue for issue in issues)
+
+
+def test_missing_required_cloud_and_custom_cloud_routing():
+    samples = _healthy_samples('/custom/cloud')
+    assert AUDIT.assess_input_streams(samples, lidar_topic='/custom/cloud') == []
+    assert 'missing /livox/lidar_local sample' in AUDIT.assess_input_streams(samples)
+    command = RECORD.audit_command(60, ROOT, False, '/custom/cloud')
+    assert command[command.index('--lidar-topic') + 1] == '/custom/cloud'
+
+
+def test_recovered_stream_still_reports_faults_during_steady_measurement():
+    samples = _healthy_samples()
+    samples['/odom']['phases'] = {'steady': {
+        'age_min_sec': 0.01, 'age_max_sec': 2.0,
+        'interarrival_max_sec': 1.0, 'stamp_regressions': 1,
+    }}
+    issues = AUDIT.assess_input_streams(samples)
+    assert any('/odom measurement age' in issue for issue in issues)
+    assert any('/odom receipt gap' in issue for issue in issues)
+    assert any('/odom has backwards timestamp' in issue for issue in issues)
+
+
+def test_full_perception_rejects_old_measurements_with_fresh_delivery():
+    samples = _healthy_samples()
+    for topic, _ in AUDIT.input_topics(require_perception=True):
+        samples.setdefault(topic, dict(samples['/scan']))
+    samples['/ped_tracking']['latest_age_sec'] = 2.0
+    assert any('/ped_tracking measurement timestamp' in issue
+               for issue in AUDIT.assess_input_streams(samples, require_perception=True))
+
+
+def test_report_requires_map_even_with_successful_tf_and_fresh_inputs(edges):
+    transform = TransformStamped()
+    transform.transform.rotation.w = 1.0
+    counts = {target: {'checked_scans': 20, 'transformable_scans': 20}
+              for target in ('map', 'odom')}
+    node = SimpleNamespace(
+        map=None, scans=[], samples=_healthy_samples(),
+        measurement_end_ros=100.0, measurement_end_monotonic=50.0, start=38.0,
+        warmup=3.0, require_perception=False, lidar_topic='/livox/lidar_local',
+        phase_events=[],
+        exact_checks=SimpleNamespace(
+            totals=lambda: counts, phases={'steady': counts}, failures=[]),
+        buffer=SimpleNamespace(
+            lookup_transform=lambda *args: transform, can_transform=lambda *args: True),
+        score_scans=lambda scans: {'unavailable': 'no /map received'},
+    )
+    report = AUDIT.Audit.report(node, edges)
+    assert report['issues'] == ['missing /map sample']
+
+
+def test_tf_fault_identifies_edge_instead_of_ambiguous_child_name(edges):
+    edges[0]['stamp_regressions'] = 1
+    assert 'map -> odom has invalid quaternion or backwards timestamp' in (
+        AUDIT.assess_edges(edges))

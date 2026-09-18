@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# One-variable, nonpersistent kernel comparison. Run via sudo only after approval.
+set -euo pipefail
+if [[ ${EUID} -ne 0 ]]; then
+  echo 'This test needs sudo for a host-wide sysctl change.' >&2
+  exit 1
+fi
+pilot_previous_frag=$(sysctl -n net.ipv4.ipfrag_high_thresh)
+pilot_frag_restored=false
+restore_fragment_limit() {
+  if [[ "$pilot_frag_restored" == false ]]; then
+    sysctl -w "net.ipv4.ipfrag_high_thresh=$pilot_previous_frag"
+    pilot_frag_restored=true
+    echo "Restored original fragment limit: $pilot_previous_frag"
+  fi
+}
+trap restore_fragment_limit EXIT
+trap 'exit 130' INT TERM
+printf 'Original fragment limit: %s\n' "$pilot_previous_frag"
+sysctl -w net.ipv4.ipfrag_high_thresh=134217728
+echo 'Temporary 128 MiB limit active for 180 seconds; all other settings unchanged.'
+for ((pilot_interval=0; pilot_interval<36; pilot_interval++)); do
+  sleep 5
+done

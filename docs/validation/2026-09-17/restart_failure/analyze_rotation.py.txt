@@ -1,0 +1,99 @@
+import json
+import math
+import sqlite3
+from pathlib import Path
+import numpy as np
+from rclpy.serialization import deserialize_message
+from rosidl_runtime_py.utilities import get_message
+
+root = Path(__file__).parent
+db = root/'rotation_bag/rotation_bag_0.db3'
+connection = sqlite3.connect('file:'+str(db)+'?mode=ro', uri=True)
+topics = {i:(name,get_message(typ)) for i,name,typ in connection.execute('SELECT id,name,type FROM topics')}
+streams = {}
+poses = {}
+transforms = {}
+initialposes = []
+particle_stats = []
+command_max = [0.,0.]
+relay_events = []
+
+def yaw(q):
+    return math.atan2(2*(q.w*q.z+q.x*q.y), 1-2*(q.y*q.y+q.z*q.z))
+
+def stamp(header):
+    return header.stamp.sec + header.stamp.nanosec/1e9
+
+for topic_id,receipt,data in connection.execute('SELECT topic_id,timestamp,data FROM messages ORDER BY timestamp'):
+    topic,typ = topics[topic_id]
+    m = deserialize_message(data,typ)
+    rt = receipt/1e9
+    s = streams.setdefault(topic,dict(count=0,first_receipt=rt,last_receipt=rt,max_receipt_gap=0))
+    s.update(count=s['count']+1,max_receipt_gap=max(s['max_receipt_gap'],rt-s['last_receipt']),last_receipt=rt)
+    if hasattr(m,'header'):
+        age = rt-stamp(m.header)
+        s['max_header_age'] = max(s.get('max_header_age',-1e99),age)
+    if hasattr(m,'pose') and hasattr(m.pose,'covariance'):
+        p=m.pose.pose
+        row=[stamp(m.header),p.position.x,p.position.y,p.position.z,yaw(p.orientation),m.pose.covariance[0],m.pose.covariance[7],m.pose.covariance[35],rt]
+        poses.setdefault(topic,[]).append(row)
+        if topic=='/initialpose':initialposes.append(row)
+    if topic=='/tf':
+        for tr in m.transforms:
+            key=tr.header.frame_id+'->'+tr.child_frame_id
+            p=tr.transform.translation
+            transforms.setdefault(key,[]).append([stamp(tr.header),p.x,p.y,p.z,yaw(tr.transform.rotation),rt])
+    if topic=='/particle_cloud' and m.particles:
+        w=np.array([p.weight for p in m.particles]);w=w/w.sum()
+        xy=np.array([[p.pose.position.x,p.pose.position.y] for p in m.particles])
+        angles=np.array([yaw(p.pose.orientation) for p in m.particles])
+        center=np.sum(xy*w[:,None],axis=0)
+        var=np.sum((xy-center)**2*w[:,None],axis=0)
+        mean_angle=math.atan2(np.sum(w*np.sin(angles)),np.sum(w*np.cos(angles)))
+        dv=np.arctan2(np.sin(angles-mean_angle),np.cos(angles-mean_angle))
+        particle_stats.append([stamp(m.header),len(w),*center,*var,float(np.sum(w*dv**2))])
+    if topic=='/j100_0519/nav2_cmd_vel':
+        command_max=[max(command_max[0],abs(m.twist.linear.x)),max(command_max[1],abs(m.twist.angular.z))]
+    if topic=='/nav2/lidar_relay_diagnostics':
+        for status in m.status:
+            if status.message!='fresh':relay_events.append(dict(receipt=rt,message=status.message,values={v.key:v.value for v in status.values}))
+
+def trajectory(rows):
+    a=np.array(rows,dtype=float)
+    if len(a)==0:return {},a
+    a=a[np.argsort(a[:,0],kind='stable')]
+    xy=a[:,1:3]
+    angles=np.unwrap(a[:,4])
+    dt=np.diff(a[:,0]);valid=dt>0
+    speed=np.diff(angles)[valid]/dt[valid]
+    return dict(count=len(a),start=a[0].tolist(),end=a[-1].tolist(),duration=float(a[-1,0]-a[0,0]),
+                max_xy_step=float(np.max(np.linalg.norm(np.diff(xy,axis=0),axis=1))) if len(a)>1 else 0,
+                max_xyz_excursion=float(np.max(np.linalg.norm(a[:,1:4]-a[0,1:4],axis=1))),
+                yaw_range_deg=float(np.degrees(np.ptp(angles))),
+                min_yaw_rate=float(np.min(speed)) if len(speed) else 0,
+                max_yaw_rate=float(np.max(speed)) if len(speed) else 0,
+                accumulated_rotation_deg=float(np.degrees(np.sum(np.abs(np.diff(angles)))))),a
+
+report=dict(streams=streams,initialposes=initialposes,command_max_abs=command_max,
+            relay_events=relay_events,poses={},tf={},limitations=['No external ground truth; trajectory metrics measure consistency, not absolute localization accuracy.','Discard latched AMCL poses older than the first recorded odom for per-step metrics.'])
+lo=min(s['first_receipt'] for s in streams.values());hi=max(s['last_receipt'] for s in streams.values())
+report['recording_span']=[lo,hi,hi-lo]
+fast_stats,fast=trajectory(poses.get('/aft_mapped_to_init',[]))
+for topic,rows in poses.items():
+    if topic=='/amcl_pose' and len(fast):rows=[r for r in rows if fast[0,0]<=r[0]<=fast[-1,0]]
+    stats,a=trajectory(rows)
+    report['poses'][topic]=stats
+    if topic=='/amcl_pose' and len(a):
+        report['amcl_covariance_max']=np.max(a[:,5:8],axis=0).tolist()
+        fy=np.interp(a[:,0],fast[:,0],np.unwrap(fast[:,4]))
+        correction=np.unwrap(a[:,4])-fy
+        report['amcl_vs_lio_yaw_correction_range_deg']=float(np.degrees(np.ptp(correction)))
+        report['amcl_vs_lio_max_yaw_correction_step_deg']=float(np.degrees(np.max(np.abs(np.diff(correction))))) if len(a)>1 else 0
+for name,rows in transforms.items():
+    report['tf'][name]=trajectory(rows)[0]
+if particle_stats:
+    a=np.array(particle_stats)
+    report['particle_cloud']=dict(messages=len(a),min_count=int(a[:,1].min()),max_count=int(a[:,1].max()),max_weighted_variances=a[:,4:7].max(axis=0).tolist(),last=a[-1].tolist())
+(root/'rotation_summary.json').write_text(json.dumps(report,indent=2)+'\n')
+(root/'rotation_series.json').write_text(json.dumps(dict(poses=poses,transforms=transforms,particle_stats=particle_stats))+'\n')
+print(json.dumps({k:v for k,v in report.items() if k not in ['streams','relay_events']},indent=2))

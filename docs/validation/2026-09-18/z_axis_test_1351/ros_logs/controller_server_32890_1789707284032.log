@@ -1,0 +1,85 @@
+[INFO] [1789707284.222311843] [controller_server]: 
+	controller_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789707284.328848878] [controller_server]: Creating controller server
+[INFO] [1789707284.436297600] [local_costmap.local_costmap]: 
+	local_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1789707284.444440350] [local_costmap.local_costmap]: Creating Costmap
+[INFO] [1789707285.857001286] [controller_server]: Configuring controller interface
+[INFO] [1789707285.857325065] [controller_server]: getting goal checker plugins..
+[INFO] [1789707285.857514311] [controller_server]: Controller frequency set to 20.0000Hz
+[INFO] [1789707285.857591256] [local_costmap.local_costmap]: Configuring
+[INFO] [1789707285.986704709] [local_costmap.local_costmap]: Using plugin "static_layer"
+[INFO] [1789707286.060675962] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1789707286.121511500] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[INFO] [1789707286.121614516] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[INFO] [1789707286.133677298] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1789707288.307437133] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 1224 X 528 at 0.050000 m/pix
+[INFO] [1789707288.308214379] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[INFO] [1789707288.315372413] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[INFO] [1789707288.316132082] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[INFO] [1789707288.330359828] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[INFO] [1789707288.348579618] [controller_server]: Setting transform_tolerance to 0.200000
+[INFO] [1789707288.603562298] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[INFO] [1789707288.607678177] [controller_server]: Critic plugin initialized
+[INFO] [1789707288.608104074] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[INFO] [1789707288.620155248] [controller_server]: Critic plugin initialized
+[INFO] [1789707288.622396303] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[INFO] [1789707288.626159189] [controller_server]: Critic plugin initialized
+[INFO] [1789707288.626694246] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[INFO] [1789707288.635794985] [controller_server]: Critic plugin initialized
+[INFO] [1789707288.639244669] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[INFO] [1789707288.645170839] [controller_server]: Critic plugin initialized
+[INFO] [1789707288.650085149] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[INFO] [1789707288.657104812] [controller_server]: Critic plugin initialized
+[INFO] [1789707288.657724589] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[INFO] [1789707288.664066247] [controller_server]: Critic plugin initialized
+[INFO] [1789707288.664161338] [controller_server]: Controller Server has FollowPath  controllers available.
+[INFO] [1789707290.522317763] [controller_server]: Activating
+[INFO] [1789707290.522501164] [local_costmap.local_costmap]: Activating
+[INFO] [1789707290.522571155] [local_costmap.local_costmap]: Checking transform
+[INFO] [1789707290.523031774] [local_costmap.local_costmap]: start
+[ERROR] [1789707291.040620394] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789707291.073843515] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[ERROR] [1789707291.350262568] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707291.659785420] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707292.060457419] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707292.362983642] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707292.674160292] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707293.066892289] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707293.378091596] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707293.679064870] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707294.088048295] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707294.392682246] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707294.697157128] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707295.101799176] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707295.410237989] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707295.716172749] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707296.118768019] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707296.429362775] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707296.735341740] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707297.138076037] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707297.448274184] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707297.756314403] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707298.152547721] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707298.462415503] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707298.770588121] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707299.169553206] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707299.481008863] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707299.782208496] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707300.182290781] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707300.491968692] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707300.792885247] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707301.197466846] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[ERROR] [1789707301.502601564] [local_costmap.local_costmap]: StaticLayer: "map" passed to lookupTransform argument target_frame does not exist. 
+[INFO] [1789709475.984876729] [rclcpp]: signal_handler(signum=15)
+[INFO] [1789709475.985197104] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[INFO] [1789709475.985420322] [controller_server]: Deactivating
+[INFO] [1789709475.985540865] [local_costmap.local_costmap]: Deactivating
+[INFO] [1789709476.106286993] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [1789709476.206824738] [controller_server]: Cleaning up
+[INFO] [1789709476.208060293] [local_costmap.local_costmap]: Cleaning up
+[INFO] [1789709477.296480167] [controller_server]: Destroying bond (controller_server) to lifecycle manager.

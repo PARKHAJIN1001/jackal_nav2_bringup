@@ -1,0 +1,6 @@
+{"wall": 1789707509.5051527, "event": "perception_start_after_user_alignment_confirmation"}
+{"wall": 1789707604.2772014, "event": "manual_rotation_window_start", "instruction": "stationary 10s, slow left/right spot turn 30-40s, stop 10s; user controls motion"}
+{"wall": 1789707745.6281183, "event": "manual_rotation_window_end", "user_report": "rotation complete; map/scan alignment maintained"}
+{"wall": 1789707841.4562378, "event": "stationary_recheck_requested", "reason": "first post-response interval contains ~0.5m displacement in both FAST and robot odometry"}
+{"wall": 1789707856.1557527, "event": "stationary_recheck_confirmed", "user_report": "moved robot manually after rotation; now stationary"}
+{"wall": 1789707915.100774, "event": "recording_complete", "runtime": "Nav2 and perception remain running; motion forwarding false; temporary 128MiB held by user sudo terminal"}

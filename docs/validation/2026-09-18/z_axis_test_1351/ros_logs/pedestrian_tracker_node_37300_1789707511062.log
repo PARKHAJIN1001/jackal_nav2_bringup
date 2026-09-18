@@ -1,0 +1,2 @@
+[INFO] [1789707511.204667090] [pedestrian_tracker_node]: detections='/ped_detection', odom='/aft_mapped_to_init', tracks_out='/ped_tracking', traces_out='/ped_traces', max_match_distance=1.00, maha_gate=3.00, update_gain=[0.15, 0.65], max_missed=8, trace_window=10, trace_down_sample=1
+[INFO] [1789709467.420622790] [rclcpp]: signal_handler(signum=15)

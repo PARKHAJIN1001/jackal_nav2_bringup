@@ -1,0 +1,12 @@
+{
+  "verified_wall": 1789641910.6236854,
+  "ipfrag_high_thresh": 4194304,
+  "ipfrag_time": 30,
+  "rmem_max": 212992,
+  "owned_ros_processes_found": false,
+  "nuc_sensor_service": "active",
+  "nuc_platform_service": "active",
+  "permanent_settings_changed": false,
+  "robot_motion_commanded": false,
+  "note": "Verified by host sysctl/ps and NUC SSH service query after the temporary test."
+}

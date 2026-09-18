@@ -1,0 +1,116 @@
+{
+  "duration_sec": 20.00189097099974,
+  "interrupted": false,
+  "topics": {
+    "/livox/imu": {
+      "count": 3978,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.10310033899986593,
+      "last_stamp": 1789535101.387369,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.0005328655242919922,
+        0.0011792182922363281,
+        0.01607990264892578
+      ],
+      "max_receipt_gap_sec": 0.014007889998538303,
+      "receipt_age_at_end_sec": 8.116800017887726e-05,
+      "publishers_at_end": [
+        "/livox_lidar_publisher"
+      ]
+    },
+    "/j100_0519/nav2_cmd_vel": {
+      "count": 398,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.13003352499981702,
+      "last_stamp": 1789535101.3689167,
+      "frame": "base_link",
+      "age_min_median_max_sec": [
+        0.0006213188171386719,
+        0.0012836456298828125,
+        0.006887674331665039
+      ],
+      "max_receipt_gap_sec": 0.0785598120000941,
+      "receipt_age_at_end_sec": 0.022584469999856083,
+      "publishers_at_end": [
+        "/nav2_safety_guard"
+      ]
+    },
+    "/livox/lidar": {
+      "count": 297,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 0.13556741700085695,
+      "last_stamp": 1789535101.2485743,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.07444953918457031,
+        0.07797574996948242,
+        0.09343838691711426
+      ],
+      "max_receipt_gap_sec": 0.12512490900007833,
+      "receipt_age_at_end_sec": 0.06371108100029232,
+      "publishers_at_end": [
+        "/livox_lidar_publisher"
+      ]
+    },
+    "/livox/lidar_local": {
+      "count": 275,
+      "regressions": 0,
+      "nonzero": 0,
+      "nonfinite": 0,
+      "first_receipt_after_start_sec": 1.5382372429994575,
+      "last_stamp": 1789535101.2485743,
+      "frame": "livox_frame",
+      "age_min_median_max_sec": [
+        0.07536792755126953,
+        0.07936549186706543,
+        0.08559060096740723
+      ],
+      "max_receipt_gap_sec": 0.13047287299923482,
+      "receipt_age_at_end_sec": 0.06185987899880274,
+      "publishers_at_end": [
+        "/pointcloud_relay"
+      ]
+    }
+  },
+  "diagnostics": {
+    "nav2_safety_guard": {
+      "messages": {
+        "required_tf_missing_or_invalid": 19
+      },
+      "last_values": {
+        "enable_motion": "False",
+        "sensor_error": "",
+        "raw_sensor_stamp_age": "0.12066936492919922",
+        "raw_sensor_receipt_age": "0.040650958000696846",
+        "sensor_stamp_age": "0.12066936492919922",
+        "sensor_receipt_age": "0.040650958000696846",
+        "command_receipt_age": "missing",
+        "filtered_points": "5288",
+        "stop_points": "1868"
+      }
+    },
+    "pointcloud_relay": {
+      "messages": {
+        "fresh": 37
+      },
+      "last_values": {
+        "received_count": "1322.000000",
+        "measurement_stamp_sec": "1789535100.981518",
+        "measurement_age_sec": "0.114384",
+        "age_at_receipt_sec": "0.079175",
+        "receipt_silence_sec": "0.035212",
+        "last_interval_sec": "0.066661",
+        "max_interval_sec": "28.065510",
+        "stamp_regressions": "0.000000",
+        "clock_regressions": "0.000000"
+      }
+    }
+  }
+}

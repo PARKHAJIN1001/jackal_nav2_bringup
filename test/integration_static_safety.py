@@ -297,19 +297,34 @@ def test_static_costmaps_figures_and_independent_safety(tmp_path):
         os.kill(monitor_pids[0], signal.SIGINT)
         run(0.7)
         assert latest_output() == 0.0
-        print(
-            'PASS: static cell invariance/subscriptions, figure expiry/TF failure, '
-            'CM slowdown/stop, independent stop, stale/empty sensor, lost TF, '
-            'NaN, monitor command timeout and monitor process exit; '
-            'output=/nav2_test/output only'
-        )
     finally:
-        os.killpg(process.pid, signal.SIGINT)
+        forced_shutdown = False
         try:
+            # Let launch forward SIGINT once. A group-wide SIGINT also signals
+            # every child directly, racing launch's own shutdown handling.
+            if process.poll() is None:
+                process.send_signal(signal.SIGINT)
             process.wait(timeout=25)
         except subprocess.TimeoutExpired:
+            forced_shutdown = True
             os.killpg(process.pid, signal.SIGKILL)
             process.wait(timeout=5)
-        log.close()
-        node.destroy_node()
-        rclpy.shutdown()
+        finally:
+            log.close()
+            node.destroy_node()
+            rclpy.try_shutdown()
+
+    # Successful assertions above must not hide a destructor abort or children
+    # that launch had to terminate forcibly during teardown.
+    shutdown_log = (tmp_path / 'launch.log').read_text()
+    assert not forced_shutdown, shutdown_log[-12000:]
+    assert process.returncode == 0, shutdown_log[-12000:]
+    for failure in ('process has died', 'failed to terminate',
+                    'terminate called without an active exception'):
+        assert failure not in shutdown_log, shutdown_log[-12000:]
+    print(
+        'PASS: static cell invariance/subscriptions, figure expiry/TF failure, '
+        'CM slowdown/stop, independent stop, stale/empty sensor, lost TF, '
+        'NaN, monitor command timeout, monitor exit and clean launch shutdown; '
+        'output=/nav2_test/output only'
+    )

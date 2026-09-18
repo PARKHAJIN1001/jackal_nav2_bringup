@@ -1,0 +1,13 @@
+{
+  "samples.jsonl": "8e20e7ca8c92b8feed0879d6cf6fca403c884a4565bfb9f56ec167a73ebc4b32",
+  "perception_flow.jsonl": "e12e044f8dcee3625ed5612c65b995136da6b65dcc84026cd525d2512754cbc2",
+  "events.jsonl": "0041170d3e7cff08e9c592c8eed87316be8ae3a9513095cb9755f8aa13b1960d",
+  "rotation_analysis.json": "a57a6c5f332de8fce807d02cfa61be42b2674665f3f5981a48f6db23e15a22fc",
+  "stationary_imu_comparison.json": "523ea47629082a9a3e8b3610e99ff9b322724a36111c27db5de144b44e0d2ecf",
+  "mount_contribution.json": "d7cee1ce60d9b47f828be92f967adb329ede5b160078758c98d4ab40107b770e",
+  "fast_livo_params.yaml": "39cbbb96474d828d6138094d59340003a624d145ca3e5f784bf08040a09521cd",
+  "amcl_params.yaml": "1b01231b0570c31872dc386a364be24f9c1c63e4493c8a76629fde19e79c0c6b",
+  "tf_authority.json": "3725dc1a60dbc4245329cb0e01bc467f56f6fe38cb840059abe55c7968721eb6",
+  "rotation_tf.png": "e4fda865306946259c51ad0b6a872c663793f8718340d60a42580769a0e51fd9",
+  "REPORT.md": "ff6421e5a0dd6645107746dc655895da8f65b16d1840109127e5989ee702a437"
+}

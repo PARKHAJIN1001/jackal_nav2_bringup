@@ -1,0 +1,3 @@
+[INFO] [1789707270.881526603] [_relay_gate]: Waiting for continuous measurements: /livox/lidar_local, /livox/imu
+[INFO] [1789707275.781545666] [_relay_gate]: /livox/lidar_local: collecting continuous measurements, /livox/imu: collecting continuous measurements
+[INFO] [1789707276.681110410] [_relay_gate]: Fresh measurement readiness checks passed

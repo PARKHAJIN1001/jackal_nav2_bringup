@@ -21,11 +21,14 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
 
-  // Costmap2DROS uses the supplied name both as its namespace and lifecycle
-  // node name. This intentionally produces /static_costmap/static_costmap and
-  // publishes the public OccupancyGrid at /static_costmap/costmap.
-  auto costmap =
-    std::make_shared<nav2_costmap_2d::Costmap2DROS>("static_costmap");
+  // The NodeOptions constructor makes this an independent lifecycle node.
+  // The name-based constructor is a follower: it skips preshutdown cleanup
+  // and expects a parent to deactivate and join its costmap update thread.
+  // Preserve the public namespace and YAML parameter selection explicitly.
+  auto options = rclcpp::NodeOptions().arguments(
+  {
+    "--ros-args", "-r", "__node:=static_costmap", "-r", "__ns:=/static_costmap"});
+  auto costmap = std::make_shared<nav2_costmap_2d::Costmap2DROS>(options);
   rclcpp::spin(costmap->get_node_base_interface());
 
   rclcpp::shutdown();

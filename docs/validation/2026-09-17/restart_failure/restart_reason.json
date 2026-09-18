@@ -1,0 +1,14 @@
+{
+  "reason": "User requested Nav2 restart from scratch",
+  "created_wall_time": 1789623145.273203,
+  "startup_order": [
+    "nav2 relay + localization + RViz",
+    "standalone scan projection",
+    "perception",
+    "input continuity check",
+    "FAST-LIVO2",
+    "fresh manual initialpose"
+  ],
+  "automatic_motion": false,
+  "previous_root": "/tmp/jackal_amcl_live_20260917_wkQykO/restart_01"
+}

@@ -1,0 +1,77 @@
+#include <algorithm>
+#include <cmath>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <vector>
+#include "nav2_amcl/motion_model/motion_model.hpp"
+#include "nav2_amcl/sensors/laser/laser.hpp"
+#include "nav2_amcl/map/map.hpp"
+#include "pluginlib/class_loader.hpp"
+#include "nlohmann/json.hpp"
+using nlohmann::json;
+double angle(double x) {return std::atan2(std::sin(x),std::cos(x));}
+pf_vector_t vector(const json & x) {return {{x[0].get<double>(),x[1].get<double>(),x[2].get<double>()}};}
+pf_vector_t unusedRandom(void *) {return {{0,0,0}};}
+int main(int argc, char **argv) {
+  if(argc!=3)return 2;
+  json data;std::ifstream(argv[1])>>data;
+  auto map=std::unique_ptr<map_t,decltype(&map_free)>(map_alloc(),&map_free);
+  const auto &g=data["map"];
+  map->size_x=g["width"];map->size_y=g["height"];map->scale=g["resolution"];
+  map->origin_x=g["origin"][0].get<double>()+map->size_x/2.0*map->scale;
+  map->origin_y=g["origin"][1].get<double>()+map->size_y/2.0*map->scale;
+  map->cells=static_cast<map_cell_t *>(calloc(map->size_x*map->size_y,sizeof(map_cell_t)));
+  for(int i=0;i<map->size_x*map->size_y;++i){int v=g["cells"][i];map->cells[i].occ_state=v==0?-1:(v==100?1:0);}
+  const auto &cfg=data["params"];
+  pluginlib::ClassLoader<nav2_amcl::MotionModel> loader("nav2_amcl","nav2_amcl::MotionModel");
+  json result={{"assumption",data["assumption"]},{"runs",json::array()}};
+  const auto initial=vector(data["initial_pose"]),initial_odom=vector(data["initial_odom"]);
+  double transform_yaw=initial.v[2]-initial_odom.v[2];
+  for(const auto &type:std::vector<std::string>{"nav2_amcl::DifferentialMotionModel",cfg["robot_model_type"].get<std::string>()}) {
+    for(int seed=1;seed<=10;++seed){
+      auto motion=loader.createSharedInstance(type);
+      motion->initialize(cfg["alpha1"],cfg["alpha2"],cfg["alpha3"],cfg["alpha4"],cfg["alpha5"]);
+      auto pf=std::unique_ptr<pf_t,decltype(&pf_free)>(pf_alloc(cfg["min_particles"],cfg["max_particles"],0,0,unusedRandom),&pf_free);
+      pf->pop_err=cfg["pf_err"];pf->pop_z=cfg["pf_z"];
+      srand48(seed);pf_matrix_t cov{};
+      for(int i=0;i<3;++i)cov.m[i][i]=data["initial_covariance"][i];
+      pf_init(pf.get(),initial,cov);
+      nav2_amcl::LikelihoodFieldModel laser(cfg["z_hit"],cfg["z_rand"],cfg["sigma_hit"],cfg["laser_likelihood_max_dist"],cfg["max_beams"],map.get());
+      pf_vector_t laser_pose{};laser.SetLaserPose(laser_pose);
+      auto previous=initial_odom;bool first=true;
+      json rows=json::array();
+      for(const auto &frame:data["frames"]){
+        const auto pose=vector(frame["pose"]);
+        pf_vector_t delta={{pose.v[0]-previous.v[0],pose.v[1]-previous.v[1],angle(pose.v[2]-previous.v[2])}};
+        if(!first && std::abs(delta.v[0])<=cfg["update_min_d"].get<double>() && std::abs(delta.v[1])<=cfg["update_min_d"].get<double>() && std::abs(delta.v[2])<=cfg["update_min_a"].get<double>())continue;
+        if(!first)motion->odometryUpdate(pf.get(),pose,delta);
+        first=false;previous=pose;
+        nav2_amcl::LaserData scan;scan.laser=&laser;scan.range_count=frame["ranges"].size();
+        scan.range_max=std::min(cfg["laser_max_range"].get<double>(),frame["range_max"].get<double>());
+        double range_min=std::max(cfg["laser_min_range"].get<double>(),frame["range_min"].get<double>());
+        scan.ranges=new double[scan.range_count][2];
+        for(int i=0;i<scan.range_count;++i){
+          auto r=frame["ranges"][i];double range=r.is_null()?scan.range_max:r.get<double>();
+          scan.ranges[i][0]=range<=range_min?scan.range_max:range;
+          scan.ranges[i][1]=frame["angle_min"].get<double>()+i*frame["angle_increment"].get<double>();
+        }
+        laser.sensorUpdate(pf.get(),&scan);pf_update_resample(pf.get(),map.get());
+        auto &set=pf->sets[pf->current_set];double best_weight=-1;pf_vector_t best{};
+        for(int i=0;i<set.cluster_count;++i){double weight;pf_vector_t mean;pf_matrix_t cluster_cov;
+          if(pf_get_cluster_stats(pf.get(),i,&weight,&mean,&cluster_cov)&&weight>best_weight){best_weight=weight;best=mean;}}
+        if(best_weight<0)throw std::runtime_error("no pose cluster");
+        double dx=pose.v[0]-initial_odom.v[0],dy=pose.v[1]-initial_odom.v[1];
+        double refx=initial.v[0]+std::cos(transform_yaw)*dx-std::sin(transform_yaw)*dy;
+        double refy=initial.v[1]+std::sin(transform_yaw)*dx+std::cos(transform_yaw)*dy;
+        double refyaw=initial.v[2]+angle(pose.v[2]-initial_odom.v[2]);
+        rows.push_back({{"t",frame["t"]},{"pose",{best.v[0],best.v[1],best.v[2]}},{"cov",{set.cov.m[0][0],set.cov.m[1][1],set.cov.m[2][2]}},{"particles",set.sample_count},{"clusters",set.cluster_count},{"xy_from_lio_reference",std::hypot(best.v[0]-refx,best.v[1]-refy)},{"yaw_from_lio_reference",angle(best.v[2]-refyaw)}});
+      }
+      result["runs"].push_back({{"model",type},{"seed",seed},{"rows",rows}});
+      std::cout<<type<<" seed="<<seed<<" updates="<<rows.size()<<" last="<<rows.back()["pose"]<<std::endl;
+    }
+  }
+  std::ofstream(argv[2])<<result.dump(2)<<'\n';
+}

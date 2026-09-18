@@ -1,0 +1,38 @@
+{
+  "validation_root": "/tmp/jackal_nav2_validation_20260917_KXP5m6",
+  "workspace_install_replaced": false,
+  "ROS_DOMAIN_ID": 1,
+  "sessions": {
+    "nav2": {
+      "session_id": 94189,
+      "use_composition": false,
+      "use_scan_projection": false,
+      "enable_motion": false,
+      "log": "restart_02/nav2.log"
+    },
+    "fast_livo2": {
+      "session_id": 63457,
+      "image_enable": false,
+      "lidar_topic": "/livox/lidar_local",
+      "log": "restart_02/fast_livo.log"
+    },
+    "perception": {
+      "session_id": 41133,
+      "launch": "mid360_bringup/perception.launch.py",
+      "log": "restart_02/perception.log"
+    },
+    "projection": {
+      "session_id": 12876,
+      "node": "/pointcloud_to_laserscan",
+      "cloud_in": "/livox/lidar_local",
+      "scan": "/scan",
+      "log": "restart_01/projection_standalone.log"
+    }
+  },
+  "notes": [
+    "External stack launches intentionally independent",
+    "Nav2 and platform forwarding disabled",
+    "Static costmap manually activated after configure response timeout",
+    "These are test runtime overrides, not source launch default changes"
+  ]
+}

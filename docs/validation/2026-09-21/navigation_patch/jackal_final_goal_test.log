@@ -1,0 +1,24 @@
+PASS: initialization_missing_is_not_ready
+PASS: idle_navigation_ready_without_perception_or_command
+PASS: motion_check_rejects_missing_platform_bridge
+Navigation recording active. Send goals only after readiness and physical alignment checks.
+PASS: straight_goal_succeeded_and_stopped
+PASS: goal_heading_alignment
+PASS: navigation_rosbag_action_and_velocity_capture
+PASS: mapped_corridor_goal_succeeded
+PASS: replacement_goal_preempts_old_goal
+PASS: cancel_terminates_goal_and_stops
+PASS: circle_stops_within_100ms_and_reset_does_not_replay_goal
+PASS: bluetooth_loss_with_repeated_joy_latches_stop
+PASS: operator_loss_restart_and_goals_while_stopped
+PASS: brief_obstacle_stop_then_resume
+PASS: persistent_obstacle_aborts_without_recovery_or_replay
+PASS: unreachable_goal_aborts_and_stops
+PASS: cloud_enabled_loss_stops_output
+PASS: odom_tf_enabled_loss_stops_output
+PASS: lost_monitor_commands_stop_output
+.PASS: idle_navigation_ready_without_perception_or_command
+PASS: motion_check_rejects_missing_platform_bridge
+PASS: disabled_guard_blocks_real_nav2_goal_commands
+.
+2 passed in 159.81s (0:02:39)

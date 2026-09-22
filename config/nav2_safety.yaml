@@ -9,16 +9,16 @@ nav2_safety_guard:
     footprint_half_x: 0.254
     footprint_half_y: 0.215
     stop_half_x: 0.60
-    stop_half_y: 0.50
+    stop_half_y: 0.40
     slow_half_x: 1.00
-    slow_half_y: 0.80
+    slow_half_y: 0.50
     min_points: 3
-    slowdown_ratio: 0.30
+    slowdown_ratio: 0.70
     sensor_timeout: 0.30
     command_timeout: 0.25
-    future_tolerance: 0.05
+    future_tolerance: 0.5
     tf_timeout: 0.30
     map_tf_timeout: 0.50
     map_transform_tolerance: 1.0
-    max_linear_x: 0.20
-    max_angular_z: 0.35
+    max_linear_x: 0.50
+    max_angular_z: 1.0

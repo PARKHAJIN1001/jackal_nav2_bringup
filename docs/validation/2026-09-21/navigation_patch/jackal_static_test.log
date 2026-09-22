@@ -1,0 +1,3 @@
+PASS: static cell invariance/subscriptions, figure expiry/TF failure, CM slowdown/stop, independent stop, stale/empty sensor, lost TF, NaN, monitor command timeout, monitor exit and clean launch shutdown; output=/nav2_test/output only
+.
+1 passed in 25.55s

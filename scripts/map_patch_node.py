@@ -6,6 +6,7 @@ from dataclasses import dataclass
 import math
 import time
 
+from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
 from nav_msgs.msg import OccupancyGrid
 import rclpy
 from rclpy.duration import Duration
@@ -14,6 +15,10 @@ from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 from rclpy.time import Time
 from tf2_ros import Buffer, TransformException, TransformListener
+
+
+def pose_stamp_usable(stamp, now, maximum_age=0.3):
+    return math.isfinite(stamp) and stamp > 0 and -0.05 <= now-stamp <= maximum_age
 
 
 @dataclass(frozen=True)
@@ -123,6 +128,12 @@ class MapPatchNode(Node):
         self.declare_parameter('update_rate', 10.0)
         self.declare_parameter('transform_tolerance', 0.2)
         self.declare_parameter('unknown_value', -1)
+        self.declare_parameter('max_pose_age', 0.3)
+        self._max_pose_age = float(self.get_parameter('max_pose_age').value)
+        if not math.isfinite(self._max_pose_age) or self._max_pose_age <= 0:
+            raise ValueError('max_pose_age must be positive and finite')
+        self._diagnostics = self.create_publisher(
+            DiagnosticArray, '/nav2/map_patch_diagnostics', 10)
 
         self._input_topic = self.get_parameter(
             'input_topic').get_parameter_value().string_value
@@ -218,8 +229,11 @@ class MapPatchNode(Node):
                 self._map_frame,
                 self._base_frame,
                 Time(),
-                timeout=self._transform_timeout,
             )
+            stamp = transform.header.stamp.sec + transform.header.stamp.nanosec * 1e-9
+            now = self.get_clock().now().nanoseconds * 1e-9
+            if not pose_stamp_usable(stamp, now, self._max_pose_age):
+                raise ValueError('stale_or_future_robot_pose')
             robot_yaw = quaternion_to_yaw(
                 transform.transform.rotation.x,
                 transform.transform.rotation.y,
@@ -252,13 +266,11 @@ class MapPatchNode(Node):
         except (TransformException, ValueError) as error:
             self._warn_throttled(
                 'extract', f'Cannot publish static map patch: {error}')
+            self._report(False, str(error))
             return
 
         output = OccupancyGrid()
         output.header.stamp = transform.header.stamp
-        if (output.header.stamp.sec == 0
-                and output.header.stamp.nanosec == 0):
-            output.header.stamp = self.get_clock().now().to_msg()
         output.header.frame_id = self._base_frame
         output.info.map_load_time = source.info.map_load_time
         output.info.resolution = self._output_geometry.resolution
@@ -269,6 +281,14 @@ class MapPatchNode(Node):
         output.info.origin.orientation.w = 1.0
         output.data = patch_data
         self._publisher.publish(output)
+        self._report(True, 'fresh_heading_patch')
+
+    def _report(self, ok, reason):
+        msg = DiagnosticArray(status=[DiagnosticStatus(
+            name='map_patch',
+            level=DiagnosticStatus.OK if ok else DiagnosticStatus.WARN, message=reason)])
+        msg.header.stamp = self.get_clock().now().to_msg()
+        self._diagnostics.publish(msg)
 
 
 def main(args=None):

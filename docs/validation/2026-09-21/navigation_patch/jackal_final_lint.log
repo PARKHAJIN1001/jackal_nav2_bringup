@@ -1,0 +1,30 @@
+
+24 files checked
+No problems found
+
+Checked files:
+
+* scripts/operator_stop.py
+* scripts/operator_stop_core.py
+* scripts/prepare_navigation_profile.py
+* scripts/calibrate_operator_stop.py
+* scripts/analyze_navigation_bag.py
+* scripts/map_patch_node.py
+* scripts/check_navigation_ready.py
+* scripts/nav_session.py
+* scripts/record_navigation_validation.py
+* scripts/nav2_safety_guard.py
+* test/test_operator_stop.py
+* test/test_navigation_ready.py
+* test/test_map_patch.py
+* test/test_nav_session.py
+* test/integration_goal_navigation.py
+* test/integration_static_safety.py
+* test/integration_map_patch.py
+* launch/navigation.launch.py
+* launch/nav_bringup.launch.py
+* launch/bringup.launch.py
+* launch/safety.launch.py
+* launch/localization.launch.py
+* ../jackal_network_bringup/scripts/ipfrag_session.py
+* ../jackal_network_bringup/test/test_ipfrag_session.py

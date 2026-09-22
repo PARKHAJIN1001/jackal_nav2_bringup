@@ -43,14 +43,14 @@ def test_pass_clamp_and_already_slowed_monitor_command():
     state.receive_command([0.06, 0, 0, 0, 0, 0.105], 10.02)
     assert state.decision(100.02, 10.02)[:2] == (0.06, 0.105)
     state.receive_command([-100, 0, 0, 0, 0, 100], 10.02)
-    assert state.decision(100.02, 10.02)[:2] == (-0.2, 0.35)
+    assert state.decision(100.02, 10.02)[:2] == (-0.5, 1.0)
 
 
 def test_disabled_and_independent_stop_including_reverse_corner():
     state = healthy()
     state.enable_motion = False
     assert state.decision(100.02, 10.02)[2] == 'motion_disabled'
-    state = healthy([[-0.60, -0.50, 0.2]] * 3)
+    state = healthy([[-0.60, -0.40, 0.2]] * 3)
     assert state.decision(100.02, 10.02)[2] == 'independent_stop'
     assert healthy([[0.5, 0.0, 0.2]] * 2).decision(100.02, 10.02)[0] == 0.2
 
@@ -164,20 +164,20 @@ def test_monitor_guard_same_polygons_and_humble_threshold():
     params = module.collision_parameters(config)
     assert params['Stop.points'] == [
         0.6,
-        0.5,
+        0.4,
         0.6,
-        -0.5,
+        -0.4,
         -0.6,
-        -0.5,
+        -0.4,
         -0.6,
-        0.5,
+        0.4,
     ]
     assert (
         params['Stop.max_points']
         == params['Slow.max_points']
         == config['min_points'] - 1
     )
-    assert params['Slow.slowdown_ratio'] == 0.3
+    assert params['Slow.slowdown_ratio'] == 0.7
     assert params['base_shift_correction'] is False
     assert params['raw_lidar.topic'] == '/nav2/safety_points'
 
@@ -187,7 +187,7 @@ def test_monitor_guard_same_polygons_and_humble_threshold():
     [
         {'stop_half_x': 0.1},
         {'sensor_timeout': 0},
-        {'max_linear_x': 0.3},
+        {'max_linear_x': 0.6},
         {'min_points': 2.5},
     ],
 )

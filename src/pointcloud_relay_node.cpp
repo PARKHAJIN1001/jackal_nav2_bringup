@@ -22,8 +22,8 @@ public:
       "input_topic", "/livox/lidar");
     const auto output_topic = declare_parameter<std::string>(
       "output_topic", "/livox/lidar_local");
-    const auto input_depth = declare_parameter<int>("input_depth", 3);
-    const auto output_depth = declare_parameter<int>("output_depth", 5);
+    const auto input_depth = declare_parameter<int>("input_depth", 10);
+    const auto output_depth = declare_parameter<int>("output_depth", 10);
 
     if (input_topic.empty() || output_topic.empty()) {
       throw std::invalid_argument("input_topic and output_topic must not be empty");

@@ -1,0 +1,18 @@
+Starting >>> jackal_nav2_bringup
+Starting >>> jackal_network_bringup
+Finished <<< jackal_network_bringup [3.75s]
+--- stderr: jackal_nav2_bringup
+CMake Deprecation Warning at /opt/ros/humble/src/gtest_vendor/CMakeLists.txt:2 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+---
+Finished <<< jackal_nav2_bringup [21.7s]
+
+Summary: 2 packages finished [21.9s]
+  1 package had stderr output: jackal_nav2_bringup

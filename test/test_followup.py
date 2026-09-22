@@ -30,30 +30,11 @@ PROFILE = load('prepare_perception_config.py')
 RESOURCE = load('runtime_resource_audit.py')
 
 
-@pytest.mark.parametrize('enabled,raw,requested,expected', [
-    ('true', '/livox/lidar', '', '/livox/lidar_local'),
-    ('false', '/livox/lidar', '', '/livox/lidar'),
-    ('false', '/custom/raw', '', '/custom/raw'),
-    ('true', 'custom/raw', '/custom/local', '/custom/local'),
-    ('false', '/livox/lidar', '/external/relay', '/external/relay'),
-])
-def test_cloud_routing(enabled, raw, requested, expected):
+def test_legacy_alias_rejects_old_external_fast_options():
     context = LaunchContext()
-    context.launch_configurations.update(
-        use_lidar_relay=enabled, raw_lidar_topic=raw, lidar_pointcloud_topic=requested)
-    actions = load('bringup.launch.py', 'launch')._configure_lidar(context)
-    for action in actions[:2]:
-        action.execute(context)
-    assert context.launch_configurations['lidar_pointcloud_topic'] == expected
-
-
-@pytest.mark.parametrize('raw,output', [('/livox/lidar', 'livox/lidar'), ('', '/out')])
-def test_cloud_loop_and_empty_rejected_before_launch(raw, output):
-    context = LaunchContext()
-    context.launch_configurations.update(
-        use_lidar_relay='true', raw_lidar_topic=raw, lidar_pointcloud_topic=output)
-    with pytest.raises(RuntimeError):
-        load('bringup.launch.py', 'launch')._configure_lidar(context)
+    context.launch_configurations['use_lidar_relay'] = 'false'
+    with pytest.raises(RuntimeError, match='Legacy'):
+        load('bringup.launch.py', 'launch')._reject_legacy(context)
 
 
 def test_quality_never_replays_pose_even_after_many_degraded_updates():
@@ -152,3 +133,23 @@ def test_resource_counters_and_pid_identity(tmp_path):
     tmp_path.joinpath('meminfo').write_text('MemAvailable: 2000 kB\n')
     assert not RESOURCE.sample([123], {}, tmp_path)['errors']
     assert 'PID reused' in RESOURCE.sample([123], {123: 55}, tmp_path)['errors'][0]['error']
+
+
+def test_socket_drop_queues_and_host_session_join(tmp_path):
+    socket = RESOURCE.udp_sockets(
+        'sl local_address rem_address st tx_queue rx_queue tr tm->when '
+        'retrnsmt uid timeout inode\n'
+        '7: 0100007F:1CE8 00000000:0000 07 00000010:00000020 00:00000000 '
+        '00000000 1000 0 555 2 0000000000000000 9\n')[0]
+    assert socket['inode'] == 555 and socket['drops'] == 9
+    assert socket['rx_queue_bytes'] == 32 and socket['tx_queue_bytes'] == 16
+    paths = [tmp_path / 'laptop.jsonl', tmp_path / 'nuc.jsonl']
+    for path in paths:
+        rows = [{'session_id': 'trial-1', 'wall_sec': i, 'udp': {'InErrors': 10 + i}}
+                for i in range(2)]
+        path.write_text('\n'.join(json.dumps(row) for row in rows))
+    result = RESOURCE.compare_hosts(paths)
+    assert all(host['udp_delta']['InErrors'] == 1 for host in result['hosts'])
+    paths[1].write_text(paths[1].read_text().replace('trial-1', 'another-trial'))
+    with pytest.raises(ValueError, match='Session IDs differ'):
+        RESOURCE.compare_hosts(paths)

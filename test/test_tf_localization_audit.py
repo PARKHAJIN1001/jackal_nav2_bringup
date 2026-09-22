@@ -66,7 +66,8 @@ def test_recording_modes_do_not_query_or_subscribe_perception_in_baseline(tmp_pa
     full = RECORD.parameter_nodes(True)
     assert 'amcl' in base and 'laserMapping' in base
     assert not any('pedestrian' in node or 'mid360' in node for node in base)
-    assert 'pedestrian_traces' in full and 'pedestrian_tracker_node' in full
+    assert 'pedestrian_tracker_node' in full
+    assert 'pedestrian_traces' not in full  # queried only when graph discovery finds it
     assert '--require-perception' not in RECORD.audit_command(600, tmp_path, False)
     assert '--require-perception' in RECORD.audit_command(600, tmp_path, True)
 

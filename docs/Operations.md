@@ -1,6 +1,9 @@
 # Jackal localization 실행 절차
 
-현재 기준은 [2026-09-18 검증](validation/2026-09-18/z_axis_test_1351/REPORT.md)의 설정이다. 이 절차는 기존 staged launch를 세션 도구로 감싸 기동·로그·종료를 관리한다. AMCL, FAST, TF, 센서 장착 변환, costmap 및 제어 파라미터는 변경하지 않는다. 자동주행은 다음 단계이며 현재 도구는 `enable_motion=false`로 실행한다.
+표준 진입점은 정지 관측·실주행 모두 `nav_session.py nav`다. 기본은 motion 비활성이며,
+생성 프로파일은 `--profile-dir`, 명시적 실주행은 `--enable-motion`으로 전달한다.
+기동·안정화·재검증의 최신 기준은 [Startup_Stability.md](Startup_Stability.md)를 따른다.
+이번 변경은 오프라인 검증만 했으며, 장비 기동·커널 설정·주행 검증은 사용자가 수행한다.
 
 ## 처음 한 번: 패키지 반영
 
@@ -9,11 +12,11 @@
 ```bash
 cd ~/moai_navigation_ws
 source /opt/ros/humble/setup.bash
-colcon build --packages-select jackal_nav2_bringup --symlink-install
+colcon build --packages-select jackal_network_bringup jackal_nav2_bringup --symlink-install
 source install/setup.bash
 ```
 
-새 도구를 설치하기 전에도 패키지 소스 경로의 `scripts/nav_session.py`와 `scripts/ipfrag_session.py`를 `python3`로 실행할 수 있다. 단, 수정된 `topic_ready_gate.py`와 프로파일 생성기도 함께 반영되어 있어야 한다.
+두 패키지를 함께 반영한다. 새로운 network preflight와 stability monitor가 설치되지 않은 혼합 설치본은 준비 완료로 인정하지 않는다. 이전 설치 디렉터리에 남은 `pilot_quickfix.sh`는 실행하지 않는다.
 
 ## 모든 ROS 터미널의 공통 환경
 
@@ -25,18 +28,27 @@ source ~/moai_navigation_ws/install/jackal_network_bringup/share/jackal_network_
 
 Jackal 연결, NUC의 플랫폼/MID-360 서비스, 기존 시각 동기화가 준비된 상태에서 시작한다. 도구는 domain 1과 laptop 네트워크 환경을 확인하지만, 시각 동기화나 외부 서비스 자체를 재설정하지 않는다. 실제 ROS가 실행되는 호스트 터미널에서 명령을 실행한다. 격리 환경의 `/proc/sys`는 호스트 값과 다를 수 있다.
 
-## 1. 임시 128MiB 설정
+## 1. network 패키지가 소유하는 임시 통신 설정
 
 ```bash
-sudo python3 "$(ros2 pkg prefix jackal_nav2_bringup)/lib/jackal_nav2_bringup/ipfrag_session.py" apply
+sudo python3 "$(ros2 pkg prefix jackal_network_bringup)/lib/jackal_network_bringup/ipfrag_session.py" apply
 ros2 run jackal_nav2_bringup nav_session.py check
 ```
 
-`ipfrag_session.py`는 `net.ipv4.ipfrag_high_thresh`만 변경한다. 변경 전 값을 root 소유 `/run/jackal-nav2-ipfrag/state.json`에 저장한다. 반복 apply는 저장된 원래 값을 덮어쓰지 않는다. `/etc/sysctl.d`, 다른 커널 설정, CPU/RAM 정책은 건드리지 않는다.
+`jackal_network_bringup`이 `ipfrag_high_thresh` 최소 16MiB와 `ipfrag_time=3` 정책을 소유한다.
+세션과 직접 launch는 `ros2 run jackal_network_bringup network_preflight.py --check`를 호출한다.
+이 도구는 ipfrag 상태, XML 요청값과 rmem/wmem 한도, publication mode를 읽기 전용으로 확인한다.
+`ipfrag_session.py apply`는 DDS socket 한도를 수정하지 않는다. 실패 시 보고서의 해당 항목을 진단한다.
+메모리 한도가 이미 크면 줄이지 않으며 실제 바꾼 항목만 원래 값으로 복원한다.
+명시적 restore 또는 재부팅까지 유지하고 터미널 종료 시 자동 복원하지 않는다.
+현재 정책은 새로운 시험 기준이며 과거 128MiB 검증 결과와 구분한다.
 
-이 설정은 명시적인 restore 또는 재부팅까지 유지된다. **터미널 종료에 연결된 자동 복원은 하지 않는다.** 따라서 Codex/터미널 중단만으로 실행 중인 스택의 한도가 4MiB로 돌아가지 않는다. 이미 128MiB 이상이고 이 도구의 저장값이 없으면 `already_sufficient_unmanaged`를 출력하고 변경·소유권 인계를 하지 않는다.
-
-이전 `hold_ipfrag.sh`가 설정을 유지 중이라면 스택 종료 후 그 스크립트로 먼저 복원하고, 다음 기동부터 새 도구를 사용한다. 원래 값을 모르면 추측해서 복원하지 않는다. 영구 적용은 이번 변경에 포함하지 않는다.
+이전 `/run/jackal-nav2-ipfrag/state.json`이 있으면 모든 ROS 스택 종료 후 network 도구의
+`restore --legacy-nav2`로 먼저 복원한다. boot/namespace/현재 값이 다르면 자동 인계하지 않는다.
+128MiB 상태가 이미 충분해도 시간값만 변경될 수 있으므로 두 값을 모두 확인한다.
+상태 디렉터리는 root만 쓸 수 있고 일반 사용자는 읽을 수 있다. 이전 비공개 상태를 읽지 못하면
+status --check는 오류(2)로 종료한다. sudo로 기존 상태를 복원한 뒤 새 apply를 사용한다.
+커널 쓰기는 명시적인 sudo apply/restore로만 수행하며 Nav2 launch는 변경하지 않는다.
 
 ## 2. 터미널 A: Nav2/FAST 기동
 
@@ -54,7 +66,9 @@ ros2 run jackal_nav2_bringup nav_session.py nav \
 1. relay·RViz 기동, cloud/IMU 연속 수신 확인.
 2. FAST-LIVO2 기동, 유효한 odometry 연속 수신 확인.
 3. Nav2 기동, scan/odom·AMCL/map_server active·map·scan 시각의 odom TF 확인.
-4. `AMCL/map_server active` 안내 후 사용자가 RViz **2D Pose Estimate**로 위치·방향을 지정하고 지도·scan 정합을 확인.
+4. 전체 프로세스 기동 후 최대 600초 동안 180초 연속 정상 구간을 확인한다. 실패하면 연속 시간을 초기화한다.
+5. `INITIAL_POSE_REQUIRED`에서 RViz **2D Pose Estimate**로 위치·방향을 지정하고 지도·scan 정합을 확인한다.
+6. 초기 위치로 Nav2 lifecycle 전환이 추가로 완료되면 다시 180초 확인 후 `READY`가 된다. Perception 시작/종료도 재확인 대상이다.
 
 첫 기동 gate는 초기 위치 지정 전이므로 `map → odom`을 요구하지 않는다. 현재 도구는 이미지 기반 LIVO나 임의 토픽 구성을 노출하지 않고 검증된 기본 구성을 사용한다. 고급 인자는 직접 launch 경로에서 사용한다.
 
@@ -88,7 +102,7 @@ ros2 run jackal_nav2_bringup nav_session.py status
 ```
 
 - 세션 소유자 PID·시작 시각·boot ID, 실제 자식 명령, 실행/종료 상태, 로그 위치, 커널 값과 네트워크 namespace를 표시한다.
-- 로그 기본 경로는 `~/.ros/nav_sessions/<날짜시간>_<nav|perception>/`이다. `--log-root /원하는/경로`로 바꿀 수 있다. 각 터미널의 로그 폴더는 별도이며 `session.json`과 `ros/`를 보존한다.
+- 로그 기본 경로는 `~/.ros/nav_sessions/<날짜시간>_<nav|perception>/`이다. `--log-root /원하는/경로`로 바꿀 수 있다. 각 터미널의 로그 폴더는 별도이며 `session.json`, `resources.jsonl`, `ros/`를 보존한다. Nav 세션은 `stability.json`·`stability_events.jsonl`도 기록한다.
 - ROS launch/node 출력은 터미널과 ROS 로그로 남는다. `session.json`은 시작 및 상태 변경 때 저장해 정상 종료 전에도 근거를 보존한다. 원본 cloud/image를 자동 녹화하지 않는다.
 - 세션 잠금과 현재 상태는 `/tmp/jackal-nav2-session-<uid>/`에 둔다. 재부팅 후 사라질 수 있으므로 기록의 원본은 로그 폴더다. 오래된 PID는 boot ID와 프로세스 시작 시각까지 맞아야 종료 요청 대상으로 인정한다.
 
@@ -98,7 +112,7 @@ ros2 run jackal_nav2_bringup nav_session.py status
 
 ```bash
 ros2 run jackal_nav2_bringup nav_session.py stop
-sudo python3 "$(ros2 pkg prefix jackal_nav2_bringup)/lib/jackal_nav2_bringup/ipfrag_session.py" restore
+sudo python3 "$(ros2 pkg prefix jackal_network_bringup)/lib/jackal_network_bringup/ipfrag_session.py" restore
 ```
 
 stop은 **managed perception → managed Nav2** 순서로 종료를 요청한다. 각 세션은 먼저 launch에 SIGINT를 한 번 보내 정상 종료를 기다린다. 남은 자식은 해당 세션이 만든 프로세스 그룹에 한해 TERM/KILL로 정리한다. `pkill` 같은 이름 기반 강제 종료는 사용하지 않는다.
@@ -110,11 +124,11 @@ restore는 활성 스택이 남아 있거나, 저장값이 없거나, 외부에�
 ## 직접 launch 및 기존 도구와의 관계
 
 - `nav_bringup.launch.py`: 기존 staged launch. 현재 권장 세션 도구가 이 launch를 실행한다. 직접 실행도 가능하지만 세션의 중복 방지·종속 종료 관리에는 포함되지 않는다.
-- `bringup.launch.py`: 별도 FAST 프로세스를 전제로 하는 기존 수동/고급 경로. managed staged 세션과 동시에 사용하지 않는다.
+- `bringup.launch.py`: staged launch의 별칭. FAST도 기동하므로 이전 외부 FAST 절차와 혼용하지 않는다. 과거 relay/composition 옵션은 오류로 거부한다.
 - `prepare_perception_config.py`: 기존 단독 프로파일 생성 기능을 유지한다. session 도구도 같은 구현을 사용한다.
-- `pilot_preflight.py`: 상세 진단용 기존 도구. `pilot_quickfix.sh`는 WiFi/chrony 등 별도 변경을 포함하므로 위 표준 기동 절차의 일부가 아니다.
+- `pilot_preflight.py`: 상세 진단용 기존 도구. `pilot_quickfix.sh`는 설치 대상에서 제외한 과거 자료다. 정책·변경·복원 도구는 network 패키지만 소유한다.
 
-다음 단계는 기존 `/goal_pose` 수신부터 실제 명령 전달·목표 도달·정지까지 연결하는 작업이다. 이 실행 정리는 자율주행 활성화나 검증 완료를 뜻하지 않는다.
+RViz 기본 도구는 이제 `Nav2 Goal`과 `Navigation 2` 패널이다. 목표 지정 전 초기 위치·정합 확인과 `check_navigation_ready.py`를 사용한다. 기본 motion 비활성 세션은 목표를 보내도 비영 속도를 전달하지 않는다. 실주행도 동일 세션 도구에서 명시적으로 선택한다. 실주행·기록·완료 판정은 [목표 주행 절차](Goal_Navigation.md)를 따른다.
 
 ## 수동 조이스틱이 움직이지 않을 때
 

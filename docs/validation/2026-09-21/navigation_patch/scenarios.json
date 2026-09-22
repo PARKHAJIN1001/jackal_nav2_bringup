@@ -1,0 +1,74 @@
+[
+  {
+    "scenario": "initialization_missing_is_not_ready",
+    "result": "passed"
+  },
+  {
+    "scenario": "idle_navigation_ready_without_perception_or_command",
+    "result": "passed"
+  },
+  {
+    "scenario": "motion_check_rejects_missing_platform_bridge",
+    "result": "passed"
+  },
+  {
+    "scenario": "straight_goal_succeeded_and_stopped",
+    "result": "passed"
+  },
+  {
+    "scenario": "goal_heading_alignment",
+    "result": "passed"
+  },
+  {
+    "scenario": "navigation_rosbag_action_and_velocity_capture",
+    "result": "passed"
+  },
+  {
+    "scenario": "mapped_corridor_goal_succeeded",
+    "result": "passed"
+  },
+  {
+    "scenario": "replacement_goal_preempts_old_goal",
+    "result": "passed"
+  },
+  {
+    "scenario": "cancel_terminates_goal_and_stops",
+    "result": "passed"
+  },
+  {
+    "scenario": "circle_stops_within_100ms_and_reset_does_not_replay_goal",
+    "result": "passed"
+  },
+  {
+    "scenario": "bluetooth_loss_with_repeated_joy_latches_stop",
+    "result": "passed"
+  },
+  {
+    "scenario": "operator_loss_restart_and_goals_while_stopped",
+    "result": "passed"
+  },
+  {
+    "scenario": "brief_obstacle_stop_then_resume",
+    "result": "passed"
+  },
+  {
+    "scenario": "persistent_obstacle_aborts_without_recovery_or_replay",
+    "result": "passed"
+  },
+  {
+    "scenario": "unreachable_goal_aborts_and_stops",
+    "result": "passed"
+  },
+  {
+    "scenario": "cloud_enabled_loss_stops_output",
+    "result": "passed"
+  },
+  {
+    "scenario": "odom_tf_enabled_loss_stops_output",
+    "result": "passed"
+  },
+  {
+    "scenario": "lost_monitor_commands_stop_output",
+    "result": "passed"
+  }
+]

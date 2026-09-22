@@ -6,12 +6,14 @@ Replaces the three-terminal manual procedure with readiness gates:
   Phase 1  Relay + RViz + visualizers       (immediate)
   Phase 2  FAST-LIVO2                       (after fresh cloud + IMU continuity)
   Phase 3  Nav2 localization + navigation   (after valid odometry continuity)
-  Ready    Initial pose instructions       (after active AMCL + map + scan-time TF)
+  Monitor  Full-stack continuity          (600s deadline, 180s continuous health)
+  Ready    Stable + initialized navigation; continuously revoked on faults
 
 Perception and initial pose remain separate steps.
 All Nav2 nodes run as standalone processes (no composition container).
 """
 
+import math
 import os
 import tempfile
 
@@ -39,29 +41,26 @@ from rclpy.validate_full_topic_name import validate_full_topic_name
 import yaml
 
 
+def _validate_timing(context):
+    for timeout, settle in (('input_timeout', 'ready_settle'),
+                            ('localization_timeout', 'ready_settle'),
+                            ('stability_timeout', 'stability_settle')):
+        limit, hold = (float(LaunchConfiguration(n).perform(context)) for n in (timeout, settle))
+        if not all(math.isfinite(v) and v > 0 for v in (limit, hold)) or hold >= limit:
+            raise RuntimeError(f'{settle} must be positive and less than {timeout}')
+    return []
+
+
 def _resolve_lidar(context):
-    """Resolve and validate relay topic pair."""
-    raw = LaunchConfiguration('raw_lidar_topic').perform(context).strip()
+    """Resolve and validate LiDAR topic."""
     output = LaunchConfiguration('lidar_pointcloud_topic').perform(context).strip()
-    if not raw:
-        raise RuntimeError('raw_lidar_topic must not be empty')
     if not output:
         output = '/livox/lidar_local'
-    raw = expand_topic_name(raw, 'pointcloud_relay', '/')
-    output = expand_topic_name(output, 'pointcloud_relay', '/')
-    validate_full_topic_name(raw)
+    output = expand_topic_name(output, 'nav_bringup', '/')
     validate_full_topic_name(output)
-    if raw == output:
-        raise RuntimeError('relay input and output must differ')
-    # The included upstream launch publishes this absolute topic; it currently
-    # exposes no output-topic argument. Never wait for an output it cannot create.
-    if LaunchConfiguration('fast_livo_odom_topic').perform(context) != '/aft_mapped_to_init':
-        raise RuntimeError(
-            'Integrated FAST-LIVO2 requires fast_livo_odom_topic:=/aft_mapped_to_init')
     return [
-        SetLaunchConfiguration('raw_lidar_topic', raw),
         SetLaunchConfiguration('lidar_pointcloud_topic', output),
-        LogInfo(msg=f'[nav_bringup] LiDAR relay: {raw} → {output}'),
+        LogInfo(msg=f'[nav_bringup] LiDAR pointcloud input: {output}'),
     ]
 
 
@@ -103,17 +102,6 @@ def _advance(event, context, phase, actions):
     return actions
 
 
-def _critical_process_exit(event, context):
-    """Observe child processes created inside the upstream OpaqueFunction too."""
-    if context.is_shutdown or not event.cmd:
-        return []
-    executable = os.path.basename(event.cmd[0])
-    if executable not in {'fastlivo_mapping', 'pointcloud_relay_node'}:
-        return []
-    reason = f'{executable} exited ({event.returncode}); stopping Nav2, fresh restart required'
-    return [LogInfo(msg='[nav_bringup] ' + reason), Shutdown(reason=reason)]
-
-
 def generate_launch_description():
     nav2_share = get_package_share_directory('jackal_nav2_bringup')
     launch_dir = os.path.join(nav2_share, 'launch')
@@ -138,19 +126,6 @@ def generate_launch_description():
     # ================================================================
     # Phase 1 — lightweight nodes, start immediately
     # ================================================================
-
-    relay_node = Node(
-        package='jackal_nav2_bringup',
-        executable='pointcloud_relay_node',
-        name='pointcloud_relay',
-        output='screen',
-        parameters=[{
-            'use_sim_time': use_sim_time,
-            'input_topic': raw_lidar_topic,
-            'output_topic': lidar_pointcloud_topic,
-        }],
-    )
-
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -214,44 +189,6 @@ def generate_launch_description():
             'input_topic': LaunchConfiguration('speed_odom_topic'),
         }],
     )
-
-    relay_gate = Node(
-        package='jackal_nav2_bringup',
-        executable='topic_ready_gate.py',
-        name='_relay_gate',
-        output='screen',
-        parameters=[{
-            'use_sim_time': use_sim_time,
-            'topic': lidar_pointcloud_topic,
-            'message_type': 'cloud',
-            'imu_topic': LaunchConfiguration('imu_topic'),
-            'timeout': 60.0,
-            'settle': ParameterValue(LaunchConfiguration('ready_settle'), value_type=float),
-        }],
-    )
-
-    # ================================================================
-    # Phase 2 — FAST-LIVO2 (deferred until relay is ready)
-    # ================================================================
-
-    fast_livo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([
-            FindPackageShare('fast_livo'),
-            'launch', 'mapping_mid360.launch.py',
-        ])),
-        launch_arguments={
-            'lidar_topic': lidar_pointcloud_topic,
-            'imu_topic': LaunchConfiguration('imu_topic'),
-            'odom_frame': 'odom',
-            'base_frame': 'base_link',
-            'image_enable': LaunchConfiguration('image_enable'),
-            'use_sim_time': use_sim_time,
-            'rviz': 'false',
-            'publish_sensor_static_tf': 'false',
-            'publish_lidar_to_imu_tf': 'true',
-        }.items(),
-    )
-
     odom_gate = Node(
         package='jackal_nav2_bringup',
         executable='topic_ready_gate.py',
@@ -263,8 +200,8 @@ def generate_launch_description():
             'message_type': 'odom',
             'expected_frame': 'odom',
             'expected_child_frame': 'base_link',
-            'max_position_norm': 1.0,
-            'timeout': 60.0,
+            'max_position_norm': 0.0,
+            'timeout': ParameterValue(LaunchConfiguration('input_timeout'), value_type=float),
             'settle': ParameterValue(LaunchConfiguration('ready_settle'), value_type=float),
         }],
     )
@@ -308,8 +245,15 @@ def generate_launch_description():
             'log_level': log_level,
             'nav_odom_topic': nav_odom_topic,
             'nav_cmd_vel_topic': nav_cmd_vel_topic,
+            'scan_topic': scan_topic,
+            'imu_topic': LaunchConfiguration('imu_topic'),
+            'fast_livo_odom_topic': fast_livo_odom_topic,
+            'stability_timeout': LaunchConfiguration('stability_timeout'),
+            'stability_settle': LaunchConfiguration('stability_settle'),
             'enable_motion': LaunchConfiguration('enable_motion'),
             'safety_params_file': LaunchConfiguration('safety_params_file'),
+            'operator_params_file': LaunchConfiguration('operator_params_file'),
+            'launch_operator_stop': LaunchConfiguration('launch_operator_stop'),
             'use_map_patch': use_map_patch,
             'lidar_pointcloud_topic': lidar_pointcloud_topic,
         }.items(),
@@ -331,7 +275,8 @@ def generate_launch_description():
             'expected_frame': 'base_link',
             'odom_topic': nav_odom_topic,
             'require_localization': True,
-            'timeout': 90.0,
+            'timeout': ParameterValue(
+                LaunchConfiguration('localization_timeout'), value_type=float),
             'settle': ParameterValue(LaunchConfiguration('ready_settle'), value_type=float),
         }],
     )
@@ -342,16 +287,9 @@ def generate_launch_description():
         output='screen',
     )
 
-    def on_relay_ready(event, context):
-        return _advance(event, context, 'cloud/IMU', [
-            LogInfo(msg='[nav_bringup] Phase 2: starting FAST-LIVO2'),
-            fast_livo,
-            odom_gate,
-        ])
-
     def on_odom_ready(event, context):
         return _advance(event, context, 'FAST-LIVO2 odometry', [
-            LogInfo(msg='[nav_bringup] Phase 3: starting Nav2'),
+            LogInfo(msg='[nav_bringup] Odometry active: starting Nav2 localization & navigation'),
             localization,
             navigation,
             localization_gate,
@@ -369,7 +307,9 @@ def generate_launch_description():
             LogInfo(
                 msg='[nav_bringup] AMCL/map_server active; '
                     'fresh scan, odom and scan-time TF inputs ready (not motion readiness). '
-                    'Set initial pose with RViz 2D Pose Estimate, '
+                    'Full-stack stability monitor is still collecting evidence. '
+                    'Wait for INITIAL_POSE_REQUIRED, then set initial pose '
+                    'with RViz 2D Pose Estimate, '
                     'check scan/map alignment, then ' + next_step + ' '
                     'Keep the robot stationary during startup. After alignment, run '
                     'ros2 run jackal_nav2_bringup check_navigation_ready.py '
@@ -395,8 +335,12 @@ def generate_launch_description():
             'use_camera_image', default_value='false',
             description='Enable the remote raw camera display in RViz'),
         DeclareLaunchArgument(
-            'ready_settle', default_value='5.0',
+            'ready_settle', default_value='2.0',
             description='Seconds of continuous valid measurements required by each gate'),
+        DeclareLaunchArgument('input_timeout', default_value='60.0'),
+        DeclareLaunchArgument('localization_timeout', default_value='90.0'),
+        DeclareLaunchArgument('stability_timeout', default_value='600.0'),
+        DeclareLaunchArgument('stability_settle', default_value='2.0'),
         DeclareLaunchArgument('use_battery_gauge', default_value='true'),
         DeclareLaunchArgument('use_speed_display', default_value='true'),
         DeclareLaunchArgument(
@@ -410,13 +354,17 @@ def generate_launch_description():
         DeclareLaunchArgument('use_map_patch', default_value='true'),
         DeclareLaunchArgument('enable_motion', default_value='false'),
         DeclareLaunchArgument(
+            'launch_operator_stop', default_value=LaunchConfiguration('enable_motion')),
+        DeclareLaunchArgument('operator_params_file', default_value=os.path.join(
+            get_package_share_directory('jackal_nav2_bringup'), 'config', 'operator_stop.yaml')),
+        DeclareLaunchArgument(
             'managed_session', default_value='false',
             description='Use nav_session instructions; that tool owns perception profiles'),
         DeclareLaunchArgument('use_amcl_quality_monitor', default_value='true'),
         DeclareLaunchArgument('safety_params_file', default_value=os.path.join(
             nav2_share, 'config', 'nav2_safety.yaml')),
-        DeclareLaunchArgument('use_pedestrian_figures', default_value='true'),
-        DeclareLaunchArgument('use_pedestrian_traces', default_value='true'),
+        DeclareLaunchArgument('use_pedestrian_figures', default_value='false'),
+        DeclareLaunchArgument('use_pedestrian_traces', default_value='false'),
         DeclareLaunchArgument('tracks_topic', default_value='/ped_tracking'),
         DeclareLaunchArgument('traces_topic', default_value='/ped_traces'),
         DeclareLaunchArgument('pedestrian_viz_params_file',
@@ -435,27 +383,27 @@ def generate_launch_description():
         DeclareLaunchArgument('image_enable', default_value='false'),
 
         # --- Topic resolution ---
+        IncludeLaunchDescription(PythonLaunchDescriptionSource(os.path.join(
+            get_package_share_directory('jackal_nav2_bringup'),
+            'launch', 'network_preflight.launch.py'))),
+        OpaqueFunction(function=_validate_timing),
         OpaqueFunction(function=_resolve_lidar),
         OpaqueFunction(function=_configure_rviz),
 
         # Register before any process can start or exit.
-        RegisterEventHandler(OnProcessExit(on_exit=_critical_process_exit)),
-        RegisterEventHandler(OnProcessExit(
-            target_action=relay_gate, on_exit=on_relay_ready)),
         RegisterEventHandler(OnProcessExit(
             target_action=odom_gate, on_exit=on_odom_ready)),
         RegisterEventHandler(OnProcessExit(
             target_action=localization_gate, on_exit=on_localization_ready)),
 
         # --- Phase 1: Immediate ---
-        LogInfo(msg='[nav_bringup] Phase 1: relay + visualizers + RViz'),
-        relay_node,
+        LogInfo(msg='[nav_bringup] Phase 1: visualizers + RViz + waiting for odometry from perception...'),
         rviz_node,
         pedestrian_figures,
         pedestrian_traces,
         battery_bridge,
         speed_overlay,
-        relay_gate,
+        odom_gate,
 
         LogInfo(
             condition=UnlessCondition(LaunchConfiguration('enable_motion')),

@@ -6,7 +6,9 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, OpaqueFunction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction
+from launch.conditions import IfCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 import yaml
@@ -80,6 +82,16 @@ def _setup(context):
     )
     return [
         Node(
+            package='jackal_nav2_bringup', executable='operator_stop.py',
+            name='nav2_operator_stop', output='screen',
+            condition=IfCondition(LaunchConfiguration('launch_operator_stop')),
+            parameters=[value('operator_params_file'), {
+                'use_sim_time': sim,
+                'max_linear_x': guard['max_linear_x'],
+                'max_angular_z': guard['max_angular_z'],
+            }],
+        ),
+        Node(
             package='jackal_nav2_bringup',
             executable='nav2_safety_guard.py',
             name='nav2_safety_guard',
@@ -95,6 +107,21 @@ def _setup(context):
             parameters=[monitor, {'use_sim_time': sim}],
         ),
         Node(
+            package='jackal_nav2_bringup',
+            executable='cmd_vel_safety_bridge.py',
+            name='cmd_vel_safety_bridge',
+            output='screen',
+            parameters=[{
+                'input_topic': value('nav_cmd_vel_topic'),
+                'output_topic': '/j100_0519/cmd_vel',
+                'forward_cmd_vel': boolean('enable_motion'),
+                'max_linear_x': guard['max_linear_x'],
+                'max_angular_z': guard['max_angular_z'],
+                'timeout_sec': 0.5,
+                'publish_rate_hz': 20.0,
+            }],
+        ),
+        Node(
             package='nav2_lifecycle_manager',
             executable='lifecycle_manager',
             name='lifecycle_manager_safety',
@@ -104,6 +131,7 @@ def _setup(context):
                     'use_sim_time': sim,
                     'autostart': boolean('autostart'),
                     'node_names': ['collision_monitor'],
+                    'bond_timeout': 0.0,
                 }
             ],
         ),
@@ -124,11 +152,17 @@ def generate_launch_description():
             DeclareLaunchArgument('autostart', default_value='true'),
             DeclareLaunchArgument('enable_motion', default_value='false'),
             DeclareLaunchArgument(
+                'launch_operator_stop', default_value=LaunchConfiguration('enable_motion')),
+            DeclareLaunchArgument('operator_params_file', default_value=os.path.join(
+                share, 'config', 'operator_stop.yaml')),
+            DeclareLaunchArgument(
                 'lidar_pointcloud_topic', default_value='/livox/lidar_local'
             ),
             DeclareLaunchArgument(
                 'nav_cmd_vel_topic', default_value='/j100_0519/nav2_cmd_vel'
             ),
+            IncludeLaunchDescription(PythonLaunchDescriptionSource(os.path.join(
+                share, 'launch', 'network_preflight.launch.py'))),
             OpaqueFunction(function=_setup),
         ]
     )

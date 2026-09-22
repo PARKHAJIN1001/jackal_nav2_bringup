@@ -14,6 +14,7 @@ from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 from rclpy.time import Time
+from readiness_core import FreshWindow
 from sensor_msgs.msg import Imu, LaserScan, PointCloud2
 from tf2_ros import Buffer, TransformListener
 
@@ -58,57 +59,6 @@ def message_error(message, frame='', child_frame=''):
     return ''
 
 
-class FreshWindow:
-    """A bounded state machine; publisher discovery is never readiness evidence."""
-
-    def __init__(self, settle, max_age, max_gap, future_tolerance, min_messages):
-        for name, value in [('settle', settle), ('max_age', max_age), ('max_gap', max_gap)]:
-            if not math.isfinite(value) or value <= 0:
-                raise ValueError(f'{name} must be finite and positive')
-        if not math.isfinite(future_tolerance) or future_tolerance < 0:
-            raise ValueError('future_tolerance must be finite and nonnegative')
-        if min_messages < 2:
-            raise ValueError('min_messages must be at least 2')
-        self.settle, self.max_age, self.max_gap = settle, max_age, max_gap
-        self.future_tolerance, self.min_messages = future_tolerance, min_messages
-        self.reset('no messages received')
-
-    def reset(self, reason):
-        self.first = self.last = self.stamp = None
-        self.count = 0
-        self.reason = reason
-
-    def observe(self, stamp, ros_now, steady_now, error=''):
-        if error:
-            self.reset(error)
-            return
-        if not math.isfinite(stamp) or stamp <= 0:
-            self.reset('invalid measurement time')
-            return
-        age = ros_now - stamp
-        if not -self.future_tolerance <= age <= self.max_age:
-            self.reset('stale or future measurement')
-            return
-        if self.last is not None and (
-                steady_now - self.last > self.max_gap or
-                not 0 < stamp - self.stamp <= self.max_gap):
-            self.reset('measurement gap or timestamp regression')
-        if self.first is None:
-            self.first = steady_now
-        self.last, self.stamp = steady_now, stamp
-        self.count += 1
-        self.reason = 'collecting continuous measurements'
-
-    def ready(self, ros_now, steady_now):
-        if self.last is None:
-            return False
-        if (steady_now - self.last > self.max_gap or
-                not -self.future_tolerance <= ros_now - self.stamp <= self.max_age):
-            self.reset('input stopped or became stale')
-            return False
-        return self.count >= self.min_messages and self.last - self.first >= self.settle
-
-
 class ReadinessGate(Node):
     """Check sensor continuity and optionally AMCL lifecycle/map/scan-time TF."""
 
@@ -116,12 +66,13 @@ class ReadinessGate(Node):
         super().__init__('readiness_gate')
         defaults = {
             'topic': '', 'message_type': 'cloud', 'timeout': 45.0, 'settle': 3.0,
-            'max_age': 0.3, 'max_gap': 0.3, 'future_tolerance': 0.05, 'min_messages': 5,
+            'max_age': 1.0, 'max_gap': 1.0, 'future_tolerance': 0.5, 'min_messages': 5,
             'expected_frame': '', 'expected_child_frame': '', 'imu_topic': '',
             'odom_topic': '', 'require_localization': False, 'odom_frame': 'odom',
             'require_map_to_odom': False,
-            'max_position_norm': 0.0, 'max_linear_speed': 2.0, 'max_angular_speed': 3.0,
+            'max_position_norm': 0.0, 'max_linear_speed': 10.0, 'max_angular_speed': 10.0,
         }
+        defaults.update(getattr(self, 'extra_defaults', {}))
         for name, value in defaults.items():
             self.declare_parameter(name, value)
         self.settings = {name: self.get_parameter(name).value for name in defaults}
@@ -133,6 +84,8 @@ class ReadinessGate(Node):
                 raise ValueError(f'{name} must be finite and positive')
         if not math.isfinite(p['max_position_norm']) or p['max_position_norm'] < 0:
             raise ValueError('max_position_norm must be finite and nonnegative')
+        if p['settle'] >= p['timeout']:
+            raise ValueError('settle must be less than timeout')
         if p['require_localization'] and p['message_type'] != 'scan':
             raise ValueError('require_localization requires a scan input')
         if p['require_map_to_odom'] and not p['require_localization']:
@@ -231,7 +184,8 @@ class ReadinessGate(Node):
                 state['future'] = state['client'].call_async(GetState.Request())
                 state['sent'] = mono
         active = all(s['active_at'] is not None and mono - s['active_at'] <= 2.0
-                     for s in self.lifecycle.values())
+                     for name, s in self.lifecycle.items()
+                     if name in getattr(self, 'required_lifecycle', self.lifecycle))
         if not active or not self.map_received:
             return False
         # Initial startup must not require map->odom before initialpose.

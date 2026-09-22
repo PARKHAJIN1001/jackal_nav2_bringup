@@ -18,14 +18,8 @@ SPEC.loader.exec_module(MAP_PATCH)
 
 def _source_geometry(origin_yaw=0.0):
     half_extent = 2.5
-    origin_x = (
-        math.cos(origin_yaw) * -half_extent
-        - math.sin(origin_yaw) * -half_extent
-    )
-    origin_y = (
-        math.sin(origin_yaw) * -half_extent
-        + math.cos(origin_yaw) * -half_extent
-    )
+    origin_x = math.cos(origin_yaw) * -half_extent - math.sin(origin_yaw) * -half_extent
+    origin_y = math.sin(origin_yaw) * -half_extent + math.cos(origin_yaw) * -half_extent
     return MAP_PATCH.GridGeometry(
         width=5,
         height=5,
@@ -52,32 +46,37 @@ def _numbered_grid():
 
 def test_identity_pose_extracts_centered_patch():
     patch = MAP_PATCH.extract_robot_centric_patch(
-        _numbered_grid(), _source_geometry(), 0.0, 0.0, 0.0,
-        _output_geometry())
+        _numbered_grid(), _source_geometry(), 0.0, 0.0, 0.0, _output_geometry()
+    )
 
     assert patch == [11, 12, 13, 21, 22, 23, 31, 32, 33]
 
 
 def test_robot_yaw_rotates_map_into_x_forward_frame():
     patch = MAP_PATCH.extract_robot_centric_patch(
-        _numbered_grid(), _source_geometry(), 0.0, 0.0, math.pi / 2.0,
-        _output_geometry())
+        _numbered_grid(), _source_geometry(), 0.0, 0.0, math.pi / 2.0, _output_geometry()
+    )
 
     assert patch == [13, 23, 33, 12, 22, 32, 11, 21, 31]
 
 
 def test_source_origin_yaw_is_respected():
     patch = MAP_PATCH.extract_robot_centric_patch(
-        _numbered_grid(), _source_geometry(math.pi / 2.0),
-        0.0, 0.0, math.pi / 2.0, _output_geometry())
+        _numbered_grid(),
+        _source_geometry(math.pi / 2.0),
+        0.0,
+        0.0,
+        math.pi / 2.0,
+        _output_geometry(),
+    )
 
     assert patch == [11, 12, 13, 21, 22, 23, 31, 32, 33]
 
 
 def test_out_of_bounds_cells_are_unknown():
     patch = MAP_PATCH.extract_robot_centric_patch(
-        _numbered_grid(), _source_geometry(), 2.0, 0.0, 0.0,
-        _output_geometry())
+        _numbered_grid(), _source_geometry(), 2.0, 0.0, 0.0, _output_geometry()
+    )
 
     assert patch == [13, 14, -1, 23, 24, -1, 33, 34, -1]
 
@@ -85,12 +84,30 @@ def test_out_of_bounds_cells_are_unknown():
 def test_invalid_data_size_is_rejected():
     with pytest.raises(ValueError, match='data length'):
         MAP_PATCH.extract_robot_centric_patch(
-            [0], _source_geometry(), 0.0, 0.0, 0.0,
-            _output_geometry())
+            [0], _source_geometry(), 0.0, 0.0, 0.0, _output_geometry()
+        )
 
 
 def test_quaternion_is_normalized_and_validated():
-    assert MAP_PATCH.quaternion_to_yaw(0.0, 0.0, 2.0, 2.0) == pytest.approx(
-        math.pi / 2.0)
+    assert MAP_PATCH.quaternion_to_yaw(0.0, 0.0, 2.0, 2.0) == pytest.approx(math.pi / 2.0)
     with pytest.raises(ValueError, match='non-zero'):
         MAP_PATCH.quaternion_to_yaw(0.0, 0.0, 0.0, 0.0)
+
+
+@pytest.mark.parametrize('yaw_angle', [0, math.pi / 2, -math.pi / 2, math.pi])
+def test_heading_keeps_world_obstacle_in_correct_robot_cell(yaw_angle):
+    grid = [0] * 25
+    grid[2 * 5 + 3] = 100  # one metre east of the robot
+    patch = MAP_PATCH.extract_robot_centric_patch(
+        grid, _source_geometry(), 0, 0, yaw_angle, _output_geometry()
+    )
+    col = round(math.cos(yaw_angle)) + 1
+    row = round(-math.sin(yaw_angle)) + 1
+    assert patch[row * 3 + col] == 100
+
+
+@pytest.mark.parametrize(
+    'stamp,now,ok', [(10, 10.2, True), (10, 10.31, False), (0, 0, False), (11, 10, False)]
+)
+def test_old_or_future_pose_is_not_republished(stamp, now, ok):
+    assert MAP_PATCH.pose_stamp_usable(stamp, now) == ok

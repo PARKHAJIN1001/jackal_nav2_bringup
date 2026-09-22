@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Deprecated entry point: now diagnostics-only, never replays an AMCL pose."""
+"""Deprecated diagnostics alias; remove after caller migration on 2026-10-31."""
 
 from amcl_quality_monitor import main
 

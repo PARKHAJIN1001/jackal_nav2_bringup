@@ -13,13 +13,22 @@
 // limitations under the License.
 
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "nav2_costmap_2d/costmap_2d_ros.hpp"
+#include "pluginlib/class_loader.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
+
+  // Humble callback groups retain weak pointers whose destructors can reside
+  // in layer libraries. Keep those libraries loaded until the node (including
+  // its base callback groups) is destroyed, not just until its layers are freed.
+  pluginlib::ClassLoader<nav2_costmap_2d::Layer> layer_libraries(
+    "nav2_costmap_2d", "nav2_costmap_2d::Layer");
 
   // The NodeOptions constructor makes this an independent lifecycle node.
   // The name-based constructor is a follower: it skips preshutdown cleanup
@@ -30,6 +39,20 @@ int main(int argc, char ** argv)
     "--ros-args", "-r", "__node:=static_costmap", "-r", "__ns:=/static_costmap"});
   auto costmap = std::make_shared<nav2_costmap_2d::Costmap2DROS>(options);
   rclcpp::spin(costmap->get_node_base_interface());
+
+  for (const auto & list : {"plugins", "filters"}) {
+    std::vector<std::string> names;
+    costmap->get_parameter(list, names);
+    for (const auto & name : names) {
+      std::string type;
+      if (costmap->has_parameter(name + ".plugin") &&
+        costmap->get_parameter(name + ".plugin", type))
+      {
+        layer_libraries.loadLibraryForClass(type);
+      }
+    }
+  }
+  costmap.reset();
 
   rclcpp::shutdown();
   return 0;

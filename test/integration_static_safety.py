@@ -7,6 +7,7 @@ collected by the default unit-test glob. All child processes are scoped here.
 
 import math
 import os
+from pathlib import Path
 import signal
 import subprocess
 import time
@@ -20,6 +21,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, qos_profile_sensor_data, QoSProfile
 from sensor_msgs.msg import PointCloud2, PointField
+from std_msgs.msg import Bool
 from tf2_ros import TransformBroadcaster
 from visualization_msgs.msg import Marker, MarkerArray
 
@@ -44,13 +46,16 @@ def test_static_costmaps_figures_and_independent_safety(tmp_path):
         [
             'ros2',
             'launch',
-            'jackal_nav2_bringup',
-            'bringup.launch.py',
+            str(Path(__file__).resolve().parent / 'isolated_navigation.launch.py'),
+            'fixture_localization:=true',
             f'map:={tmp_path / "map.yaml"}',
             'use_rviz:=false',
+            # Match the recommended staged launch's separate Nav2 processes.
+            'use_composition:=false',
             'use_map_patch:=false',
             'use_scan_projection:=false',
             'enable_motion:=true',
+            'launch_operator_stop:=false',
             'lidar_pointcloud_topic:=/nav2_test/raw',
             'nav_cmd_vel_topic:=/nav2_test/output',
         ],
@@ -64,6 +69,8 @@ def test_static_costmaps_figures_and_independent_safety(tmp_path):
     raw = node.create_publisher(
         PointCloud2, '/nav2_test/raw', qos_profile_sensor_data
     )
+    operator = node.create_publisher(Bool, '/nav2/operator_stop', 1)
+    stack_ready = node.create_publisher(Bool, '/nav2/stack_ready', 1)
     cmd = node.create_publisher(Twist, '/nav2_cmd_vel_unstamped', 1)
     tracks = node.create_publisher(Tracks, '/ped_tracking', 1)
     outputs, figures, costmaps = [], [], {}
@@ -148,6 +155,8 @@ def test_static_costmaps_figures_and_independent_safety(tmp_path):
                 ]
                 message.data = np.asarray(points, dtype='<f4').tobytes()
                 raw.publish(message)
+            stack_ready.publish(Bool(data=True))
+            operator.publish(Bool(data=False))
             if send_command:
                 command = Twist()
                 command.linear.x = speed
@@ -198,13 +207,22 @@ def test_static_costmaps_figures_and_independent_safety(tmp_path):
             -8000:
         ]
         assert latest_output() == pytest.approx(0.2)
+        # Lifecycle activation can publish an empty costmap before StaticLayer
+        # receives /map and inflation finishes. Compare settled maps only.
+        run(2.0)
         baseline = {name: list(cells) for name, cells in costmaps.items()}
+
+        def assert_static_cells():
+            changed = {name: sum(a != b for a, b in zip(baseline[name], cells))
+                       for name, cells in costmaps.items() if baseline[name] != cells}
+            assert not changed, f'Static cells changed: {changed}'
+
+        run(2.0)
+        assert_static_cells()
         for x in (0.8, 0.7, 0.9):
             run(0.5, points=((x, 0.0, 0.5),) * 3, track_x=x)
-            assert latest_output() == pytest.approx(0.06)
-            assert (
-                costmaps == baseline
-            ), 'Live points must not change any costmap cell'
+            assert latest_output() == pytest.approx(0.14)
+            assert_static_cells()
         # Runtime subscriptions must also exclude all live obstacle inputs.
         for name, namespace in [
             ('local_costmap', '/local_costmap'),
@@ -227,7 +245,7 @@ def test_static_costmaps_figures_and_independent_safety(tmp_path):
             )
         run(0.5, points=((0.4, 0.1, 0.5),) * 3)
         assert latest_output() == 0.0
-        assert costmaps == baseline
+        assert_static_cells()
         run(0.5, points=((0.4, 0.1, 0.5),) * 3, send_tracks=False)
         figure_stop = time.monotonic()
         run(1.3, points=((0.4, 0.1, 0.5),) * 3, send_tracks=False)

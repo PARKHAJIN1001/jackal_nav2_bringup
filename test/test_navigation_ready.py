@@ -1,7 +1,7 @@
 """Readiness contracts: idle silence, stale inputs and actual bridge ownership."""
 
-from pathlib import Path
 import os
+from pathlib import Path
 import sys
 
 from geometry_msgs.msg import Transform
@@ -9,7 +9,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 os.environ.setdefault('ROS_LOG_DIR', '/tmp/jackal_nav2_bringup_test_logs')
-from check_navigation_ready import (  # noqa: E402
+from check_navigation_ready import (  # noqa: E402,I100
     bridge_ready, fresh, safety_ready, valid_transform,
 )
 
@@ -81,7 +81,8 @@ def test_native_goal_ui_and_default_bt_contract():
                    'plugins_description.xml')
     names = {c.attrib['name'] for c in xml.findall('class')}
     assert {'nav2_rviz_plugins/Navigation 2', 'nav2_rviz_plugins/GoalTool'} <= names
-    spec = importlib.util.spec_from_file_location('navigation_launch', root / 'launch/navigation.launch.py')
+    spec = importlib.util.spec_from_file_location(
+        'navigation_launch', root / 'launch/navigation.launch.py')
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     description = module.generate_launch_description()
@@ -102,3 +103,15 @@ def test_native_goal_ui_and_default_bt_contract():
     assert {'ComputePathToPose', 'FollowPath'} <= tags
     assert not {'Spin', 'BackUp', 'RecoveryNode', 'ClearEntireCostmap'} & tags
     assert tree.find('.//RateController').attrib['hz'] == '1.0'
+
+
+def test_missing_or_invalid_bridge_limits_cannot_pass_motion_check():
+    from check_navigation_ready import speed_limits_match
+    guard = {'max_linear_x': .2, 'max_angular_z': .35}
+    controller = {'FollowPath.max_vel_x': .2, 'FollowPath.max_vel_theta': .35}
+    smoother = {'max_velocity': [.2, 0., .35]}
+    assert speed_limits_match(guard, guard, controller, smoother)
+    for invalid in (None, True, float('nan'), -1, 0):
+        bridge = {**guard, 'max_linear_x': invalid}
+        assert not speed_limits_match(guard, bridge, controller, smoother)
+    assert not speed_limits_match(guard, guard, controller, {'max_velocity': [.5, 0., 1.]})

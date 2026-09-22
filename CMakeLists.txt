@@ -7,6 +7,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(nav2_costmap_2d REQUIRED)
+find_package(pluginlib REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(diagnostic_msgs REQUIRED)
@@ -18,7 +19,7 @@ ament_target_dependencies(tf_authority_probe rclcpp tf2_msgs)
 target_link_libraries(tf_authority_probe nlohmann_json::nlohmann_json)
 
 add_executable(static_costmap_node src/static_costmap_node.cpp)
-ament_target_dependencies(static_costmap_node nav2_costmap_2d rclcpp)
+ament_target_dependencies(static_costmap_node nav2_costmap_2d rclcpp pluginlib)
 
 add_executable(pointcloud_relay_node src/pointcloud_relay_node.cpp)
 target_include_directories(pointcloud_relay_node PRIVATE include)
@@ -41,16 +42,28 @@ install(
     scripts/check_navigation_ready.py
     scripts/fast_livo_odom_adapter.py
     scripts/map_patch_node.py
-    scripts/nav2_twist_stamper.py
     scripts/nav2_safety_guard.py
-    scripts/nav2_safety_core.py
     scripts/amcl_recovery_monitor.py
     scripts/amcl_quality_monitor.py
     scripts/prepare_perception_config.py
     scripts/runtime_resource_audit.py
     scripts/topic_ready_gate.py
+    scripts/stack_stability.py
+    scripts/operator_stop.py
+    scripts/calibrate_operator_stop.py
+    scripts/prepare_navigation_profile.py
+    scripts/analyze_navigation_bag.py
+    scripts/cmd_vel_safety_bridge.py
     scripts/nav_session.py
-    scripts/ipfrag_session.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(
+  FILES
+    scripts/nav2_twist_stamper.py
+    scripts/nav2_safety_core.py
+    scripts/operator_stop_core.py
+    scripts/readiness_core.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -64,6 +77,8 @@ install(
     tools
   DESTINATION share/${PROJECT_NAME}
   PATTERN "__pycache__" EXCLUDE
+  PATTERN "*.pyc" EXCLUDE
+  PATTERN "pilot_quickfix.sh" EXCLUDE
 )
 
 if(BUILD_TESTING)
@@ -85,6 +100,8 @@ if(BUILD_TESTING)
     JACKAL_NAV2_CONFIG_PATH="${CMAKE_CURRENT_SOURCE_DIR}/config/nav2_params.yaml")
   ament_add_gtest(test_relay_health test/test_relay_health.cpp)
   target_include_directories(test_relay_health PRIVATE include)
+  ament_add_pytest_test(test_stack_stability test/test_stack_stability.py)
+  ament_add_pytest_test(test_operator_stop test/test_operator_stop.py)
   ament_add_pytest_test(test_followup test/test_followup.py)
   ament_add_pytest_test(test_topic_ready_gate test/test_topic_ready_gate.py)
   ament_add_pytest_test(test_nav_bringup test/test_nav_bringup.py)

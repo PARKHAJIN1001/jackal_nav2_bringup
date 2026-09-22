@@ -13,19 +13,19 @@ class SafetyConfig:
     footprint_half_x: float = 0.254
     footprint_half_y: float = 0.215
     stop_half_x: float = 0.60
-    stop_half_y: float = 0.50
+    stop_half_y: float = 0.40
     slow_half_x: float = 1.00
-    slow_half_y: float = 0.80
+    slow_half_y: float = 0.50
     min_points: int = 3
-    slowdown_ratio: float = 0.30
+    slowdown_ratio: float = 0.70
     sensor_timeout: float = 0.30
     command_timeout: float = 0.25
     future_tolerance: float = 0.05
     tf_timeout: float = 0.30
     map_tf_timeout: float = 0.50
     map_transform_tolerance: float = 1.0
-    max_linear_x: float = 0.20
-    max_angular_z: float = 0.35
+    max_linear_x: float = 0.50
+    max_angular_z: float = 1.0
 
     def __post_init__(self):
         if not all(math.isfinite(v) and v > 0 for v in vars(self).values()):
@@ -40,11 +40,11 @@ class SafetyConfig:
             raise ValueError('Invalid height or nested safety polygons')
         if (
             self.slowdown_ratio > 1
-            or self.max_linear_x > 0.20
-            or self.max_angular_z > 0.35
+            or self.max_linear_x > 0.50
+            or self.max_angular_z > 1.0
         ):
             raise ValueError(
-                'Safety speed limits may not exceed tested platform limits'
+                'Safety speed limits may not exceed the requested profile ceiling'
             )
 
 

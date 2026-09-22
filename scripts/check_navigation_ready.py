@@ -19,8 +19,9 @@ import rclpy
 from rclpy.action import ActionClient
 from rclpy.node import Node
 from rclpy.parameter import parameter_value_to_python
-from rclpy.qos import DurabilityPolicy, QoSProfile, qos_profile_sensor_data
+from rclpy.qos import DurabilityPolicy, qos_profile_sensor_data, QoSProfile
 from rclpy.time import Time
+from readiness_core import fresh, valid_transform
 from sensor_msgs.msg import LaserScan
 from tf2_ros import Buffer, TransformException, TransformListener
 
@@ -36,21 +37,16 @@ GUARD_PARAMETERS = (
     'enable_motion', 'output_topic', 'base_frame', 'odom_frame', 'map_frame',
     'sensor_timeout', 'tf_timeout', 'map_tf_timeout',
     'map_transform_tolerance', 'future_tolerance',
+    'max_linear_x', 'max_angular_z',
 )
-BRIDGE_PARAMETERS = ('forward_cmd_vel', 'input_topic', 'output_topic', 'timeout_sec')
+BRIDGE_PARAMETERS = ('forward_cmd_vel', 'input_topic', 'output_topic', 'timeout_sec',
+                     'max_linear_x', 'max_angular_z')
 IDLE_REASONS = {'command_missing_or_invalid', 'monitor_command_timeout'}
 
 
 def seconds(stamp):
     """Convert a ROS timestamp to seconds."""
     return stamp.sec + stamp.nanosec * 1e-9
-
-
-def fresh(stamp, receipt, now, monotonic, timeout=0.3, future=0.05):
-    """Require both valid measurement age and recent monotonic receipt."""
-    return (math.isfinite(stamp) and stamp > 0 and
-            -future <= now - stamp <= timeout and
-            0 <= monotonic - receipt <= timeout)
 
 
 def safety_ready(reason, active_goal):
@@ -67,11 +63,21 @@ def bridge_ready(parameters, publishers, nav_topic, platform_topic, bridge_node)
             publishers == [bridge_node])
 
 
-def valid_transform(transform):
-    """Reject nonfinite and non-unit transforms even if their timestamps are fresh."""
-    t, q = transform.translation, transform.rotation
-    return (all(math.isfinite(v) for v in (t.x, t.y, t.z, q.x, q.y, q.z, q.w)) and
-            abs(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w - 1.0) <= 0.01)
+def speed_limits_match(guard, bridge, controller, smoother):
+    try:
+        if not all(type(bridge.get(k)) in (float, int) and math.isfinite(bridge[k]) and
+                   bridge[k] > 0 for k in ('max_linear_x', 'max_angular_z')):
+            return False
+        limits = [guard['max_linear_x'], guard['max_angular_z']]
+        expected = [min(0.5, bridge['max_linear_x']), min(1.0, bridge['max_angular_z'])]
+        actual = [controller['FollowPath.max_vel_x'], controller['FollowPath.max_vel_theta']]
+        smooth = smoother['max_velocity']
+        return (all(type(v) in (int, float) and math.isfinite(v) and v > 0
+                    for v in limits + expected + actual) and len(smooth) == 3 and
+                all(math.isclose(a, b, abs_tol=1e-9) for a, b in
+                    zip(limits * 3, expected + actual + [smooth[0], smooth[2]])))
+    except (KeyError, TypeError, ValueError):
+        return False
 
 
 class NavigationReadiness(Node):
@@ -84,6 +90,8 @@ class NavigationReadiness(Node):
         self.scans = deque(maxlen=40)
         self.map_valid = False
         self.diagnostic = None
+        self.operator_diagnostic = None
+        self.stability_diagnostic = None
         self.active_goal = False
         self.perception_at = None
         self.last_ros = None
@@ -96,7 +104,11 @@ class NavigationReadiness(Node):
                                  lambda msg: self.on_sample('scan', msg), qos_profile_sensor_data)
         self.create_subscription(Odometry, args.odom_topic,
                                  lambda msg: self.on_sample('odom', msg), qos_profile_sensor_data)
+        self.create_subscription(DiagnosticArray, '/nav2/stability_diagnostics',
+                                 self.on_stability, 10)
         self.create_subscription(DiagnosticArray, '/nav2/safety_diagnostics', self.on_safety, 10)
+        self.create_subscription(
+            DiagnosticArray, '/nav2/operator_stop_diagnostics', self.on_operator, 10)
         self.create_subscription(GoalStatusArray, '/navigate_to_pose/_action/status',
                                  self.on_status,
                                  QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
@@ -109,11 +121,17 @@ class NavigationReadiness(Node):
                        GetParameters.Request(names=list(GUARD_PARAMETERS)))
         self.add_query(args.bridge_node, GetParameters, 'get_parameters',
                        GetParameters.Request(names=list(BRIDGE_PARAMETERS)))
+        self.add_query('/controller_server', GetParameters, 'get_parameters',
+                       GetParameters.Request(
+                           names=['FollowPath.max_vel_x', 'FollowPath.max_vel_theta']),
+                       key='controller_limits')
+        self.add_query('/velocity_smoother', GetParameters, 'get_parameters',
+                       GetParameters.Request(names=['max_velocity']), key='smoother_limits')
         self.create_timer(0.1, self.poll_queries)
 
-    def add_query(self, node, service_type, service, request):
+    def add_query(self, node, service_type, service, request, key=None):
         """Create a bounded asynchronous read; absent services cannot block others."""
-        self.queries[node] = {
+        self.queries[key or node] = {
             'client': self.create_client(service_type, node + '/' + service),
             'request': request, 'future': None, 'sent': -math.inf,
             'received': -math.inf, 'value': None,
@@ -148,7 +166,9 @@ class NavigationReadiness(Node):
     def parameters(self, node, names, monotonic):
         """Decode declared parameters; unset or unavailable values remain missing."""
         response = self.value(node, monotonic)
-        return dict(zip(names, map(parameter_value_to_python, response.values))) if response else {}
+        if response is None:
+            return {}
+        return dict(zip(names, map(parameter_value_to_python, response.values)))
 
     def on_map(self, msg):
         """Accept a valid latched map; a static map need not have a recent stamp."""
@@ -176,6 +196,19 @@ class NavigationReadiness(Node):
         """Separate idle command silence from silence during an active goal."""
         self.active_goal = any(entry.status in (1, 2, 3) for entry in msg.status_list)
 
+    def on_stability(self, msg):
+        for status in msg.status:
+            if status.name == 'nav2_stack_stability':
+                self.stability_diagnostic = (seconds(msg.header.stamp), time.monotonic(),
+                                             status.message)
+
+    def on_operator(self, msg):
+        for status in msg.status:
+            if status.name == 'nav2_operator_stop':
+                self.operator_diagnostic = (seconds(msg.header.stamp), time.monotonic(),
+                                            status.message,
+                                            {v.key: v.value for v in status.values})
+
     def on_perception(self, msg):
         """Observe even empty tracking messages; perception is informational only."""
         self.perception_at = time.monotonic()
@@ -199,6 +232,10 @@ class NavigationReadiness(Node):
         def check(name, ok, detail):
             checks[name] = {'ok': bool(ok), 'detail': detail}
 
+        stability = self.stability_diagnostic
+        check('stack_stability', stability and
+              fresh(stability[0], stability[1], now, mono, timeout=0.6) and
+              stability[2] == 'READY', stability[2] if stability else 'not observed')
         check('map', self.map_valid, self.args.map_topic)
         for name in ('scan', 'odom'):
             sample = self.samples.get(name)
@@ -219,7 +256,8 @@ class NavigationReadiness(Node):
             ok, detail = False, 'missing TF or guard parameters'
             try:
                 tf = self.buffer.lookup_transform(parent, child, Time())
-                age = now - seconds(tf.header.stamp) + (guard[allowance_key] if allowance_key else 0)
+                allowance = guard[allowance_key] if allowance_key else 0
+                age = now - seconds(tf.header.stamp) + allowance
                 ok = (seconds(tf.header.stamp) > 0 and valid_transform(tf.transform) and
                       -guard['future_tolerance'] <= age <= guard[timeout_key])
                 detail = f'measurement age after TF dating allowance: {age:.3f}s'
@@ -231,8 +269,16 @@ class NavigationReadiness(Node):
                       for h, r in self.scans)
         check('scan_time_tf', scan_tf, 'map -> scan frame at a recent scan timestamp')
         diag = self.diagnostic
+        operator = self.operator_diagnostic
+        operator_ready = bool(operator and fresh(operator[0], operator[1], now, mono, timeout=0.6)
+                              and operator[2] in ('WAITING FOR NEW GOAL', 'RUNNING')
+                              and operator[3].get('mapping_verified') == 'True'
+                              and operator[3].get('bridge_limits_matched') == 'True'
+                              and operator[3].get('footprint_confirmed') == 'True')
         check('safety', diag and fresh(diag[0], diag[1], now, mono, timeout=2.5) and
-              safety_ready(diag[2], self.active_goal), diag[2] if diag else 'no diagnostic')
+              (safety_ready(diag[2], self.active_goal) or
+               (diag[2] == 'operator_stop' and not self.active_goal and operator_ready)),
+              diag[2] if diag else 'no diagnostic')
         counts = Counter(ns.rstrip('/') + '/' + name
                          for name, ns in self.get_node_names_and_namespaces())
         required_nodes = (*LIFECYCLE_NODES, '/nav2_safety_guard')
@@ -246,15 +292,24 @@ class NavigationReadiness(Node):
         navigation_ready = all(c['ok'] for c in checks.values())
         bridge = self.parameters(self.args.bridge_node, BRIDGE_PARAMETERS, mono)
         platform_writers = self.publishers(self.args.platform_cmd_topic, 'geometry_msgs/msg/Twist')
-        forwarding = (bridge_ready(bridge, platform_writers, self.args.nav_cmd_topic,
-                                  self.args.platform_cmd_topic, self.args.bridge_node) and
+        forwarding = (bridge_ready(
+            bridge, platform_writers, self.args.nav_cmd_topic,
+            self.args.platform_cmd_topic, self.args.bridge_node) and
                       counts[self.args.bridge_node] == 1)
         motion = {'enable_motion': guard.get('enable_motion'),
                   'bridge_parameters': bridge, 'platform_publishers': platform_writers,
                   'forwarding_observed': forwarding}
         motion_ready = navigation_ready and guard.get('enable_motion') is True and forwarding
+        controller = self.parameters('controller_limits',
+                                     ('FollowPath.max_vel_x', 'FollowPath.max_vel_theta'), mono)
+        smoother = self.parameters('smoother_limits', ('max_velocity',), mono)
+        limits = speed_limits_match(guard, bridge, controller, smoother)
+        motion_ready = motion_ready and operator_ready and limits
         if self.args.require_motion:
             check('motion_configuration', motion_ready, motion)
+            check('operator_stop', operator_ready, operator[2:] if operator else 'not observed')
+            check('speed_limits', limits,
+                  {'guard': guard, 'controller': controller, 'smoother': smoother})
         return {
             'ready': all(c['ok'] for c in checks.values()),
             'inputs_ready': inputs_ready, 'navigation_ready': navigation_ready,
@@ -314,6 +369,9 @@ def main(argv=None):
         return code
     except KeyboardInterrupt:
         return 130
+    except Exception as error:
+        print(json.dumps({'ready': False, 'error': str(error)}))
+        return 2
     finally:
         if node:
             node.destroy_node()

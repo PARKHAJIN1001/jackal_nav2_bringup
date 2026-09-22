@@ -19,76 +19,6 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 SPEC = importlib.util.spec_from_file_location('nav_session', ROOT / 'scripts/nav_session.py')
 SESSION = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(SESSION)
-SPEC = importlib.util.spec_from_file_location('ipfrag_session', ROOT / 'scripts/ipfrag_session.py')
-KERNEL = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(KERNEL)
-
-
-@pytest.fixture
-def kernel(tmp_path):
-    limit, boot, state = (tmp_path / n for n in ('limit', 'boot', 'state.json'))
-    limit.write_text('4194304\n')
-    boot.write_text('test-boot\n')
-
-    def change(action, processes=lambda: []):
-        return KERNEL.change(action, state, limit, boot, processes)
-
-    return SimpleNamespace(limit=limit, boot=boot, state=state, change=change)
-
-
-def test_kernel_apply_idempotent_and_restore_exact_original(kernel):
-    kernel.limit.write_text('8388608')
-    assert kernel.change('apply')['status'] == 'applied'
-    assert int(kernel.limit.read_text()) == 134217728
-    assert kernel.change('apply')['original'] == 8388608
-    assert kernel.change('restore')['current'] == 8388608
-    assert not kernel.state.exists()
-
-
-def test_kernel_cannot_change_with_active_stack(kernel):
-    with pytest.raises(RuntimeError, match='Stop Nav2'):
-        kernel.change('apply', lambda: [{'pid': 123}])
-    assert not kernel.state.exists()
-    kernel.change('apply')
-    with pytest.raises(RuntimeError, match='Stop Nav2'):
-        kernel.change('restore', lambda: [{'pid': 123}])
-    assert int(kernel.limit.read_text()) == 134217728
-    assert kernel.state.exists()
-
-
-def test_kernel_refuses_external_value_or_missing_snapshot(kernel):
-    with pytest.raises(RuntimeError, match='No saved'):
-        kernel.change('restore')
-    kernel.change('apply')
-    kernel.limit.write_text('67108864')
-    with pytest.raises(RuntimeError, match='outside'):
-        kernel.change('restore')
-    assert kernel.limit.read_text() == '67108864'
-    assert kernel.state.exists()
-
-
-def test_sufficient_unmanaged_limit_not_adopted_or_reduced(kernel):
-    kernel.limit.write_text('268435456')
-    assert kernel.change('apply')['status'] == 'already_sufficient_unmanaged'
-    assert kernel.limit.read_text() == '268435456'
-    assert not kernel.state.exists()
-
-
-def test_kernel_snapshot_from_another_boot_rejected(kernel):
-    kernel.change('apply')
-    kernel.boot.write_text('different-boot')
-    with pytest.raises(RuntimeError, match='another boot'):
-        kernel.change('restore')
-
-
-def test_kernel_snapshot_from_another_network_namespace_rejected(kernel):
-    kernel.change('apply')
-    state = json.loads(kernel.state.read_text())
-    state['network_namespace'] = 'net:[different]'
-    kernel.state.write_text(json.dumps(state))
-    with pytest.raises(RuntimeError, match='network namespace'):
-        kernel.change('restore')
-    assert int(kernel.limit.read_text()) == 134217728
 
 
 def test_pid_reuse_does_not_signal_unrelated_process(tmp_path, monkeypatch):
@@ -225,3 +155,47 @@ def test_nav_stop_orders_perception_before_nav(tmp_path):
             if process.poll() is None:
                 process.terminate()
             process.wait(timeout=8)
+
+
+def test_network_policy_is_consumed_without_sibling_import(monkeypatch):
+    monkeypatch.setenv('ROS_DOMAIN_ID', '1')
+    monkeypatch.setenv('JACKAL_NETWORK_ROLE', 'laptop')
+    calls = []
+
+    def run(command, **kwargs):
+        calls.append(command)
+        return SimpleNamespace(returncode=0, stdout='{"ready":true}', stderr='')
+    monkeypatch.setattr(SESSION.subprocess, 'run', run)
+    SESSION.require_environment()
+    assert calls[0] == [
+        'ros2', 'run', 'jackal_network_bringup', 'network_preflight.py', '--check']
+    monkeypatch.setattr(SESSION, 'network_status', lambda: {'ready': False})
+    with pytest.raises(RuntimeError, match='Network policy'):
+        SESSION.require_environment()
+
+
+def test_motion_and_generated_profile_use_same_session_path(tmp_path):
+    for name in ('nav2.yaml', 'safety.yaml', 'operator.yaml'):
+        (tmp_path / name).write_text('{}')
+    args = SimpleNamespace(map=tmp_path / 'map.yaml', enable_motion=True,
+                           profile_dir=tmp_path, input_timeout=60, localization_timeout=90,
+                           ready_settle=5, stability_timeout=600, stability_settle=180,
+                           pedestrian_viz=False)
+    command = SESSION.navigation_command(args)
+    assert 'nav_bringup.launch.py' in command
+    assert 'enable_motion:=true' in command
+    assert f'params_file:={tmp_path}/nav2.yaml' in command
+    assert f'safety_params_file:={tmp_path}/safety.yaml' in command
+    assert f'operator_params_file:={tmp_path}/operator.yaml' in command
+    (tmp_path / 'safety.yaml').unlink()
+    with pytest.raises(RuntimeError, match='profile missing'):
+        SESSION.navigation_command(args)
+
+
+def test_clean_launch_exit_with_critical_failure_marker_is_failure(tmp_path):
+    log = tmp_path / 'logs'
+    log.mkdir()
+    (log / 'failure.json').write_text(json.dumps({'reason': 'guard exited'}))
+    code = SESSION.supervise('perception', [[sys.executable, '-c', 'pass']], tmp_path, log)
+    assert code == 1
+    assert json.loads((log / 'session.json').read_text())['failure']['reason'] == 'guard exited'

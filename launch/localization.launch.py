@@ -6,8 +6,11 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, GroupAction, OpaqueFunction
+from launch.actions import (
+    DeclareLaunchArgument, GroupAction, IncludeLaunchDescription, OpaqueFunction,
+)
 from launch.conditions import IfCondition, UnlessCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import LoadComposableNodes, Node
 from launch_ros.descriptions import ComposableNode, ParameterFile
@@ -16,6 +19,8 @@ import yaml
 
 
 def _validate_inputs(context):
+    if context.launch_configurations.get('use_respawn', 'false').lower() != 'false':
+        raise RuntimeError('Automatic respawn is disabled; use a fresh managed session')
     map_path = os.path.expanduser(LaunchConfiguration('map').perform(context))
     params_path = os.path.expanduser(
         LaunchConfiguration('params_file').perform(context))
@@ -113,6 +118,9 @@ def generate_launch_description():
         DeclareLaunchArgument('use_amcl_quality_monitor', default_value='true',
                               description='Read-only AMCL covariance diagnostics; '
                                           'never injects an initial pose'),
+        IncludeLaunchDescription(PythonLaunchDescriptionSource(os.path.join(
+            get_package_share_directory('jackal_nav2_bringup'),
+            'launch', 'network_preflight.launch.py'))),
         OpaqueFunction(function=_validate_inputs),
         Node(
             package='jackal_nav2_bringup',
@@ -177,6 +185,7 @@ def generate_launch_description():
                         'use_sim_time': use_sim_time,
                         'autostart': autostart,
                         'node_names': lifecycle_nodes,
+                        'bond_timeout': 0.0,
                     }],
                 ),
             ],
@@ -228,6 +237,7 @@ def generate_launch_description():
                         'use_sim_time': use_sim_time,
                         'autostart': autostart,
                         'node_names': lifecycle_nodes,
+                        'bond_timeout': 0.0,
                     }],
                 ),
             ],

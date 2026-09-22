@@ -34,20 +34,6 @@ def test_success_during_shutdown_cannot_advance():
     assert NAV._advance(event, SimpleNamespace(is_shutdown=False), 'test', phase) == phase
 
 
-@pytest.mark.parametrize('executable', ['fastlivo_mapping', 'pointcloud_relay_node'])
-@pytest.mark.parametrize('code', [0, 1, -6])
-def test_critical_child_exit_stops_stack(executable, code):
-    event = SimpleNamespace(cmd=['/install/lib/pkg/' + executable], returncode=code)
-    result = NAV._critical_process_exit(event, SimpleNamespace(is_shutdown=False))
-    assert any(isinstance(action, Shutdown) for action in result)
-    assert NAV._critical_process_exit(event, SimpleNamespace(is_shutdown=True)) == []
-
-
-def test_noncritical_child_exit_does_not_stop_stack():
-    event = SimpleNamespace(cmd=['/install/lib/pkg/topic_ready_gate.py'], returncode=0)
-    assert NAV._critical_process_exit(event, SimpleNamespace(is_shutdown=False)) == []
-
-
 def test_rviz_camera_is_opt_in_without_modifying_original(tmp_path, monkeypatch):
     path = ROOT / 'rviz/jackal_nav2.rviz'
     before = path.read_bytes()

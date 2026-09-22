@@ -6,16 +6,21 @@ external FAST-LIVO2 process.
 Current baseline and agreed next steps: [2026-09-18 session handoff](docs/Session_Handoff_2026-09-18.md).
 With the laptop IP reassembly limit temporarily set to 128MiB, Nav2 plus separate
 perception maintained scan/map alignment during manual spot turns. The user
-accepted current localization as the development baseline. Session tools now
-organize startup/shutdown while preserving that configuration; their first
-hardware restart is pending. Next: validate that workflow, then complete RViz
-2D Goal Pose autonomous navigation. Additional localization/network tuning is
-deferred. Autonomous driving has not yet been validated; motion remains disabled.
+accepted current localization as the development baseline. RViz now uses the
+native Nav2 Goal tool and Navigation 2 panel for goals, feedback and cancellation.
+The default single-goal tree replans at 1 Hz without automatic recovery spins,
+backups or costmap clearing. Additional localization/network tuning is deferred.
+Hardware autonomous driving still requires the attended acceptance procedure;
+motion remains disabled by default.
 See the [measured results](docs/validation/2026-09-18/z_axis_test_1351/REPORT.md).
 
-Recommended operation: [startup, initial pose, separate perception, shutdown and kernel restore](docs/Operations.md).
-The session tools preserve the validated launch settings and keep motion disabled.
-They are additive: direct launch remains available for advanced configurations.
+Recommended entry point: `nav_session.py nav` for stationary and motion-enabled sessions.
+It runs the single staged definition in `nav_bringup.launch.py`; `bringup.launch.py`
+is now only an alias. See [startup stability and operator-run validation](docs/Startup_Stability.md),
+[operations](docs/Operations.md), and [goal navigation](docs/Goal_Navigation.md).
+The full-stack monitor requires 180 continuous healthy seconds within a 600-second
+acquisition/recovery window. Readiness is revoked on faults; motion remains opt-in.
+This change has offline verification only; hardware acceptance is pending.
 
 Historical investigations remain available in the
 [September 17 network pilot](docs/Staged_Network_Pilot_2026-09-17.md),
@@ -55,46 +60,17 @@ Required external inputs are:
   scan projection.
 - A real occupancy-grid map YAML and the image referenced by it.
 
-This package starts `pointcloud_to_laserscan` and publishes `/scan` for AMCL by
-default. The legacy `bringup.launch.py` expects an external FAST-LIVO2 process;
-`nav_bringup.launch.py` starts FAST-LIVO2 after sensor readiness. Both expect
-the MID-360 driver and Clearpath platform stack to be running on the robot.
-Set `use_scan_projection:=false` only when another node already owns `/scan`.
+The staged launch starts the relay, FAST-LIVO2, scan projection and Nav2 in that order.
+The MID-360 driver and Clearpath platform remain external robot services.
+The relay input defaults to `/livox/lidar`, output to `/livox/lidar_local`; it preserves
+measurement stamps and payload. Input/output aliases must differ. Diagnostic ages
+are reported on `/nav2/lidar_relay_diagnostics`.
 
-For a networked MID-360, several laptop-side PointCloud2 subscribers can create
-multiple large DDS streams over the robot link, depending on DDS transport and
-multicast settings. The relay is enabled by default and provides one bounded
-remote subscription; it does not bound downstream queues, enforce host-local
-transport, or re-date/transform the cloud. FAST-LIVO2 and perception must be
-configured separately to use its output; Nav2 cannot override external nodes:
-
-```bash
-# Start Nav2 first so the relay output exists.
-ros2 launch jackal_nav2_bringup bringup.launch.py \
-  map:=/absolute/path/to/map.yaml \
-  use_composition:=true \
-  use_lidar_relay:=true \
-  raw_lidar_topic:=/livox/lidar \
-  lidar_pointcloud_topic:=/livox/lidar_local enable_motion:=false
-
-# Then start FAST-LIVO2 against the local relay output.
-ros2 launch fast_livo mapping_mid360.launch.py \
-  lidar_topic:=/livox/lidar_local image_enable:=false rviz:=false
-```
-
-Do not set the relay input and output to the same topic.
-When `lidar_pointcloud_topic` is omitted, it resolves to `/livox/lidar_local`
-with the relay enabled, or to `raw_lidar_topic` with it disabled. Explicit custom
-outputs are preserved. Resolved input/output aliases are checked for relay loops.
-`/nav2/lidar_relay_diagnostics` separates original measurement age from monotonic
-receipt silence and reports stamp/clock regression counts. It is diagnostic only:
-payload and stamp are unchanged, and the safety Guard remains responsible for stopping.
-
-`bringup.launch.py` uses Nav2 component composition by default. Keeping the
-Nav2 C++ nodes in one DDS participant materially reduces discovery churn while
-the remote MID-360 stream is active. The standalone launch files retain
-`use_composition:=false` as their default because they do not create a component
-container by themselves.
+`bringup.launch.py` shares the staged implementation and starts FAST-LIVO2 too.
+Its former external-FAST/composition flags are rejected. Custom experiments can
+still use `localization.launch.py` and `navigation.launch.py`; those lower launches
+also run the network preflight and disable automatic respawn. They do not create
+a composition container. Direct launches have no session ownership lock.
 
 ## Static/dynamic costmap publication policy
 
@@ -126,8 +102,8 @@ they do not feed the costmaps or the safety path.
 ### Pedestrian figures and traces
 
 Nav2 starts dedicated `moai_nav_viz` figure and trace nodes, not perception.
-`use_pedestrian_figures` and `use_pedestrian_traces` default to `true` and can
-be disabled independently. Inputs default to `tracks_topic:=/ped_tracking`
+`use_pedestrian_figures` and `use_pedestrian_traces` default to `false`.
+Use the session flag `--pedestrian-viz` when perception visualization is needed. Inputs default to `tracks_topic:=/ped_tracking`
 and `traces_topic:=/ped_traces`. RViz enables both Nav2 displays; legacy
 detection boxes and bbox traces remain optional, disabled debug displays.
 
@@ -183,7 +159,9 @@ the separate static costmap or the independent safety monitor.
 
 ## Recommended bringup procedure
 
-Resolve the FAST-LIVO2 blockers in the latest review before using this procedure.
+Use the accepted September 18 localization baseline and the current
+[goal-navigation procedure](docs/Goal_Navigation.md). Older diagnostic blockers
+are historical findings unless reproduced in the current run.
 The default startup policy deliberately does not inject a saved or hard-coded
 AMCL pose. Every AMCL reset requires the operator to publish a fresh initial
 pose with RViz **2D Pose Estimate**. Until that happens, messages about a
@@ -194,7 +172,7 @@ covariance prompts manual inspection, not automatic `/initialpose` injection.
 Position and yaw variance thresholds are separate, and low covariance does not
 prove pose accuracy. Disable it with `use_amcl_quality_monitor:=false` if needed.
 The old `amcl_recovery_monitor.py` executable is a diagnostics-only compatibility
-entry point. `use_amcl_recovery` has been retired; it cannot enable automatic resets.
+entry point, scheduled for removal on 2026-10-31 after caller migration. `use_amcl_recovery` has been retired; it cannot enable automatic resets.
 
 ### 1. Build and prepare the laptop
 
@@ -238,9 +216,9 @@ never hide clock mismatch by increasing TF tolerances.
 ### 2. Recommended: managed staged launch and separate perception
 
 Use the [complete operating procedure](docs/Operations.md), including the first
-package rebuild, temporary 128MiB setup, common environment and shutdown steps.
+package rebuild, network-owned temporary IP-reassembly setup, common environment and shutdown steps.
 The September 18 test is the accepted localization baseline; additional network
-tuning is deferred. The 128MiB setting is runtime-only, not installed persistently.
+tuning is deferred. Network tuning is runtime-only and owned by jackal_network_bringup (16MiB minimum, ipfrag_time=3).
 
 With the robot services running, the laptop environment sourced and the kernel
 prepared, keep the robot stationary and run in terminal A:
@@ -251,7 +229,8 @@ ros2 run jackal_nav2_bringup nav_session.py nav \
 ```
 
 The wrapper rejects duplicate stack processes, preserves logs under
-`~/.ros/nav_sessions`, and runs `nav_bringup.launch.py` with `enable_motion:=false`.
+`~/.ros/nav_sessions`, and runs `nav_bringup.launch.py` with motion disabled by default.
+`--profile-dir` passes the prepared nav2/safety/operator files; `--enable-motion` is explicit.
 Its `status` reports process ownership, not localization accuracy or message readiness.
 
 This launch owns the local relay, FAST-LIVO2, Nav2 and RViz. Do not also run
@@ -270,9 +249,13 @@ measurements, rather than publisher discovery:
 Every gate rejects samples older than 0.3 s or more than 0.05 s in the future;
 receipt or timestamp gaps over 0.3 s restart the continuity window. Timeouts
 are 60 s for sensor/FAST-LIVO2 stages and 90 s for localization inputs. These
-are startup checks, not a continuous localization-accuracy monitor.
+are configurable with `input_timeout` and `localization_timeout`, independently of
+`ready_settle`. After all processes start, `stack_stability.py` continuously checks
+cloud/IMU/FAST odometry/scan/adapted odometry, TF, lifecycle and output ownership.
+Its independent defaults are `stability_timeout=600` and `stability_settle=180`.
+Faults and perception/lifecycle transitions restart continuity; this is not a pose-accuracy proof.
 
-When the terminal prints `AMCL/map_server active`, use RViz **2D Pose Estimate**
+Wait for the stability state `INITIAL_POSE_REQUIRED`, then use RViz **2D Pose Estimate**
 and check that the scan matches the correct map walls. Then open a separate
 terminal, source the same ROS/workspace/network profile from step 1, and run:
 
@@ -293,14 +276,14 @@ default. Set `use_camera_image:=true` to retain the supplied profile's image
 settings. The source RViz profile is not rewritten. This avoids that extra
 raw-image subscription; it does not establish why earlier LiDAR input stopped.
 
-If FAST-LIVO2 or the relay exits, the staged launch shuts down its remaining
-processes. Gate failure also stops startup. Managed perception stops when its
+If a critical process exits (including FAST, relay, Guard, operator stop, odom
+adapter or stability monitor), the launch shuts down its remaining processes. Gate failure also stops startup. Managed perception stops when its
 owning Nav2 session ends. Ctrl+C in terminal A stops managed perception first,
 then Nav2. To stop both from another prepared terminal:
 
 ```bash
 ros2 run jackal_nav2_bringup nav_session.py stop
-sudo python3 "$(ros2 pkg prefix jackal_nav2_bringup)/lib/jackal_nav2_bringup/ipfrag_session.py" restore
+sudo python3 "$(ros2 pkg prefix jackal_network_bringup)/lib/jackal_network_bringup/ipfrag_session.py" restore
 ```
 
 Kernel restoration is explicit and refuses while stack processes remain. The
@@ -308,186 +291,23 @@ session tool never kills unowned processes or changes the kernel itself. Direct
 launch processes must be stopped in their original terminals. After a failure,
 inspect the input error, restart with a new initial pose, then restart perception.
 
-### Alternative manual procedure: start Nav2, the local LiDAR relay, and RViz
-
-The following legacy steps are for independently managed components. They do
-not use the session ownership/ordered-stop wrapper; do not mix them with a
-managed session. They also require the prepared 128MiB host setting.
-
-With the Clearpath platform and MID-360 driver already running, use terminal A:
-
-```bash
-source /opt/ros/humble/setup.bash
-source ~/moai_navigation_ws/install/setup.bash
-source ~/moai_navigation_ws/install/jackal_network_bringup/share/jackal_network_bringup/config/network_env.sh laptop
-
-ros2 launch jackal_nav2_bringup bringup.launch.py \
-  map:=$HOME/moai_navigation_ws/src/jackal_nav2_bringup/maps/frontier_10F/frontier_10F.yaml \
-  use_composition:=true \
-  use_lidar_relay:=true \
-  raw_lidar_topic:=/livox/lidar \
-  lidar_pointcloud_topic:=/livox/lidar_local \
-  use_rviz:=true \
-  use_pedestrian_figures:=true \
-  enable_motion:=false
-```
-
-Starting this launch first establishes the bounded local relay before
-FAST-LIVO2 subscribes. The launch terminal prints an explicit reminder that an
-initial pose is required.
-
-The default RViz configuration also shows a **Battery (%)** circular gauge at
-the upper left. `battery_percentage_bridge.py` subscribes to
-`/j100_0519/platform/bms/state` (`sensor_msgs/msg/BatteryState`) and publishes
-`percentage * 100` on `/nav2/battery_percentage` (`std_msgs/msg/Float32`).
-The input uses sensor-data QoS to accept best-effort and reliable publishers;
-the gauge uses a reliable subscription and a maximum of 100.
-The required `rviz_2d_overlay_plugins` package is a runtime dependency
-(`sudo apt install ros-humble-rviz-2d-overlay-plugins` on Humble).
-
-Override the input with `battery_state_topic:=/your/battery_state` if needed.
-`use_battery_gauge:=false` stops the bridge; uncheck **Battery (%)** in RViz to
-hide the display. Custom `rviz_config` files need their own
-`rviz_2d_overlay_plugins/PieChartOverlay` display on `/nav2/battery_percentage`
-with `max value` set to 100. The bridge also works with `use_rviz:=false` for
-a separately started RViz.
-
-Only finite input percentages in [0, 1] are accepted. Unknown (`NaN`) or
-out-of-range values are skipped with a warning, not presented as an empty or
-full battery. The stock overlay retains its last reading when messages stop
-or become invalid; it does not indicate freshness. Before the first message,
-any initial zero shown by the overlay is not a measured battery value.
-Check the source and converted values with:
-
-```bash
-ros2 topic echo /j100_0519/platform/bms/state --once
-ros2 topic echo /nav2/battery_percentage --once
-```
-
-The default RViz also displays `Speed: 0.00 m/s` below the battery gauge.
-`speed_overlay.py` computes planar speed as `hypot(vx, vy)` from the odometry
-twist on `nav_odom_topic` (default `/odom`, the FAST-LIVO2 adapter's estimated
-motion). Reverse motion remains positive; angular and vertical velocity do
-not contribute. This is an odometry estimate, not a commanded speed.
-Use `speed_odom_topic:=/your/odom` to select another `nav_msgs/msg/Odometry`
-source, or `use_speed_display:=false` to disable the publisher.
-The `rviz_2d_overlay_plugins/TextOverlay` display subscribes to
-`/nav2/speed_overlay`, with message-controlled position and appearance.
-Before odometry arrives it shows `waiting`; after two seconds without an
-update it shows `stale` instead of retaining a current-speed reading.
-
-### 3. Start FAST-LIVO2
-
-After terminal A has created `/livox/lidar_local`, use terminal B:
-
-```bash
-source /opt/ros/humble/setup.bash
-source ~/moai_navigation_ws/install/setup.bash
-source ~/moai_navigation_ws/install/jackal_network_bringup/share/jackal_network_bringup/config/network_env.sh laptop
-
-ros2 launch fast_livo mapping_mid360.launch.py \
-  lidar_topic:=/livox/lidar_local \
-  image_enable:=false \
-  rviz:=false \
-  publish_sensor_static_tf:=false \
-  publish_lidar_to_imu_tf:=true
-```
-
-Wait until the occupancy map is visible and `/scan` and `/odom` are arriving
-(use `ros2 topic hz /scan` and `ros2 topic hz /odom`). With RViz fixed to `map`,
-the scan cannot appear until the next step creates `map -> odom`.
-
-### 4. Set the Jackal initial pose in RViz
-
-1. Select **2D Pose Estimate** in the RViz toolbar.
-2. Click the Jackal's approximate physical position on the map.
-3. Keep the mouse button pressed and drag the arrow in the Jackal's forward
-   direction, then release it.
-4. Check that **AMCL Pose** appears and that the MID-360 scan overlaps the map
-   walls. Re-enter the pose if it aligns with the wrong repeated corridor.
-
-The included RViz configuration publishes the estimate to `/initialpose` with
-standard deviations of approximately `0.5 m` in x/y and `15 degrees` in yaw.
-For the long, repeated corridors in `frontier_10F`, identify the correct
-corridor section and start within roughly `0.5--1.0 m` and `10--20 degrees`
-when possible. Along-corridor position is generally less observable than
-distance and angle relative to the side walls.
-
-Confirm the resulting global transform before setting a goal:
-
-```bash
-ros2 run tf2_ros tf2_echo map base_link
-ros2 topic echo --once /amcl_pose geometry_msgs/msg/PoseWithCovarianceStamped --qos-durability transient_local
-```
-
-Only after the scan-map alignment is plausible should **2D Goal Pose** be
-used. A successful transform alone does not prove that AMCL selected the
-correct repeated corridor.
-
-### 5. Start perception separately (terminal C)
-
-Nav2 never launches perception. Source the same ROS/workspace/network profile
-in terminal C. Current upstream no longer exposes the old `lidar_input_topic`
-and `tracking_frame` convenience arguments; do not pass arguments that it ignores.
-Generate profiles from the installed upstream YAML instead:
-
-```bash
-ros2 run jackal_nav2_bringup prepare_perception_config.py
-```
-
-Run the separate `ros2 launch mid360_bringup perception.launch.py ...` command
-printed by that utility after the upstream blockers are fixed. The tool starts
-no nodes and preserves installed tuning, changing only the accumulator input
-to `/livox/lidar_local`, extractor `tracking_frame` to `odom`, and
-`use_latest_tf_fallback` to `false`. It records source hashes and refuses to
-overwrite an existing output directory. Use `--lidar-topic /custom/local` for a
-custom relay. Temporary profiles must be regenerated after upstream changes.
-
-The NUC owns `base_link -> livox_frame`; FAST-LIVO2 owns
-`livox_frame -> livox_imu_frame`. Perception supplies only the calibrated
-`livox_frame -> camera_link` bridge; RealSense retains its optical child tree.
-Standalone perception defaults are unchanged when overrides are omitted.
-The generated `tracking_frame: odom` changes the extractor output/tracker input
-coordinates; it does not change the tracking algorithm.
-Do not use `full_stack.launch.py` as a shortcut here: its current default does
-not start FAST-LIVO2, and opting in also enables an identity-odometry fallback
-unless explicitly disabled. A fabricated identity pose is not valid odometry
-for Nav2. Separate FAST-LIVO2 and perception remain the supported procedure.
-
-### 6. Stop or restart the stack
-
-Stop Nav2/RViz with `Ctrl-C` in terminal A first so that navigation command
-generation ends while odometry is still available. Then stop perception in C
-and FAST-LIVO2 in B. A FAST-LIVO2 restart resets the odom origin: **restart
-perception too, then re-enter AMCL's 2D Pose Estimate**. Never carry old tracks
-or an old initial pose across that reset. Verify no test processes remain before
-restarting:
-
-```bash
-pgrep -af '[j]ackal_nav2_bringup|[f]astlivo_mapping|[r]viz2|[c]omponent_container_isolated'
-```
+The former external-FAST manual startup sequence has been retired. Use the
+managed session above and the current [initial-pose/goal procedure](docs/Goal_Navigation.md).
+Battery and speed displays remain independently configurable with
+`use_battery_gauge` and `use_speed_display` (both default true).
 
 ## Launch overrides
 
-Useful overrides are:
+Direct staged launch exposes additional topic/display settings and performs the same
+network preflight and continuous stability checks:
 
 ```bash
-ros2 launch jackal_nav2_bringup bringup.launch.py \
-  map:=/absolute/path/to/map.yaml \
-  fast_livo_odom_topic:=/aft_mapped_to_init \
-  nav_odom_topic:=/odom \
-  nav_cmd_vel_topic:=/j100_0519/nav2_cmd_vel \
-  use_map_patch:=true \
-  use_scan_projection:=true \
-  use_lidar_relay:=false \
-  raw_lidar_topic:=/livox/lidar \
-  lidar_pointcloud_topic:=/livox/lidar \
-  scan_topic:=/scan \
-  use_composition:=true \
-  enable_motion:=false \
-  use_pedestrian_figures:=true tracks_topic:=/ped_tracking \
-  use_pedestrian_traces:=true traces_topic:=/ped_traces \
-  use_rviz:=false
+ros2 launch jackal_nav2_bringup nav_bringup.launch.py \
+  map:=/absolute/path/to/map.yaml enable_motion:=false \
+  raw_lidar_topic:=/livox/lidar lidar_pointcloud_topic:=/livox/lidar_local \
+  ready_settle:=5.0 input_timeout:=60.0 localization_timeout:=90.0 \
+  stability_settle:=180.0 stability_timeout:=600.0 \
+  use_map_patch:=true use_rviz:=false
 ```
 
 The AMCL motion thresholds are 0.05 m translation or 0.05 rad rotation, with
@@ -497,7 +317,8 @@ for LIO pose increments that include small lateral motion during rotation.
 This avoids DifferentialMotionModel's large bearing-noise jump at 1 cm of
 translation. Alpha values remain 0.2 to isolate the model change; controller
 lateral velocity limits remain zero. The [recorded-scan AMCL core comparison](docs/AMCL_Rotation_Patch_2026-09-17.md)
-supports reduced particle spread, with live rotation validation still pending.
+supports reduced particle spread; the September 18 manual rotation run is the
+accepted development baseline.
 A stationary filter does not normally update on every
 scan; a single localization-only update can be requested for inspection:
 
@@ -522,12 +343,11 @@ Controller/behaviors -> Velocity Smoother -> Collision Monitor -> Safety Guard
 
 `enable_motion:=false` is the default and makes the Guard publish zeros. There
 is no direct stamper bypass and no smoother after Collision Monitor. The
-standalone stamper remains only as a compatibility utility/helper; do not run
-it alongside the guard. This package never publishes directly to
+stamper is now an import-only message-copy helper with no publisher or executable node. This package never publishes directly to
 `/j100_0519/cmd_vel` or changes the NUC's existing `forward_cmd_vel=false`.
 
 The `Twist` to `TwistStamped` conversion is owned by this package; navigation
-does not depend on `jackal_network_bringup`. Forwarding the dedicated Nav2 topic
+consumes read-only preflight results from `jackal_network_bringup`. Forwarding the dedicated Nav2 topic
 to the actual platform command remains an external platform-integration
 decision. Enable motion only after checking the TF tree, localization, costmap,
 emergency stop, and a clear test area.
@@ -538,7 +358,7 @@ three points trigger stop or 0.3 speed ratio. These are provisional test values,
 not validated stopping distances. The guard independently checks the stop
 rectangle, raw-cloud timestamp and monotonic receipt age (0.30 s), monitor
 command age (0.25 s), mandatory dynamic TF health, finite commands, and clock
-regressions at 20 Hz. It clamps output to 0.20 m/s and 0.35 rad/s.
+regressions at 20 Hz. It clamps output to the prepared profile, bounded by the observed NUC limits and 0.50 m/s / 1.0 rad/s.
 Raw points are only transformed, finite-filtered, self-masked, and height-cropped
 to 0.10–1.80 m. Empty **filtered** observations are valid; empty/malformed/all-NaN
 raw observations are faults. No transform failure is replaced by identity.
@@ -663,3 +483,15 @@ sudo apt install --only-upgrade ros-humble-nav2-msgs
 ```
 
 The repository does not modify system packages automatically.
+
+## Operator stop and current trial profile
+
+Implementation and test results: [2026-09-21 patch report](docs/Navigation_Patch_2026-09-21.md).
+
+See [goal navigation](docs/Goal_Navigation.md) for Circle stop, Triangle re-arm,
+stationary button calibration, bridge-bounded profiles and heading-aligned map data.
+The operator gate stops **Nav2 output**, not higher-priority manual/RC inputs.
+Physical button-to-stop latency is not certified by unit or kinematic tests.
+The default remains `enable_motion:=false`; unverified button mapping and footprint
+prevent arming. `launch_operator_stop:=false` only permits an externally launched
+supervisor; it does not disable the Guard's mandatory stop heartbeat.

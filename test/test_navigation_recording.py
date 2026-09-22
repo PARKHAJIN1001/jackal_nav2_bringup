@@ -10,7 +10,7 @@ import pytest
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-import record_navigation_validation as record  # noqa: E402
+import record_navigation_validation as record  # noqa: E402,I100
 
 
 def bag_metadata(directory, duration=15.0, missing=None):
@@ -60,7 +60,8 @@ def test_bag_stop_sends_interrupt_and_validates_final_storage(tmp_path, monkeypa
     bag_metadata(bag.directory)
     signals = []
     monkeypatch.setattr(record, 'signal_group', lambda pid, sig: signals.append((pid, sig)))
-    bag.process = SimpleNamespace(pid=99999, poll=lambda: None, wait=lambda timeout: 0, returncode=0)
+    bag.process = SimpleNamespace(
+        pid=99999, poll=lambda: None, wait=lambda timeout: 0, returncode=0)
     bag.stop()
     assert signals == [(99999, signal.SIGINT)]
     assert bag.step['state'] == 'captured'

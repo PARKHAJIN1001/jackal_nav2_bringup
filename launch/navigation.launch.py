@@ -2,6 +2,7 @@
 
 """Launch Nav2 with an isolated, stamped velocity output."""
 
+import math
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -14,11 +15,18 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import LoadComposableNodes, Node
 from launch_ros.descriptions import ComposableNode, ParameterFile
+from launch_ros.parameter_descriptions import ParameterValue
 from nav2_common.launch import RewrittenYaml
 import yaml
 
 
 def _validate_params(context):
+    if context.launch_configurations.get('use_respawn', 'false').lower() != 'false':
+        raise RuntimeError('Automatic respawn is disabled; use a fresh managed session')
+    limit = float(context.launch_configurations.get('stability_timeout', '600'))
+    hold = float(context.launch_configurations.get('stability_settle', '180'))
+    if not all(math.isfinite(v) and v > 0 for v in (limit, hold)) or hold >= limit:
+        raise RuntimeError('stability_settle must be positive and less than stability_timeout')
     path = os.path.expanduser(LaunchConfiguration('params_file').perform(context))
     if not os.path.isfile(path):
         raise RuntimeError(f'Nav2 parameter file does not exist: {path}')
@@ -103,13 +111,44 @@ def generate_launch_description():
         DeclareLaunchArgument('nav_odom_topic', default_value='/odom'),
         DeclareLaunchArgument('use_map_patch', default_value='true'),
         DeclareLaunchArgument('enable_motion', default_value='false'),
+        DeclareLaunchArgument('stability_timeout', default_value='600.0'),
+        DeclareLaunchArgument('stability_settle', default_value='2.0'),
+        DeclareLaunchArgument('scan_topic', default_value='/scan'),
+        DeclareLaunchArgument('imu_topic', default_value='/livox/imu'),
+        DeclareLaunchArgument('fast_livo_odom_topic', default_value='/aft_mapped_to_init'),
+        DeclareLaunchArgument(
+            'launch_operator_stop', default_value=LaunchConfiguration('enable_motion')),
+        DeclareLaunchArgument('operator_params_file', default_value=os.path.join(
+            get_package_share_directory('jackal_nav2_bringup'), 'config', 'operator_stop.yaml')),
         DeclareLaunchArgument('safety_params_file', default_value=os.path.join(
             package_share, 'config', 'nav2_safety.yaml')),
         DeclareLaunchArgument(
             'lidar_pointcloud_topic', default_value='/livox/lidar'),
         DeclareLaunchArgument(
             'nav_cmd_vel_topic', default_value='/j100_0519/nav2_cmd_vel'),
+        IncludeLaunchDescription(PythonLaunchDescriptionSource(os.path.join(
+            get_package_share_directory('jackal_nav2_bringup'),
+            'launch', 'network_preflight.launch.py'))),
         OpaqueFunction(function=_validate_params),
+        Node(
+            package='jackal_nav2_bringup', executable='stack_stability.py',
+            name='nav2_stack_stability', output='screen',
+            parameters=[{
+                'use_sim_time': use_sim_time,
+                'topic': LaunchConfiguration('scan_topic'), 'message_type': 'scan',
+                'expected_frame': 'base_link', 'odom_topic': nav_odom_topic,
+                'imu_topic': LaunchConfiguration('imu_topic'),
+                'cloud_topic': lidar_pointcloud_topic,
+                'fast_odom_topic': LaunchConfiguration('fast_livo_odom_topic'),
+                'nav_cmd_topic': nav_cmd_vel_topic,
+                'require_localization': True,
+                'settle': 0.1, 'timeout': 600.0,
+                'stability_timeout': ParameterValue(
+                    LaunchConfiguration('stability_timeout'), value_type=float),
+                'stability_settle': ParameterValue(
+                    LaunchConfiguration('stability_settle'), value_type=float),
+            }],
+        ),
         Node(
             package='jackal_nav2_bringup',
             executable='static_costmap_node',
@@ -213,6 +252,7 @@ def generate_launch_description():
                         'use_sim_time': use_sim_time,
                         'autostart': autostart,
                         'node_names': lifecycle_nodes,
+                        'bond_timeout': 0.0,
                     }],
                 ),
             ],
@@ -284,6 +324,7 @@ def generate_launch_description():
                         'use_sim_time': use_sim_time,
                         'autostart': autostart,
                         'node_names': lifecycle_nodes,
+                        'bond_timeout': 0.0,
                     }],
                 ),
             ],
@@ -296,6 +337,8 @@ def generate_launch_description():
                 'autostart': autostart,
                 'enable_motion': LaunchConfiguration('enable_motion'),
                 'safety_params_file': LaunchConfiguration('safety_params_file'),
+                'operator_params_file': LaunchConfiguration('operator_params_file'),
+                'launch_operator_stop': LaunchConfiguration('launch_operator_stop'),
                 'lidar_pointcloud_topic': lidar_pointcloud_topic,
                 'nav_cmd_vel_topic': nav_cmd_vel_topic,
             }.items(),

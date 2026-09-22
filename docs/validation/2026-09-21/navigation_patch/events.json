@@ -1,0 +1,30 @@
+{
+  "events": [
+    {
+      "time_sec": 1789958304.1234796,
+      "uuid": "71e89a2209814fe9ac3bfe8b0a6da176",
+      "status": 2
+    },
+    {
+      "time_sec": 1789958304.1278334,
+      "node": "controller_server",
+      "message": "No goal checker was specified in parameter 'current_goal_checker'. Server will use only plugin loaded general_goal_checker . This warning will appear once."
+    },
+    {
+      "time_sec": 1789958305.9561794,
+      "uuid": "71e89a2209814fe9ac3bfe8b0a6da176",
+      "status": 4
+    },
+    {
+      "time_sec": 1789958307.1457121,
+      "uuid": "6078bc8b063d43f7b72adceb90c9c9a1",
+      "status": 2
+    },
+    {
+      "time_sec": 1789958310.6061263,
+      "uuid": "6078bc8b063d43f7b72adceb90c9c9a1",
+      "status": 4
+    }
+  ],
+  "meaning": "Time-aligned received evidence; stale stage samples have explicit ages. Path endpoint yaw is not independently measured goal accuracy. Physical button-to-stop timing requires synchronized video and platform odometry."
+}

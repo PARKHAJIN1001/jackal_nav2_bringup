@@ -1,0 +1,6 @@
+Starting >>> jackal_nav2_bringup
+Starting >>> jackal_network_bringup
+Finished <<< jackal_network_bringup [4.37s]
+Finished <<< jackal_nav2_bringup [22.9s]
+
+Summary: 2 packages finished [23.2s]

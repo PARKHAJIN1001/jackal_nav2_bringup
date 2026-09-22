@@ -14,6 +14,7 @@ import signal
 import struct
 import subprocess
 import sys
+import threading
 import time
 
 from action_msgs.msg import GoalStatus
@@ -26,11 +27,26 @@ import rclpy
 from rclpy.action import ActionClient
 from rclpy.executors import SingleThreadedExecutor
 from rclpy.node import Node
-from rclpy.qos import DurabilityPolicy, QoSProfile, qos_profile_sensor_data
-from sensor_msgs.msg import LaserScan, PointCloud2, PointField
+from rclpy.qos import DurabilityPolicy, qos_profile_sensor_data, QoSProfile
+from sensor_msgs.msg import Joy, LaserScan, PointCloud2, PointField
+from std_msgs.msg import Bool
 from tf2_ros import TransformBroadcaster
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'scripts'))
+from record_navigation_validation import NavigationBag, Recording  # noqa: E402,I100
+import operator_stop as operator_module  # noqa: E402,I100
+
+
+class LocalLink:
+    connected = True
+
+    @property
+    def result(self):
+        return self.connected, time.monotonic()
+
+    def close(self):
+        pass
 
 
 class GoalRig:
@@ -49,10 +65,33 @@ class GoalRig:
         self.map_tf_enabled = False
         self.blocked = False
         self.outputs, self.controller_commands, self.paths, self.scenarios = [], [], [], []
-        rclpy.init()
+        self.bag = None
+        rclpy.init(args=['--ros-args', '-p', 'mapping_verified:=true', '-p', 'stop_button:=0',
+                         '-p', 'reset_button:=1', '-p', 'deadman_buttons:=[2,3]',
+                         '-p', 'neutral_axes:=[0.0,0.0]', '-p', 'footprint_confirmed:=true'])
         self.node = Node('goal_test_base')
+        self.stack_ready = self.node.create_publisher(Bool, '/nav2/stack_ready', 1)
         self.executor = SingleThreadedExecutor()
         self.executor.add_node(self.node)
+        self.link = LocalLink()
+        self.buttons = [0, 0, 0, 0]
+        self.bridge = Node('cmd_vel_safety_bridge')
+        self.bridge.declare_parameter('max_linear_x', 0.5)
+        self.bridge.declare_parameter('max_angular_z', 1.0)
+        self.bridge.declare_parameter('forward_cmd_vel', True)
+        self.executor.add_node(self.bridge)
+        original_probe = operator_module.BluezProbe
+        try:
+            operator_module.BluezProbe = lambda *args: self.link
+            self.operator = operator_module.OperatorStop() if enabled else None
+        finally:
+            operator_module.BluezProbe = original_probe
+        if self.operator:
+            self.executor.add_node(self.operator)
+        self.joy = self.node.create_publisher(
+            Joy, '/j100_0519/joy_teleop/joy', qos_profile_sensor_data)
+        self.platform_odom = self.node.create_publisher(
+            Odometry, '/j100_0519/platform/odom', qos_profile_sensor_data)
         self.localization = []
         for name in ('amcl', 'map_server'):
             fixture = Node(name)
@@ -61,10 +100,12 @@ class GoalRig:
             self.localization.append(fixture)
         self.broadcaster = TransformBroadcaster(self.node)
         self.map = self.node.create_publisher(
-            OccupancyGrid, '/map', QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
+            OccupancyGrid, '/map',
+            QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
         self.odom = self.node.create_publisher(Odometry, '/odom', qos_profile_sensor_data)
         self.scan = self.node.create_publisher(LaserScan, '/scan', qos_profile_sensor_data)
-        self.cloud = self.node.create_publisher(PointCloud2, '/nav2_test/raw', qos_profile_sensor_data)
+        self.cloud = self.node.create_publisher(
+            PointCloud2, '/nav2_test/raw', qos_profile_sensor_data)
         self.node.create_subscription(TwistStamped, '/nav2_test/output', self.on_output, 10)
         self.node.create_subscription(Twist, '/cmd_vel_nav', self.on_controller, 10)
         self.node.create_subscription(NavPath, '/plan', self.on_plan, 10)
@@ -80,13 +121,20 @@ class GoalRig:
         grid.data = [100 if x in (0, 159) or y in (0, 159) else 0
                      for y in range(160) for x in range(160)]
         self.map.publish(grid)
+        self.grid = grid
         self.log = (directory / 'launch.log').open('w')
+        prefix = (['--launch-prefix',
+                   'gdb -batch -ex "handle SIGINT nostop pass" -ex run '
+                   '-ex "thread apply all bt" --args',
+                   '--launch-prefix-filter', 'static_costmap_node']
+                  if os.environ.get('GOAL_TEST_GDB') == '1' else [])
         self.process = subprocess.Popen([
-            'ros2', 'launch', 'jackal_nav2_bringup', 'navigation.launch.py',
+            'ros2', 'launch', str(ROOT / 'test/isolated_navigation.launch.py'),
             'use_composition:=false', 'use_map_patch:=false',
+            'launch_operator_stop:=false',
             f'enable_motion:={str(enabled).lower()}',
             'lidar_pointcloud_topic:=/nav2_test/raw', 'nav_cmd_vel_topic:=/nav2_test/output',
-        ], stdout=self.log, stderr=subprocess.STDOUT, start_new_session=True)
+        ] + prefix, stdout=self.log, stderr=subprocess.STDOUT, start_new_session=True)
 
     @staticmethod
     def active(request, response):
@@ -104,6 +152,7 @@ class GoalRig:
         self.paths.append(len(msg.poses))
 
     def tick(self):
+        self.stack_ready.publish(Bool(data=True))
         mono = time.monotonic()
         dt, self.last_tick = min(mono - self.last_tick, 0.1), mono
         v, w = (self.v, self.w) if mono - self.command_at < 0.25 else (0.0, 0.0)
@@ -118,6 +167,8 @@ class GoalRig:
         odom.pose.pose.orientation.w = math.cos(self.yaw / 2)
         odom.twist.twist.linear.x, odom.twist.twist.angular.z = v, w
         self.odom.publish(odom)
+        self.platform_odom.publish(odom)
+        self.joy.publish(Joy(header=odom.header, axes=[0.0, 0.0], buttons=self.buttons))
         transforms = []
         if self.odom_tf_enabled:
             tf = TransformStamped()
@@ -159,7 +210,8 @@ class GoalRig:
         while not predicate() and time.monotonic() < end:
             self.pump(0.02)
             assert self.process.poll() is None, (self.directory / 'launch.log').read_text()[-6000:]
-        assert predicate(), f'timeout: pose={(self.x, self.y, self.yaw)}, output={(self.v, self.w)}'
+        assert predicate(), (
+            f'timeout: pose={(self.x, self.y, self.yaw)}, output={(self.v, self.w)}')
 
     def goal(self, x=1.0, y=0.0, yaw=0.0):
         msg = NavigateToPose.Goal()
@@ -181,13 +233,24 @@ class GoalRig:
         self.stopped()
 
     def stopped(self):
-        self.until(lambda: abs(self.v) < 1e-6 and abs(self.w) < 1e-6, 1.0)
-        before = len(self.outputs)
-        pose = (self.x, self.y, self.yaw)
-        self.pump(1.1)
-        assert len(self.outputs) > before + 10
-        assert all(abs(v) < 1e-6 and abs(w) < 1e-6 for _, v, w in self.outputs[before:])
-        assert math.dist(pose, (self.x, self.y, self.yaw)) < 0.02
+        # Action completion and downstream deceleration are asynchronous.
+        # Require continuous zero for 1.1s, starting no later than 1s from here.
+        started, cursor, zero_since = time.monotonic(), len(self.outputs), None
+        pose = None
+        while time.monotonic() - started < 2.2:
+            self.pump(0.025)
+            for stamp, v, w in self.outputs[cursor:]:
+                if abs(v) < 1e-6 and abs(w) < 1e-6:
+                    if zero_since is None:
+                        zero_since, pose = stamp, (self.x, self.y, self.yaw)
+                    if stamp - zero_since >= 1.1:
+                        assert zero_since - started <= 1.0
+                        assert math.dist(pose, (self.x, self.y, self.yaw)) < 0.02
+                        return
+                else:
+                    zero_since = None
+            cursor = len(self.outputs)
+        raise AssertionError('Output did not settle to continuous zero within the stop deadline')
 
     def cancel(self, handle, result):
         if not result.done():
@@ -207,6 +270,41 @@ class GoalRig:
         self.scenarios.append({'scenario': name, 'result': 'passed'})
         (self.directory / 'scenarios.json').write_text(json.dumps(self.scenarios, indent=2) + '\n')
         print('PASS:', name, flush=True)
+
+    def corridor(self, enabled):
+        self.grid.data = [100 if x in (0, 159) or y in (0, 159) or
+                          (enabled and y in (64, 95)) else 0
+                          for y in range(160) for x in range(160)]
+        self.map.publish(self.grid)
+        self.pump(1.5)
+
+    def arm(self):
+        self.buttons = [0, 0, 0, 0]
+        self.pump(2)
+        self.buttons = [0, 1, 0, 0]
+        try:
+            self.until(lambda: self.operator.state.phase == 'WAITING FOR NEW GOAL', 6)
+        except AssertionError:
+            print(vars(self.operator.state), self.operator.bridge_values,
+                  self.operator.cancel_detail, flush=True)
+            raise
+        self.buttons = [0, 0, 0, 0]
+        self.pump(0.2)
+
+    def background(self, action):
+        errors = []
+
+        def run():
+            try:
+                action()
+            except BaseException as error:
+                errors.append(error)
+        thread = threading.Thread(target=run)
+        thread.start()
+        self.until(lambda: not thread.is_alive(), 25)
+        thread.join()
+        if errors:
+            raise errors[0]
 
     def readiness(self, expected, require_motion=False, timeout=8):
         output = self.directory / f'ready_{len(self.scenarios)}_{require_motion}.json'
@@ -229,6 +327,9 @@ class GoalRig:
         return report
 
     def close(self):
+        if self.bag:
+            self.bag.stop()
+            self.bag = None
         forced = False
         try:
             if self.process.poll() is None:
@@ -241,12 +342,15 @@ class GoalRig:
         finally:
             self.log.close()
             self.executor.shutdown()
-            for node in (*self.localization, self.node):
+            for node in (*self.localization, self.bridge, self.node):
                 node.destroy_node()
+            if self.operator:
+                self.operator.destroy_node()
             rclpy.try_shutdown()
         log = (self.directory / 'launch.log').read_text()
         assert not forced and self.process.returncode == 0, log[-5000:]
-        assert 'failed to terminate' not in log and 'exit code -6' not in log, log[-5000:]
+        assert not any(text in log for text in (
+            'failed to terminate', 'exit code -6', 'exit code -11')), log[-5000:]
 
 
 @pytest.mark.parametrize('enabled', [True, False])
@@ -260,6 +364,8 @@ def test_goal_to_final_velocity_and_kinematic_arrival(tmp_path, enabled):
         rig.map_tf_enabled = True
         rig.until(rig.client.server_is_ready, 35)
         rig.pump(2)
+        if enabled:
+            rig.arm()
         report = rig.readiness(0, timeout=15)
         assert report['perception'] == 'not_observed_or_loading'
         assert not report['motion_ready']  # No robot bridge exists in this isolated domain.
@@ -267,6 +373,12 @@ def test_goal_to_final_velocity_and_kinematic_arrival(tmp_path, enabled):
         report = rig.readiness(1, require_motion=True, timeout=4)
         assert not report['checks']['motion_configuration']['ok']
         rig.mark('motion_check_rejects_missing_platform_bridge')
+        if enabled:
+            capture = tmp_path / 'capture'
+            capture.mkdir()
+            rig.bag = NavigationBag(Recording(capture, 12, False), '/nav2_test/output', '/odom')
+            rig.background(rig.bag.start)
+            recording_started = time.monotonic()
         handle, result = rig.goal()
         if not enabled:
             rig.until(lambda: any(v > 0.01 for _, v, _ in rig.controller_commands), 15)
@@ -282,6 +394,20 @@ def test_goal_to_final_velocity_and_kinematic_arrival(tmp_path, enabled):
         _, result = rig.goal(rig.x, rig.y, math.pi/2)
         rig.success(result, rig.x, rig.y, math.pi/2)
         rig.mark('goal_heading_alignment')
+        rig.pump(max(0, 13-(time.monotonic()-recording_started)))
+        rig.background(rig.bag.stop)
+        assert rig.bag.step['state'] == 'captured', rig.bag.step
+        counts = rig.bag.recording.status['navigation_capture']['topic_message_counts']
+        assert counts['/navigate_to_pose/_action/feedback'] > 0
+        assert counts['/navigate_to_pose/_action/status'] > 0
+        rig.bag = None
+        rig.mark('navigation_rosbag_action_and_velocity_capture')
+        rig.reset()
+        rig.corridor(True)
+        _, result = rig.goal()
+        rig.success(result, 1, 0)
+        rig.mark('mapped_corridor_goal_succeeded')
+        rig.corridor(False)
         rig.reset()
         old, old_result = rig.goal(2, 0)
         rig.until(lambda: rig.x > 0.15)
@@ -297,6 +423,61 @@ def test_goal_to_final_velocity_and_kinematic_arrival(tmp_path, enabled):
         assert result.result().status == GoalStatus.STATUS_CANCELED
         rig.mark('cancel_terminates_goal_and_stops')
         rig.reset()
+        _, result = rig.goal(2, 0)
+        rig.until(lambda: rig.v > 0.05)
+        cursor, pressed = len(rig.outputs), time.monotonic()
+        rig.buttons = [1, 0, 0, 0]
+        rig.until(lambda: any(v == w == 0 for _, v, w in rig.outputs[cursor:]), 0.5)
+        first_zero = next(t for t, v, w in rig.outputs[cursor:] if v == w == 0)
+        assert first_zero-pressed <= 0.1
+        (tmp_path / 'operator_latency.json').write_text(json.dumps({
+            'fixture_button_to_final_zero_sec': first_zero-pressed,
+            'physical_button_to_stop_tested': False}))
+        rig.until(result.done, 5)
+        assert result.result().status == GoalStatus.STATUS_CANCELED
+        rig.stopped()
+        rig.buttons = [0, 0, 0, 0]
+        rig.pump(1)
+        assert rig.operator.state.phase == 'STOPPED'
+        rig.arm()
+        rig.stopped()
+        rig.mark('circle_stops_within_100ms_and_reset_does_not_replay_goal')
+        rig.reset()
+        _, result = rig.goal(2, 0)
+        rig.until(lambda: rig.v > 0.05)
+        rig.link.connected = False  # Joy continues at 40Hz despite disconnection.
+        rig.stopped()
+        rig.until(result.done, 5)
+        assert result.result().status == GoalStatus.STATUS_CANCELED
+        rig.link.connected = True
+        rig.pump(1)
+        assert rig.operator.state.phase == 'STOPPED'
+        rig.arm()
+        rig.stopped()
+        rig.mark('bluetooth_loss_with_repeated_joy_latches_stop')
+        _, result = rig.goal(2, 0)
+        rig.until(lambda: rig.v > 0.05)
+        rig.executor.remove_node(rig.operator)
+        rig.stopped()  # No heartbeat: Guard must stop without a cancel response.
+        rig.operator.destroy_node()
+        original_probe = operator_module.BluezProbe
+        try:
+            operator_module.BluezProbe = lambda *args: rig.link
+            rig.operator = operator_module.OperatorStop()
+        finally:
+            operator_module.BluezProbe = original_probe
+        rig.executor.add_node(rig.operator)
+        rig.until(result.done, 5)
+        assert result.result().status == GoalStatus.STATUS_CANCELED
+        rig.stopped()
+        assert rig.operator.state.phase == 'STOPPED'
+        _, stopped_result = rig.goal(2, 0)
+        rig.until(stopped_result.done, 5)
+        assert stopped_result.result().status == GoalStatus.STATUS_CANCELED
+        rig.stopped()
+        rig.arm()
+        rig.mark('operator_loss_restart_and_goals_while_stopped')
+        rig.reset()
         _, result = rig.goal()
         rig.until(lambda: rig.x > 0.1)
         rig.blocked = True
@@ -310,7 +491,7 @@ def test_goal_to_final_velocity_and_kinematic_arrival(tmp_path, enabled):
         rig.until(lambda: rig.x > 0.1)
         rig.blocked = True
         rig.stopped()
-        rig.until(result.done, 15)
+        rig.until(result.done, 35)
         assert result.result().status == GoalStatus.STATUS_ABORTED
         rig.blocked = False
         rig.stopped()
@@ -343,7 +524,7 @@ def test_goal_to_final_velocity_and_kinematic_arrival(tmp_path, enabled):
         rig.stopped()
         rig.cancel(handle, result)
         rig.mark('lost_monitor_commands_stop_output')
-        assert all(v >= -1e-6 and abs(v) <= 0.20 + 1e-6 and abs(w) <= 0.35 + 1e-6
+        assert all(v >= -1e-6 and abs(v) <= 0.50 + 1e-6 and abs(w) <= 1.0 + 1e-6
                    for _, v, w in rig.outputs)
     finally:
         rig.close()

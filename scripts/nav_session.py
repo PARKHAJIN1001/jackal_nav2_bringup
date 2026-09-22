@@ -14,8 +14,6 @@ import sys
 import time
 
 
-IPFRAG = Path('/proc/sys/net/ipv4/ipfrag_high_thresh')
-MIN_IPFRAG = 128 * 1024 * 1024
 PROC = Path('/proc')
 STOP_REQUESTED = False
 
@@ -63,7 +61,10 @@ def stack_role(args):
             return 'nav'
     if any(n in executable_names for n in (
             'fastlivo_mapping', 'pointcloud_relay_node', 'amcl', 'controller_server',
-            'planner_server', 'bt_navigator', 'nav2_safety_guard.py')):
+            'planner_server', 'bt_navigator', 'nav2_safety_guard.py',
+            'stack_stability.py', 'operator_stop.py',
+            'fast_livo_odom_adapter.py', 'collision_monitor', 'velocity_smoother',
+            'static_costmap_node', 'map_server', 'pointcloud_to_laserscan_node')):
         return 'nav'
     if any(n in executable_names for n in (
             'ped_yolo_node', 'mid360_mask_3d_extractor_node',
@@ -113,13 +114,29 @@ def save_state(runtime, role, state):
         temporary.replace(durable)
 
 
+def network_status():
+    """Read the owning package's policy without importing its source or changing sysctls."""
+    result = subprocess.run(
+        ['ros2', 'run', 'jackal_network_bringup', 'network_preflight.py', '--check'],
+        capture_output=True, text=True, timeout=10, check=False)
+    try:
+        report = json.loads(result.stdout)
+    except (ValueError, TypeError) as error:
+        raise RuntimeError('Install/rebuild jackal_network_bringup; network status unavailable: '
+                           + result.stderr.strip()) from error
+    if result.returncode not in (0, 1) or not isinstance(report.get('ready'), bool):
+        raise RuntimeError(f'Network status failed: {report}')
+    return report
+
+
 def require_environment():
     """Reject a different network or an unprepared kernel before starting nodes."""
     if os.environ.get('ROS_DOMAIN_ID') != '1' or os.environ.get('JACKAL_NETWORK_ROLE') != 'laptop':
         raise RuntimeError('Source the workspace and network_env.sh laptop first (domain 1).')
-    if int(IPFRAG.read_text()) < MIN_IPFRAG:
-        raise RuntimeError('IP reassembly limit is below 128MiB; '
-                           'run ipfrag_session.py apply first.')
+    report = network_status()
+    if not report['ready']:
+        raise RuntimeError('Network policy is not ready: ' + json.dumps(report) +
+                           '; inspect the network-owned report before changing settings.')
 
 
 def stop_role(runtime, role, timeout=35.0):
@@ -192,6 +209,10 @@ def supervise(role, commands, runtime, log_dir, parent=None):
              'status': 'starting', 'commands': commands,
              'started_at': datetime.now().astimezone().isoformat()}
     save_state(runtime, role, state)
+    from runtime_resource_audit import ResourceRecorder
+    resources = ResourceRecorder(
+        log_dir / 'resources.jsonl', lambda: [p['pid'] for p in stack_processes()],
+        log_dir.name, log_dir).start()
     child = None
     code = 0
     try:
@@ -204,7 +225,8 @@ def supervise(role, commands, runtime, log_dir, parent=None):
             print(f'[{role}] {shlex.join(command)}', flush=True)
             print(f'[{role}] logs: {log_dir}; running does not mean ready.', flush=True)
             env = {**os.environ, 'ROS_LOG_DIR': str(log_dir / 'ros'),
-                   'OVERRIDE_LAUNCH_PROCESS_OUTPUT': 'both'}
+                   'OVERRIDE_LAUNCH_PROCESS_OUTPUT': 'both',
+                   'JACKAL_NAV_SESSION_DIR': str(log_dir)}
             # Preserve launch child stdout as well as rcl logging after terminal loss.
             child = subprocess.Popen(command, env=env, start_new_session=True)
             state['child'] = process_info(child.pid)
@@ -218,6 +240,9 @@ def supervise(role, commands, runtime, log_dir, parent=None):
                 stop_role(runtime, 'perception')
             stop_child(child)
             code = code or child.returncode
+            if (log_dir / 'failure.json').is_file():
+                state['failure'] = json.loads((log_dir / 'failure.json').read_text())
+                code = code or 1
             child = None
             if code:
                 break
@@ -238,6 +263,8 @@ def supervise(role, commands, runtime, log_dir, parent=None):
         except (OSError, RuntimeError, subprocess.TimeoutExpired) as error:
             cleanup_error = error
         try:
+            resources.close()
+            state['resource_audit_error'] = resources.error
             state.update(status='cleanup_failed' if cleanup_error else 'stopped', returncode=code)
             state['ended_at'] = datetime.now().astimezone().isoformat()
             if cleanup_error:
@@ -248,6 +275,30 @@ def supervise(role, commands, runtime, log_dir, parent=None):
                 signal.signal(sig, handler)
         if cleanup_error:
             raise cleanup_error
+
+
+def navigation_command(args):
+    """One explicit profile/motion path for both stationary and attended sessions."""
+    command = [
+        'ros2', 'launch', 'jackal_nav2_bringup', 'nav_bringup.launch.py',
+        f'map:={args.map.expanduser().resolve()}',
+        f'enable_motion:={str(args.enable_motion).lower()}', 'managed_session:=true',
+        f'input_timeout:={args.input_timeout}',
+        f'localization_timeout:={args.localization_timeout}',
+        f'ready_settle:={args.ready_settle}',
+        f'stability_timeout:={args.stability_timeout}',
+        f'stability_settle:={args.stability_settle}',
+        f'use_pedestrian_figures:={str(args.pedestrian_viz).lower()}',
+        f'use_pedestrian_traces:={str(args.pedestrian_viz).lower()}',
+    ]
+    if args.profile_dir:
+        for key, filename in (('params_file', 'nav2.yaml'), ('safety_params_file', 'safety.yaml'),
+                              ('operator_params_file', 'operator.yaml')):
+            path = args.profile_dir.expanduser().resolve() / filename
+            if not path.is_file():
+                raise RuntimeError(f'Navigation profile missing: {path}')
+            command.append(f'{key}:={path}')
+    return command
 
 
 def start(args, runtime):
@@ -278,11 +329,7 @@ def start(args, runtime):
             datetime.now().strftime('%Y%m%d_%H%M%S_%f') + '_' + role)
         log_dir.mkdir(parents=True, exist_ok=False)
         if role == 'nav':
-            commands = [[
-                'ros2', 'launch', 'jackal_nav2_bringup', 'nav_bringup.launch.py',
-                f'map:={args.map.expanduser().resolve()}', 'enable_motion:=false',
-                'managed_session:=true',
-            ]]
+            commands = [navigation_command(args)]
         else:
             from ament_index_python.packages import get_package_share_directory
             from prepare_perception_config import perception_command, prepare
@@ -297,16 +344,32 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['check', 'nav', 'perception', 'status', 'stop'])
     parser.add_argument('--map', type=Path)
+    parser.add_argument('--enable-motion', action='store_true')
+    parser.add_argument('--profile-dir', type=Path, help='prepared nav2/safety/operator YAMLs')
+    parser.add_argument('--pedestrian-viz', action='store_true')
+    parser.add_argument('--input-timeout', type=float, default=60.0)
+    parser.add_argument('--localization-timeout', type=float, default=90.0)
+    parser.add_argument('--ready-settle', type=float, default=5.0)
+    parser.add_argument('--stability-timeout', type=float, default=600.0)
+    parser.add_argument('--stability-settle', type=float, default=3.0)
     parser.add_argument('--initial-pose-confirmed', action='store_true')
     parser.add_argument('--log-root', type=Path, default=Path.home() / '.ros/nav_sessions')
     args = parser.parse_args(argv)
     if args.action == 'nav' and args.map is None:
         parser.error('nav requires --map')
+    import math
+    for limit, hold in ((args.input_timeout, args.ready_settle),
+                        (args.localization_timeout, args.ready_settle),
+                        (args.stability_timeout, args.stability_settle)):
+        if not all(math.isfinite(v) and v > 0 for v in (limit, hold)) or hold >= limit:
+            parser.error('each settle time must be positive and less than its timeout')
+    if args.enable_motion and args.action != 'nav':
+        parser.error('--enable-motion applies only to nav')
     try:
         runtime = runtime_directory()
         if args.action in ('check', 'status'):
             print(json.dumps({
-                'ipfrag_high_thresh': int(IPFRAG.read_text()),
+                'network': network_status(),
                 'network_namespace': os.readlink('/proc/self/ns/net'),
                 'sessions': {r: {**read_state(runtime, r),
                                  'owner_alive': same_process(read_state(runtime, r).get('owner'))}

@@ -23,6 +23,26 @@ Panels:
 Visualization Manager:
   Class: ""
   Displays:
+    - Class: rviz_2d_overlay_plugins/TextOverlay
+      Enabled: true
+      Name: Nav2 Operator Stop
+      Topic:
+        Value: /nav2/operator_stop_overlay
+      Value: true
+    - Class: rviz_default_plugins/Map
+      Alpha: 0.7
+      Color Scheme: costmap
+      Draw Behind: false
+      Enabled: false
+      Name: Robot Heading Map Patch
+      Topic:
+        Depth: 1
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_encoder/input
+      Use Timestamp: true
+      Value: true
     - Class: rviz_2d_overlay_plugins/PieChartOverlay
       Enabled: true
       Name: Battery (%)

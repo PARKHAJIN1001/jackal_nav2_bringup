@@ -15,6 +15,7 @@ from nav2_safety_core import (
 )
 from nav2_twist_stamper import make_stamped_twist
 import numpy as np
+from operator_stop_core import StopHeartbeat
 from rcl_interfaces.msg import ParameterDescriptor
 import rclpy
 from rclpy.clock import Clock, ClockType
@@ -24,6 +25,7 @@ from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from rclpy.time import Time
 from sensor_msgs.msg import PointCloud2, PointField
+from std_msgs.msg import Bool
 from tf2_ros import Buffer, TransformException, TransformListener
 
 
@@ -75,6 +77,10 @@ class SafetyGuard(Node):
         self.state = GuardState(
             self.config, self.get_parameter('enable_motion').value
         )
+        self.stability = StopHeartbeat()
+        self.create_subscription(Bool, '/nav2/stack_ready', self.stack_ready, 1)
+        self.operator_stop = StopHeartbeat()
+        self.create_subscription(Bool, '/nav2/operator_stop', self.operator_command, 1)
         self.buffer = Buffer(cache_time=Duration(seconds=3.0), node=self)
         self.listener = TransformListener(self.buffer, self)
         self.points_pub = self.create_publisher(
@@ -123,6 +129,24 @@ class SafetyGuard(Node):
             ],
             time.monotonic(),
         )
+
+    def publish_zero(self):
+        self.state.command = None
+        self.output_pub.publish(make_stamped_twist(
+            Twist(), self.get_clock().now().to_msg(), self.base))
+
+    def stack_ready(self, message):
+        previously_blocked = self.stability.required(time.monotonic())
+        self.stability.receive(not message.data, time.monotonic())
+        if not message.data or previously_blocked:
+            self.publish_zero()
+
+    def operator_command(self, message):
+        previously_blocked = self.operator_stop.required(time.monotonic())
+        self.operator_stop.receive(message.data, time.monotonic())
+        if message.data or previously_blocked:
+            # Clear a cached nonzero command on BOTH block and unblock edges.
+            self.publish_zero()
 
     def cloud(self, message):
         # Keep only the newest observation. Nonblocking TF retry never re-stamps it.
@@ -213,6 +237,12 @@ class SafetyGuard(Node):
         x, yaw, reason = self.state.decision(
             now, received, self.tf_health(now)
         )
+        if self.state.enable_motion and self.operator_stop.required(received):
+            self.state.command = None
+            x, yaw, reason = 0.0, 0.0, 'operator_stop'
+        if self.stability.required(received):
+            self.state.command = None
+            x, yaw, reason = 0.0, 0.0, 'stack_not_stable'
         output = Twist()
         output.linear.x, output.angular.z = x, yaw
         self.output_pub.publish(
@@ -231,7 +261,13 @@ class SafetyGuard(Node):
             status.message = reason
             values = {
                 'enable_motion': self.state.enable_motion,
+                'stack_ready': not self.stability.required(received),
                 'sensor_error': self.state.sensor_error,
+                'sensor_timeout': self.config.sensor_timeout,
+                'tf_timeout': self.config.tf_timeout,
+                'map_tf_timeout': self.config.map_tf_timeout,
+                'map_transform_tolerance': self.config.map_transform_tolerance,
+                'future_tolerance': self.config.future_tolerance,
                 'raw_sensor_stamp_age': (
                     now - self.last_raw_stamp
                     if self.last_raw_stamp is not None else 'missing'),

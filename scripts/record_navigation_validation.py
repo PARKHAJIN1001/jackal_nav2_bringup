@@ -14,9 +14,8 @@ import tempfile
 import time
 import xml.etree.ElementTree as ET
 
-import yaml
-
 from ament_index_python.packages import get_package_share_directory
+import yaml
 
 
 def capture(command, destination, timeout=10):
@@ -113,8 +112,7 @@ def parameter_nodes(require_perception):
              'pointcloud_to_laserscan', 'local_costmap/local_costmap',
              'global_costmap/global_costmap', 'static_costmap/static_costmap']
     if require_perception:
-        nodes += ['pedestrian_figures', 'pedestrian_traces',
-                  'ped_yolo_node',
+        nodes += ['ped_yolo_node',
                   'mid360_lidar_accumulator_node', 'mid360_mask_3d_extractor_node',
                   'pedestrian_tracker_node']
     return nodes
@@ -160,12 +158,16 @@ def navigation_topics(nav_cmd_topic='/j100_0519/nav2_cmd_vel', odom_topic='/odom
         '/nav2/collision_checked_cmd_vel', nav_cmd_topic,
         '/j100_0519/cmd_vel', '/j100_0519/platform/cmd_vel_unstamped',
         '/j100_0519/platform/odom', '/nav2/safety_diagnostics',
+        '/nav2/operator_stop', '/nav2/operator_stop_diagnostics',
+        '/j100_0519/joy_teleop/joy', '/rosout', '/map_encoder/input',
+        '/nav2/map_patch_diagnostics', '/nav2/stack_ready', '/nav2/stability_diagnostics',
     ]
 
 
 def inspect_navigation_bag(directory, duration, nav_cmd_topic, odom_topic):
     """Reject short/incomplete captures; message counts never imply goal success."""
-    metadata = yaml.safe_load((directory / 'metadata.yaml').read_text())['rosbag2_bagfile_information']
+    document = yaml.safe_load((directory / 'metadata.yaml').read_text())
+    metadata = document['rosbag2_bagfile_information']
     elapsed = metadata['duration']['nanoseconds'] * 1e-9
     counts = {entry['topic_metadata']['name']: entry['message_count']
               for entry in metadata['topics_with_message_count']}
@@ -253,9 +255,28 @@ def collect(recording, duration, require_perception, lidar_topic='/livox/lidar_l
     environment = {name: os.environ.get(name, '') for name in (
         'ROS_DISTRO', 'ROS_DOMAIN_ID', 'ROS_LOCALHOST_ONLY', 'RMW_IMPLEMENTATION',
         'FASTRTPS_DEFAULT_PROFILES_FILE', 'FASTDDS_DEFAULT_PROFILES_FILE',
-        'LD_LIBRARY_PATH')}
+        'LD_LIBRARY_PATH', 'RMW_FASTRTPS_PUBLICATION_MODE')}
     (directory/'ros_environment.json').write_text(
         json.dumps(environment, indent=2)+'\n', encoding='utf-8')
+    # Snapshot actual transport inputs separately from the historical localization evidence.
+    transport = {}
+    for name in ('FASTRTPS_DEFAULT_PROFILES_FILE', 'FASTDDS_DEFAULT_PROFILES_FILE'):
+        path = os.environ.get(name)
+        if path:
+            try:
+                data = Path(path).read_bytes()
+                transport[name] = {'path': path, 'sha256': hashlib.sha256(data).hexdigest()}
+                (directory / (name + '.xml')).write_bytes(data)
+            except OSError as error:
+                transport[name] = {'path': path, 'error': str(error)}
+    for name in ('ipfrag_high_thresh', 'ipfrag_time'):
+        try:
+            transport[name] = int((Path('/proc/sys/net/ipv4') / name).read_text())
+        except (OSError, ValueError) as error:
+            transport[name] = {'error': str(error)}
+    (directory / 'transport.json').write_text(json.dumps(transport, indent=2))
+    capture(['ros2', 'run', 'jackal_network_bringup', 'network_preflight.py'],
+            directory / 'network_status.json', 10)
     versions = {}
     for package in ('jackal_nav2_bringup', 'moai_nav_viz', 'mid360_bringup',
                     'mid360_perception', 'fast_livo', 'nav2_collision_monitor',
@@ -275,7 +296,8 @@ def collect(recording, duration, require_perception, lidar_topic='/livox/lidar_l
             recording.status['metadata_errors'].append({'package': package, 'error': str(exc)})
             recording.save()
     (directory/'versions.json').write_text(json.dumps(versions, indent=2)+'\n')
-    recording.run(['dpkg-query', '-W', 'ros-humble-nav2-*', 'ros-humble-tf2*'],
+    recording.run(['dpkg-query', '-W', 'ros-humble-nav2-*', 'ros-humble-tf2*',
+                   'ros-humble-fastrtps', 'ros-humble-fastcdr', 'ros-humble-rmw-fastrtps-*'],
                   'system_versions.txt')
     recording.run(['ros2', 'node', 'list', '--no-daemon', '--spin-time', '3'], 'nodes.txt')
     # Optional helpers: record actual values when present, not a hard dependency.
@@ -285,7 +307,8 @@ def collect(recording, duration, require_perception, lidar_topic='/livox/lidar_l
         present = set()
         recording.status['metadata_errors'].append({'file': 'nodes.txt', 'error': str(exc)})
         recording.save()
-    for node in ('pointcloud_relay', 'amcl_quality_monitor'):
+    for node in ('pointcloud_relay', 'amcl_quality_monitor',
+                 'pedestrian_figures', 'pedestrian_traces', 'nav2_stack_stability'):
         if '/' + node in present:
             recording.run(['ros2', 'param', 'dump', '/' + node], node + '.yaml')
     for node in parameter_nodes(require_perception):
@@ -303,8 +326,25 @@ def collect(recording, duration, require_perception, lidar_topic='/livox/lidar_l
             (directory / 'navigation_tree.xml').write_bytes(tree.read_bytes())
         except (OSError, KeyError, TypeError, yaml.YAMLError) as error:
             recording.status['metadata_errors'].append({'navigation_tree': str(error)})
+    from nav_session import stack_processes
+    from runtime_resource_audit import ResourceRecorder
+    source_session = os.environ.get('JACKAL_NAV_SESSION_DIR')
+    if not source_session:
+        from nav_session import read_state, runtime_directory, same_process
+        session = read_state(runtime_directory(), 'nav')
+        if same_process(session.get('owner')):
+            source_session = session.get('log_dir')
+    recording.status['source_session_dir'] = source_session
+    resources = ResourceRecorder(
+        directory / 'resources.jsonl', lambda: [p['pid'] for p in stack_processes()],
+        Path(source_session).name if source_session else directory.name,
+        Path(source_session) if source_session else None).start()
+    process_command = ['ros2', 'run', 'jackal_network_bringup', 'network_preflight.py']
+    for process in stack_processes():
+        process_command += ['--pid', str(process['pid'])]
     bag = NavigationBag(recording, nav_cmd_topic, odom_topic) if navigation else None
     try:
+        recording.run(process_command, 'network_processes.json', timeout=15)
         if bag:
             bag.start()
         code = recording.run(audit_command(duration, directory, require_perception, lidar_topic),
@@ -312,6 +352,10 @@ def collect(recording, duration, require_perception, lidar_topic='/livox/lidar_l
     finally:
         if bag:
             bag.stop()
+        resources.close()
+        if resources.error:
+            recording.status['metadata_errors'].append({'resource_audit': resources.error})
+        recording.save()
     return summarize_audit(recording, code)
 
 
@@ -326,7 +370,7 @@ def main(argv=None):
                         help='omit perception inputs and parameter queries; '
                         'default is full perception')
     parser.add_argument('--navigation', action='store_true',
-                        help='also capture navigation action/TF/odom/velocity evidence in rosbag2; '
+                        help='also capture action/TF/odom/velocity evidence in rosbag2; '
                         'does not send goals or enable motion')
     parser.add_argument('--nav-cmd-topic', default='/j100_0519/nav2_cmd_vel')
     parser.add_argument('--odom-topic', default='/odom')

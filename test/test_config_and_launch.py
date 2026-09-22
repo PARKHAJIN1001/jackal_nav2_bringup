@@ -40,12 +40,11 @@ def test_audit_script_is_executable_for_symlink_install():
 
 
 def test_lidar_relay_is_default_and_routes_all_nav_consumers():
-    bringup = (PACKAGE_ROOT / 'launch' / 'bringup.launch.py').read_text(
+    bringup = (PACKAGE_ROOT / 'launch' / 'nav_bringup.launch.py').read_text(
         encoding='utf-8')
     navigation = (PACKAGE_ROOT / 'launch' / 'navigation.launch.py').read_text(
         encoding='utf-8')
 
-    assert "DeclareLaunchArgument('use_lidar_relay', default_value='true')" in bringup
     assert "executable='pointcloud_relay_node'" in bringup
     assert "'input_topic': raw_lidar_topic" in bringup
     assert "'output_topic': lidar_pointcloud_topic" in bringup
@@ -56,26 +55,14 @@ def test_lidar_relay_is_default_and_routes_all_nav_consumers():
     assert "('/livox/lidar', lidar_pointcloud_topic)" not in navigation
 
 
-def test_bringup_composes_nav2_by_default_and_forwards_container_settings():
-    bringup = (PACKAGE_ROOT / 'launch' / 'bringup.launch.py').read_text(
-        encoding='utf-8')
-    localization = (
-        PACKAGE_ROOT / 'launch' / 'localization.launch.py').read_text(
-            encoding='utf-8')
-    navigation = (
-        PACKAGE_ROOT / 'launch' / 'navigation.launch.py').read_text(
-            encoding='utf-8')
-
-    assert "DeclareLaunchArgument('use_composition', default_value='true')" in (
-        bringup)
-    assert "executable='component_container_isolated'" in bringup
-    assert 'parameters=[container_params]' in bringup
-    assert "'use_composition': use_composition" in bringup
-    assert "'container_name': container_name" in bringup
-    assert 'LoadComposableNodes(' in localization
-    assert 'LoadComposableNodes(' in navigation
-    assert "plugin='nav2_amcl::AmclNode'" in localization
-    assert "plugin='nav2_controller::ControllerServer'" in navigation
+def test_bringup_alias_reuses_staged_definition_and_lower_launches_remain():
+    alias = (PACKAGE_ROOT / 'launch/bringup.launch.py').read_text()
+    assert "with_name('nav_bringup.launch.py')" in alias
+    assert 'Node(' not in alias
+    staged = (PACKAGE_ROOT / 'launch/nav_bringup.launch.py').read_text()
+    assert staged.count("'use_composition': 'false'") == 2
+    for name in ('localization.launch.py', 'navigation.launch.py'):
+        assert 'LoadComposableNodes(' in (PACKAGE_ROOT / 'launch' / name).read_text()
 
 
 def test_nav2_frame_topic_and_plugin_contracts():
@@ -150,8 +137,8 @@ def test_nav2_frame_topic_and_plugin_contracts():
     controller = config['controller_server']['ros__parameters']
     assert controller['odom_topic'] == '/odom'
     assert controller['FollowPath']['plugin'] == 'dwb_core::DWBLocalPlanner'
-    assert controller['FollowPath']['max_vel_x'] == 0.20
-    assert controller['FollowPath']['max_vel_theta'] == 0.35
+    assert controller['FollowPath']['max_vel_x'] == 0.50
+    assert controller['FollowPath']['max_vel_theta'] == 1.0
     assert config['planner_server']['ros__parameters']['GridBased']['plugin'] == (
         'nav2_navfn_planner/NavfnPlanner')
 
@@ -224,7 +211,8 @@ def test_generated_perception_profiles_use_supported_yaml_interface(tmp_path):
     # Current upstream removed the convenience args. Test the real YAML inputs
     # instead of accepting an ignored lidar_input_topic/tracking_frame argument.
     original = yaml.safe_load((share / 'config' / 'mask_3d_extractor.yaml').read_text())
-    assert original['mid360_mask_3d_extractor_node']['ros__parameters']['tracking_frame'] == 'base_link'
+    assert original['mid360_mask_3d_extractor_node']['ros__parameters'][
+        'tracking_frame'] == 'base_link'
     context.launch_configurations.update(
         lidar_preprocess_config=str(profile / 'lidar_preprocess.yaml'),
         extractor_config=str(profile / 'mask_3d_extractor.yaml'))
@@ -238,15 +226,15 @@ def test_generated_perception_profiles_use_supported_yaml_interface(tmp_path):
 
 
 def test_bringup_requires_operator_initial_pose_and_rviz_publishes_it():
-    bringup = (PACKAGE_ROOT / 'launch' / 'bringup.launch.py').read_text(
+    bringup = (PACKAGE_ROOT / 'launch' / 'nav_bringup.launch.py').read_text(
         encoding='utf-8')
     rviz = yaml.safe_load(
         (PACKAGE_ROOT / 'rviz' / 'jackal_nav2.rviz').read_text(
             encoding='utf-8'))
 
     assert "DeclareLaunchArgument('use_rviz', default_value='true')" in bringup
-    assert 'Initial pose required' in bringup
-    assert '/initialpose' in bringup
+    assert 'INITIAL_POSE_REQUIRED' in bringup
+    assert '2D Pose Estimate' in bringup
 
     tools = rviz['Visualization Manager']['Tools']
     initial_pose_tools = [
@@ -263,9 +251,9 @@ def test_bringup_requires_operator_initial_pose_and_rviz_publishes_it():
 
 
 def test_nav2_visualization_defaults_are_independent_of_perception_and_safety():
-    text = (PACKAGE_ROOT / 'launch' / 'bringup.launch.py').read_text()
+    text = (PACKAGE_ROOT / 'launch' / 'nav_bringup.launch.py').read_text()
     for name in ('figures', 'traces'):
-        assert f"DeclareLaunchArgument('use_pedestrian_{name}', default_value='true')" in text
+        assert f"DeclareLaunchArgument('use_pedestrian_{name}', default_value='false')" in text
         assert f"executable='pedestrian_{name}_node'" in text
         assert f"'output_topic': '/nav2/pedestrian_{name}'" in text
         assert f"condition=IfCondition(LaunchConfiguration('use_pedestrian_{name}'))" in text
@@ -373,7 +361,7 @@ def test_manifest_declares_runtime_and_test_dependencies():
         'rviz2',
         'tf2_ros',
     }.issubset(runtime_dependencies)
-    assert 'jackal_network_bringup' not in runtime_dependencies
+    assert 'jackal_network_bringup' in runtime_dependencies
     combined_dependencies = {
         element.text for tag in ('depend', 'exec_depend')
         for element in root.findall(tag)

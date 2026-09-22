@@ -2,6 +2,7 @@
 
 import importlib.util
 from pathlib import Path
+import sys
 from types import SimpleNamespace
 
 from nav_msgs.msg import Odometry
@@ -10,6 +11,7 @@ from sensor_msgs.msg import Imu, LaserScan, PointCloud2
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'scripts'))
 SPEC = importlib.util.spec_from_file_location('gate', ROOT / 'scripts/topic_ready_gate.py')
 GATE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(GATE)

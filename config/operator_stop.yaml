@@ -1,0 +1,15 @@
+nav2_operator_stop:
+  ros__parameters:
+    joy_topic: /j100_0519/joy_teleop/joy
+    odom_topic: /j100_0519/platform/odom
+    mapping_verified: true
+    stop_button: 1
+    reset_button: 3
+    deadman_buttons: [4, 5]
+    neutral_axes: [-0.0, -0.0, 1.0, -0.0, -0.0, 1.0]
+    nuc_host: administrator@192.168.50.2
+    controller_address: A4:53:85:6E:27:41
+    bridge_node: /cmd_vel_safety_bridge
+    footprint_confirmed: true
+    max_linear_x: 0.5
+    max_angular_z: 1.0

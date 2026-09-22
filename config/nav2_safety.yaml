@@ -12,7 +12,7 @@ nav2_safety_guard:
     stop_half_y: 0.40
     slow_half_x: 1.00
     slow_half_y: 0.50
-    min_points: 3
+    min_points: 5
     slowdown_ratio: 0.70
     sensor_timeout: 0.30
     command_timeout: 0.25

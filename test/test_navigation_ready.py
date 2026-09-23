@@ -82,7 +82,7 @@ def test_native_goal_ui_and_default_bt_contract():
     names = {c.attrib['name'] for c in xml.findall('class')}
     assert {'nav2_rviz_plugins/Navigation 2', 'nav2_rviz_plugins/GoalTool'} <= names
     spec = importlib.util.spec_from_file_location(
-        'navigation_launch', root / 'launch/navigation.launch.py')
+        'navigation_launch', root / 'launch/nav2.launch.py')
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     description = module.generate_launch_description()

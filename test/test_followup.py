@@ -10,7 +10,6 @@ from types import SimpleNamespace
 
 from diagnostic_msgs.msg import DiagnosticStatus
 from geometry_msgs.msg import PoseWithCovarianceStamped
-from launch import LaunchContext
 import pytest
 import yaml
 
@@ -30,11 +29,8 @@ PROFILE = load('prepare_perception_config.py')
 RESOURCE = load('runtime_resource_audit.py')
 
 
-def test_legacy_alias_rejects_old_external_fast_options():
-    context = LaunchContext()
-    context.launch_configurations['use_lidar_relay'] = 'false'
-    with pytest.raises(RuntimeError, match='Legacy'):
-        load('bringup.launch.py', 'launch')._reject_legacy(context)
+def test_legacy_alias_is_completely_eliminated():
+    assert not (ROOT / 'launch/bringup.launch.py').exists()
 
 
 def test_quality_never_replays_pose_even_after_many_degraded_updates():
@@ -61,7 +57,7 @@ def test_quality_never_replays_pose_even_after_many_degraded_updates():
     pubs = [n for n in ast.walk(tree) if isinstance(n, ast.Call)
             and isinstance(n.func, ast.Attribute) and n.func.attr == 'create_publisher']
     assert len(pubs) == 1 and pubs[0].args[0].id == 'DiagnosticArray'
-    assert 'create_publisher' not in (ROOT / 'scripts/amcl_recovery_monitor.py').read_text()
+    assert not (ROOT / 'scripts/amcl_recovery_monitor.py').exists()
     launch = (ROOT / 'launch/localization.launch.py').read_text()
     assert "executable='amcl_recovery_monitor.py'" not in launch
     assert "'use_sim_time': use_sim_time" in launch

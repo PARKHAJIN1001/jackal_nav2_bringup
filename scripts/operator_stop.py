@@ -131,6 +131,10 @@ class OperatorStop(Node):
 
     def stack_ready(self, message):
         self.stability.receive(not message.data, time.monotonic())
+        if not message.data and self.state.phase == 'RUNNING':
+            self.state.stop('stack_not_ready')
+            self.cancel_confirmed = False
+            self.output.publish(Bool(data=True))
 
     def joy(self, message):
         previous = self.state.phase
@@ -236,7 +240,11 @@ class OperatorStop(Node):
         infrastructure = (
             self.values['footprint_confirmed']
             and bridge_ok
-            and (self.cancel.service_is_ready() or not bridge_active or self.state.phase == 'WAITING FOR NEW GOAL')
+            and (
+                self.cancel.service_is_ready()
+                or not bridge_active
+                or self.state.phase == 'WAITING FOR NEW GOAL'
+            )
         )
         blocked = self.state.tick(
             now,

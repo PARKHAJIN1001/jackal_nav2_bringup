@@ -54,15 +54,14 @@ def stack_role(args):
         if pair == ['mid360_bringup', 'perception.launch.py']:
             return 'perception'
         if (len(pair) == 2 and pair[0] == 'jackal_nav2_bringup' and
-                pair[1] in ('nav_bringup.launch.py', 'bringup.launch.py',
-                            'localization.launch.py', 'navigation.launch.py')):
+                pair[1] in ('localization.launch.py', 'nav2.launch.py')):
             return 'nav'
         if pair == ['fast_livo', 'mapping_mid360.launch.py']:
             return 'nav'
     if any(n in executable_names for n in (
             'fastlivo_mapping', 'pointcloud_relay_node', 'amcl', 'controller_server',
             'planner_server', 'bt_navigator', 'nav2_safety_guard.py',
-            'stack_stability.py', 'operator_stop.py',
+            'stack_stability.py', 'operator_stop.py', 'rviz_overlay_bridge.py',
             'fast_livo_odom_adapter.py', 'collision_monitor', 'velocity_smoother',
             'static_costmap_node', 'map_server', 'pointcloud_to_laserscan_node')):
         return 'nav'
@@ -280,7 +279,7 @@ def supervise(role, commands, runtime, log_dir, parent=None):
 def navigation_command(args):
     """One explicit profile/motion path for both stationary and attended sessions."""
     command = [
-        'ros2', 'launch', 'jackal_nav2_bringup', 'nav_bringup.launch.py',
+        'ros2', 'launch', 'jackal_nav2_bringup', 'nav2.launch.py',
         f'map:={args.map.expanduser().resolve()}',
         f'enable_motion:={str(args.enable_motion).lower()}', 'managed_session:=true',
         f'input_timeout:={args.input_timeout}',

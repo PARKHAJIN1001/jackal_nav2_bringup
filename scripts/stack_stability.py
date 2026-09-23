@@ -197,7 +197,8 @@ class StackStability(ReadinessGate):
                         stream.write(json.dumps(values) + '\n')
             self.last_phase, self.last_diagnostic = phase, mono
         if phase == 'FAILED':
-            self.get_logger().warn('Full-stack stability waiting for initial pose; continuing to monitor')
+            self.get_logger().warn(
+                'Full-stack stability waiting for initial pose; continuing to monitor')
             self.window.started = mono
             self.phase = 'INPUT_WAITING'
 

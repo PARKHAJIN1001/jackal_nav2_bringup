@@ -35,14 +35,14 @@ def test_pid_reuse_does_not_signal_unrelated_process(tmp_path, monkeypatch):
 
 @pytest.mark.parametrize('args,role', [
     (['python3', '/opt/ros/humble/bin/ros2', 'launch',
-      'jackal_nav2_bringup', 'nav_bringup.launch.py'], 'nav'),
+      'jackal_nav2_bringup', 'nav2.launch.py'], 'nav'),
     (['python3', '/opt/ros/humble/bin/ros2', 'launch',
       'mid360_bringup', 'perception.launch.py'], 'perception'),
     (['/install/fastlivo_mapping', '--ros-args'], 'nav'),
     (['python3', '/install/ped_yolo_node'], 'perception'),
     (['python3', '/install/nav_session.py', 'nav', '--map', '/map.yaml'], 'nav'),
     (['python3', '/install/nav_session.py', 'stop'], None),
-    (['bash', '-c', 'echo ros2 launch jackal_nav2_bringup nav_bringup.launch.py'], None),
+    (['bash', '-c', 'echo ros2 launch jackal_nav2_bringup nav2.launch.py'], None),
     (['rg', 'fastlivo_mapping'], None),
 ])
 def test_process_detection_uses_executable_not_search_text(args, role):
@@ -182,7 +182,7 @@ def test_motion_and_generated_profile_use_same_session_path(tmp_path):
                            ready_settle=5, stability_timeout=600, stability_settle=180,
                            pedestrian_viz=False)
     command = SESSION.navigation_command(args)
-    assert 'nav_bringup.launch.py' in command
+    assert 'nav2.launch.py' in command
     assert 'enable_motion:=true' in command
     assert f'params_file:={tmp_path}/nav2.yaml' in command
     assert f'safety_params_file:={tmp_path}/safety.yaml' in command

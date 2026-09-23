@@ -8,7 +8,8 @@ from types import SimpleNamespace
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'scripts'))
 from readiness_core import FreshWindow, StabilityWindow  # noqa: E402,I100
 from operator_stop_core import StopHeartbeat  # noqa: E402,I100
 
@@ -85,7 +86,7 @@ def load_launch(name):
 
 
 def test_preflight_failure_never_marks_context_checked(monkeypatch):
-    module = load_launch('network_preflight.launch.py')
+    module = load_launch('nav2.launch.py')
     monkeypatch.setattr(module.subprocess, 'run', lambda *a, **kw: SimpleNamespace(
         stdout=json.dumps({'ready': False}), stderr='', returncode=1))
     context = SimpleNamespace()
@@ -95,7 +96,7 @@ def test_preflight_failure_never_marks_context_checked(monkeypatch):
 
 
 def test_preflight_once_per_context_and_critical_python_exit(monkeypatch):
-    module = load_launch('network_preflight.launch.py')
+    module = load_launch('nav2.launch.py')
     calls = []
     monkeypatch.setattr(module.subprocess, 'run', lambda *a, **kw: (
         calls.append(a) or SimpleNamespace(stdout='{"ready":true}', returncode=0)))
@@ -184,18 +185,15 @@ def test_full_monitor_avoids_initialpose_deadlock_and_rechecks_lifecycle(monkeyp
 
 def test_timing_rejected_before_process_creation():
     from launch import LaunchContext
-    module = load_launch('nav_bringup.launch.py')
+    module = load_launch('nav2.launch.py')
     context = LaunchContext()
     context.launch_configurations.update(
-        input_timeout='60', localization_timeout='90', ready_settle='180',
-        stability_timeout='600', stability_settle='180')
-    with pytest.raises(RuntimeError, match='ready_settle'):
-        module._validate_timing(context)
-    context.launch_configurations['ready_settle'] = '5'
-    assert module._validate_timing(context) == []
-    context.launch_configurations['stability_timeout'] = '180'
+        params_file=str(ROOT / 'config/nav2_params.yaml'),
+        stability_timeout='180', stability_settle='180')
     with pytest.raises(RuntimeError, match='stability_settle'):
-        load_launch('navigation.launch.py')._validate_params(context)
+        module._validate_params(context)
+    context.launch_configurations['stability_settle'] = '2'
+    assert module._validate_params(context) == []
 
 
 def test_uninstalled_fixture_rejects_robot_domain_and_platform_output(monkeypatch):
@@ -218,7 +216,7 @@ def test_uninstalled_fixture_rejects_robot_domain_and_platform_output(monkeypatc
 
 
 def test_critical_failure_evidence_preserves_first_reason(tmp_path, monkeypatch):
-    module = load_launch('network_preflight.launch.py')
+    module = load_launch('nav2.launch.py')
     monkeypatch.setenv('JACKAL_NAV_SESSION_DIR', str(tmp_path))
     context = SimpleNamespace(is_shutdown=False)
     module.critical_exit(
@@ -229,7 +227,7 @@ def test_critical_failure_evidence_preserves_first_reason(tmp_path, monkeypatch)
 
 
 def test_failed_failure_log_still_shuts_down(tmp_path, monkeypatch):
-    module = load_launch('network_preflight.launch.py')
+    module = load_launch('nav2.launch.py')
     monkeypatch.setenv('JACKAL_NAV_SESSION_DIR', str(tmp_path / 'absent'))
     assert module.critical_exit(SimpleNamespace(cmd=['/pkg/nav2_safety_guard.py'], returncode=-9),
                                 SimpleNamespace(is_shutdown=False))

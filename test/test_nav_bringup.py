@@ -1,37 +1,19 @@
-"""Staged launch cancellation, child exit, and RViz subscription regressions."""
+"""Navigation launch RViz configuration and legacy launch elimination tests."""
 
 import importlib.util
 import os
 from pathlib import Path
-from types import SimpleNamespace
 
 from launch import LaunchContext
-from launch.actions import Shutdown
-import pytest
 import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
 os.environ.setdefault('ROS_LOG_DIR', '/tmp/jackal_nav2_bringup_test_logs')
-SPEC = importlib.util.spec_from_file_location('nav_bringup', ROOT / 'launch/nav_bringup.launch.py')
+SPEC = importlib.util.spec_from_file_location(
+    'navigation_launch', ROOT / 'launch/nav2.launch.py')
 NAV = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(NAV)
-
-
-@pytest.mark.parametrize('code', [1, 130, -2, -9])
-def test_failed_or_cancelled_gate_shuts_down_without_starting_next_phase(code):
-    next_phase = object()
-    result = NAV._advance(SimpleNamespace(returncode=code),
-                          SimpleNamespace(is_shutdown=False), 'test', [next_phase])
-    assert next_phase not in result
-    assert any(isinstance(action, Shutdown) for action in result)
-
-
-def test_success_during_shutdown_cannot_advance():
-    event = SimpleNamespace(returncode=0)
-    phase = [object()]
-    assert NAV._advance(event, SimpleNamespace(is_shutdown=True), 'test', phase) == []
-    assert NAV._advance(event, SimpleNamespace(is_shutdown=False), 'test', phase) == phase
 
 
 def test_rviz_camera_is_opt_in_without_modifying_original(tmp_path, monkeypatch):
@@ -55,9 +37,9 @@ def test_rviz_camera_is_opt_in_without_modifying_original(tmp_path, monkeypatch)
     assert context.launch_configurations['resolved_rviz_config'] == str(path)
 
 
-def test_integrated_fast_livo_rejects_unimplemented_output_remap():
-    context = LaunchContext()
-    context.launch_configurations.update(
-        raw_lidar_topic='/raw', lidar_pointcloud_topic='/local', fast_livo_odom_topic='/other')
-    with pytest.raises(RuntimeError, match='requires fast_livo_odom_topic'):
-        NAV._resolve_lidar(context)
+def test_legacy_bringup_and_perception_launches_are_eliminated():
+    assert not (ROOT / 'launch/bringup.launch.py').exists()
+    assert not (ROOT / 'launch/nav_bringup.launch.py').exists()
+    assert not (ROOT / 'launch/perception.launch.py').exists()
+    assert not (ROOT / 'launch/safety.launch.py').exists()
+    assert not (ROOT / 'launch/network_preflight.launch.py').exists()

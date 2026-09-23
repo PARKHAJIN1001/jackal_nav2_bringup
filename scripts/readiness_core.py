@@ -80,7 +80,6 @@ class FreshWindow:
         self.reset('no messages received')
 
     def reset(self, reason):
-        print(f"[DEBUG] FreshWindow reset! Reason: {reason}", flush=True)
         self.resets = getattr(self, 'resets', 0) + 1
         self.first = self.last = self.stamp = None
         self.count = 0

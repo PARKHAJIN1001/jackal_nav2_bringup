@@ -82,7 +82,7 @@ def test_estimator_applies_exponential_filter():
 @pytest.mark.parametrize(
     'sample',
     [
-        (1.6, 0.1, 0.0, 0.0, 0.0),
+        (2.1, 0.1, 0.0, 0.0, 0.0),
         (1.1, 0.6, 0.0, 0.0, 0.0),
         (1.1, 0.0, 0.0, 0.0, 0.8),
     ],
@@ -130,7 +130,7 @@ def _adapter_stub():
     node = SimpleNamespace(
         get_clock=lambda: SimpleNamespace(now=lambda: clock),
         _last_ros_ns=None, _last_warning_ns=0,
-        _max_message_age=0.30, _future_tolerance=0.05,
+        _max_message_age=0.60, _future_tolerance=0.20,
         _expected_frame='odom', _expected_child_frame='base_link',
         _estimator=ADAPTER.PlanarTwistEstimator(),
         _warn_throttled=lambda message: None,

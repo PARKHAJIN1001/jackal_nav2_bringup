@@ -10,10 +10,10 @@ from nav2_safety_core import (
     cloud_xyz,
     filter_points,
     GuardState,
+    make_stamped_twist,
     SafetyConfig,
     transform_xyz,
 )
-from nav2_twist_stamper import make_stamped_twist
 import numpy as np
 from operator_stop_core import StopHeartbeat
 from rcl_interfaces.msg import ParameterDescriptor
@@ -58,8 +58,10 @@ class SafetyGuard(Node):
             'command_topic': '/nav2/collision_checked_cmd_vel',
             'output_topic': '/j100_0519/nav2_cmd_vel',
             'enable_motion': False,
+            'require_stability': False,
         }.items():
             self.declare_parameter(name, value, descriptor)
+        self.require_stability = bool(self.get_parameter('require_stability').value)
         self.base = self.get_parameter('base_frame').value
         self.odom = self.get_parameter('odom_frame').value
         self.map = self.get_parameter('map_frame').value
@@ -240,7 +242,7 @@ class SafetyGuard(Node):
         if self.state.enable_motion and self.operator_stop.required(received):
             self.state.command = None
             x, yaw, reason = 0.0, 0.0, 'operator_stop'
-        if self.stability.required(received):
+        if self.require_stability and self.stability.required(received):
             self.state.command = None
             x, yaw, reason = 0.0, 0.0, 'stack_not_stable'
         output = Twist()
@@ -261,7 +263,10 @@ class SafetyGuard(Node):
             status.message = reason
             values = {
                 'enable_motion': self.state.enable_motion,
-                'stack_ready': not self.stability.required(received),
+                'stack_ready': (
+                    not self.stability.required(received)
+                    if self.require_stability else True
+                ),
                 'sensor_error': self.state.sensor_error,
                 'sensor_timeout': self.config.sensor_timeout,
                 'tf_timeout': self.config.tf_timeout,

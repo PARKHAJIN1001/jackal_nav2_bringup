@@ -30,7 +30,7 @@ def _isolated_fixture(context):
 def generate_launch_description():
     root = Path(__file__).resolve().parents[1]
     spec = importlib.util.spec_from_file_location(
-        'fixture_navigation', root / 'launch/navigation.launch.py')
+        'fixture_navigation', root / 'launch/nav2.launch.py')
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     navigation = module.generate_launch_description()
@@ -42,6 +42,8 @@ def generate_launch_description():
     return LaunchDescription([
         OpaqueFunction(function=_isolated_fixture),
         DeclareLaunchArgument('fixture_localization', default_value='false'),
+        DeclareLaunchArgument('use_rviz', default_value='false'),
+        DeclareLaunchArgument('use_ui_overlays', default_value='false'),
         IncludeLaunchDescription(PythonLaunchDescriptionSource(str(
             root / 'launch/localization.launch.py')),
             condition=IfCondition(LaunchConfiguration('fixture_localization'))),

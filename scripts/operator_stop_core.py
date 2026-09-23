@@ -105,7 +105,7 @@ class OperatorState:
             return True
 
         if self.phase == 'STOPPED':
-            can_reset = self.reset_pressed and self.neutral
+            can_reset = self.reset_released and self.reset_pressed and self.neutral
             if can_reset:
                 if self.reset_since is None:
                     self.reset_since = now
@@ -114,6 +114,7 @@ class OperatorState:
                         self.phase, self.reason = 'WAITING FOR NEW GOAL', 'armed_waiting_for_goal'
                         self.armed_stamp = ros_stamp
                         self.reset_since = None
+                        self.reset_released = False
             else:
                 self.reset_since = None
             return True

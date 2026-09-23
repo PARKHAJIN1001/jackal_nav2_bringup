@@ -26,11 +26,7 @@ def _load_launch(filename):
 
 
 def test_public_launch_files_generate_descriptions():
-    for filename in (
-            'bringup.launch.py',
-            'nav_bringup.launch.py',
-            'localization.launch.py',
-            'navigation.launch.py', 'safety.launch.py'):
+    for filename in ('localization.launch.py', 'nav2.launch.py'):
         description = _load_launch(filename).generate_launch_description()
         assert isinstance(description, LaunchDescription)
 
@@ -40,29 +36,29 @@ def test_audit_script_is_executable_for_symlink_install():
 
 
 def test_lidar_relay_is_default_and_routes_all_nav_consumers():
-    bringup = (PACKAGE_ROOT / 'launch' / 'nav_bringup.launch.py').read_text(
+    localization = (PACKAGE_ROOT / 'launch' / 'localization.launch.py').read_text(
         encoding='utf-8')
-    navigation = (PACKAGE_ROOT / 'launch' / 'navigation.launch.py').read_text(
+    navigation = (PACKAGE_ROOT / 'launch' / 'nav2.launch.py').read_text(
         encoding='utf-8')
 
-    assert "executable='pointcloud_relay_node'" in bringup
-    assert "'input_topic': raw_lidar_topic" in bringup
-    assert "'output_topic': lidar_pointcloud_topic" in bringup
-    assert "('cloud_in', lidar_pointcloud_topic)" in (
-        PACKAGE_ROOT / 'launch' / 'localization.launch.py').read_text(
-            encoding='utf-8')
-    assert "'lidar_pointcloud_topic': lidar_pointcloud_topic" in navigation
+    assert "executable='pointcloud_relay_node'" in localization
+    assert "'input_topic': raw_lidar_topic" in localization
+    assert "'output_topic': lidar_pointcloud_topic" in localization
+    assert "('cloud_in', lidar_pointcloud_topic)" in localization
+    assert "default_value='/livox/lidar_local'" in navigation
     assert "('/livox/lidar', lidar_pointcloud_topic)" not in navigation
 
 
-def test_bringup_alias_reuses_staged_definition_and_lower_launches_remain():
-    alias = (PACKAGE_ROOT / 'launch/bringup.launch.py').read_text()
-    assert "with_name('nav_bringup.launch.py')" in alias
-    assert 'Node(' not in alias
-    staged = (PACKAGE_ROOT / 'launch/nav_bringup.launch.py').read_text()
-    assert staged.count("'use_composition': 'false'") == 2
-    for name in ('localization.launch.py', 'navigation.launch.py'):
-        assert 'LoadComposableNodes(' in (PACKAGE_ROOT / 'launch' / name).read_text()
+def test_legacy_launches_and_maps_are_eliminated():
+    for name in ('bringup.launch.py', 'nav_bringup.launch.py', 'perception.launch.py',
+                 'safety.launch.py', 'network_preflight.launch.py', 'navigation.launch.py'):
+        assert not (PACKAGE_ROOT / 'launch' / name).exists()
+    assert not (PACKAGE_ROOT / 'maps/frontier_10F/legacy').exists()
+    assert not (PACKAGE_ROOT / 'scripts/battery_percentage_bridge.py').exists()
+    assert not (PACKAGE_ROOT / 'scripts/speed_overlay.py').exists()
+    assert not (PACKAGE_ROOT / 'scripts/nav2_twist_stamper.py').exists()
+    for name in ('localization.launch.py', 'nav2.launch.py'):
+        assert 'LoadComposableNodes(' not in (PACKAGE_ROOT / 'launch' / name).read_text()
 
 
 def test_nav2_frame_topic_and_plugin_contracts():
@@ -150,21 +146,20 @@ def test_nav2_frame_topic_and_plugin_contracts():
 
 
 def test_navigation_launch_isolates_platform_command_output():
-    text = (PACKAGE_ROOT / 'launch' / 'navigation.launch.py').read_text(
+    text = (PACKAGE_ROOT / 'launch' / 'nav2.launch.py').read_text(
         encoding='utf-8')
     assert "('cmd_vel', 'cmd_vel_nav')" in text
     assert "('cmd_vel_smoothed', 'nav2_cmd_vel_unstamped')" in text
     assert "default_value='/j100_0519/nav2_cmd_vel'" in text
-    safety = (PACKAGE_ROOT / 'launch' / 'safety.launch.py').read_text()
-    assert "'cmd_vel_in_topic': '/nav2_cmd_vel_unstamped'" in safety
-    assert "'command_topic': monitor['cmd_vel_out_topic']" in safety
-    assert "'output_topic': value('nav_cmd_vel_topic')" in safety
+    assert "'cmd_vel_in_topic': '/nav2_cmd_vel_unstamped'" in text
+    assert "'command_topic': monitor['cmd_vel_out_topic']" in text
+    assert "'output_topic': value('nav_cmd_vel_topic')" in text
     assert "package='jackal_nav2_bringup'" in text
     assert "executable='nav2_twist_stamper.py'" not in text
-    assert "executable='nav2_safety_guard.py'" in safety
-    assert "DeclareLaunchArgument('enable_motion', default_value='false')" in safety
-    assert 'jackal_network_bringup' not in text
-    assert '/j100_0519/cmd_vel' not in text
+    assert "executable='nav2_safety_guard.py'" in text
+    assert "DeclareLaunchArgument('enable_motion', default_value='false')" in text
+    assert "'output_topic': '/j100_0519/cmd_vel'" in text
+    assert "executable='cmd_vel_safety_bridge.py'" in text
 
 
 def test_navigation_rejects_live_layers_in_override_file(tmp_path):
@@ -176,13 +171,13 @@ def test_navigation_rejects_live_layers_in_override_file(tmp_path):
     context = LaunchContext()
     context.launch_configurations['params_file'] = str(path)
     with pytest.raises(RuntimeError, match='only StaticLayer'):
-        _load_launch('navigation.launch.py')._validate_params(context)
+        _load_launch('nav2.launch.py')._validate_params(context)
 
 
 def test_navigation_accepts_prior_map_only_defaults():
     context = LaunchContext()
     context.launch_configurations['params_file'] = str(CONFIG_PATH)
-    assert _load_launch('navigation.launch.py')._validate_params(context) == []
+    assert _load_launch('nav2.launch.py')._validate_params(context) == []
 
 
 def test_generated_perception_profiles_use_supported_yaml_interface(tmp_path):
@@ -225,16 +220,17 @@ def test_generated_perception_profiles_use_supported_yaml_interface(tmp_path):
     module._validate_topic_config(config, launch_ped_yolo=True)
 
 
-def test_bringup_requires_operator_initial_pose_and_rviz_publishes_it():
-    bringup = (PACKAGE_ROOT / 'launch' / 'nav_bringup.launch.py').read_text(
+def test_navigation_includes_rviz_and_initial_pose_tool():
+    loc = (PACKAGE_ROOT / 'launch' / 'localization.launch.py').read_text(
+        encoding='utf-8')
+    nav = (PACKAGE_ROOT / 'launch' / 'nav2.launch.py').read_text(
         encoding='utf-8')
     rviz = yaml.safe_load(
         (PACKAGE_ROOT / 'rviz' / 'jackal_nav2.rviz').read_text(
             encoding='utf-8'))
 
-    assert "DeclareLaunchArgument('use_rviz', default_value='true')" in bringup
-    assert 'INITIAL_POSE_REQUIRED' in bringup
-    assert '2D Pose Estimate' in bringup
+    assert "DeclareLaunchArgument('use_rviz', default_value='true'" in loc
+    assert "DeclareLaunchArgument('use_rviz', default_value='false'" in nav
 
     tools = rviz['Visualization Manager']['Tools']
     initial_pose_tools = [
@@ -251,7 +247,7 @@ def test_bringup_requires_operator_initial_pose_and_rviz_publishes_it():
 
 
 def test_nav2_visualization_defaults_are_independent_of_perception_and_safety():
-    text = (PACKAGE_ROOT / 'launch' / 'nav_bringup.launch.py').read_text()
+    text = (PACKAGE_ROOT / 'launch' / 'nav2.launch.py').read_text()
     for name in ('figures', 'traces'):
         assert f"DeclareLaunchArgument('use_pedestrian_{name}', default_value='false')" in text
         assert f"executable='pedestrian_{name}_node'" in text
@@ -279,14 +275,15 @@ def test_nav2_visualization_defaults_are_independent_of_perception_and_safety():
 
 
 def test_navigation_launch_starts_separated_costmap_pipeline():
-    text = (PACKAGE_ROOT / 'launch' / 'navigation.launch.py').read_text(
+    text = (PACKAGE_ROOT / 'launch' / 'nav2.launch.py').read_text(
         encoding='utf-8')
     assert "executable='static_costmap_node'" in text
     assert "'/static_costmap/static_costmap'" in text
     assert "name='lifecycle_manager_static_costmap'" in text
     assert "'bond_timeout': 0.0" in text
-    assert "executable='map_patch_node.py'" in text
-    assert "DeclareLaunchArgument('use_map_patch', default_value='true')" in text
+    assert "DeclareLaunchArgument('use_map_patch', default_value='false')" in text
+    assert "DeclareLaunchArgument('launch_stability_monitor', default_value='false')" in text
+    assert 'condition=IfCondition(use_map_patch)' in text
     assert "remappings=[('/tf', '/tf'), ('/tf_static', '/tf_static')]" in text
 
 

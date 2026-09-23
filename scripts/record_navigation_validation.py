@@ -10,12 +10,17 @@ import os
 from pathlib import Path
 import signal
 import subprocess
+import sys
 import tempfile
 import time
 import xml.etree.ElementTree as ET
 
 from ament_index_python.packages import get_package_share_directory
 import yaml
+
+_SCRIPTS_DIR = str(Path(__file__).resolve().parent)
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, _SCRIPTS_DIR)
 
 
 def capture(command, destination, timeout=10):

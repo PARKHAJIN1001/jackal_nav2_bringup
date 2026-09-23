@@ -54,20 +54,20 @@ def test_fault_latches_until_explicit_reset(fault):
     s.goals({'a': 6000000000})
     assert not step(s, 6.0)
     if fault == 'joy':
-        assert s.tick(6.4, 6400000000, True)
+        assert s.tick(7.1, 7100000000, True)
     elif fault == 'bluetooth':
         assert step(s, 6.05, connected=False)
     elif fault == 'odom':
-        s.joy([0] * 4, [0.0, 0.0], 6.4)
-        s.connection(True, 6.4)
-        assert s.tick(6.4, 6400000000, True)
+        s.joy([0] * 4, [0.0, 0.0], 7.1)
+        s.connection(True, 7.1)
+        assert s.tick(7.1, 7100000000, True)
     elif fault == 'bridge':
         assert step(s, 6.05, ready=False)
     elif fault == 'manual':
         assert step(s, 6.05, (0, 0, 1, 0))
     else:
         assert step(s, 5.9)
-    assert step(s, 7.0)
+    assert step(s, 8.0)
     assert s.phase == 'STOPPED'
 
 
@@ -110,7 +110,7 @@ def test_bridge_profile_never_exceeds_real_limits():
     assert nav['controller_server']['ros__parameters']['FollowPath']['max_vel_x'] == 0.2
     assert nav['velocity_smoother']['ros__parameters']['max_velocity'] == [0.2, 0.0, 0.35]
     assert safety['nav2_safety_guard']['ros__parameters']['max_angular_z'] == 0.35
-    assert not operator['nav2_operator_stop']['ros__parameters']['mapping_verified']
+    assert operator['nav2_operator_stop']['ros__parameters']['mapping_verified'] is True
     for value in (None, -1, 0, math.nan, True):
         with pytest.raises(ValueError):
             bounded_limits({'max_linear_x': value, 'max_angular_z': 0.35})

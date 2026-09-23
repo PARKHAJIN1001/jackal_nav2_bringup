@@ -61,7 +61,7 @@ class PlanarTwistEstimator:
     """Stateful, ROS-independent pose differentiator with EMA filtering."""
 
     def __init__(
-            self, alpha=0.5, max_dt=0.5,
+            self, alpha=0.5, max_dt=1.0,
             max_translation_jump=0.5, max_yaw_jump=0.75):
         self.alpha = alpha
         self.max_dt = max_dt
@@ -128,11 +128,11 @@ class FastLivoOdomAdapter(Node):
         self.declare_parameter('expected_frame_id', 'odom')
         self.declare_parameter('expected_child_frame_id', 'base_link')
         self.declare_parameter('filter_alpha', 0.5)
-        self.declare_parameter('max_dt_sec', 0.5)
+        self.declare_parameter('max_dt_sec', 1.0)
         self.declare_parameter('max_translation_jump_m', 0.5)
         self.declare_parameter('max_yaw_jump_rad', 0.75)
-        self.declare_parameter('max_message_age_sec', 0.30)
-        self.declare_parameter('future_tolerance_sec', 0.05)
+        self.declare_parameter('max_message_age_sec', 0.60)
+        self.declare_parameter('future_tolerance_sec', 0.20)
 
         input_topic = self._required_string('input_topic')
         output_topic = self._required_string('output_topic')

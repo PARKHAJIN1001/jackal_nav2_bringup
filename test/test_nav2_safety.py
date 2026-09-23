@@ -4,7 +4,8 @@ import importlib.util
 from pathlib import Path
 import sys
 
-from geometry_msgs.msg import Transform
+from builtin_interfaces.msg import Time
+from geometry_msgs.msg import Transform, Twist
 import numpy as np
 import pytest
 from sensor_msgs.msg import PointCloud2, PointField
@@ -16,6 +17,7 @@ from nav2_safety_core import (  # noqa: E402,I100
     cloud_xyz,
     filter_points,
     GuardState,
+    make_stamped_twist,
     SafetyConfig,
     transform_xyz,
 )
@@ -154,7 +156,7 @@ def test_cloud_padding_endian_and_transform_failure():
 
 def test_monitor_guard_same_polygons_and_humble_threshold():
     spec = importlib.util.spec_from_file_location(
-        'safety_launch', ROOT / 'launch/safety.launch.py'
+        'navigation_launch', ROOT / 'launch/nav2.launch.py'
     )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -194,3 +196,27 @@ def test_monitor_guard_same_polygons_and_humble_threshold():
 def test_bad_safety_config_fails_startup(kwargs):
     with pytest.raises(ValueError):
         SafetyConfig(**kwargs)
+
+
+def test_make_stamped_twist_copies_all_components_and_header():
+    twist = Twist()
+    twist.linear.x = 0.2
+    twist.linear.y = -0.1
+    twist.linear.z = 0.3
+    twist.angular.x = -0.4
+    twist.angular.y = 0.5
+    twist.angular.z = -0.35
+    stamp = Time(sec=12, nanosec=345)
+
+    result = make_stamped_twist(twist, stamp, 'base_link')
+
+    assert result.header.stamp == stamp
+    assert result.header.frame_id == 'base_link'
+    assert result.twist == twist
+
+
+def test_make_stamped_twist_rejects_invalid_input():
+    with pytest.raises(TypeError, match='Twist'):
+        make_stamped_twist(object(), Time(), 'base_link')
+    with pytest.raises(ValueError, match='frame_id'):
+        make_stamped_twist(Twist(), Time(), '')

@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 import math
 
+from geometry_msgs.msg import Twist, TwistStamped
 import numpy as np
 
 
@@ -228,3 +229,22 @@ class GuardState:
             ),
             'passing_collision_checked_command',
         )
+
+
+def make_stamped_twist(twist, stamp, frame_id):
+    """Copy an unstamped Twist into a TwistStamped message."""
+    if not isinstance(twist, Twist):
+        raise TypeError('twist must be a geometry_msgs/msg/Twist')
+    if not frame_id:
+        raise ValueError('frame_id must not be empty')
+
+    output = TwistStamped()
+    output.header.stamp = stamp
+    output.header.frame_id = frame_id
+    output.twist.linear.x = twist.linear.x
+    output.twist.linear.y = twist.linear.y
+    output.twist.linear.z = twist.linear.z
+    output.twist.angular.x = twist.angular.x
+    output.twist.angular.y = twist.angular.y
+    output.twist.angular.z = twist.angular.z
+    return output

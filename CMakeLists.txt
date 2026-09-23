@@ -35,15 +35,13 @@ install(
 
 install(
   PROGRAMS
-    scripts/battery_percentage_bridge.py
-    scripts/speed_overlay.py
+    scripts/rviz_overlay_bridge.py
     scripts/tf_localization_audit.py
     scripts/record_navigation_validation.py
     scripts/check_navigation_ready.py
     scripts/fast_livo_odom_adapter.py
     scripts/map_patch_node.py
     scripts/nav2_safety_guard.py
-    scripts/amcl_recovery_monitor.py
     scripts/amcl_quality_monitor.py
     scripts/prepare_perception_config.py
     scripts/runtime_resource_audit.py
@@ -60,7 +58,6 @@ install(
 
 install(
   FILES
-    scripts/nav2_twist_stamper.py
     scripts/nav2_safety_core.py
     scripts/operator_stop_core.py
     scripts/readiness_core.py
@@ -123,15 +120,12 @@ if(BUILD_TESTING)
   ament_add_pytest_test(test_map_patch
     test/test_map_patch.py
   )
-  ament_add_pytest_test(test_nav2_twist_stamper
-    test/test_nav2_twist_stamper.py
-  )
   ament_add_pytest_test(test_nav2_safety test/test_nav2_safety.py)
-  ament_add_pytest_test(test_battery_percentage_bridge test/test_battery_percentage_bridge.py)
-  ament_add_pytest_test(test_speed_overlay test/test_speed_overlay.py)
+  ament_add_pytest_test(test_rviz_overlay_bridge test/test_rviz_overlay_bridge.py)
 
   # Python source files rely on the package LICENSE file.
   set(ament_cmake_copyright_FOUND TRUE)
+  set(ament_cmake_flake8_CONFIG_FILE "${CMAKE_CURRENT_SOURCE_DIR}/.flake8")
   ament_lint_auto_find_test_dependencies()
 endif()
 

@@ -67,8 +67,12 @@ def _network_preflight(context):
     result = subprocess.run(
         ['ros2', 'run', 'jackal_network_bringup', 'network_preflight.py', '--check'],
         capture_output=True, text=True, timeout=15, check=False)
+    stdout = result.stdout.strip()
     try:
-        report = json.loads(result.stdout)
+        if '{' in stdout and '}' in stdout:
+            report = json.loads(stdout[stdout.find('{'):stdout.rfind('}') + 1])
+        else:
+            report = json.loads(stdout)
     except ValueError as error:
         raise RuntimeError('Rebuild jackal_network_bringup: network preflight unavailable; '
                            + result.stderr.strip()) from error
@@ -228,8 +232,9 @@ def generate_launch_description():
         DeclareLaunchArgument('use_rviz', default_value='true',
                               description='Launch RViz2 for localization and 2D pose estimate'),
         DeclareLaunchArgument('rviz_config', default_value=default_rviz),
-        DeclareLaunchArgument('use_camera_image', default_value='false',
-                              description='Enable the remote raw camera display in RViz'),
+        DeclareLaunchArgument(
+            'use_camera_image', default_value='true',
+            description='Keep remote raw camera Image display active in RViz'),
         DeclareLaunchArgument('battery_state_topic',
                               default_value='/j100_0519/platform/bms/state'),
         OpaqueFunction(function=_network_preflight),
@@ -241,7 +246,7 @@ def generate_launch_description():
             ])),
             condition=IfCondition(LaunchConfiguration('use_fast_livo')),
             launch_arguments={
-                'lidar_topic': lidar_pointcloud_topic,
+                'lidar_topic': raw_lidar_topic,
                 'imu_topic': LaunchConfiguration('imu_topic'),
                 'odom_frame': 'odom',
                 'base_frame': 'base_link',

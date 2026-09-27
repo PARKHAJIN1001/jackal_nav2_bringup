@@ -170,7 +170,7 @@ ros2 launch jackal_nav2_bringup nav2.launch.py enable_motion:=true
 | `enable_motion` | `false` | 모터 속도 명령 출력 허용 여부 (`true` 시 주행 활성화) |
 | `use_rviz` | `false` | RViz2 실행 여부 (터미널 A에서 이미 띄웠으므로 기본값 false) |
 | `launch_stability_monitor`| `false` | 연속 180초 안정성 검증 모니터링 노드 기동 여부 |
-| `use_map_patch` | `false` | 로컬 맵 패치 노드 기동 여부 |
+| `use_map_patch` | `true` | 로봇 중심 로컬 맵 패치 노드(`map_patch_node`, `/map_encoder/input`) 기동 여부 |
 | `use_collision_monitor` | `true` | 기구학적 다각형 충돌 방지 노드 실행 여부 |
 | `use_safety_guard` | `true` | 실시간 점군 기반 속도 감속 및 비상 정지 가드 실행 여부 |
 

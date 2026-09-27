@@ -53,6 +53,7 @@ install(
     scripts/analyze_navigation_bag.py
     scripts/cmd_vel_safety_bridge.py
     scripts/nav_session.py
+    scripts/waypoint_loop_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -61,6 +62,7 @@ install(
     scripts/nav2_safety_core.py
     scripts/operator_stop_core.py
     scripts/readiness_core.py
+    scripts/waypoint_loop_core.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -122,6 +124,7 @@ if(BUILD_TESTING)
   )
   ament_add_pytest_test(test_nav2_safety test/test_nav2_safety.py)
   ament_add_pytest_test(test_rviz_overlay_bridge test/test_rviz_overlay_bridge.py)
+  ament_add_pytest_test(test_waypoint_loop test/test_waypoint_loop.py)
 
   # Python source files rely on the package LICENSE file.
   set(ament_cmake_copyright_FOUND TRUE)

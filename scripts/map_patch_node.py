@@ -17,8 +17,8 @@ from rclpy.time import Time
 from tf2_ros import Buffer, TransformException, TransformListener
 
 
-def pose_stamp_usable(stamp, now, maximum_age=0.3):
-    return math.isfinite(stamp) and stamp > 0 and -0.05 <= now-stamp <= maximum_age
+def pose_stamp_usable(stamp, now, maximum_age=0.3, future_tolerance=0.2):
+    return math.isfinite(stamp) and stamp > 0 and -future_tolerance <= now-stamp <= maximum_age
 
 
 @dataclass(frozen=True)
@@ -177,6 +177,7 @@ class MapPatchNode(Node):
         )
         self._output_geometry.validate()
         self._transform_timeout = Duration(seconds=float(transform_tolerance))
+        self._transform_tolerance = float(transform_tolerance)
         self._latest_costmap = None
         self._last_warning = {}
 
@@ -232,7 +233,8 @@ class MapPatchNode(Node):
             )
             stamp = transform.header.stamp.sec + transform.header.stamp.nanosec * 1e-9
             now = self.get_clock().now().nanoseconds * 1e-9
-            if not pose_stamp_usable(stamp, now, self._max_pose_age):
+            if not pose_stamp_usable(
+                    stamp, now, self._max_pose_age, self._transform_tolerance):
                 raise ValueError('stale_or_future_robot_pose')
             robot_yaw = quaternion_to_yaw(
                 transform.transform.rotation.x,

@@ -66,8 +66,12 @@ def _network_preflight(context):
     result = subprocess.run(
         ['ros2', 'run', 'jackal_network_bringup', 'network_preflight.py', '--check'],
         capture_output=True, text=True, timeout=15, check=False)
+    stdout = result.stdout.strip()
     try:
-        report = json.loads(result.stdout)
+        if '{' in stdout and '}' in stdout:
+            report = json.loads(stdout[stdout.find('{'):stdout.rfind('}') + 1])
+        else:
+            report = json.loads(stdout)
     except ValueError as error:
         raise RuntimeError('Rebuild jackal_network_bringup: network preflight unavailable; '
                            + result.stderr.strip()) from error
@@ -325,7 +329,7 @@ def generate_launch_description():
         DeclareLaunchArgument('container_name', default_value='nav2_container'),
         DeclareLaunchArgument('log_level', default_value='info'),
         DeclareLaunchArgument('nav_odom_topic', default_value='/odom'),
-        DeclareLaunchArgument('use_map_patch', default_value='false'),
+        DeclareLaunchArgument('use_map_patch', default_value='true'),
         DeclareLaunchArgument('launch_stability_monitor', default_value='false'),
         DeclareLaunchArgument('enable_motion', default_value='false'),
         DeclareLaunchArgument('stability_timeout', default_value='600.0'),
@@ -343,7 +347,7 @@ def generate_launch_description():
         # Visualization & Overlays
         DeclareLaunchArgument('use_rviz', default_value='false'),
         DeclareLaunchArgument('rviz_config', default_value=default_rviz),
-        DeclareLaunchArgument('use_camera_image', default_value='false'),
+        DeclareLaunchArgument('use_camera_image', default_value='true'),
         DeclareLaunchArgument(
             'use_ui_overlays', default_value=LaunchConfiguration('use_rviz')),
         DeclareLaunchArgument('use_battery_gauge', default_value='true'),

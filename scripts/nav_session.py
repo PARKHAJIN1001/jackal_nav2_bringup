@@ -54,7 +54,7 @@ def stack_role(args):
         if pair == ['mid360_bringup', 'perception.launch.py']:
             return 'perception'
         if (len(pair) == 2 and pair[0] == 'jackal_nav2_bringup' and
-                pair[1] in ('localization.launch.py', 'nav2.launch.py')):
+                pair[1] in ('localization.launch.py', 'nav2.launch.py', 'loop.launch.py')):
             return 'nav'
         if pair == ['fast_livo', 'mapping_mid360.launch.py']:
             return 'nav'

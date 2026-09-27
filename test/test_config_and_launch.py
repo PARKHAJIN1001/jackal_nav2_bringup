@@ -281,7 +281,7 @@ def test_navigation_launch_starts_separated_costmap_pipeline():
     assert "'/static_costmap/static_costmap'" in text
     assert "name='lifecycle_manager_static_costmap'" in text
     assert "'bond_timeout': 0.0" in text
-    assert "DeclareLaunchArgument('use_map_patch', default_value='false')" in text
+    assert "DeclareLaunchArgument('use_map_patch', default_value='true')" in text
     assert "DeclareLaunchArgument('launch_stability_monitor', default_value='false')" in text
     assert 'condition=IfCondition(use_map_patch)' in text
     assert "remappings=[('/tf', '/tf'), ('/tf_static', '/tf_static')]" in text
